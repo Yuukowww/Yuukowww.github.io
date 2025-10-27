@@ -97,7 +97,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 #theme: butterfly
-remote_theme: butterfly
+remote_theme: jaychou-jekyll/butterfly
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
@@ -150,6 +150,9 @@ tikzjax:
   # See: https://github.com/prinsss/node-tikzjax/#usage
   # tikzjax_options:
   #   showConsole: false
+
+plugins:
+  - jekyll-remote-theme
 
 
  
