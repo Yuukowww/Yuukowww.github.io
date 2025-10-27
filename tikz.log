@@ -1,0 +1,17 @@
+INFO  Validating config
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.4.3
+  ===================================================================
+INFO  Start processing
+ERROR [hexo-filter-tikzjax] Task failed! 0 Error: TeX engine render failed. Set `options.showConsole` to `true` to see logs.
+    at tex (/Users/asuna/Documents/git/blog/hexo_blog/node_modules/node-tikzjax/dist/bootstrap.js:103:15)
+    at async tex2svg (/Users/asuna/Documents/git/blog/hexo_blog/node_modules/node-tikzjax/dist/index.js:26:17)
+    at async Object.processor (/Users/asuna/Documents/git/blog/hexo_blog/node_modules/hexo-filter-tikzjax/dist/render-tikzjax.js:42:33)
+    at async TaskQueue.run (/Users/asuna/Documents/git/blog/hexo_blog/node_modules/hexo-filter-tikzjax/dist/queue.js:40:17)
