@@ -95,7 +95,7 @@ ignore:
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
+## Themes: https://hexo.io/themes/git 
 theme: themes/butterfly
 
 # Deployment
