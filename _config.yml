@@ -13,7 +13,7 @@ timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://Yuukowww.github.io
+url: https://yuukowww.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -98,7 +98,6 @@ ignore:
 ## Themes: https://hexo.io/themes/git 
 theme: butterfly
 
-# Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git                                           # 部署类型为 git
