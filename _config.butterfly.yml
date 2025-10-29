@@ -18,6 +18,9 @@ nav:
   fixed: false
 
 menu:
+  首页: / || fas fa-home
+  友链: /link/ || fas fa-link
+
   # Home: / || fas fa-home
   # List||fas fa-list:
   #   Music: /music/ || fas fa-music
