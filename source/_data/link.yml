@@ -2,10 +2,10 @@
   class_desc: 
   #flink_style: flexcard
   link_list:
-      - name : murasaki010
+      - name : murasaki
         link : https://murasaki010.github.io/
         avatar : https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEEFLJpAgPMg7qOy9nshragnU3JduoztQACcCUAApB5EVTieJmVXGOMvzYE.jpg
-        descr : yaneura
+        descr : 小笨狗
 
 # - class_name: 網站
 #   class_desc: 值得推薦的網站
