@@ -21,7 +21,10 @@
         link: https://ai.sysu-sam.com
         descr: AI cube 实验室官网 
         avatar: https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEEOONpBM0gYLkBtNikr8IzRJoc_k785AACCRkAAgJcKVRifkGIBbtvCDYE.png
-
+      - name: Butterfly
+        link: https://butterfly.js.org
+        descr: 基于Hexo框架的Butterfly主题
+        avatar: https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEEOTJpBNKHFk7nP10Sq0w9JOJOapixBwACXBkAAgJcKVRxVp-VWPV3ODYE.ico 
 # - class_name: 網站
 #   class_desc: 值得推薦的網站
 #   link_list:
