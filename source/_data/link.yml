@@ -6,19 +6,19 @@
         link : https://murasaki010.github.io/
         avatar : https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEEFLJpAgPMg7qOy9nshragnU3JduoztQACcCUAApB5EVTieJmVXGOMvzYE.jpg
         descr : 小笨狗
+
       - name: taf.fyi
-        url: https://taf.fyi
+        link: https://taf.fyi
         avatar: https://taf.fyi/assets/friends/fuuzen_128.jpg
         descr: 風船宝の主页
         # descr: '< img src="https://taf.fyi/assets/uncategorized/taffy/guan_64x64.png" style="display: inline-block; width: 32px;  margin-right: 0px;;" target="_blank"/>< img src="https://taf.fyi/assets/uncategorized/taffy/zhu_64x64.png" style="display: inline-block; width: 32px;  margin-right: 0px;;" target="_blank"/>< img src="https://taf.fyi/assets/uncategorized/taffy/yong_64x64.png" style="display: inline-block; width: 32px;  margin-right: 0px;;" target="_blank"/>< img src="https://taf.fyi/assets/uncategorized/taffy/chu_64x64.png" style="display: inline-block; width: 32px;  margin-right: 0px;;" target="_blank"/>< img src="https://taf.fyi/assets/uncategorized/taffy/ta_64x64.png" style="display: inline-block; width: 32px;  margin-right: 0px;;" target="_blank"/>< img src="https://taf.fyi/assets/uncategorized/taffy/fei_64x64.png" style="display: inline-block; width: 32px;  margin-right: 0px;;" target="_blank"/>< img src="https://taf.fyi/assets/uncategorized/taffy/miao_64x64.png" style="display: inline-block; width: 32px;  margin-right: 0px;;" target="_blank"/>< img src="https://taf.fyi/assets/uncategorized/taffy/xiexiemiao_64x64.png" style="display: inline-block; width: 32px;  margin-right: 0px;;" target="_blank"/>'
-        owner: fuuzen
       
 
 - class_name: 网站
   class_desc :
   link_list:
       - name: AI Cube 
-        link: ai.sysu-sam.com
+        link: https://ai.sysu-sam.com
         descr: AI cube 实验室官网 
         avatar: https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEEOONpBM0gYLkBtNikr8IzRJoc_k785AACCRkAAgJcKVRifkGIBbtvCDYE.png
 
