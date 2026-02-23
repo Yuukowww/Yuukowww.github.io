@@ -5,8 +5,6 @@ time: 2026-02-15
 tikzjax: true
 ---
 $$
-\newcommand{\E}{\mathrm{E}}
-\newcommand{\pf}{\mathrm{Proof}:}
 \newcommand{\rmd}{\,\mathrm{d}}
 $$
 # John-Linderstrass 引理
