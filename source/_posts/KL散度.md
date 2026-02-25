@@ -17,7 +17,11 @@ tikzjax: true
 
 MDP通常可可视化表示为一个有向图，每一个状态为一个点，所有的边的集合为动作空间$\mathcal{A}$. 边的权为奖励函数
 
-我们记 ${\mathcal{A}_s}=\left\{a\mid s\overset{a}{\to}s', \forall s'\in S_{t+1}\right\}$ 为状态 $s$ 的动作空间
+记 
+$$
+{\mathcal{A}_s}=\left\{a\mid s\overset{a}{\to}s', \forall s'\in S_{t+1}\right\}
+$$ 
+为状态 $s$ 的动作空间
 # Markov Property 
 Markov特性指当前时间步的状态转移概率、奖励累计与前面时间步的对应量是相互独立的
 
