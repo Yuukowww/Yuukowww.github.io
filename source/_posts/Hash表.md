@@ -1,7 +1,7 @@
 ---
 title: 哈希表与哈希函数
 intro: Algorithm
-time: 2026-02-15
+date: 2026-02-15
 tikzjax: true
 ---
 # 哈希表

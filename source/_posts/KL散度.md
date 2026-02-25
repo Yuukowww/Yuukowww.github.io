@@ -1,7 +1,7 @@
 ---
 title: Markov 过程
 intro: RL
-time: 2026-02-24
+date: 2026-02-24
 tikzjax: true
 ---
 

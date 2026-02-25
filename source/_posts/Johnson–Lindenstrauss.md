@@ -1,7 +1,7 @@
 ---
 title: Johnson–Lindenstrauss 引理
 intro: ML
-time: 2026-02-15
+date: 2026-02-15
 tikzjax: true
 ---
 $$
