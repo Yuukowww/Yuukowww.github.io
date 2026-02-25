@@ -1,0 +1,16 @@
+# 复制本文件为 .sync-posts.conf 后再修改
+
+# 必填: 目标 rsync 地址（支持 user@host:/path）
+REMOTE_TARGET="user@server:/var/www/hexo_blog_backup"
+
+# 可选: 自定义 posts 目录（默认 source/_posts）
+# POSTS_DIR="source/_posts"
+
+# 可选: 指定 SSH 端口
+# SSH_PORT="22"
+
+# 可选: 完全覆盖 rsync 的远程 shell
+# RSYNC_RSH="ssh -p 22"
+
+# 可选: 同步基线状态目录
+# STATE_DIR=".sync"
