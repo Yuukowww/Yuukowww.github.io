@@ -104,7 +104,7 @@ footer_img: false
 
 # Website Background
 # Can set it to color or image url
-background: url(https://localhost:4000/img/background.jpg)
+background: "#e4e4e4"
 
 # 
 
@@ -1056,10 +1056,75 @@ css_prefix: true
 # Insert the code to head (before '</head>' tag) and the bottom (before '</body>' tag)
 inject:
   head:
-    - '<style type="text/css">.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body{left:-66px!important}.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover{left:0!important}</style>'
+    - |
+      <style type="text/css">
+        /* 隐藏 fixed aplayer 默认展开的 body，缩到左下角只显示圆形按钮 */
+        .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body { left: -66px !important; }
+        .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover { left: 0 !important; }
+        /* 悬浮音乐按钮样式 */
+        #music-float-btn {
+          position: fixed;
+          bottom: 24px;
+          left: 24px;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #fa233b 0%, #fb5c74 100%);
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 1000;
+          box-shadow: 0 4px 15px rgba(250,35,59,0.4);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          user-select: none;
+        }
+        #music-float-btn:hover {
+          transform: scale(1.1);
+          box-shadow: 0 6px 20px rgba(250,35,59,0.5);
+        }
+        #music-float-btn svg { width: 24px; height: 24px; fill: #fff; }
+        #music-float-btn.playing { animation: spin-disc 3s linear infinite; }
+        @keyframes spin-disc { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        /* aplayer 面板样式 */
+        #music-panel {
+          position: fixed;
+          bottom: 82px;
+          left: 24px;
+          z-index: 999;
+          display: none;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        #music-panel.show { display: block; }
+        #music-panel .aplayer { border-radius: 12px; }
+      </style>
     # - <link rel="stylesheet" href="/xxx.css">
   bottom:
-    - <div class="aplayer no-destroy" data-id="14120066600" data-server="netease" data-type="playlist" data-loop="all" data-order="random" data-preload="auto" data-autoplay="false" data-fixed="false" muted></div>
+    - <script>localStorage.removeItem("metingjs:14120066600:netease:playlist");</script>
+    - |
+      <div id="music-float-btn" onclick="toggleMusicPanel()">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+      <div id="music-panel">
+        <div class="aplayer no-destroy" data-id="14120066600" data-server="netease" data-type="playlist" data-loop="all" data-order="random" data-preload="auto" data-autoplay="false" data-fixed="false" data-mini="false" muted></div>
+      </div>
+      <script>
+        function toggleMusicPanel() {
+          var panel = document.getElementById('music-panel');
+          panel.classList.toggle('show');
+        }
+        // 点击页面其他区域关闭面板
+        document.addEventListener('click', function(e) {
+          var panel = document.getElementById('music-panel');
+          var btn = document.getElementById('music-float-btn');
+          if (!panel.contains(e.target) && !btn.contains(e.target)) {
+            panel.classList.remove('show');
+          }
+        });
+      </script>
     # - <script src="xxxx"></script>
 
 # CDN Settings
