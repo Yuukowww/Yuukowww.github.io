@@ -1,6 +1,7 @@
 ---
 title: 哈希表与哈希函数
 intro: Algorithm
+categories: 算法
 date: 2026-02-15
 tikzjax: true
 ---

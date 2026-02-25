@@ -2,6 +2,7 @@
 title: Markov 过程
 intro: RL
 date: 2026-02-24
+categories: 强化学习
 tikzjax: true
 ---
 

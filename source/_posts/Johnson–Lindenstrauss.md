@@ -2,6 +2,7 @@
 title: Johnson–Lindenstrauss 引理
 intro: ML
 date: 2026-02-15
+categories: 机器学习
 tikzjax: true
 ---
 $$
