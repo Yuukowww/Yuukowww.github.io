@@ -16,7 +16,7 @@ tikzjax: true
 
 MDP通常可可视化表示为一个有向图，每一个状态为一个点，所有的边的集合为动作空间$\mathcal{A}$. 边的权为奖励函数
 
-我们记${\mathcal{A}_s}=\left\{a\mid s\overset{a}{\to}s', \forall s'\in S_{t+1}\right\}$为状态$s$的动作空间
+我们记 ${\mathcal{A}_s}=\left\{a\mid s\overset{a}{\to}s', \forall s'\in S_{t+1}\right\}$ 为状态 $s$ 的动作空间
 # Markov Property 
 Markov特性指当前时间步的状态转移概率、奖励累计与前面时间步的对应量是相互独立的
 
@@ -44,7 +44,8 @@ $$
 > To find a behavior policy that maximises the expected return $G_t$
 智能体策略的精神是寻找到最大的奖励
 
-> **Policy** 指状态$s$下执行行为$a$的概率，其数学表达为映射$\pi : \mathcal{S}\times \mathcal{A}\to [0,1]$， $\pi(a\mid s)=p(s\overset{a}{\to}s')$，如果存在参数 $\theta$, 则表示为$\pi_\theta(a\mid s)$
+
+> **Policy**  指状态$s$下执行行为$a$的概率，其数学表达为映射$\pi : \mathcal{S}\times \mathcal{A}\to [0,1]$， $\pi(a\mid s)=p(s\overset{a}{\to}s')$，如果存在参数 $\theta$, 则表示为$\pi_\theta(a\mid s)$
 
 对于离散动作空间，策略满足
 $$
