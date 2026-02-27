@@ -17,10 +17,10 @@
 - class_name: 网站
   class_desc :
   link_list:
-      - name: AI Cube 
-        link: https://ai.sysu-sam.com
-        descr: AI cube 实验室官网 
-        avatar: https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEEOONpBM0gYLkBtNikr8IzRJoc_k785AACCRkAAgJcKVRifkGIBbtvCDYE.png
+      # - name: AI Cube 
+      #   link: https://ai.sysu-sam.com
+      #   descr: AI cube 实验室官网 
+      #   avatar: https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEEOONpBM0gYLkBtNikr8IzRJoc_k785AACCRkAAgJcKVRifkGIBbtvCDYE.png
       - name: Butterfly
         link: https://butterfly.js.org
         descr: 基于Hexo框架的Butterfly主题
