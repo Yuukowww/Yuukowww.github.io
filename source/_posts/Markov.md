@@ -105,3 +105,41 @@ $$
 $$
 根据**Zorn Lemma**,最优策略总存在
 > **Optimal policy** 最优策略
+
+最优策略$\pi^\ast$满足
+$$
+\forall \pi \in \Pi, \pi\leq \pi^\ast
+$$
+
+
+## Bellman Equation
+
+> **Action Value Function 的时间步展开** 
+$$
+\begin{aligned}
+q_\pi(s,a)&=\mathrm{E}(G_t\mid S_T=s,A_t=a,\pi)\\
+&=\mathrm{E}\left(R_{t+1}+\gamma v_\pi(S_{t+1})\mid S_t=s, A_t\in\pi(S_t),\pi\right)\\
+&=\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s'))\\
+&=\sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a')))
+\end{aligned}
+$$
+
+> **Value Function 的时间步展开**
+$$
+\begin{aligned}
+v_\pi(s)&=\sum_{a}\pi(a\mid s)q_\pi(s,a)\\
+&=\sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s'))
+\end{aligned}
+$$
+
+以上两个方程，称为
+> **Bellman Expectation Equation**
+> 对于给定的MDP， $\mathcal{M}=(\mathcal{S},\mathcal{A},p,r,\gamma)$, 对于任意策略$\pi$，价值函数满足
+
+$$
+\begin{align}
+v_\pi(s) &= \sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s')) \tag{1} \\
+q_\pi(s,a) &= \sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a'))) \tag{2}
+\end{align}
+$$
+
