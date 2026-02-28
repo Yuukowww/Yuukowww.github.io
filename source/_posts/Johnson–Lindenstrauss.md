@@ -1,19 +1,19 @@
 ---
 title: Johnson–Lindenstrauss 引理
-intro: ML
+intro: 数据压缩与降维
 date: 2026-02-15
-categories: 机器学习
+categories: 数据处理
 tikzjax: true
 ---
 
-# John-Linderstrass 引理
+# Johnson-Linderstrass 引理
 
 
 
 
 > **Johnson-Linderstrauss** 引理
 >
-> 对于N个点$x_1,x_2,\cdots,x_N\in \mathbb{R}^d$, $\forall \varepsilon\in (0,1) $, $\exists f: \mathbb{R}^d\to\mathbb{R}^m $, 满足
+> 对于$N$个$d$ 维向量 $x_1,x_2,\cdots,x_N\in \mathbb{R}^d$, $\forall \varepsilon\in (0,1) $, $\exists f: \mathbb{R}^d\to\mathbb{R}^m $, 满足
 >
 >$$
 (1-\varepsilon)\|x_i-x_j\|_2\leq \|f(x_i)-f(x_j)\|_2\leq (1+\varepsilon)\|x_i-x_j\|_2
@@ -22,3 +22,5 @@ tikzjax: true
 >$$
 m\geq \frac{24\log N}{\varepsilon^2}\simeq O(\frac{\log N}{\varepsilon^2})
 >$$
+
+{% post_link 高斯向量 %}

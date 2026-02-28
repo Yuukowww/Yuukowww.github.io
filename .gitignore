@@ -3,5 +3,5 @@ node_modules
 .DS_Store
 db.json
 .vscode 
-.sync/
-.sync-posts.conf
+.npm-cache/
+
