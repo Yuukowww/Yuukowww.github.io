@@ -132,8 +132,8 @@ v_\pi(s)&=\sum_{a}\pi(a\mid s)q_\pi(s,a)\\
 \end{aligned}
 $$
 
-以上两个方程，称为
-> **Bellman Expectation Equation**
+
+> **Bellman Expectation Equation** Bellman期望方程刻画了状态价值函数与行为价值函数的递归关系。
 > 对于给定的MDP， $\mathcal{M}=(\mathcal{S},\mathcal{A},p,r,\gamma)$, 对于任意策略$\pi$，价值函数满足
 
 $$
