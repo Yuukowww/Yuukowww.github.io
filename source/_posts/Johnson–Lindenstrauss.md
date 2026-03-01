@@ -13,7 +13,7 @@ tikzjax: true
 
 > **Johnson-Linderstrauss** 引理
 >
-> 对于$N$个$d$ 维向量构成的集合 $A=\left\{x_1,x_2,\cdots,x_N\in \mathbb{R}^d\right\}$, $\forall \varepsilon\in (0,1) $, $\exists f: \mathbb{R}^d\to\mathbb{R}^k $, 满足
+> 对于$N$个$d$ 维向量构成的集合 $A= \left\lbrace x_1,x_2,\cdots,x_N\in \mathbb{R}^d\right\rbrace $, $\forall \varepsilon\in (0,1) $, $\exists f: \mathbb{R}^d\to\mathbb{R}^k $, 满足
 >
 >$$
 (1-\varepsilon)\|x_i-x_j\|^2\leq \|f(x_i)-f(x_j)\|^2\leq (1+\varepsilon)\|x_i-x_j\|^2
