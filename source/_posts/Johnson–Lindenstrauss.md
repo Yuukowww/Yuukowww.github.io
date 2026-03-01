@@ -102,3 +102,4 @@ P(\cup E_i)\leq\sum P(E_i)\leq\frac{N(N-1)}{2}\frac{2}{N^2}=1-\frac{1}{N}
 $$
 由此可以得出，当 $k\geq\dfrac{24\log N}{3\varepsilon^2-2\varepsilon^3}$时，将整个 $A$ **几乎保距**映入低维空间的映射$f$存在的概率不为0
 
+# Fast Johnson-Linderstrauss Transform
