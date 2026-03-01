@@ -57,7 +57,14 @@ $$
 - 微观(逐点定义)
 智能体在状态$s$下执行某一动作$a$的概率
 
-策略数学表达为映射$\pi : \mathcal{S}\to P(\mathcal{A})\subset [0,1]$， $\pi(a\mid s)=p(A_t=a\mid S_t=s)$，如果存在可学习的参数 $\theta$, 则表示为$\pi_\theta(a\mid s)$
+策略数学表达为
+$$
+\pi:\mathcal{S}\to P(\mathcal{A})\subset [0,1],\quad \pi(a\mid s)=p(A_t=a\mid S_t=s)
+$$
+如果存在可学习的参数 $\theta$，则记作
+$$
+\pi_\theta(a\mid s)
+$$
 
 
 对于离散动作空间，策略满足
