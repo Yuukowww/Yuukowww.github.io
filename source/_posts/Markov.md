@@ -71,13 +71,13 @@ $$
 
 ## Value Function 价值函数
 $$
-v_\pi(s)=\mathrm{E}(G_t\mid S_t=s,\pi)
+v_\pi(s)=\mathbb{E}(G_t\mid S_t=s,\pi)
 $$
 
 ### Q Function
 Q Function 指的是在状态$S_t=s$，执行动作$A_t=a$下的价值期望函数
 $$
-q_\pi (s,a)=\mathrm{E}(G_t\mid S_t=s,A_t=a,\pi)=\mathrm{E}\left(\sum_{k=0}^\infty\gamma^k R_{t+k+1}\mid S_t=s,A_t=a,\pi\right)
+q_\pi (s,a)=\mathbb{E}(G_t\mid S_t=s,A_t=a,\pi)=\mathbb{E}\left(\sum_{k=0}^\infty\gamma^k R_{t+k+1}\mid S_t=s,A_t=a,\pi\right)
 $$
 
 根据全概率公式，价值函数满足
@@ -117,8 +117,8 @@ $$
 > **Action Value Function 的时间步展开** 
 $$
 \begin{aligned}
-q_\pi(s,a)&=\mathrm{E}(G_t\mid S_T=s,A_t=a,\pi)\\
-&=\mathrm{E}\left(R_{t+1}+\gamma v_\pi(S_{t+1})\mid S_t=s, A_t\in\pi(S_t),\pi\right)\\
+q_\pi(s,a)&=\mathbb{E}(G_t\mid S_T=s,A_t=a,\pi)\\
+&=\mathbb{E}\left(R_{t+1}+\gamma v_\pi(S_{t+1})\mid S_t=s, A_t\in\pi(S_t),\pi\right)\\
 &=\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s'))\\
 &=\sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a')))
 \end{aligned}
