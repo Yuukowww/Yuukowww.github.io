@@ -31,5 +31,8 @@
     "hexo-theme-shokax": "^0.5.4",
     "nyx-player": "^0.1.1",
     "shokax-uikit": "0.0.5"
+  },
+  "overrides": {
+    "rollup-plugin-visualizer": "7.0.1"
   }
 }
