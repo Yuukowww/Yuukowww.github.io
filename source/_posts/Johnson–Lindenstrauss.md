@@ -4,6 +4,7 @@ intro: 数据压缩与降维
 date: 2026-02-15
 categories: 数据处理
 tikzjax: true
+math: true
 ---
 
 # Johnson-Linderstrass 引理
@@ -94,7 +95,7 @@ P\left[\|\mathbf{v}\|^2\not \in\left[(1-\varepsilon)\|\mathbf{u}\|^2,(1+\varepsi
 $$
 进一步
 $$
-\forall x_i, x_j\in A，P\left[\|f(x_i)-f(x_j)\|^2\not \in\left[(1-\varepsilon)\|x_i-x_j\|^2,(1+\varepsilon)\|x_i-x_j\|^2\right]\right]\leq\frac{2}{N^2}
+\forall x_i, x_j\in A,\, P\left[\|f(x_i)-f(x_j)\|^2\not \in\left[(1-\varepsilon)\|x_i-x_j\|^2,(1+\varepsilon)\|x_i-x_j\|^2\right]\right]\leq\frac{2}{N^2}
 $$ 
 由**Boole不等式**，遍历集合$A$的二元向量组
 $$

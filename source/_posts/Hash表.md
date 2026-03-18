@@ -4,6 +4,7 @@ intro: Algorithm
 categories: 算法
 date: 2026-02-15
 tikzjax: true
+math: true
 ---
 # 哈希表
 

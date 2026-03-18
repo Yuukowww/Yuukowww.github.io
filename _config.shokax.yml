@@ -1,0 +1,66 @@
+alternate: Yuuko
+
+experiments:
+  antiFakeWebsite: false
+
+homeConfig:
+  fixedCover: /picture/background1.jpg
+  coverConfig:
+    enableCover: true
+    enablePreload: true
+
+modules:
+  debug: false
+  player: true
+  fireworks: false
+  visibilityListener: true
+  tabs: true
+  quiz: false
+  cloudflarePatch: false
+
+playerAPI: "https://api.injahow.cn"
+
+darkmode: true
+auto_dark:
+  enable: false
+
+loader:
+  start: true
+  switch: false
+
+menu:
+  home: / || home
+  posts:
+    default: / || feather
+    archives: /archives/ || list-alt
+    categories: /categories/ || th
+    tags: /tags/ || tags
+  friends: /link/ || heart
+
+social:
+  github: https://github.com/Yuukowww || github || "#191717"
+
+sidebar:
+  position: right
+  avatar: avatar.jpg
+
+widgets:
+  random_posts: false
+  recent_comments: false
+
+footer:
+  since: 2025
+  count: true
+  powered: true
+
+reward:
+  enable: false
+
+creative_commons:
+  license: by-nc-sa
+  language: deed.zh
+
+audio:
+  - title: 常驻歌单
+    list:
+      - https://music.163.com/#/playlist?id=14120066600

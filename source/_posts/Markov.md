@@ -4,6 +4,7 @@ intro: RL
 date: 2026-02-24
 categories: 强化学习
 tikzjax: true
+math: true
 ---
 
 # Markov Decision Process 
@@ -149,4 +150,3 @@ v_\pi(s) &= \sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in
 q_\pi(s,a) &= \sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a'))) \tag{2}
 \end{align}
 $$
-
