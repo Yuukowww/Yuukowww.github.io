@@ -1,6 +1,6 @@
 @font-face
-  font-family: "Bolina Local"
-  src: url("/font/Bolina.otf") format("opentype")
+  font-family: "Sour Gummy"
+  src: url("/font/SourGummy-VariableFont_wdth,wght.ttf") format("truetype")
   font-weight: 400
   font-style: normal
   font-display: swap
@@ -12,11 +12,31 @@
   font-style: normal
   font-display: swap
 
-.overview .author .name
-  font-family: "Bolina Local", "STKaiti", "KaiTi", cursive
+@font-face
+  font-family: "ComicNeue-Bold"
+  src: url("/font/ComicNeue-BoldItalic.ttf") format("truetype")
+  font-weight: 700
+  font-style: italic
+  font-display: swap
+@font-face
+  font-family: "ComicNeue-Light"
+  src: url("/font/ComicNeue-LightItalic.ttf") format("truetype")
+  font-weight: 700
+  font-style: italic
+  font-display: swap
+@font-face
+  font-family: "ComicNeue-Normal"
+  src: url("/font/ComicNeue-Bold.ttf") format("truetype")
+  font-weight: 700
   font-style: normal
-
-.overview .author .description
-  font-family: "Imperial Script", "STKaiti", "KaiTi", cursive
-  font-style: normal
-  font-size: 200%
+  font-display: swap
+#sidebar .overview .author
+  .name
+    font-family: "ComicNeue-Light", "STKaiti", "KaiTi", cursive
+    font-style: italic
+    font-weight: 700
+    font-size: 140%
+  .description
+    font-family: "Imperial Script", "STKaiti", "KaiTi", cursive
+    font-style: normal
+    font-size: 170%
