@@ -4,7 +4,7 @@ intro: 机器学习数学基础与实现review
 date: 2026-03-11
 tag: [机器学习]
 categories: ML
-cover: picture/20.jpg
+cover: picture/20.png
 ---
 本文用于复习机器学习基础, Follow 周志华《机器学习》
 <!-- more -->
