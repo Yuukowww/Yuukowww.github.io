@@ -54,5 +54,13 @@ wsl --shutdown
 VSCode Codex 
 
 使用`CODEX.md`作为主Agent的执行规范，使用`AGENT.md`作为审核Agent的执行规范
-在Codex的`config.toml`或者界面进行MCP server设置
+在Codex的`config.toml`或者界面进行MCP server设置, 在`config.toml`注册MCP服务器
 ![MCPSetting](/picture/Codex/shoot1.png)
+```toml
+[mcp_servers.codex-reviewer]
+type = "stdio"
+command = "/opt/anaconda3/bin/python3"
+args = ["/Users/asuna/Asuna/study&work/git/agentframework/scripts/codex_reviewer_mcp.py"]
+env = { PATH = "/opt/anaconda3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin", HOME = "/Users/asuna", CODEX_BINARY = "/Users/asuna/.codex/bin/codex-latest", CODEX_REVIEWER_FRAMEWORK_ROOT = "/Users/asuna/Asuna/study&work/git/agentframework" }
+
+```
