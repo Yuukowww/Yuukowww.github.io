@@ -16,8 +16,8 @@ description: 关于市面上的生成式AI的使用攻略
 
 > **外国AI**
 >
-> - **Google Gemini** [官网](gemini.google.com)  [AI Studio](aistudio.google.com) 学生优惠
-> - **ChatGPT** [官网](chatgpt.com) 
+> - **Google Gemini** [官网](gemini.google.com)  [AI Studio](aistudio.google.com) 薅羊毛:学生优惠(已失效)
+> - **ChatGPT** [官网](chatgpt.com) 薅羊毛:大兵优惠(已失效)、Business(闲鱼5r)
 > - **Claude** [官网](claude.ai)
 
 
