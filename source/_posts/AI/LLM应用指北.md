@@ -24,11 +24,11 @@ description: 关于市面上的生成式AI的使用攻略
 
 ## 常见工具
 
-> - **Claude Code** Claude 推出的 Coding Agent，CLI/VSCode插件
-> - **Codex** ChatGPT 的 Coding Agent,平台 CLI/VSCode插件 + GUI(MacOS)， 免费额度大，有Business account用不完
+> - **Claude Code** Claude 推出的 Coding Agent，CLI/VSCode插件 贵
+> - **Codex** ChatGPT 的 Coding Agent,平台 CLI/VSCode插件 + GUI(MacOS)， 免费额度大，有Business account用不完 夯
 > - **AntiGravity** Google的 AI Coding IDE, 支持Gemini Claude ChatGPT 的大杯模型, 代理模式登陆困难, 有pro大杯
 > - **Cursor** AI Coding IDE
-> - **Vscode Copilot** VSCode 插件，学生验证后300次/月访问，之前夯现在小丑
+> - **Vscode Copilot** VSCode 插件，学生验证后300次/月访问，之前夯现在中杯
 
 
 
