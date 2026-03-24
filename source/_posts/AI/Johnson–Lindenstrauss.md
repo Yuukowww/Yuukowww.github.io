@@ -1,6 +1,6 @@
 ---
 title: Johnson–Lindenstrauss 引理
-intro: 数据压缩与降维
+description: 数据压缩与降维
 date: 2026-02-15
 categories: 数据处理
 tikzjax: true

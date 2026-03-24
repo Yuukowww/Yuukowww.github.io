@@ -3,7 +3,7 @@ title: LLM应用指北
 date: 2026-03-23
 tag: [LLM, 日常工作]
 categories: AI
-intro: 关于市面上的生成式AI的使用攻略
+description: 关于市面上的生成式AI的使用攻略
 ---
 
 ## 常见的国内外AI
@@ -53,4 +53,6 @@ wsl --shutdown
 
 VSCode Codex 
 
-
+使用`CODEX.md`作为主Agent的执行规范，使用`AGENT.md`作为审核Agent的执行规范
+在Codex的`config.toml`或者界面进行MCP server设置
+![MCPSetting](/picture/Codex/shoot1.png)

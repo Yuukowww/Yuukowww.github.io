@@ -1,6 +1,6 @@
 ---
 title: 传统机器学习
-intro: 机器学习数学基础与实现review
+description: 机器学习数学基础与实现review
 date: 2026-03-11
 tag: [机器学习]
 categories: ML
