@@ -1,0 +1,29 @@
+{
+  "updated_at": "2026-03-25 21:41",
+  "sessions": [
+    {
+      "task_marker": "[TASK_MARKER: 20260325-TEST-REVIEWER-RUN]",
+      "conversation_id": null,
+      "created_at": "2026-03-25 21:37",
+      "updated_at": "2026-03-25 21:37",
+      "cwd": "D:\\Git\\blog\\yuukowww",
+      "description": "[TASK_MARKER: 20260325-TEST-REVIEWER-RUN]\n$codex-reviewer-workflow\nYou are the reviewer Codex for this repository.\nRead ./.codex/AGENTS.md first and ./.codex/CODEX.md second if they exist before doing any substantive work.\n\nTask type: context scan\nGoal:\n- Verify the codex-reviewe",
+      "status": "error",
+      "artifact_paths": [
+        ".codex/context-initial.json"
+      ]
+    },
+    {
+      "task_marker": "[TASK_MARKER: 20260325-TEST-REVIEWER-DIRECT-EXE]",
+      "conversation_id": "019d2539-061d-72f3-91fe-a296387f0f63",
+      "created_at": "2026-03-25 21:41",
+      "updated_at": "2026-03-25 21:41",
+      "cwd": "D:\\Git\\blog\\yuukowww",
+      "description": "[TASK_MARKER: 20260325-TEST-REVIEWER-DIRECT-EXE]\n$codex-reviewer-workflow\nYou are the reviewer Codex for this repository.\nRead ./.codex/AGENTS.md first and ./.codex/CODEX.md second if they exist before doing any substantive work.\n\nTask type: context scan\nGoal:\n- Verify the review",
+      "status": "timeout",
+      "artifact_paths": [
+        ".codex/context-initial.json"
+      ]
+    }
+  ]
+}
