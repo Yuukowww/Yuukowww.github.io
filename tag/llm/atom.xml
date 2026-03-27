@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://yuukowww.github.io</id>
+    <title>Yuukoの小屋 • Posts by &#34;llm&#34; tag</title>
+    <link href="https://yuukowww.github.io" />
+    <updated>2026-03-22T16:00:00.000Z</updated>
+    <category term="机器学习" />
+    <category term="LLM" />
+    <category term="日常工作" />
+    <category term="前后指针" />
+    <category term="Leetcode" />
+    <category term="算法" />
+    <entry>
+        <id>https://yuukowww.github.io/2026/03/22/AI/LLM%E5%BA%94%E7%94%A8%E6%8C%87%E5%8C%97/</id>
+        <title>LLM应用指北</title>
+        <link rel="alternate" href="https://yuukowww.github.io/2026/03/22/AI/LLM%E5%BA%94%E7%94%A8%E6%8C%87%E5%8C%97/"/>
+        <content type="html">&lt;h2 id=&#34;常见的国内外ai&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#常见的国内外ai&#34;&gt;#&lt;/a&gt; 常见的国内外AI&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;国内AI&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Deepseek: &lt;a href=&#34;deepseek.cn&#34;&gt;官网&lt;/a&gt; &lt;a href=&#34;platform.deepseek.cn&#34;&gt;API&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;外国AI&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Google Gemini&lt;/strong&gt; &lt;a href=&#34;gemini.google.com&#34;&gt;官网&lt;/a&gt;  &lt;a href=&#34;aistudio.google.com&#34;&gt;AI Studio&lt;/a&gt; 薅羊毛:学生优惠(已失效)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ChatGPT&lt;/strong&gt; &lt;a href=&#34;chatgpt.com&#34;&gt;官网&lt;/a&gt; 薅羊毛:大兵优惠(已失效)、Business(闲鱼5r)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Claude&lt;/strong&gt; &lt;a href=&#34;claude.ai&#34;&gt;官网&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;常见工具&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#常见工具&#34;&gt;#&lt;/a&gt; 常见工具&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Claude Code&lt;/strong&gt; Claude 推出的 Coding Agent，CLI/VSCode插件 贵&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Codex&lt;/strong&gt; ChatGPT 的 Coding Agent,平台 CLI/VSCode插件 + GUI(MacOS)， 免费额度大，有Business account用不完 夯&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AntiGravity&lt;/strong&gt; Google的 AI Coding IDE, 支持Gemini Claude ChatGPT 的大杯模型, 代理模式登陆困难, 有pro大杯&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cursor&lt;/strong&gt; AI Coding IDE&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Vscode Copilot&lt;/strong&gt; VSCode 插件，学生验证后300次/月访问，之前夯现在中杯&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;常见问题与实现&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#常见问题与实现&#34;&gt;#&lt;/a&gt; 常见问题与实现&lt;/h2&gt;
+&lt;h3 id=&#34;codex-wsl-checkin-遇到-nat-通信阻拦&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#codex-wsl-checkin-遇到-nat-通信阻拦&#34;&gt;#&lt;/a&gt; Codex WSL checkin 遇到 NAT 通信阻拦&lt;/h3&gt;
+&lt;p&gt;WSL默认NAT隔离内网，在Win11+WSL2中可以使用镜像模式，WSL可以共享宿主机的&lt;code&gt;Localhost&lt;/code&gt;(如果使用Clash,通过&lt;code&gt;127.0.0.1:7890&lt;/code&gt;)&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span style=&#34;color:#393A34;--shiki-dark:#DBD7CAEE&#34;&gt;cd &lt;/span&gt;&lt;span style=&#34;color:#999999;--shiki-dark:#666666&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#998418;--shiki-dark:#B8A965&#34;&gt;env:&lt;/span&gt;&lt;span style=&#34;color:#B07D48;--shiki-dark:#BD976A&#34;&gt;USERPROFILE&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span style=&#34;color:#B5695977;--shiki-dark:#C98A7D77&#34;&gt;@&#34;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span style=&#34;color:#B56959;--shiki-dark:#C98A7D&#34;&gt;[wsl2]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span style=&#34;color:#B56959;--shiki-dark:#C98A7D&#34;&gt;networkingMode=mirrored&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span style=&#34;color:#B5695977;--shiki-dark:#C98A7D77&#34;&gt;&#34;@&lt;/span&gt;&lt;span style=&#34;color:#AB5959;--shiki-dark:#CB7676&#34;&gt; |&lt;/span&gt;&lt;span style=&#34;color:#998418;--shiki-dark:#B8A965&#34;&gt; Add-Content&lt;/span&gt;&lt;span style=&#34;color:#B5695977;--shiki-dark:#C98A7D77&#34;&gt; &#34;&lt;/span&gt;&lt;span style=&#34;color:#999999;--shiki-dark:#666666&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#998418;--shiki-dark:#B8A965&#34;&gt;env:&lt;/span&gt;&lt;span style=&#34;color:#B56959;--shiki-dark:#C98A7D&#34;&gt;USERPROFILE\.wslconfig&lt;/span&gt;&lt;span style=&#34;color:#B5695977;--shiki-dark:#C98A7D77&#34;&gt;&#34;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span style=&#34;color:#393A34;--shiki-dark:#DBD7CAEE&#34;&gt;wsl &lt;/span&gt;&lt;span style=&#34;color:#999999;--shiki-dark:#666666&#34;&gt;--&lt;/span&gt;&lt;span style=&#34;color:#393A34;--shiki-dark:#DBD7CAEE&#34;&gt;shutdown&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;codexclaudecode-multi-agent实现&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#codexclaudecode-multi-agent实现&#34;&gt;#&lt;/a&gt; Codex/ClaudeCode multi-agent实现&lt;/h3&gt;
+&lt;p&gt;VSCode Codex&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;CODEX.md&lt;/code&gt;作为主Agent的执行规范，使用&lt;code&gt;AGENT.md&lt;/code&gt;作为审核Agent的执行规范&lt;/p&gt;
+&lt;p&gt;参见&lt;a href=&#34;https://github.com/Asunazzz123/Codex-Reviewer&#34;&gt;项目&lt;/a&gt;&lt;/p&gt;
+</content>
+        <category term="LLM" />
+        <category term="日常工作" />
+        <updated>2026-03-22T16:00:00.000Z</updated>
+    </entry>
+</feed>
