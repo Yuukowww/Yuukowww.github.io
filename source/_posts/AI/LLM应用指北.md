@@ -46,9 +46,17 @@ wsl --shutdown
 ```
 
 
+### Gemini CLI 登陆失败问题
+设置VPN TUN模式，或者添加环境变量
+```shell
+export HTTPS_PROXY=http://127.0.0.1:7890 // Clash监听端口7890
+```
 
 
-### Codex/ClaudeCode multi-agent实现
+
+
+
+### Codex 异步multi-agent实现
 
 
 VSCode Codex 
