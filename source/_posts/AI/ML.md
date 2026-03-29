@@ -44,7 +44,41 @@ $$
 
 
 ## 贝叶斯决策
+
+贝叶斯分析的分类类别集为一个$n$元集合
+$$
+\mathcal{Y} = \left\{c_1,c_2,\cdots, c_n\right\}
+$$
+样本集合$\mathcal{X}$内的元素具有类别集$\mathcal{Y}$的属性。对于每个样本对象$\bm{x}$
 > **损失函数**
 >
-> 贝叶斯决策中的损失函数定义为
-> 
+> 贝叶斯决策中的损失函数定义为将样本$c_i$分类为$c_j$的损失
+> $$
+\lambda_{i,j}:\mathcal{Y}\times\mathcal{Y}\to [0,1]
+> $$
+> 通常使用0-1损失
+> $$
+\lambda_{i,j} = \delta_{i,j} = \begin{cases}
+0&i =  j\\
+1&i \neq j
+\end{cases}
+> $$
+
+总损失期望
+$$
+R(c_i\big| \bm{x}) = \sum_{j=1}^n \lambda_{i,j} P(c_j\big | \bm{x})
+$$
+
+贝叶斯决策目的是训练一个分类器，实现对于每一个样本的分类的优化
+$$
+h:\mathcal{X}\to \mathcal{Y}
+$$
+样本经过分类器$h$分类后的的总体损失期望为
+$$
+R(h)=E_{\bm{x}\in \mathcal{X}}\left[R(h(\bm{x})\big|\bm{x})\right]
+$$
+分类器的求解的目的即获得一个映射 $h^\ast$ 满足对于某个样本分类
+$$
+h^\ast(\bm{x}) = \argmin_{c\in\mathcal{y}} R(c\big| \bm{x})
+$$
+
