@@ -46,9 +46,30 @@ wsl --shutdown
 ```
 
 
+### Gemini CLI 登陆失败问题
+设置VPN TUN模式，或者添加环境变量
+```shell
+export HTTPS_PROXY=http://127.0.0.1:7890 // Clash监听端口7890
+
+// # 默认监听7890端口
+// cat <<'EOF' >> ~/.bashrc
+// export HTTP_PROXY=http://127.0.0.1:7890
+// export HTTPS_PROXY=http://127.0.0.1:7890
+// EOF
+// source ~/.bashrc
+```
 
 
-### Codex/ClaudeCode multi-agent实现
+
+
+
+### Windows Antigravity 通过dll注入方式进行认证信息转发
+
+[Antigravity-Proxy](https://github.com/yuaotian/antigravity-proxy/blob/main/README.md)
+
+
+
+### Codex 异步multi-agent实现
 
 
 VSCode Codex 
