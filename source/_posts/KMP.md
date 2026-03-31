@@ -4,6 +4,7 @@ date: 2026-03-31
 tag: [数据结构,算法]
 categories: 算法
 description: KMP算法的数学与代码实现
+cover: picture/34.png
 ---
 
 
