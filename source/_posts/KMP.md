@@ -99,9 +99,29 @@ vector<int> prefix_func(string s){
 
 ### 优化
 当`prefix_func` 遍历到$i$个元素的子串的时候，子串尾部添加元素，对前缀函数值的影响有三种可能
-- $+1$ 当添加的正好是前一位前缀函数指定的前缀的后一位元素 (比如`abca` -> `abcab`)。 翻译为数学语言: 满足$s[i+1] = s[\pi[i](s)]$时, $\pi[i+1] = \pi[i]+1$
-- $-$ 当添加的元素破坏了前缀匹配 (比如`abca` -> `abcac` / `acbac` -> `acbaca`)
-- $=$ 保持不变
+1.  $+1$ 当添加的正好是前一位前缀函数指定的前缀的后一位元素 (比如`abca` -> `abcab`)。 翻译为数学语言: 满足$s[i+1] = s[\pi[i](s)]$时, $\pi[i+1] = \pi[i]+1$
+2.  $-$ 当添加的元素破坏了前缀匹配 (比如`abca` -> `abcac` / `acbac` -> `acbaca`)
+3.  $=$ 保持不变
 
+#### 优化1
+根据情况1分析，前缀函数实际比对的是前缀段与后缀段的一小部份的子串，中间的子串段可以不遍历。而这个片段的长度上界由情况1给出 -- $\pi[i-1]+1$
+```cpp
+#include<vector>
+using namespace std;
+
+vector<int> prefix_func(string s){
+    int n = (int) s.length();
+    vector<int> pi(n);
+    for (int i = 0; i < n ; i++){
+        for (int j = pi[i-1]+1 ; j > 0 ; j--){
+            if (s.substr(0,j) == s.substr(i-j+1,j)){
+                res = j;
+                break;
+            }
+        }
+    } 
+    return pi;
+}
 ```
-```
+#### 优化2
+当$s[i+1]\neq s[\pi[i]]$时，

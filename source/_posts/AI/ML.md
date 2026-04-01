@@ -82,3 +82,5 @@ $$
 h^\ast(\bm{x}) = \argmin_{c\in\mathcal{y}} R(c\big| \bm{x})
 $$
 
+### 贝叶斯分类器的训练
+
