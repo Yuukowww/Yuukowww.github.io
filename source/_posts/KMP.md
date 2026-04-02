@@ -107,6 +107,7 @@ vector<int> prefix_func(string s){
 根据情况1分析，前缀函数实际比对的是前缀段与后缀段的一小部份的子串，中间的子串段可以不遍历。而这个片段的长度上界由情况1给出 -- $\pi[i-1]+1$
 ```cpp
 #include<vector>
+#include<string>
 using namespace std;
 
 vector<int> prefix_func(string s){
@@ -124,4 +125,63 @@ vector<int> prefix_func(string s){
 }
 ```
 #### 优化2
-当$s[i+1]\neq s[\pi[i]]$时，
+当$s[i+1]\neq s[\pi[i]]$时，前缀函数的值肯定是减少的。当子串的前缀与后缀相同的时候，可能存在子前缀与子后缀作为更小的相同片段。计算下一位前缀函数时，如果下一个元素与最大前缀的后一位元素不匹配 (即$s[i+1]\neq s[\pi[i]]$时), 能寻找子前缀的后一位元素分析是否匹配。
+
+
+子前缀的计算是递归的。对于第$n$阶子前缀的长度$j^{(n)}$，根据上面的分析有
+$$
+j^{(n)} = \pi(j^{(n-1)}-1)
+$$
+
+> 例子
+>
+> 子串`s[abcabaacabcab]`相同的前缀段与后缀段为`abcab`,更小的子前缀/后缀段为`ab`(子前缀的是前缀段的相同的前缀/后缀串)。
+> - 当下一位元素为`a`, 符合$s[i+1]= s[\pi[i]]$, $\pi[i+1] = \pi[i]+1 = 6$
+> - 当下一位元素不为`a`时,符合$s[i+1]\neq s[\pi[i]]$, 子前缀串`ab`的下一位元素为`c`。如果子串的下一位元素为`c`则前缀函数$\pi[i+1] = \max_{n}\{j^{(n)}+1: s[j^{(n)+1}] = s[i+1]\}$
+
+#### 实现
+```cpp
+#include<vector>
+#include<string>
+using namespace std;
+vector<int> prefix_func(string s){
+    int n = (int) s.length();
+    vector<int> pi(n);
+    for (int i = 1; i < n; i++) {
+        int j = pi[i - 1];
+        while (j > 0 && s[i] != s[j]) {
+            j = pi[j - 1];
+        }
+        if (s[i] == s[j]){
+            j++;
+        }
+        pi[i] = j;
+    }
+    return pi;
+}
+```
+前缀函数的时间复杂度优化到了$\mathcal{O}(n)$
+
+## KMP算法
+对于串 $s$ 与待检测子串 $t$, 只需要将待检测子串 $t$ 作为前缀进行后缀匹配就可以实现子串匹配。
+
+```cpp
+#include<string>
+#include<vector>
+using namespace std;
+vector<int> KMP(string text, string pattern){
+    string cur = pattern + '#' + text;
+    int s1 = text.size();
+    int s2 = pattern.size();
+    vector<int> res;
+    vector<int> pf = prefix_function(cur);
+    for ( int i = s2+1 ; i <= s1+s2; i++ ){
+        if (pf[i] == s2){
+            res.push_bach(i - 2*s2);
+        }
+    }
+    return res;
+}
+```
+
+
