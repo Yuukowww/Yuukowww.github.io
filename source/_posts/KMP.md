@@ -183,5 +183,5 @@ vector<int> KMP(string text, string pattern){
     return res;
 }
 ```
-
+KMP算法只用$\mathcal{O}(m+n)$的时间复杂度实现了子串在全串的匹配
 
