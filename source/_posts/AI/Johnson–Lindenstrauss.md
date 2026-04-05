@@ -7,14 +7,14 @@ tikzjax: true
 math: true
 ---
 
-# Johnson-Linderstrass 引理
+# Johnson-Lindenstrauss 引理
 
 
 
 
-> **Johnson-Linderstrauss** 引理
+> **Johnson-Lindenstrauss** 引理
 >
-> 对于$N$个$d$ 维向量构成的集合 $A= \left\lbrace x_1,x_2,\cdots,x_N\in \mathbb{R}^d\right\rbrace $, $\forall \varepsilon\in (0,1) $, $\exists f: \mathbb{R}^d\to\mathbb{R}^k $, 满足
+> 对于$N$个$d$维向量构成的集合$A=\left\lbrace x_1,x_2,\cdots,x_N\in\mathbb{R}^d\right\rbrace$，$\forall\varepsilon\in(0,1)$，$\exists f:\mathbb{R}^d\to\mathbb{R}^k$，满足
 >
 >$$
 (1-\varepsilon)\|x_i-x_j\|^2\leq \|f(x_i)-f(x_j)\|^2\leq (1+\varepsilon)\|x_i-x_j\|^2
@@ -55,7 +55,7 @@ P[\|\mathbf{v}\|^2\geq(1+\varepsilon)\|\mathbf{u}\|^2]&=P[x\geq(1+\varepsilon)k]
 &\leq\exp\left(\frac{k}{2}\left(-\frac{\varepsilon^2}{2}+\frac{\varepsilon^3}{3}\right)\right)
 \end{aligned}
 $$
-当 $\dfrac{k}{2}\left(-\dfrac{\varepsilon^2}{2}+\dfrac{\varepsilon^3}{3}\right)<-2\log N$, 即 $ k> \dfrac{24\log N}{3\varepsilon^2-2\varepsilon^3}$ 时，满足
+当 $\dfrac{k}{2}\left(-\dfrac{\varepsilon^2}{2}+\dfrac{\varepsilon^3}{3}\right)<-2\log N$, 即 $k>\dfrac{24\log N}{3\varepsilon^2-2\varepsilon^3}$ 时，满足
 $$
 P\left[\|\mathbf{v}\|^2\geq (1+\varepsilon)\|\mathbf{u}\|^2\right]\leq N^{-2}
 $$
@@ -76,7 +76,7 @@ P\left[\|\mathbf{v}\|^2\leq(1-\varepsilon)\|\mathbf{u}\|^2\right]&=P\left[x\leq 
 &\leq \exp \left(-\frac{k\varepsilon^2}{4}\right)
 \end{aligned}
 $$
-当 $-\dfrac{k\varepsilon^2}{4}\leq -2\log N $ 时，即 $k\geq \dfrac{8\log N}{\varepsilon^2}$
+当$-\dfrac{k\varepsilon^2}{4}\leq -2\log N$时，即$k\geq \dfrac{8\log N}{\varepsilon^2}$
 $$
 P\left[\|\mathbf{v}\|^2\leq(1-\varepsilon)\|\mathbf{u}\|^2\right]\leq N^{-2}
 $$
