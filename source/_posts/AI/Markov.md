@@ -1,4 +1,4 @@
----
+﻿---
 title: Markov 过程
 description: RL
 date: 2026-02-24
@@ -45,7 +45,7 @@ $$
     $$
 
 # Agent Policy 智能体策略
-> **Goal of an RL Agent**
+> **Goal of RL Agent**
 > 
 > To find a behavior policy that maximises the expected return $G_t$
 
