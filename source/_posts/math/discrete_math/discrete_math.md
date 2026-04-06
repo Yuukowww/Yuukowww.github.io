@@ -1,6 +1,6 @@
 ---
 title: 组合数学
-description: 
+description: 离散数学课程Record
 date: 2025-02-19
 categories: 数学
 tikzjax: true
