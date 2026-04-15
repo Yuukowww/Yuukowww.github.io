@@ -55,12 +55,20 @@ export ALL_PROXY=http://127.0.0.1:7890
 
 // # 默认监听7890端口
 // cat <<'EOF' >> ~/.bashrc
-// export HTTP_PROXY=http://127.0.0.1:7890
-// export HTTPS_PROXY=http://127.0.0.1:7890
-// export ALL_PROXY=http://127.0.0.1:7890
+// if nc -z 127.0.0.1 7890 2>/dev/null; then
+//    export http_proxy="http://127.0.0.1:7890"
+//    export https_proxy="http://127.0.0.1:7890"
+//    export all_proxy="socks5://127.0.0.1:7890" 
+//    echo "🟢 Clash Proxy is running (Port 7890)"
+// else
+//    unset http_proxy
+//    unset https_proxy
+//    unset all_proxy
+// fi
 // EOF
 // source ~/.bashrc
 ```
+
 
 
 
