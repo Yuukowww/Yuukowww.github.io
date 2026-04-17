@@ -5,6 +5,7 @@ date: 2026-02-24
 categories: 强化学习
 tikzjax: true
 math: true
+cover: picture/miku2.png
 ---
 
 # Markov Decision Process 
