@@ -17,7 +17,7 @@ cover: picture/miku2.png
 > - $r:\mathcal{S}\times \mathcal{A}\to \mathbb{R}=\mathbb{E}(R\mid s,a)$ 奖励函数，在状态$s$下执行行为$a$的全部奖励的期望
 > - $\gamma\in[0,1]$ 衰减因子，每个时间步中的奖励衰减
 
-MDP通常可可视化表示为一个有向图，每一个状态为一个点，所有的边的集合为动作空间$\mathcal{A}$. 边的权为奖励函数
+MDP通常可可视化表示为一个有向图，每一个状态为一个点，所有的边的集合为动作空间$\mathcal{A}$. 边的权为奖励函数 
 
 记 
 $$
