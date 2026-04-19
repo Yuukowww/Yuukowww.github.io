@@ -4,7 +4,7 @@ experiments:
   antiFakeWebsite: false
 
 homeConfig:
-  fixedCover: /picture/background1.jpg
+  fixedCover: ""
   coverConfig:
     enableCover: true
     enablePreload: true
