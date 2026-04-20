@@ -100,5 +100,5 @@ vim ~/.codex/config.toml
 
 ```toml
 model_context_window = 1000000  # 上下文修改为1M
-model_auto_compact_token_limit = 500000 # 压缩上下文为500K
+model_auto_compact_token_limit = 500000 # 当上下文到达500K后压缩上下文
 ```
