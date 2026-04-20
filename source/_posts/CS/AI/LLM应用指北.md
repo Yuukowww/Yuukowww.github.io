@@ -88,3 +88,17 @@ VSCode Codex
 使用`CODEX.md`作为主Agent的执行规范，使用`AGENT.md`作为审核Agent的执行规范
 
 参见[项目](https://github.com/Asunazzz123/Codex-Reviewer)
+
+
+### Codex 上下文长度修改
+
+`ChatGPT-5.4`默认支持1M的上下文，但是Codex的设定默认上下文长度为256K。通过这个方式可以进行上下文长度的修改
+
+```shell
+vim ~/.codex/config.toml
+```
+
+```toml
+model_context_window = 1000000  # 上下文修改为1M
+model_auto_compact_token_limit = 500000 # 压缩上下文为500K
+```
