@@ -34,7 +34,7 @@ description: 关于市面上的生成式AI的使用攻略
 
 ## 常见问题与实现
 
-### Codex WSL checkin 遇到 NAT 通信阻拦
+### Codex WSL login 遇到 NAT 通信阻拦
 WSL默认NAT隔离内网，在Win11+WSL2中可以使用镜像模式，WSL可以共享宿主机的`Localhost`(如果使用Clash,通过`127.0.0.1:7890`)
 ```powershell
 cd $env:USERPROFILE
