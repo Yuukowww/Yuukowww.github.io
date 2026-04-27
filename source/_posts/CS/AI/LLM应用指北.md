@@ -34,8 +34,8 @@ description: 关于市面上的生成式AI的使用攻略
 #### 1. VSCode 插件
 在Windows端最容易实现的方案，在VSCode的左侧插件市场进行安装，并登陆帐号或者配置API就可以使用。配置API的方法见后文
 
-![fig-codexplugin](../../../picture/Codex/shoot3.png)
-![fig-claudeplugin](../../../picture/Codex/shoot4.png)
+![fig-codexplugin](/picture/Codex/shoot3.png)
+![fig-claudeplugin](/picture/Codex/shoot4.png)
 
 #### 2. CLI - 命令行工具
 CLI适合长时间改代码、跑测试、做多轮项目任务。核心策略是先看代码实际放在哪里：
@@ -149,7 +149,7 @@ https://persistent.oaistatic.com/codex-app-prod/Codex.dmg
 ## Codex Team / Plus account 管理
 
 [Cockpit-tools](https://github.com/jlcodes99/cockpit-tools) 快速切换多个team / plus账号的Codex登陆，实时查看账户额度刷新情况
-![fig](../../../picture/Codex/shoot2.png)
+![fig](/picture/Codex/shoot2.png)
 ## Cli API 管理
 [CC-Switch](https://github.com/farion1231/cc-switch) CC-Switch，管理API提供商，一键切换API，支持Claude Code/ Codex等管理。
 
