@@ -17,8 +17,8 @@ description: 关于市面上的生成式AI的使用攻略
 > **外国AI**
 >
 > - **Google Gemini** [官网](gemini.google.com)  [AI Studio](aistudio.google.com) 薅羊毛:学生优惠(已失效)
-> - **ChatGPT** [官网](chatgpt.com) 薅羊毛:大兵优惠(已失效)、Business(闲鱼5r)
-> - **Claude** [官网](claude.ai)
+> - **ChatGPT** [官网](chatgpt.com) 薅羊毛:大兵优惠(已失效)、Business(闲鱼5r)、Plus
+> - **Claude** [官网](claude.ai) 中转站
 
 
 
@@ -28,8 +28,16 @@ description: 关于市面上的生成式AI的使用攻略
 > - **Codex** ChatGPT 的 Coding Agent,平台 CLI/VSCode插件 + GUI(MacOS)， 免费额度大，有Business account用不完 夯
 > - **AntiGravity** Google的 AI Coding IDE, 支持Gemini Claude ChatGPT 的大杯模型, 代理模式登陆困难, 有pro大杯
 > - **Cursor** AI Coding IDE
-> - **Vscode Copilot** VSCode 插件，学生验证后300次/月访问，之前夯现在中杯
+> - **Vscode Copilot** VSCode 插件，学生验证后300次/月访问，能力较差
 
+
+
+## Codex Team / Plus account 管理
+
+[Cockpit-tools](https://github.com/jlcodes99/cockpit-tools) 快速切换多个team / plus账号的Codex登陆，实时查看账户额度刷新情况
+![fig](../../../picture/Codex/shoot2.png)
+## Cli API 管理
+[CC-Switch](https://github.com/farion1231/cc-switch) CC-Switch，管理API提供商，一键切换API，支持Claude Code/ Codex等管理。
 
 
 ## 常见问题与实现
