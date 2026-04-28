@@ -204,13 +204,13 @@ export ALL_PROXY=http://127.0.0.1:7890
 
 ### Codex 异步multi-agent实现
 
-
-VSCode Codex 
-
 使用`CODEX.md`作为主Agent的执行规范，使用`AGENT.md`作为审核Agent的执行规范
 
 参见[项目](https://github.com/Asunazzz123/Codex-Reviewer)
 
+**ClaudeCode+Codex**
+
+通过官方plugin实现 https://github.com/openai/codex-plugin-cc
 
 ### Codex 上下文长度修改
 
