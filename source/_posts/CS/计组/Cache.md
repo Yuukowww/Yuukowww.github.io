@@ -4,7 +4,7 @@ date: 2026-05-08
 description: 计算机组成 -- 高速缓存 Cache
 categories: 计组
 math: true
-cover: picture/neuro2.jpg
+cover: picture/neuro2.png
 ---
 # Cache
 
