@@ -11,3 +11,9 @@ cover: picture/amiya1.jpg
 # Attention is All You Need
 
 ## 模块
+
+### Attention与 Multi-Head Attention
+
+$$
+\mathrm{Attention}(Q,K,V) = \mathrm{Softmax}(\frac{QK^T}{\sqrt{d_k}})V
+$$
