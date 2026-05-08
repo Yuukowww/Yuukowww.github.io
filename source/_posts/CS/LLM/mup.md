@@ -4,7 +4,7 @@ date: 2026-05-07
 description: 论文笔记
 categories: LLM
 math: true
-cover: picture/amiya1.jpg
+cover: picture/asuna2.jpg
 ---
 
 # Tuning Large Neural Networks via Zero-Shot Hyperparameter Transfer
