@@ -32,6 +32,8 @@ description: 关于市面上的生成式AI的使用攻略
 
 ### Claude Code / Codex 使用方式
 #### 1. VSCode 插件
+https://code.visualstudio.com/
+
 在Windows端最容易实现的方案，在VSCode的左侧插件市场进行安装，并登陆帐号或者配置API就可以使用。配置API的方法见后文
 
 ![fig-codexplugin](/picture/Codex/shoot3.png)
