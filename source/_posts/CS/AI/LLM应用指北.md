@@ -140,12 +140,13 @@ brew install --cask claude-code
 
 参考：[Codex CLI官方文档](https://developers.openai.com/codex/cli)、[Codex Windows指南](https://developers.openai.com/codex/windows)、[Claude Code安装文档](https://code.claude.com/docs/en/setup)
 
-#### 3. Desktop
-Windows端安装Codex Desktop需要通过Microsoft Store，非常困难
+#### 3. Desktop APP
+Windows端安装Codex Desktop需要通过Microsoft Store，比较困难
 
 Mac 端安装
 https://persistent.oaistatic.com/codex-app-prod/Codex.dmg
 
+![fig-claudeplugin](/picture/Codex/shoot5.png)
 
 
 ## Codex Team / Plus account 管理
