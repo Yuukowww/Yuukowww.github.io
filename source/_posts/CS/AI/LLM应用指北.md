@@ -10,8 +10,8 @@ description: 关于市面上的生成式AI的使用攻略
 
 > **国内AI**
 > 
-> - Deepseek: [官网](https://deepseek.cn) [API](https://platform.deepseek.cn) 最新V4 Flash 与 V4pro(2.5折)
-> - Qwen: [官网](https://cn.aliyun.com/benefit/scene/ai-discount?from_alibabacloud=) 学生300r羊毛
+> - Deepseek: [官网](https://deepseek.com) [API](https://platform.deepseek.com) 最新V4 Flash 与 V4pro(2.5折)
+> - Qwen: [官网](https://cn.aliyun.com) 学生300r羊毛
 > - 智谱: [官网](https://bigmodel.cn/) Coding Plan
 
 > **外国AI**
