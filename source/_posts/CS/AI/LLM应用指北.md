@@ -10,15 +10,15 @@ description: 关于市面上的生成式AI的使用攻略
 
 > **国内AI**
 > 
-> - Deepseek: [官网](deepseek.cn) [API](platform.deepseek.cn) 最新V4 Flash 与 V4pro(2.5折)
+> - Deepseek: [官网](https://deepseek.cn) [API](https://platform.deepseek.cn) 最新V4 Flash 与 V4pro(2.5折)
 > - Qwen: [官网](https://cn.aliyun.com/benefit/scene/ai-discount?from_alibabacloud=) 学生300r羊毛
 > - 智谱: [官网](https://bigmodel.cn/) Coding Plan
 
 > **外国AI**
 >
-> - **Google Gemini** [官网](gemini.google.com)  [AI Studio](aistudio.google.com) 薅羊毛:学生优惠(已失效)
-> - **ChatGPT** [官网](chatgpt.com) 薅羊毛:大兵优惠(已失效)、Business(闲鱼5r)、Plus
-> - **Claude** [官网](claude.ai) 中转站
+> - **Google Gemini** [官网](https://gemini.google.com)  [AI Studio](https://aistudio.google.com) 薅羊毛:学生优惠(已失效)
+> - **ChatGPT** [官网](https://chatgpt.com) 薅羊毛:大兵优惠(已失效)、Business(闲鱼5r)、Plus
+> - **Claude** [官网](https://claude.ai) 中转站
 
 
 
