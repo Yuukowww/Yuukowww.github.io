@@ -157,7 +157,9 @@ brew install --cask claude-code
 参考：[Codex CLI官方文档](https://developers.openai.com/codex/cli)、[Codex Windows指南](https://developers.openai.com/codex/windows)、[Claude Code安装文档](https://code.claude.com/docs/en/setup)
 
 #### 3. Desktop APP
-Windows端安装Codex Desktop需要通过Microsoft Store，比较困难
+Windows端Codex app 的安装
+https://github.com/Asunazzz123/CodexWinSrc/tree/main
+下载msix文件后安装，可以先通过Cockpit-tools登录账号或配置好API后再打开
 
 Mac 端安装
 https://persistent.oaistatic.com/codex-app-prod/Codex.dmg
@@ -169,6 +171,7 @@ https://persistent.oaistatic.com/codex-app-prod/Codex.dmg
 
 [Cockpit-tools](https://github.com/jlcodes99/cockpit-tools) 快速切换多个team / plus账号的Codex登陆，实时查看账户额度刷新情况
 ![fig](/picture/Codex/shoot2.png)
+
 ## Cli API 管理
 [CC-Switch](https://github.com/farion1231/cc-switch) CC-Switch，管理API提供商，一键切换API，支持Claude Code/ Codex等管理。
 
@@ -209,8 +212,6 @@ export ALL_PROXY=http://127.0.0.1:7890
 // EOF
 // source ~/.bashrc
 ```
-
-
 
 
 
