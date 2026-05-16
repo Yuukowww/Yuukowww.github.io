@@ -244,3 +244,19 @@ vim ~/.codex/config.toml
 model_context_window = 1000000  # 上下文修改为1M
 model_auto_compact_token_limit = 500000 # 当上下文到达500K后压缩上下文
 ```
+
+
+### 手机端ChatGPT 远程控制桌面端Codex Desktop
+
+Mac 端最新Codex Desktop 版本已经支持直接连接，在手机端ChatGPT连接即可。
+
+Windows 端需要修改Codex setting
+```
+# ~/.codex/config.toml
+
+[feature]
+remote_connections = true
+remote_control = true
+```
+
+
