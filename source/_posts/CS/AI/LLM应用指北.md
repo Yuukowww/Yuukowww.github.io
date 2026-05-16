@@ -259,4 +259,8 @@ remote_connections = true
 remote_control = true
 ```
 
+### Codex Chrome Plugin 下载失败的问题
+https://www.reddit.com/r/codex/comments/1t9izci/psa_quick_fix_for_codex_chrome_plugin_missing_on/
+
+某些区域IP会出现，更换结点后刷新
 
