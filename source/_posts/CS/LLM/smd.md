@@ -12,13 +12,13 @@ cover: picture/kasuga3.jpg
 
 ## 基本假设
 
-> **Hypothesis 1.** 稳定性假设
+> **Hypothesis 1.** **稳定性假设**
 >
 > - 学习率远小于1 $\eta \ll 1$
 > - 达到**稳定态**时(即权重范数收敛时)， 有 $\|w_{t}\|\simeq\|w_{t+1}\|$
 
 
-> **Scaling-Invarient**
+> **Hypothesis 2.** **Scaling-Invarient**
 >
 > $$
 > \forall k, \mathcal{L}(kw) = \mathcal{L}(w)
