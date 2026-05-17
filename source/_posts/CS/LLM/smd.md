@@ -15,7 +15,7 @@ cover: picture/kasuga3.jpg
 > **Hypothesis 1.** 稳定性假设
 >
 > - 学习率远小于1 $\eta \ll 1$
-> - 达到**稳定态**时(即权重范数收敛时)， 有$ \|w_{t}\|\simeq\|w_{t+1}\|$
+> - 达到**稳定态**时(即权重范数收敛时)， 有 $\|w_{t}\|\simeq\|w_{t+1}\|$
 
 
 > **Scaling-Invarient**
@@ -136,7 +136,7 @@ $$
 x^* = \sqrt{\frac{B}{1-A}}
 $$
 对于充分大的$t$， 有
-- $\forall t,x_t< x^* $
+- $\forall t,x_t< x^*$
 则
 $$
 \begin{aligned}
