@@ -1,10 +1,11 @@
 ---
 title: Spherical motion dynamic -- 球面动力学
 date: 2026-05-17
+update: 2026-05-17
 description: 论文笔记
 categories: LLM
 math: true
-cover: picture/asuna2.jpg
+cover: picture/kasuga3.jpg
 ---
 # Spherical motion dynamic
 本文主要介绍了归一化神经网络在训练中，在 Weight Decay 的约束下，**权重范数（Weight Norm）和角度更新步长（Angular Update）** 会以线性速率收敛到由超参数决定的平衡态值。
