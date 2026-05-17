@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/><meta name="theme-color" content="#222"/><meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1"/><meta name="renderer" content="webkit"/><link rel="icon" type="image/ico" sizes="32x32" href="/assets/favicon.ico"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/><link rel="alternate" href="/rss.xml" title="Yuukoの小屋" type="application/rss+xml"><link rel="alternate" href="/atom.xml" title="Yuukoの小屋" type="application/atom+xml"><link rel="alternate" type="application/json" title="Yuukoの小屋" href="https://yuukowww.github.io/feed.json"/><link rel="preconnect" href="https://s4.zstatic.net"/><link rel="preconnect" href="https://at.alicdn.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CFredericka%20the%20Great:400,400italic,700,700italic%7CNoto%20Serif%20JP:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CInconsolata:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" media="none" onload="this.media&#x3D;&#39;all&#39;"><link rel="modulepreload" href="/js/siteInit.js"></link><link rel="modulepreload" href="/js/nyx-player-7KEBWMUD.js"></link><link rel="modulepreload" href="/js/copy-tex-2PUB5UWL.js"></link><link rel="modulepreload" href="/js/post-3AW7O4XW.js"></link><link rel="modulepreload" href="/js/chunk-ZPKPLRXM.js"></link><link rel="modulepreload" href="/js/chunk-ZMKMXQVE.js"></link><link rel="stylesheet" href="/css/siteInit.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="preload" href="/picture/ginka1.jpg" as="image" fetchpriority="high"><meta name="keywords" content="日常工作"/><meta name="description" content="用 Google Colab 和 Google Drive 转接 Figshare、Zenodo 等外网学术文件下载"/><link rel="canonical" href="https://yuukowww.github.io/2026/02/20/CS/AI/Google-Drive%E4%B8%8B%E8%BD%BD%E8%BD%AC%E6%8E%A5/"><link rel="stylesheet" href="/css/post.css?v=0.5.4"><link rel="stylesheet" href="/css/mermaid.css?v=0.5.4"><!-- 临时处理--><link rel="stylesheet" media="none" onload="this.media='all'" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css"><title>Google Drive 下载转接</title><meta name="generator" content="Hexo 7.3.0"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="pagefind_mount"></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">Google Drive 下载转接</h1><div class="meta"><span class="item" title="创建时间：2026-02-21 00:00:00"><span class="icon"><i class="ic i-calendar"></i></span><span class="text">发表于</span><time itemprop="dateCreated datePublished" datetime="2026-02-21T00:00:00+08:00">2026-02-21</time></span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i></span><span class="text">本文字数</span><span>6.8k</span><span class="text">字</span></span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i></span><span class="text">阅读时长</span><span>6 分钟</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span><span class="line"></span><span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">Yuuko</a></li></ul><ul class="right" id="rightNav"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li></ul></div></nav></div><div class="pjax" id="imgs"><img src="/picture/ginka1.jpg" loading="eager" decoding="async" fetchpriority="high" alt="Yuukoの小屋"></div></header><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"></use><use xlink:href="#gentle-wave" x="48" y="3"></use><use xlink:href="#gentle-wave" x="48" y="5"></use><use xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></div><main><div class="inner"><div class="pjax" id="main"><div class="article wrap"><div class="breadcrumb" itemListElement itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i><span><a href="/">首页</a></span><i class="ic i-angle-right"></i><span class="current" itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem"><a href="/categories/AI/" itemprop="item" rel="index" title="分类于AI"><span itemprop="name">AI<meta itemprop="position" content="0"/></span></a></span></div><article class="post block" itemscope="itemscope" itemtype="http://schema.org/Article" data-pagefind-body="data-pagefind-body" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://yuukowww.github.io/2026/02/20/CS/AI/Google-Drive%E4%B8%8B%E8%BD%BD%E8%BD%AC%E6%8E%A5/"/><span hidden="hidden" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta itemprop="image" content="/assets/avatar.jpg"/><meta itemprop="name" content="Yuuko"/><meta itemprop="description" content=", Amor che nella mente mi regiona."/></span><span hidden="hidden" itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Yuukoの小屋"/></span><div class="body md" itemprop="articleBody"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1><span id="google-drive-下载转接"> Google Drive 下载转接</span></h1>
+<p>有些数据集、模型权重或者压缩包在本地网络下直连下载很慢，尤其是 Figshare、Zenodo 这类学术文件站点：网页能打开，文件却经常下到一半断掉。一个比较省事的思路是把 <strong>Google Colab 当作云端下载机器</strong>，把 <strong>Google Drive 当作落盘位置</strong>：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>真实文件下载链接 -> Colab 临时盘 / 云端运行环境 -> Google Drive -> 本地同步 / 网页下载</span></span></code></pre>
+<p>这个方法本质上不是破解限速，而是换一个更稳定的云端网络环境做中转。适合处理公开数据集、开源模型、论文附件、课程资料这类合法资源；不适合绕过版权、付费墙或平台权限。</p>
+<h2><span id="适用场景"> 适用场景</span></h2>
+<blockquote>
+<p><strong>比较适合</strong></p>
+<ul>
+<li>Figshare、Zenodo、OSF 等学术数据仓库的大文件</li>
+<li>GitHub Releases、公开模型权重、课程资料压缩包</li>
+<li>下载源站对本地网络不稳定，但 Google 云端访问比较顺畅的情况</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>不太适合</strong></p>
+<ul>
+<li>需要浏览器登录态、Cookie 或一次性 Token 的私有文件</li>
+<li>需要频繁下载上万个小文件的目录</li>
+<li>Google Drive 空间不足，或者本地到 Google Drive 本身也很慢的情况</li>
+</ul>
+</blockquote>
+<p>注意最后一步“从 Drive 拉回本地”仍然取决于本地网络；这个方案的优点主要是让源站到云端的下载更稳定，并且把容易断线的源站下载变成更容易恢复的 Drive 下载。</p>
+<h2><span id="准备工作"> 准备工作</span></h2>
+<blockquote>
+<p><strong>需要的东西</strong></p>
+<ul>
+<li>一个 Google 账号</li>
+<li>足够的 Google Drive 空间</li>
+<li>一个 Google Colab Notebook</li>
+<li>本地下载方式：网页端下载、Google Drive for desktop，或者 <code>rclone</code></li>
+</ul>
+</blockquote>
+<p>如果只是偶尔转接文件，网页端就够了；如果经常搬大文件，建议装 Google Drive for desktop，或者配置 <code>rclone</code>，这样本地下载和断点续传更稳。</p>
+<h2><span id="挂载-google-drive"> 挂载 Google Drive</span></h2>
+<p>在 Colab 新建一个 Notebook，先运行：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">from</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> google</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">colab </span><span style="color:#1E754F;--shiki-dark:#4D9375">import</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> drive</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">drive</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">mount</span><span style="color:#2993a3;--shiki-dark:#5eaab5">(</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#2993a3;--shiki-dark:#5eaab5">)</span></span></code></pre>
+<p>授权后，自己的云盘会出现在：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>/content/drive/MyDrive</span></span></code></pre>
+<p>单独建一个中转目录，避免把大量文件直接扔到 Drive 根目录：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">import</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> os</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">save_dir </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">os</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">makedirs</span><span style="color:#2993a3;--shiki-dark:#5eaab5">(</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">save_dir</span><span style="color:#999999;--shiki-dark:#666666">,</span><span style="color:#B07D48;--shiki-dark:#BD976A"> exist_ok</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#1E754F;--shiki-dark:#4D9375">True</span><span style="color:#2993a3;--shiki-dark:#5eaab5">)</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">save_dir</span></span></code></pre>
+<p>同时建一个 Colab 临时目录。大文件建议先落到这里，确认完整后再复制进 Drive：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">tmp_dir </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/tmp_download</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">os</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">makedirs</span><span style="color:#2993a3;--shiki-dark:#5eaab5">(</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">tmp_dir</span><span style="color:#999999;--shiki-dark:#666666">,</span><span style="color:#B07D48;--shiki-dark:#BD976A"> exist_ok</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#1E754F;--shiki-dark:#4D9375">True</span><span style="color:#2993a3;--shiki-dark:#5eaab5">)</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">tmp_dir</span></span></code></pre>
+<p><code>/content</code> 是 Colab 运行时临时盘，速度通常比直接写 Drive 更稳；缺点是运行时断开后可能被清空。</p>
+<h2><span id="拿到真实下载链接"> 拿到真实下载链接</span></h2>
+<p>这一步最容易出错。很多时候复制到的是论文页面、项目页面或预览页面，而不是文件本身的下载 URL。用 <code>wget</code> 或 <code>aria2</code> 下载这种链接，最后得到的往往是一份 HTML，而不是数据文件。</p>
+<blockquote>
+<p><strong>Figshare</strong></p>
+<ul>
+<li>进入文件详情页，优先对具体文件的下载按钮复制链接。</li>
+<li>如果复制的链接很快失效，可以先在浏览器里点一次下载，再从浏览器下载任务里复制正在使用的下载 URL。</li>
+<li>Figshare 的下载地址可能带有临时参数，过期后需要重新复制。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Zenodo</strong></p>
+<ul>
+<li>在记录页面的文件列表里，对单个文件的下载按钮复制链接。</li>
+<li>正常的文件链接通常会指向 <code>records/&lt;record_id&gt;/files/&lt;filename&gt;</code>，并带有 <code>download=1</code> 一类参数。</li>
+<li>不要只复制记录页面 URL，否则命令行拿到的是网页内容。</li>
+</ul>
+</blockquote>
+<p>拿到链接后可以先探测一下响应头：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">url </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">https://example.com/file.zip</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">wget </span><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">--</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">spider </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">S </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$url</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#2F798A;--shiki-dark:#4C9A91"> 2</span><span style="color:#AB5959;--shiki-dark:#CB7676">></span><span style="color:#AB5959;--shiki-dark:#CB7676">&#x26;</span><span style="color:#2F798A;--shiki-dark:#4C9A91">1</span><span style="color:#AB5959;--shiki-dark:#CB7676"> |</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> head </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">n </span><span style="color:#2F798A;--shiki-dark:#4C9A91">30</span></span></code></pre>
+<p>如果响应里是 <code>text/html</code>、登录页、403、404，或者文件大小明显不对，先回到网页重新复制下载链接。</p>
+<h2><span id="普通直链下载"> 普通直链下载</span></h2>
+<p>对于可以直接 <code>wget</code> 的链接，最短写法：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">url </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">https://example.com/file.zip</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">out </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay/file.zip</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">wget </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">c </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">O </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$out</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">$url</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>参数含义：</p>
+<blockquote>
+<ul>
+<li><code>-c</code>：断点续传</li>
+<li><code>-O</code>：指定保存文件名</li>
+<li>引号：路径或链接里有特殊字符时更安全</li>
+</ul>
+</blockquote>
+<p>下载完成后检查一下文件大小：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">ls </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">lh </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>如果想沿用服务器返回的文件名，可以用：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">url </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">https://example.com/file.zip</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">save_dir </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">wget </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">c </span><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">--</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">content</span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">disposition </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">P </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$save_dir</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">$url</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>但对 Figshare、Zenodo 这类带临时参数的链接，我更推荐显式写出文件名，避免保存成一串很长的查询参数。</p>
+<h2><span id="大文件用-aria2"> 大文件用 aria2</span></h2>
+<p>如果目标服务器支持多连接，<code>aria2</code> 通常比 <code>wget</code> 更舒服：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">apt</span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">get </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">qq update</span></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">apt</span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">get </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">qq install </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">y aria2</span></span></code></pre>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">url </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">https://example.com/big-file.tar.gz</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">save_dir </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">aria2c </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">c </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">x </span><span style="color:#2F798A;--shiki-dark:#4C9A91">16</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">s </span><span style="color:#2F798A;--shiki-dark:#4C9A91">16</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">d </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$save_dir</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">o </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">big-file.tar.gz</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">$url</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>常用参数：</p>
+<blockquote>
+<ul>
+<li><code>-c</code>：继续未完成任务</li>
+<li><code>-x 16</code>：单服务器最大连接数</li>
+<li><code>-s 16</code>：分片数</li>
+<li><code>-d</code>：保存目录</li>
+<li><code>-o</code>：保存文件名</li>
+</ul>
+</blockquote>
+<p>如果目标文件非常大，直接写入 Drive 有时会因为 DriveFS 抖动变慢。可以先下载到 Colab 临时盘，再复制进 Drive：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">import</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> os</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">url </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">https://example.com/big-file.tar.gz</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">filename </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">big-file.tar.gz</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">tmp_dir </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/tmp_download</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">drive_dir </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">os</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">makedirs</span><span style="color:#2993a3;--shiki-dark:#5eaab5">(</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">tmp_dir</span><span style="color:#999999;--shiki-dark:#666666">,</span><span style="color:#B07D48;--shiki-dark:#BD976A"> exist_ok</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#1E754F;--shiki-dark:#4D9375">True</span><span style="color:#2993a3;--shiki-dark:#5eaab5">)</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">os</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">makedirs</span><span style="color:#2993a3;--shiki-dark:#5eaab5">(</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">drive_dir</span><span style="color:#999999;--shiki-dark:#666666">,</span><span style="color:#B07D48;--shiki-dark:#BD976A"> exist_ok</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#1E754F;--shiki-dark:#4D9375">True</span><span style="color:#2993a3;--shiki-dark:#5eaab5">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">aria2c </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">c </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">x </span><span style="color:#2F798A;--shiki-dark:#4C9A91">16</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">s </span><span style="color:#2F798A;--shiki-dark:#4C9A91">16</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">d </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$tmp_dir</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">o </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$filename</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">$url</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">cp </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$tmp_dir/$filename</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">$drive_dir/</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>注意 <code>/content</code> 是临时盘，运行时断开后可能清空，所以复制到 Drive 之前不要关掉运行时。</p>
+<p>复制后可以简单校验一下大小和哈希：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">ls </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">lh </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$tmp_dir/$filename</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">$drive_dir/$filename</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">sha256sum </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$tmp_dir/$filename</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">$drive_dir/$filename</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<h2><span id="google-drive-分享文件"> Google Drive 分享文件</span></h2>
+<p>如果目标本身就是 Google Drive 分享链接，用 <code>gdown</code> 更顺手：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">pip </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">q install gdown</span></span></code></pre>
+<p>单文件：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">link </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">https://drive.google.com/file/d/FILE_ID/view?usp=sharing</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">gdown </span><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">--</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">fuzzy </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$link</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">O </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay/</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>文件夹：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">folder </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">https://drive.google.com/drive/folders/FOLDER_ID</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">gdown </span><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">--</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">folder </span><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">--</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">fuzzy </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$folder</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">O </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>如果遇到权限错误，先确认分享设置是不是“知道链接的任何人可查看”。如果是私有文件，Colab 里的 <code>gdown</code> 不会自动拿到你的浏览器登录状态。</p>
+<h2><span id="多链接批量转接"> 多链接批量转接</span></h2>
+<p>可以把链接写成一个列表，然后逐个下载：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">urls </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#999999;--shiki-dark:#666666"> </span><span style="color:#2993a3;--shiki-dark:#5eaab5">[</span></span>
+<span class="line"><span style="color:#B5695977;--shiki-dark:#C98A7D77">    "</span><span style="color:#B56959;--shiki-dark:#C98A7D">https://example.com/a.zip</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#999999;--shiki-dark:#666666">,</span></span>
+<span class="line"><span style="color:#B5695977;--shiki-dark:#C98A7D77">    "</span><span style="color:#B56959;--shiki-dark:#C98A7D">https://example.com/b.zip</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#999999;--shiki-dark:#666666">,</span></span>
+<span class="line"><span style="color:#2993a3;--shiki-dark:#5eaab5">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">save_dir </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">for</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> url </span><span style="color:#1E754F;--shiki-dark:#4D9375">in</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> urls</span><span style="color:#999999;--shiki-dark:#666666">:</span></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">    !</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">aria2c </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">c </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">x </span><span style="color:#2F798A;--shiki-dark:#4C9A91">8</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">s </span><span style="color:#2F798A;--shiki-dark:#4C9A91">8</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">d </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">$save_dir</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">$url</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>更推荐把链接保存成 <code>urls.txt</code>：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>https://example.com/a.zip</span></span>
+<span class="line"><span>https://example.com/b.zip</span></span></code></pre>
+<p>然后：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">aria2c </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">c </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">x </span><span style="color:#2F798A;--shiki-dark:#4C9A91">8</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">s </span><span style="color:#2F798A;--shiki-dark:#4C9A91">8</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">i </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay/urls.txt</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#AB5959;--shiki-dark:#CB7676"> -</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">d </span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>这样 Notebook 里不会塞一堆长链接，也方便以后复用。对于容易过期的 Figshare 链接，不建议把 <code>urls.txt</code> 放太久；最好复制完链接后尽快启动下载。</p>
+<h2><span id="从-drive-拉回本地"> 从 Drive 拉回本地</span></h2>
+<blockquote>
+<p><strong>网页端</strong></p>
+<p>直接打开 Google Drive，进入 <code>download-relay</code> 文件夹下载。小文件和少量文件最省心。大文件如果仍然很慢，可以换桌面客户端或 <code>rclone</code>。</p>
+</blockquote>
+<blockquote>
+<p><strong>桌面客户端</strong></p>
+<p>安装 Google Drive for desktop 后，Drive 会出现在系统文件管理器里。大文件可以等它自动同步，也可以选择需要离线保存的文件夹。</p>
+</blockquote>
+<blockquote>
+<p><strong>rclone</strong></p>
+<p>命令行用户可以配置一个 Google Drive remote：</p>
+</blockquote>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#59873A;--shiki-dark:#80A665">rclone</span><span style="color:#B56959;--shiki-dark:#C98A7D"> config</span></span></code></pre>
+<p>假设 remote 名叫 <code>gdrive</code>，拉取中转目录：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#59873A;--shiki-dark:#80A665">rclone</span><span style="color:#B56959;--shiki-dark:#C98A7D"> copy</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">gdrive:download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">./download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#A65E2B;--shiki-dark:#C99076"> -P</span></span></code></pre>
+<p><code>-P</code> 会显示进度，也方便观察是否卡住。</p>
+<p>如果文件很大，可以保守一点减少并发、增加重试：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#59873A;--shiki-dark:#80A665">rclone</span><span style="color:#B56959;--shiki-dark:#C98A7D"> copy</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">gdrive:download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">./download-relay</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="color:#A65E2B;--shiki-dark:#C99076"> -P</span><span style="color:#A65E2B;--shiki-dark:#C99076"> --transfers</span><span style="color:#2F798A;--shiki-dark:#4C9A91"> 2</span><span style="color:#A65E2B;--shiki-dark:#C99076"> --checkers</span><span style="color:#2F798A;--shiki-dark:#4C9A91"> 4</span><span style="color:#A65E2B;--shiki-dark:#C99076"> --retries</span><span style="color:#2F798A;--shiki-dark:#4C9A91"> 10</span><span style="color:#A65E2B;--shiki-dark:#C99076"> --low-level-retries</span><span style="color:#2F798A;--shiki-dark:#4C9A91"> 20</span></span></code></pre>
+<h2><span id="常见问题"> 常见问题</span></h2>
+<blockquote>
+<p><strong>Colab 断开怎么办？</strong></p>
+<p><code>wget -c</code> 和 <code>aria2c -c</code> 都可以尽量续传，但前提是临时文件还在。重要文件尽快写入 Drive，不要长时间依赖 <code>/content</code>。</p>
+</blockquote>
+<blockquote>
+<p><strong>Drive 挂载很慢？</strong></p>
+<p>不要把上万个文件放在 <code>MyDrive</code> 根目录。建子文件夹，批量小文件最好先压缩，再写入 Drive。大文件优先先写 <code>/content/tmp_download</code>，再复制到 Drive。</p>
+</blockquote>
+<blockquote>
+<p><strong>下载下来的不是压缩包，而是 HTML？</strong></p>
+<p>大概率复制错了链接，拿到的是网页地址、登录页或过期地址。用 <code>file</code> 或 <code>head</code> 检查一下：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-python"><span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#B07D48;--shiki-dark:#BD976A">file</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay/file.zip</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span>
+<span class="line"><span style="color:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">!</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">head </span><span style="color:#AB5959;--shiki-dark:#CB7676">-</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">n </span><span style="color:#2F798A;--shiki-dark:#4C9A91">5</span><span style="color:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="color:#B56959;--shiki-dark:#C98A7D">/content/drive/MyDrive/download-relay/file.zip</span><span style="color:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<p>如果看到 <code>HTML document</code>、<code>&lt;!doctype html&gt;</code> 或登录提示，就回网页重新复制真实下载 URL。</p>
+</blockquote>
+<blockquote>
+<p><strong>Figshare / Zenodo 链接过期怎么办？</strong></p>
+<p>重新从文件下载按钮复制链接。Figshare 的临时下载链接尤其不要隔夜保存，复制后尽快启动 <code>wget</code> 或 <code>aria2</code>。</p>
+</blockquote>
+<blockquote>
+<p><strong>下载链接带鉴权怎么办？</strong></p>
+<p>有些链接依赖浏览器 Cookie 或登录状态，直接 <code>wget</code> 会拿到 HTML 登录页。可以优先寻找官方提供的直链、API 下载方式，或者手动下载。不要把自己的 Cookie、Token 写进公开 Notebook。</p>
+</blockquote>
+<blockquote>
+<p><strong>Drive 到本地仍然慢怎么办？</strong></p>
+<p>这是正常的，因为最后一步还是本地连 Google。可以换 Google Drive for desktop 或 <code>rclone</code>，也可以把大文件拆分成较少的压缩包分批同步。这个方案解决的是“源站到 Colab”这一段的稳定性，不保证“Drive 到本地”一定高速。</p>
+</blockquote>
+<blockquote>
+<p><strong>能不能拿来下任意资源？</strong></p>
+<p>不建议。这个方案适合合法公开资源，不要用来绕过版权、付费墙或平台限制。</p>
+</blockquote>
+<h2><span id="小结"> 小结</span></h2>
+<p>Google Drive 下载转接的核心很简单：</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>Colab 负责把公开文件从外网拉下来，Drive 负责保存，本地再从 Drive 取回。</span></span></code></pre>
+<p>日常使用时，我会按这个顺序操作：</p>
+<blockquote>
+<ul>
+<li>先确认复制的是“真实文件下载 URL”，不是网页 URL。</li>
+<li>小文件直链：<code>wget -c</code></li>
+<li>大文件直链：<code>aria2c</code></li>
+<li>超大文件：先下载到 <code>/content/tmp_download</code>，再复制到 <code>MyDrive/download-relay</code></li>
+<li>Google Drive 分享文件：<code>gdown</code></li>
+<li>本地长期同步：Google Drive for desktop / <code>rclone</code></li>
+</ul>
+</blockquote>
+<p>参考：</p>
+<blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1898503078782674027">Figshare/Zenodo上的数据/文件下载不下来？尝试利用Google Colab</a></li>
+<li><a target="_blank" rel="noopener" href="https://support.google.com/drive/answer/7329379">Google Drive for desktop 帮助</a></li>
+<li><a target="_blank" rel="noopener" href="https://rclone.org/docs/">rclone 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://research.google.com/colaboratory/faq.html#drive-timeout">Google Colab Drive FAQ</a></li>
+</ul>
+</blockquote>
+<div class="tags"><a href="/tags/%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C/" rel="tag"><i class="ic i-tag"></i>日常工作</a></div></div><footer><div class="meta"></div><div id="copyright"><ul><li class="author"><strong>本文作者：</strong>Yuuko<i class="ic i-at"><em>@</em></i>Yuukoの小屋</li><li class="link"><strong>本文链接：</strong><a href="https://yuukowww.github.io/2026/02/20/CS/AI/Google-Drive%E4%B8%8B%E8%BD%BD%E8%BD%AC%E6%8E%A5/" title="Google Drive 下载转接">https://yuukowww.github.io/2026/02/20/CS/AI/Google-Drive下载转接/</a></li><li class="license"><strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/2026/02/15/math/%E9%AB%98%E6%96%AF%E5%90%91%E9%87%8F/" rel="prev" itemprop="url" data-background-image="&#x2F;picture&#x2F;kasuga2.jpg" title="随机高斯向量的单位模引理与正交性定理"><span class="type">上一篇</span><span class="category"><i class="ic i-flag"></i>机器学习</span><h3>随机高斯向量的单位模引理与正交性定理</h3></a></div><div class="item right"><a href="/2026/02/23/CS/AI/Markov/" rel="next" itemprop="url" data-background-image="&#x2F;picture&#x2F;miku2.png" title="Markov 过程"><span class="type">下一篇</span><span class="category"><i class="ic i-flag"></i>强化学习</span><h3>Markov 过程</h3></a></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"> Google Drive 下载转接</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text"> 适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text"> 准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text"> 挂载 Google Drive</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text"> 拿到真实下载链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text"> 普通直链下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text"> 大文件用 aria2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.7.</span> <span class="toc-text"> Google Drive 分享文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.8.</span> <span class="toc-text"> 多链接批量转接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.9.</span> <span class="toc-text"> 从 Drive 拉回本地</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.10.</span> <span class="toc-text"> 常见问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.11.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div><div class="related panel pjax" data-title="系列文章"><ul><li  class="active"><a href="/2026/02/20/CS/AI/Google-Drive%E4%B8%8B%E8%BD%BD%E8%BD%AC%E6%8E%A5/" rel="bookmark" title="Google Drive 下载转接">Google Drive 下载转接</a></li><li ><a href="/2026/03/22/CS/AI/LLM%E5%BA%94%E7%94%A8%E6%8C%87%E5%8C%97/" rel="bookmark" title="LLM应用指北">LLM应用指北</a></li></ul></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><img class="image" loading="lazy" decoding="async" itemprop="image" alt="Yuuko" src="/assets/avatar.jpg"/><p class="name" itemprop="name">Yuuko</p><div class="description" itemprop="description">Amor che nella mente mi regiona.</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">25</span><span class="name">文章</span></a></div><div class="item categories"><a href="/categories/"><span class="count">14</span><span class="name">分类</span></a></div><div class="item tags"><a href="/tags/"><span class="count">13</span><span class="name">标签</span></a></div></nav><div class="social"><a target="_blank" rel="noopener" href="https://github.com/Asunazzz123" class="item github" title="https:&#x2F;&#x2F;github.com&#x2F;Asunazzz123"><i class="ic i-github"></i></a></div><div class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-feather"></i>文章</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a></li></ul></li><li class="item"><a href="/link/" rel="section"><i class="ic i-heart"></i>友链</a></li></div></div></div></div><ul id="quick"><li class="prev pjax"><a href="/2026/02/23/CS/AI/Markov/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"><a href="/2026/02/15/math/%E9%AB%98%E6%96%AF%E5%90%91%E9%87%8F/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div><div id="player"></div></main><footer id="footer"><div class="inner"><div class="widgets"></div><div class="status"><div class="copyright">&copy; 2025 -<span itemprop="copyrightYear">2026</span><span class="with-love"><i class="ic i-sakura rotate"></i></span><span class="author" itemprop="copyrightHolder">Yuuko @ Yuuko</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i></span><span title="站点总字数">77k 字</span><span class="post-meta-divider"> | </span><span class="post-meta-item-icon"><i class="ic i-coffee"></i></span><span title="站点阅读时长">1:10</span></div><div class="powered-by">基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & Theme.<a target="_blank" rel="noopener" href="https://github.com/theme-shoka-x/hexo-theme-shokaX/">ShokaX</a></div></div></div></footer></div><script data-config type="text/javascript">var LOCAL = {
+    ispost: true,
+    path: `2026/02/20/CS/AI/Google-Drive下载转接/`,
+    favicon: {
+        show: `（●´3｀●）やれやれだぜ`,
+        hide: `(´Д｀)大変だ！`
+    },
+    search: {
+        placeholder: "文章搜索",
+        empty: "关于 「 ${query} 」，什么也没搜到",
+        stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    nocopy: "false",
+    copyright: `复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。`,
+    copy_tex: false,
+    katex: false,
+    mermaid: false,
+    audio: undefined,
+    nocopy: false,
+    outime: true,
+    template: `<div class="note warning"><p><span class="label warning">文章时效性提示</span><br>这是一篇发布于 {{publish}} 天前，最后一次更新在 {{updated}} 天前的文章，部分信息可能已经发生改变，请注意甄别。</p></div>`,
+    quiz: {
+        choice: `单选题`,
+        multiple: `多选题`,
+        true_false: `判断题`,
+        essay: `问答题`,
+        gap_fill: `填空题`,
+        mistake: `错题备注`
+    }
+};
+</script><script src="/js/siteInit.js?v=0.5.4" type="module" fetchpriority="high" defer></script><script type="module">(() => {
+  const mermaidUrl = "https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.esm.min.mjs";
+  let mermaidLoader;
+
+  const loadMermaid = () => {
+    mermaidLoader ||= import(mermaidUrl).then((mod) => mod.default || mod);
+    return mermaidLoader;
+  };
+
+  const renderMermaid = async () => {
+    const nodes = Array.from(document.querySelectorAll("pre.mermaid, div.mermaid"))
+      .filter((node) => !node.dataset.processed);
+
+    if (!nodes.length) {
+      return;
+    }
+
+    try {
+      const mermaid = await loadMermaid();
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme: "default"
+      });
+
+      await mermaid.run({ nodes });
+      document.querySelectorAll("pre.mermaid > svg, div.mermaid > svg").forEach((svg) => {
+        svg.style.maxWidth = "";
+      });
+    } catch (error) {
+      console.error("Mermaid render failed:", error);
+    }
+  };
+
+  window.shokaxRenderMermaid = renderMermaid;
+  window.addEventListener("DOMContentLoaded", renderMermaid);
+  document.addEventListener("pjax:complete", renderMermaid);
+  document.addEventListener("pjax:success", renderMermaid);
+})();</script></body></html>
