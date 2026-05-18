@@ -2,7 +2,7 @@
 title: 串的模式匹配与KMP算法
 date: 2026-03-31
 tag: [数据结构,算法]
-categories: 算法
+categories: 数据结构
 description: KMP算法的数学与代码实现
 cover: picture/34.png
 ---
