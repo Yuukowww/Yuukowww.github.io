@@ -265,3 +265,40 @@ https://www.reddit.com/r/codex/comments/1t9izci/psa_quick_fix_for_codex_chrome_p
 
 某些区域IP会出现，更换结点后刷新
 
+
+
+### Codex Pet
+
+https://developers.openai.com/codex/app/settings
+
+
+在一个Codex窗口输入
+```plaintext
+$skill-installer hatch-pet
+```
+进行Codex宠物SKILL的创建，重新开启Codex以重新加载SKILL
+
+可以创建自己的宠物
+```plaintext
+$hatch-pet create a new pet inspired by my recent projects
+```
+或者在Codex Pet 平台下载桌宠
+
+https://codex-pets.net/#/
+
+在设置/外观/宠物进行宠物的选择
+
+![fig-pet](/picture/Codex/shoot6.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
