@@ -158,7 +158,8 @@ brew install --cask claude-code
 
 #### 3. Desktop APP
 Windows端Codex app 的安装
-https://github.com/Asunazzz123/CodexWinSrc/tree/main
+https://github.com/Asunazzz123/Codex-Auto-Update-Plugin/tree/main
+codex自动更新脚本，
 下载msix文件后安装，可以先通过Cockpit-tools登录账号或配置好API后再打开
 
 Mac 端安装
