@@ -194,7 +194,7 @@ $$
 \end{aligned}
 $$
 
-此时我们需要梯度模的二阶中心矩稳定，即满足$\mathbb{E}[(L_t-L)^2\big| x_t] = V$， 这就是稳定性的第三个条件
+此时我们需要梯度模的二阶中心矩稳定，即满足 $\mathbb{E}[(L_t-L)^2\big| x_t] = V$， 这就是稳定性的第三个条件
 
 基于这三个条件，我们总有
 $$
@@ -213,4 +213,17 @@ $$
 $$
 \mathrm{E}[(x_{t}-x^*)^2] < (1-2\eta\lambda )^{2t}N +K
 $$
-这便说明了WD-SGD 总会在某一充分大时刻后，以线性速度收敛到稳定态
+这便说明了WD-SGD 总会在某一充分大时刻后，以线性速度收敛到稳定态。WD-SGD 能达到稳定的条件为
+$$
+\begin{dcases}
+\begin{aligned}
+&\text{(梯度模下界存在)}
+&\quad \exists\, l>0
+&\quad L_t>l \\[2mm]
+&\text{(梯度的期望与方差稳定)}
+&\quad \exists\, L,V>0
+&\quad \mathbb{E}[L_t\mid x_t]=L,\ 
+      \mathbb{E}[(L_t-L)^2\mid x_t]=V 
+\end{aligned}
+\end{dcases}
+$$
