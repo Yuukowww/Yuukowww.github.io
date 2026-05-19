@@ -169,4 +169,48 @@ $$
 $$
 x_t > \sqrt{\frac{\eta l}{2\lambda}} - (1-2\eta\lambda)^{t-1}\left|\sqrt{\frac{\eta l}{2\lambda}} - x_1\right|
 $$
+考虑递推
+$$
+x_{t+1} = (1-2\eta\lambda)x_t+\frac{L_t\eta^2}{x_t}
+$$
+真实不动点为
+$$
+\mathbb{E}[x_{t+1}\big| x_t] = (1-2\eta\lambda)\mathbb{E}[x_t]+\mathbb{E}\left[\frac{L_t\eta^2}{x_t}\right]
+$$
+这导出了稳定性的第二个要求：$\mathbb{E}[L_t\big| x_t] = L$，$\|\tilde{g}_t\|^2$的期望稳定。基于这个要求，我们得出
+$$
+x^* = (1-2\eta\lambda )x^* +\frac{L\eta^2}{x^*}
+$$
+$$
+x^* = \sqrt{\frac{\eta L}{2\lambda}}
+$$
+基于最佳平方估计的理念，我们试图去证明权重范数的二阶矩是线性收敛的 
 
+$$
+\begin{aligned}
+\mathbb{E}\left[(x_{t+1}-x^*)^2\big| x_t\right] &= \mathbb{E}\left[ [1-2\eta\lambda -\frac{L\eta^2}{x_tx^*})(x^*-x_t)+\eta^2\frac{L_t-L}{x_t}]^2\big | x_t\right]\\
+&= \left(1-2\eta\lambda-\frac{L\eta^2}{x_tx^*}\right)^2(x^*-x_t)^2 +\eta^2\left(1-2\eta\lambda-\frac{L\eta^2}{x_tx^*}\right)(x^*-x_t)\mathbb{E}\left[\frac{L_t-L}{x_t}\big|x_t\right] + \mathbb{E}\left[\left(\eta^2\frac{L_t-L}{x_t}\right)^2\Big| x_t\right]\\
+&= \left(1-2\eta\lambda-\frac{L\eta^2}{x_tx^*}\right)^2(x^*-x_t)^2 + \frac{\eta^4}{x_t^2} \mathbb{E}[(L_t-L)^2\big| x_t]
+\end{aligned}
+$$
+
+此时我们需要梯度模的二阶中心矩稳定，即满足$\mathbb{E}[(L_t-L)^2\big| x_t] = V$， 这就是稳定性的第三个条件
+
+基于这三个条件，我们总有
+$$
+\begin{aligned}
+\mathbb{E}\left[(x_{t+1}-x^*)^2\big| x_t\right]&\leq (1-2\eta\lambda)^2 (x^*-x_t)^2+\frac{4\lambda V\eta^3}{l}
+\end{aligned}
+$$
+对于整体权重范数的二阶中心矩，且根据全期望公式，有
+$$
+\begin{aligned}
+\mathrm{E}[(x_{t+1}-x^*)^2] & = \mathbb{E}[\mathbb{E}[(x_{t+1}-x^*)^2\big | x_t]]\\
+&\leq (1-2\eta\lambda)^2 \mathbb{E}[(x^*-x_t)^2]+\frac{4\lambda V\eta^3}{l}
+\end{aligned}
+$$
+对于$t< t_0$ 的期望总是一个有限值，因此总有有限的常数$N, K$
+$$
+\mathrm{E}[(x_{t}-x^*)^2] < (1-2\eta\lambda )^{2t}N +K
+$$
+这便说明了WD-SGD 总会在某一充分大时刻下，以线性速度收敛到稳定态
