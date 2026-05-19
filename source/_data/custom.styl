@@ -47,13 +47,19 @@
   padding: .15em .4em
   border-radius: .35em
 
-.md pre.mermaid
+.md pre.mermaid,
+.md div.mermaid
+  width: 60%
+  margin-left: auto
+  margin-right: auto
   text-align: center
+  overflow: visible
 
-.md pre.mermaid > svg
+.md pre.mermaid > svg,
+.md div.mermaid > svg
   display: inline-block
-  width: 88% !important
-  max-width: 52rem !important
+  width: 100% !important
+  max-width: 100% !important
   height: auto !important
 
 .kmp-string-diagram
