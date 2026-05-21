@@ -6,7 +6,7 @@ description: 计算机组成 -- 中央处理器
 tag: [硬件,计组]
 categories: 计组
 math: true
-cover: picture/Dania1.png
+cover: picture/Denia1.png
 ---
 # 中央处理器
 
