@@ -104,7 +104,7 @@ $$
 
 ## Core Concept
 
-**Theorem 1.** SGD 的稳定态
+**Theorem 1.** SGD 的梯度模稳定态
 
 考虑带WD的SGD
 $$
@@ -227,3 +227,7 @@ $$
 \end{aligned}
 \end{dcases}
 $$
+
+**Theorem 2.** SGD的角度更新速度
+
+当归一化梯度模 $\|\tilde{g}_t\|_2$ 趋于稳定时，
