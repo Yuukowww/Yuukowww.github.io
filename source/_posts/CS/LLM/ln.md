@@ -1,5 +1,5 @@
 ---
-title: On Layer Normalization in the Transformer Architecture
+title: Transformer 中的 Layer Normalization与梯度稳定性
 date: 2026-05-23
 update: 2026-05-23
 description: 层归一化位置与训练稳定性
