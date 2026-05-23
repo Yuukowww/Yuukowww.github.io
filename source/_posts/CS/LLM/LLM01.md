@@ -24,7 +24,10 @@ $$
 \begin{aligned}
 Q^TK &= \left(\sum_i W_{Qi} x_i\right)^T\left(\sum_j W_{Kj}x_j\right)\\
 & = \sum_{ij} x_i^T W_{Qi}^T W_{Kj} x_j\\
-& = \sum_{ij} x_i W_{ij} x_j
+& = \sum_{ij} x_i R_{ij} x_j
 \end{aligned}
 $$
 是关于$x$的双线性型
+
+
+
