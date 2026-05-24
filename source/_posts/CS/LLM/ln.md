@@ -116,11 +116,14 @@ $$
 & :=\frac{1}{n}\sum_{j=i}^n\left(\mathrm{d}x^j\right) W_{V,l}
 \end{aligned}
 $$
-其中 $W_{V,l}^i$ 是等效的随机矩阵
+其中 $W_{V,l}$ 是等效的随机矩阵
 $$
 W_{V,l} = \mathrm{Concat}(W_V^i)\cdot W_O 
 $$
-
+对应Jacobian矩阵为
+$$
+J_{\mathrm{MHA}} = \frac{1}{n}\bold{1}\bold{1}^T\otimes W_{V,l}
+$$
 ### LN层Jacobian矩阵谱范数的阶估计
 
 根据上文推导，计算一次训练的整体梯度下降需要评估LN层的Jacobian矩阵的大小。在此我们只考虑未仿射变换的归一化映射的梯度，因为仿射变换后只需要进行梯度的线性缩放。
