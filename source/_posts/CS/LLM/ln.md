@@ -68,17 +68,29 @@ $$
 则Post-LN满足
 $$
 \begin{aligned}
-\mathrm{d}\tilde{x}_t &= J_{\mathrm{LN}}(x_t+\mathrm{MHA}(x_t))\cdot (\mathrm{d} x_t+ \mathrm{d} \mathrm{MHA}(x_t))\\
-&=J_{\mathrm{LN}}(x_t+\mathrm{MHA(x_t)})\cdot(I+J_{\mathrm{MHA}}(x_t)) \cdot \mathrm{d}x_t
+\mathrm{d}\tilde{x}^{post}_t &= J_{\mathrm{LN}}(x^{post}_t+\mathrm{MHA}(x^{post}_t))\cdot (\mathrm{d} x^{post}_t+ \mathrm{d} \mathrm{MHA}(x^{post}_t))\\
+&=J_{\mathrm{LN}}(x^{post}_t+\mathrm{MHA}(x^{post}_t))\cdot(I+J_{\mathrm{MHA}}(x^{post}_t)) \cdot \mathrm{d}x^{post}_t
 \end{aligned}
 $$
 $$
 \begin{aligned}
-\mathrm{d} x_{t+1} = J_\mathrm{LN}(\tilde{x}_t+\mathrm{FFN}(\tilde{x}_t))\cdot (I+J_\mathrm{FFN}(\tilde{x}_t))\mathrm{d}\tilde{x}_t
+\mathrm{d} x^{post}_{t+1} = J_\mathrm{LN}(\tilde{x}^{post}_t+\mathrm{FFN}(\tilde{x}^{post}_t))\cdot (I+J_\mathrm{FFN}(\tilde{x}^{post}_t))\mathrm{d}\tilde{x}^{post}_t
 \end{aligned}
 $$
+$$
+\frac{\partial x^{post}_{t+1}}{\partial x^{post}_{t}} = J_\mathrm{LN}(\tilde{x}^{post}_t+\mathrm{FFN}(\tilde{x}^{post}_t))\cdot (I+J_\mathrm{FFN}(\tilde{x}^{post}_t))\cdot J_{\mathrm{LN}}(x^{post}_t+\mathrm{MHA}(x^{post}_t))\cdot(I+J_{\mathrm{MHA}}(x^{post}_t))
+$$
 
-
+Pre-LN满足
+$$
+\begin{aligned}
+\mathrm{d} \tilde{x}^{pre}_{t} &= (I + J_{\mathrm{MHA}}(\mathrm{LN}(x^{pre}_t))\cdot J_{\mathrm{LN}}(x^{pre}_t))\mathrm{d}x^{pre}_t\\
+\mathrm{d} x^{pre}_{t+1}&=(I + J_{\mathrm{FFN}}(\mathrm{LN}(\tilde{x}^{pre}_t))\cdot J_{\mathrm{LN}}(\tilde{x}^{pre}_t))\mathrm{d}\tilde{x}^{pre}_t
+\end{aligned}
+$$
+$$
+\frac{\partial x^{pre}_{t+1}}{\partial x^{pre}_t} = (I + J_{\mathrm{FFN}}(\mathrm{LN}(\tilde{x}^{pre}_t))\cdot J_{\mathrm{LN}}(\tilde{x}^{pre}_t))\cdot(I + J_{\mathrm{MHA}}(\mathrm{LN}(x^{pre}_t))\cdot J_{\mathrm{LN}}(x^{pre}_t))
+$$
 ### MHA贡献的梯度流动
 基于本文关于MHA的假定，有$W_Q = W_K = 0$, 因此单一Attention头的输出为
 $$
@@ -217,6 +229,11 @@ $$
 $\dfrac{\partial\tilde{L}}{\partial x^{post}_{L+1}}$ 是有界的，因为 $x^{post}_{L+1}$ 是 $(\varepsilon,\delta)$-Bounded的
 $$
 \left|\dfrac{\partial\tilde{L}}{\partial x^{post}_{L+1}}\right| = \left|\frac{\partial \mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1}|y_i))}{\mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1}|y_i))\cdot\partial x^{post}_{L+1}}\right|= \mathcal{O}(1)
+$$
+
+每一层的梯度递推中有
+$$
+\frac{\partial x^{post}_{k+1}}{\partial x^{post}_{k}} = 
 $$
 
 
