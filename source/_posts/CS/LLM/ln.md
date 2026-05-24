@@ -184,14 +184,40 @@ $$
 
 Post-LN架构的损失函数定义为顶部第$L$层的交叉熵
 $$
-\mathcal{L}(x^{post}_{L+1,i}) = -\log \mathrm{softmax} (W^{emb}x^{post}_{L+1,i}) 
+\mathcal{L}(x^{post}_{L+1,i}) = -\log \mathrm{softmax}_{y_i} (W^{emb}x^{post}_{L+1,i}) = -\log(\mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1,i})|\, y_i))
 $$
 
 Pre-LN架构尾部相比多一个LN块，损失函数为
 $$
-\mathcal{L}(x^{pre}_{final,i}) = -\log\mathrm{softmax}(W^{emb}x^{pre}_{final,i})
+\mathcal{L}(x^{pre}_{final,i}) = -\log\mathrm{softmax}_{y_i}(W^{emb}x^{pre}_{final,i}) = -\log(\mathbb{P}(\mathrm{Softmax}(W^{emb}x^{pre}_{final,i})|\, y_i))
 $$
 其中
 $$
 x^{pre}_{final,i} = \mathrm{LN}(x^{pre}_{L+1,i})
 $$
+
+**Theorem 1.** 假设 $\|W^{post}_{L+1,i}\|$, $\|W^{pre}_{L+1,i}\|$ 均为$(\varepsilon,\delta)$-Bounded的。 则Post-LN与Pre-LN结构的梯度谱范数满足
+$$
+\begin{dcases}
+\left\|\frac{\partial\tilde{\mathcal{L}} (x^{post}_{L+1})}{\partial W^{2,L}}\right\|_F= \mathcal{O}(d\sqrt{\ln d})\\[2em]
+\left\|\frac{\partial\tilde{\mathcal{L}}(x^{pre}_{final})}{\partial W^{2,L}}\right\|_F=\mathcal{O}(d\sqrt{\frac{\ln d}{L}}) 
+\end{dcases}
+$$
+其中 $W^{2,L}$ 是FFN中的参数矩阵
+
+
+**Proof:**
+由链式法则
+$$
+\begin{aligned}
+\frac{\partial\tilde{\mathcal{L}} (x^{post}_{L+1})}{\partial W^{2,L}}&= \frac{\partial \tilde{\mathcal{L}}(x^{post}_{L+1})}{\partial x^{post}_{L+1}}\left(\prod_{k=l}^L\frac{\partial x^{post}_{k+1}}{\partial x^{post}_{k}}\right)\frac{\partial x^{post}_l}{W^{2,L}} 
+\end{aligned}
+$$
+
+$\dfrac{\partial\tilde{L}}{\partial x^{post}_{L+1}}$ 是有界的，因为 $x^{post}_{L+1}$ 是 $(\varepsilon,\delta)$-Bounded的
+$$
+\left|\dfrac{\partial\tilde{L}}{\partial x^{post}_{L+1}}\right| = \left|\frac{\partial \mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1}|y_i))}{\mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1}|y_i))\cdot\partial x^{post}_{L+1}}\right|= \mathcal{O}(1)
+$$
+
+
+Theorem 1 的结论证明了：在初始化时刻，Post-LN 的梯度规模是常数阶，这意味着它与模型深度 $L$ 无关，无法感知并抑制深层带来的不稳定因素；而 Pre-LN 的梯度规模具有 $O(\frac{1}{\sqrt{L}})$ 的衰减特性，能够随着模型深度的增加自动降低初始梯度强度，从而减弱了对 Warm-up 的依赖。
