@@ -234,10 +234,12 @@ $$
 \left|\dfrac{\partial\tilde{L}}{\partial x^{post}_{L+1}}\right| = \left|\frac{\partial \mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1}|y_i))}{\mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1}|y_i))\cdot\partial x^{post}_{L+1}}\right|= \mathcal{O}(1)
 $$
 
-每一层的梯度递推中有
+(此处略相关递推的阶估计，上文已有详细的Jacobian矩阵，只需要进行相关的计算即可)关键在于
 $$
-\frac{\partial x^{post}_{k+1}}{\partial x^{post}_{k}} = 
+\begin{dcases}
+\text{Post-LN:}&\left\|J_{\mathrm{LN}}(x^{post}_{L+1})\right\|^2 = \mathcal{O}(\frac{n}{\|x^{post}_{L+1}\|^2}) = \mathcal{O}(1)\\[2em]
+\text{Pre-LN:}&\left|J_{\mathrm{LN}}(x^{pre}_{final})\right\|^2 = \mathcal{O}(\frac{n}{\|x^{pre}_{final}\|^2}) = \mathcal{O}(\frac{1}{L}) 
+\end{dcases}
 $$
-
 
 Theorem 1 的结论证明了：在初始化时刻，Post-LN 的梯度规模是常数阶，这意味着它与模型深度 $L$ 无关，无法感知并抑制深层带来的不稳定因素；而 Pre-LN 的梯度规模具有 $O(\frac{1}{\sqrt{L}})$ 的衰减特性，能够随着模型深度的增加自动降低初始梯度强度，从而减弱了对 Warm-up 的依赖。
