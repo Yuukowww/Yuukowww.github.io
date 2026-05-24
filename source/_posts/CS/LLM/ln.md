@@ -7,7 +7,6 @@ categories: LLM
 math: true
 cover: picture/yuki2.jpg
 ---
-
 # On Layer Normalization in the Transformer Architecture
 
 本文介绍了Pre-LN, 将归一化层放置在残差分支，以降低训练初始状态的训练梯度爆炸的现象。通过Post-LN架构进行训练刚需Warm-up(即通过初始降低学习率的方式进行训练)， 本文提出的Pre-LN通过迁移LN层位置的方式降低了整体梯度的稳定性与相对大小。将模型从Warm-up 中解脱出来。
@@ -245,5 +244,4 @@ $$
 \text{Pre-LN:}&\left|J_{\mathrm{LN}}(x^{pre}_{final})\right\|^2 = \mathcal{O}(\frac{n}{\|x^{pre}_{final}\|^2}) = \mathcal{O}(\frac{1}{L}) 
 \end{dcases}
 $$
-
 Theorem 1 的结论证明了：在初始化时刻，Post-LN 的梯度规模是常数阶，这意味着它与模型深度 $L$ 无关，无法感知并抑制深层带来的不稳定因素；而 Pre-LN 的梯度规模具有 $O(\frac{1}{\sqrt{L}})$ 的衰减特性，能够随着模型深度的增加自动降低初始梯度强度，从而减弱了对 Warm-up 的依赖。
