@@ -36,6 +36,13 @@ $$
 
 
 ## Pre-Layer Normalization 的 梯度爆炸现象与 Warm-up
+本文对于Multi Head Attention 的梯度阶估计过程提出了一个简化计算的模型，再通过实验论证这样的假设对于完整的MHA Residue Flow 也成立。
+
+初始权重使用Xavier初始化，每个神经元权重$w$满足
+$$
+\mathrm{Var}(w) = \frac{2}{n_{in}+n_{out}} 
+$$
+
 
 Pre-LN 层的一次前向传播的公式
 $$
@@ -50,3 +57,17 @@ $$
 J_{\mathrm{LN}}(x) = \frac{\partial \mathrm{LN}(x)}{\partial x}
 $$
 为 $\mathrm{LN}$层的Jacobian 矩阵
+
+则
+$$
+\begin{aligned}
+\mathrm{d}\tilde{x}_t &= J_{\mathrm{LN}}(x_t+\mathrm{MHA}(x_t))\cdot (\mathrm{d} x_t+ \mathrm{d} \mathrm{MHA}(x_t))\\
+&=J_{\mathrm{LN}}(x_t+\mathrm{MHA(x_t)})\cdot(I+J_{\mathrm{MHA}}(x_t)) \cdot \mathrm{d}x_t
+\end{aligned}
+$$
+$$
+\begin{aligned}
+\mathrm{d} x_{t+1} = J_\mathrm{LN}(\tilde{x}_t+\mathrm{FFN}(\tilde{x}_t))\cdot (I+J_\mathrm{FFN}(\tilde{x}_t))\mathrm{d}\tilde{x}_t
+\end{aligned}
+$$
+
