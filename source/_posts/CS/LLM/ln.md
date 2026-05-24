@@ -5,7 +5,7 @@ update: 2026-05-23
 description: 层归一化位置与训练稳定性
 categories: LLM
 math: true
-cover: picture/amiya1.jpg
+cover: picture/yuki2.jpg
 ---
 
 # On Layer Normalization in the Transformer Architecture
@@ -154,9 +154,10 @@ $$
 $$
 \begin{aligned}
 J_{\mathrm{LN}}(x) &= \frac{\partial \mathrm{LN}(x)}{\partial y}\frac{\partial y}{\partial x}\\
-&=\frac{\sqrt{n}}{\|y\|^2}\left(I-\frac{y_iy_j}{\|y\|}\right)(I- \bold{1}^T\bold{1})
+&=\frac{\sqrt{n}}{\|y\|}\left(I-\frac{y_iy_j}{\|y\|^2}\right)(I- \bold{1}^T\bold{1})
 \end{aligned}
 $$
 $$
-\|J_\mathrm{LN}(x)\| = \mathcal{O}(\frac{\sqrt{n}}{\|y\|^2}) = \mathcal{O}(\frac{\sqrt{n}}{\|x\|^2})
+\|J_\mathrm{LN}(x)\| = \mathcal{O}(\frac{\sqrt{n}}{\|y\|}) = \mathcal{O}(\frac{\sqrt{n}}{\|x\|})
 $$
+
