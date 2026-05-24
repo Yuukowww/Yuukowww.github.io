@@ -1,7 +1,7 @@
 ---
 title: Transformer 中的 Layer Normalization与梯度稳定性
 date: 2026-05-23
-update: 2026-05-23
+update: 2026-05-24
 description: 层归一化位置与训练稳定性
 categories: LLM
 math: true
@@ -47,15 +47,15 @@ $$
 Post-LN 层的一次前向传播的公式
 $$
 \begin{dcases}
-\tilde{x}_t = \mathrm{LN}(x_t+\mathrm{MHA}(x_t))\\
-x_{t+1} = \mathrm{LN}(\tilde{x}_t+ \mathrm{FFN}(\tilde{x}_t))
+\tilde{x}^{post}_t = \mathrm{LN}(x^{post}_t+\mathrm{MHA}(x^{post}_t))\\
+x^{post}_{t+1} = \mathrm{LN}(\tilde{x}^{post}_t+ \mathrm{FFN}(\tilde{x}^{post}_t))
 \end{dcases}
 $$
 Pre-LN 层的一次前向传播的公式
 $$
 \begin{dcases}
-\tilde{x}_t = x_t + \mathrm{MHA}(\mathrm{LN}(x_t))\\
-x_{t+1} = \tilde{x}_t+\mathrm{FFN}(\mathrm{LN}(\tilde{x_t}))
+\tilde{x}^{pre}_t = x^{pre}_t + \mathrm{MHA}(\mathrm{LN}(x^{pre}_t))\\
+x^{pre}_{t+1} = \tilde{x}^{pre}_t+\mathrm{FFN}(\mathrm{LN}(\tilde{x}^{pre}_t))
 \end{dcases}
 $$
 
@@ -65,7 +65,7 @@ J_{\mathrm{LN}}(x) = \frac{\partial \mathrm{LN}(x)}{\partial x}
 $$
 为 $\mathrm{LN}$层的Jacobian 矩阵
 
-则
+则Post-LN满足
 $$
 \begin{aligned}
 \mathrm{d}\tilde{x}_t &= J_{\mathrm{LN}}(x_t+\mathrm{MHA}(x_t))\cdot (\mathrm{d} x_t+ \mathrm{d} \mathrm{MHA}(x_t))\\
@@ -161,3 +161,37 @@ $$
 \|J_\mathrm{LN}(x)\| = \mathcal{O}(\frac{\sqrt{n}}{\|y\|}) = \mathcal{O}(\frac{\sqrt{n}}{\|x\|})
 $$
 
+
+
+基于以上结果，我们能够进行主定理的叙述
+
+
+>**Definition 1.1**: 随机变量的 $(\varepsilon,\delta)$-Bounded
+>
+> 对于实随机变量 $Z\geq 0$, 如果$Z$满足
+> $$
+> \mathbb{P}\left(\frac{Z-\mu}{\mu}\leq \varepsilon\right) \geq 1-\delta
+> $$
+> 也即
+> $$
+> \mathbb{P}\left(\frac{Z-\mu}{\mu}\geq \varepsilon\right) \leq \delta
+> $$
+> 其中$\varepsilon > 0, 0<\delta <1$, 则称随机变量$Z$是 $(\varepsilon-\delta)$-Bounded
+
+这个结论和Chebyshev不等式的结构相似, Chebyshev不等式能说明对于任何方差有界随机变量都是 $(\varepsilon, \frac{\sigma^2}{\varepsilon^2})$-Bounded的
+
+### 整体损失函数梯度谱范数
+
+Post-LN架构的损失函数定义为顶部第$L$层的交叉熵
+$$
+\mathcal{L}(x^{post}_{L+1,i}) = -\log \mathrm{softmax} (W^{emb}x^{post}_{L+1,i}) 
+$$
+
+Pre-LN架构尾部相比多一个LN块，损失函数为
+$$
+\mathcal{L}(x^{pre}_{final,i}) = -\log\mathrm{softmax}(W^{emb}x^{pre}_{final,i})
+$$
+其中
+$$
+x^{pre}_{final,i} = \mathrm{LN}(x^{pre}_{L+1,i})
+$$
