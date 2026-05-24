@@ -35,7 +35,7 @@ $$
 可学习的参数 $\gamma, \beta$ 能改变向量的整体期望与均值以增强 $\mathrm{LN}$ 层的调节能力。
 
 
-## Pre-Layer Normalization 的 梯度爆炸现象与 Warm-up
+## Post-Layer Normalization 的 梯度爆炸现象与 Warm-up
 本文对于Multi Head Attention 的梯度阶估计过程提出了一个简化计算的模型，再通过实验论证这样的假设对于完整的MHA Residue Flow 也成立。
 
 初始权重使用Xavier初始化，每个神经元权重$w$满足
@@ -44,11 +44,18 @@ $$
 $$
 
 
-Pre-LN 层的一次前向传播的公式
+Post-LN 层的一次前向传播的公式
 $$
 \begin{dcases}
 \tilde{x}_t = \mathrm{LN}(x_t+\mathrm{MHA}(x_t))\\
 x_{t+1} = \mathrm{LN}(\tilde{x}_t+ \mathrm{FFN}(\tilde{x}_t))
+\end{dcases}
+$$
+Pre-LN 层的一次前向传播的公式
+$$
+\begin{dcases}
+\tilde{x}_t = x_t + \mathrm{MHA}(\mathrm{LN}(x_t))\\
+x_{t+1} = \tilde{x}_t+\mathrm{FFN}(\mathrm{LN}(\tilde{x_t}))
 \end{dcases}
 $$
 
@@ -71,3 +78,85 @@ $$
 \end{aligned}
 $$
 
+
+### MHA贡献的梯度流动
+基于本文关于MHA的假定，有$W_Q = W_K = 0$, 因此单一Attention头的输出为
+$$
+\begin{aligned}
+h &= \mathrm{Softmax}(\frac{QK^T}{\sqrt{d}})\cdot V\\
+& = \mathrm{Softmax}(\bold{0}) \cdot X\cdot W_V\\
+& = \frac{1}{n}X\cdot W_V\\
+& = \frac{1}{n} \sum_{j=1}^n x^j w_{V}^j
+\end{aligned}
+$$
+$$
+\mathrm{MHA}(X) = \mathrm{Concat}(h_1,\cdots, h_n)\cdot W_O
+$$
+
+计算MHA的微分
+$$
+\begin{aligned}
+\mathrm{d\,MHA}(X)&= \mathrm{d\,Concat}(h_1,\cdots, h_n)\cdot W_O+ \mathrm{Concat}(h_1,\cdots, h_n)\cdot \mathrm{d}W_O \\
+& = \mathrm{Concat}(\mathrm{d}h_1,\cdots,\mathrm{d}h_n)\cdot W_O + \mathrm{Concat}(h_1,\cdots, h_n)\cdot \mathrm{d}W_O\\
+& = \mathrm{Concat}(\mathrm{d}X \cdot W_V^i)\cdot W_O\\
+& = \mathrm{d}X\cdot \mathrm{Concat}(W_V^i)\cdot W_O\\
+& = \frac{1}{n}\sum_{j=i}^n\left(\mathrm{d}x^j\right)\cdot \mathrm{Concat}(W_V^i)\cdot W_O\\
+& :=\frac{1}{n}\sum_{j=i}^n\left(\mathrm{d}x^j\right) W_{V,l}
+\end{aligned}
+$$
+其中 $W_{V,l}^i$ 是等效的随机矩阵
+$$
+W_{V,l} = \mathrm{Concat}(W_V^i)\cdot W_O 
+$$
+
+### LN层Jacobian矩阵谱范数的阶估计
+
+根据上文推导，计算一次训练的整体梯度下降需要评估LN层的Jacobian矩阵的大小。在此我们只考虑未仿射变换的归一化映射的梯度，因为仿射变换后只需要进行梯度的线性缩放。
+
+$$
+\mathrm{LN}(x) = \frac{x-\mu}{\sigma}
+$$
+取无偏向量
+$$
+y = x(I-\frac{1}{n}\bold{1}^T\bold{1}) = \begin{pmatrix}
+x_1 - \frac{1}{n}\sum x_i\\[1em]
+x_2 - \frac{1}{n}\sum x_i\\[1em]
+\vdots\\[1em]
+x_n - \frac{1}{n}\sum x_i
+\end{pmatrix}
+$$
+
+其中
+$$
+\begin{aligned}
+\|y\| &= \sqrt{\frac{1}{n}\sum_i (x_i-\mu)^2}\\
+&=\sqrt{\frac{1}{n} \sum_i (x_i^2-2\mu x_i+\mu^2)}\\
+& = \sqrt{\frac{1}{n}\sum_i x_i^2-\frac{2\mu}{n}\sum x_i + \mu^2}\\
+&=\sqrt{\frac{1}{n}\sum_i x_i^2-\mu^2}
+\end{aligned}
+$$
+有$\mathcal{O}(\|y\|) = \mathcal{O}(\|x\|)$
+
+因此
+$$
+\mathrm{LN}(x) = \frac{y}{\sqrt{\frac{1}{n}\sum y_j^2}}
+$$
+
+$$
+\begin{aligned}
+\frac{\partial \mathrm{LN}(x)_i}{\partial y_j} & = \sqrt{n} \frac{\delta_{i,j} \sqrt{\sum y_j^2} - y_i\frac{y_j}{\sqrt{\sum y_j^2}}}{\sum y_j^2}\\
+& = \frac{\sqrt{n}}{\|y\|}\left(\delta_{i,j} -\frac{y_iy_j}{\|y\|^2} \right)
+\end{aligned}
+$$
+
+
+因此
+$$
+\begin{aligned}
+J_{\mathrm{LN}}(x) &= \frac{\partial \mathrm{LN}(x)}{\partial y}\frac{\partial y}{\partial x}\\
+&=\frac{\sqrt{n}}{\|y\|^2}\left(I-\frac{y_iy_j}{\|y\|}\right)(I- \bold{1}^T\bold{1})
+\end{aligned}
+$$
+$$
+\|J_\mathrm{LN}(x)\| = \mathcal{O}(\frac{\sqrt{n}}{\|y\|^2}) = \mathcal{O}(\frac{\sqrt{n}}{\|x\|^2})
+$$

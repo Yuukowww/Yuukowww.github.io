@@ -31,3 +31,15 @@ $$
 
 
 
+#### 多头注意力Multi-Head Attention
+多头注意力本质是将多个Attention的输出结合与归并的过程，相比单Attention需要多训练一个输出矩阵 $W_O$，满足
+$$
+\begin{dcases}
+h_i =\mathrm{Attention}(XW_{Q,i},XW_{K,i},XW_{V,i}) =\mathrm{Softmax}(\frac{Q_iK_i^T}{\sqrt{d_i}})\cdot V_i\\
+\mathrm{MHA}(X) = \mathrm{Concat}_{i\leq n}(h_i)\cdot W_O
+\end{dcases}
+$$
+其中结合函数`Concat`为一个简单嵌入
+$$
+\mathrm{Concat}(h_1,\cdots,h_n) = \left(h_1,\cdots,h_n\right)
+$$
