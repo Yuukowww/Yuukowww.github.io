@@ -148,7 +148,7 @@ $$
 \begin{aligned}
 \|y\| &= \sqrt{\frac{1}{n}\sum_i (x_i-\mu)^2}\\
 &=\sqrt{\frac{1}{n} \sum_i (x_i^2-2\mu x_i+\mu^2)}\\
-& = \sqrt{\frac{1}{n}\sum_i x_i^2-\frac{2\mu}{n}\sum x_i + \mu^2}\\
+
 &=\sqrt{\frac{1}{n}\sum_i x_i^2-\mu^2}
 \end{aligned}
 $$
@@ -166,7 +166,6 @@ $$
 \end{aligned}
 $$
 
-
 因此
 $$
 \begin{aligned}
@@ -178,10 +177,7 @@ $$
 \|J_\mathrm{LN}(x)\| = \mathcal{O}(\frac{\sqrt{n}}{\|y\|}) = \mathcal{O}(\frac{\sqrt{n}}{\|x\|})
 $$
 
-
-
 基于以上结果进行主定理的叙述
-
 
 >**Definition 1.1**: 随机变量的 $(\varepsilon,\delta)$-Bounded
 >
@@ -195,16 +191,14 @@ $$
 > $$
 > 其中$\varepsilon > 0, 0<\delta <1$, 则称随机变量$Z$是 $(\varepsilon-\delta)$-Bounded
 
-这个结论和Chebyshev不等式的结构相似, Chebyshev不等式能说明对于任何方差有界随机变量都是 $(\varepsilon, \frac{\sigma^2}{\varepsilon^2})$-Bounded的
+这个结论和Chebyshev不等式的结构相似, Chebyshev不等式能说明对方差有界随机变量都是 $(\varepsilon, \frac{\sigma^2}{\varepsilon^2})$-Bounded的
 
 ### 整体损失函数梯度谱范数
-
 Post-LN架构的损失函数定义为顶部第$L$层的交叉熵
 $$
 \mathcal{L}(x^{post}_{L+1,i}) = -\log \mathrm{softmax}_{y_i} (W^{emb}x^{post}_{L+1,i}) = -\log(\mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1,i})|\, y_i))
 $$
-
-Pre-LN架构尾部相比多一个LN块，损失函数为
+Pre-LN架构尾部多一个LN块，损失函数为
 $$
 \mathcal{L}(x^{pre}_{final,i}) = -\log\mathrm{softmax}_{y_i}(W^{emb}x^{pre}_{final,i}) = -\log(\mathbb{P}(\mathrm{Softmax}(W^{emb}x^{pre}_{final,i})|\, y_i))
 $$
@@ -212,7 +206,6 @@ $$
 $$
 x^{pre}_{final,i} = \mathrm{LN}(x^{pre}_{L+1,i})
 $$
-
 **Theorem 1.** 假设 $\|W^{post}_{L+1,i}\|$, $\|W^{pre}_{L+1,i}\|$ 均为$(\varepsilon,\delta)$-Bounded的。 则Post-LN与Pre-LN结构的梯度谱范数满足
 $$
 \begin{dcases}
@@ -222,7 +215,6 @@ $$
 $$
 其中 $W^{2,L}$ 是FFN中的参数矩阵
 
-
 **Proof:**
 由链式法则
 $$
@@ -230,17 +222,15 @@ $$
 \frac{\partial\tilde{\mathcal{L}} (x^{post}_{L+1})}{\partial W^{2,L}}&= \frac{\partial \tilde{\mathcal{L}}(x^{post}_{L+1})}{\partial x^{post}_{L+1}}\left(\prod_{k=l}^L\frac{\partial x^{post}_{k+1}}{\partial x^{post}_{k}}\right)\frac{\partial x^{post}_l}{W^{2,L}} 
 \end{aligned}
 $$
-
 $\dfrac{\partial\tilde{L}}{\partial x^{post}_{L+1}}$ 是有界的，因为 $x^{post}_{L+1}$ 是 $(\varepsilon,\delta)$-Bounded的
 $$
 \left|\dfrac{\partial\tilde{L}}{\partial x^{post}_{L+1}}\right| = \left|\frac{\partial \mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1}|y_i))}{\mathbb{P}(\mathrm{Softmax}(W^{emb}x^{post}_{L+1}|y_i))\cdot\partial x^{post}_{L+1}}\right|= \mathcal{O}(1)
 $$
-
-(此处略相关递推的阶估计，上文已有详细的Jacobian矩阵，只需要进行相关的计算即可)关键在于
+(此处略相关递推的阶估计，上文有相关Jacobian矩阵，只需进行估阶即可)关键在于
 $$
 \begin{dcases}
 \text{Post-LN:}&\left\|J_{\mathrm{LN}}(x^{post}_{L+1})\right\|^2 = \mathcal{O}(\frac{n}{\|x^{post}_{L+1}\|^2}) = \mathcal{O}(1)\\[2em]
 \text{Pre-LN:}&\left|J_{\mathrm{LN}}(x^{pre}_{final})\right\|^2 = \mathcal{O}(\frac{n}{\|x^{pre}_{final}\|^2}) = \mathcal{O}(\frac{1}{L}) 
 \end{dcases}
 $$
-Theorem 1 的结论证明了：在初始化时刻，Post-LN 的梯度规模是常数阶，这意味着它与模型深度 $L$ 无关，无法感知并抑制深层带来的不稳定因素；而 Pre-LN 的梯度规模具有 $O(\frac{1}{\sqrt{L}})$ 的衰减特性，能够随着模型深度的增加自动降低初始梯度强度，从而减弱了对 Warm-up 的依赖。
+Theorem 1 的结论证明了：在初始化时刻，Post-LN 的梯度规模是常数阶，这意味着它与模型深度 $L$ 无关，无法感知并抑制深层带来的不稳定因素；而 Pre-LN 的梯度规模具有 $O(\frac{1}{\sqrt{L}})$ 的衰减性，能随着模型深度的增加降低初始梯度强度，减弱了对 warmup 的依赖。
