@@ -11,7 +11,7 @@ cover: picture/yuki2.jpg
 
 本文介绍了Pre-LN, 将归一化层放置在残差分支，以降低训练初始状态的训练梯度爆炸的现象。通过Post-LN架构进行训练刚需Warm-up(即通过初始降低学习率的方式进行训练)， 本文提出的Pre-LN通过迁移LN层位置的方式降低了整体梯度的稳定性与相对大小。将模型从Warm-up 中解脱出来。
 
-## Layer Normalization 的作用
+## Layer Normalization的作用
 
 $$
 \mathrm{LN}(x) = \gamma \odot \frac{x-\mu}{\sqrt{\sigma^2+\varepsilon}}+\beta
@@ -33,11 +33,10 @@ $$
 
 可学习的参数 $\gamma, \beta$ 能改变向量的整体期望与均值以增强 $\mathrm{LN}$ 层的调节能力。
 
+## Post-Layer Normalization 的 梯度爆炸与 Warm-up
+本文对于Multi Head Attention 的梯度阶估计过程提出了一个简化计算的模型，再通过实验论证假设对于完整的MHA Residue Flow 也成立。
 
-## Post-Layer Normalization 的 梯度爆炸现象与 Warm-up
-本文对于Multi Head Attention 的梯度阶估计过程提出了一个简化计算的模型，再通过实验论证这样的假设对于完整的MHA Residue Flow 也成立。
-
-初始权重使用Xavier初始化，每个神经元权重$w$满足
+初始权重使用Xavier初始化，每个权重$w$满足
 $$
 \mathrm{Var}(w) = \frac{2}{n_{in}+n_{out}} 
 $$
