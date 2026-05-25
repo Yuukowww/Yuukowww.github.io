@@ -1,7 +1,7 @@
 ---
 title: mup -- 小样本参数迁移
 date: 2026-05-07
-description: 论文笔记
+description: 小参数模型实验与Scaling up的超参数稳定性
 categories: LLM
 math: true
 cover: picture/asuna2.jpg

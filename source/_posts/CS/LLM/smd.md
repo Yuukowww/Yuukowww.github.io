@@ -2,7 +2,7 @@
 title: Spherical motion dynamic -- 球面动力学
 date: 2026-05-17
 update: 2026-05-17
-description: 论文笔记
+description: Weight Decay 约束下优化器训练的梯度模稳定性与线性收敛性，以及角度更新量的线性稳定性
 categories: LLM
 math: true
 cover: picture/kasuga3.jpg
