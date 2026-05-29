@@ -1,7 +1,7 @@
 ---
 title: DeepNet
-date: 2026-05-25
-update: 2026-05-25
+date: 2026-05-24
+update: 2026-05-24
 categories: LLM
 description: Post-LN/Pre-LN的性能研究与极深 Transformer 的归一化函数设计
 cover: picture/Kanami1.png
