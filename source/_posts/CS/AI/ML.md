@@ -2,6 +2,7 @@
 title: 传统机器学习
 description: 机器学习数学基础与实现review
 date: 2026-03-11
+update: 2026-03-11
 tag: [机器学习]
 categories: ML
 cover: picture/20.png

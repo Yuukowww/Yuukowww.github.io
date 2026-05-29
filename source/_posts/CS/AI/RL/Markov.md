@@ -1,7 +1,8 @@
 ﻿---
 title: Markov 过程
-description: RL
+description: RL基本概念与Markov过程
 date: 2026-02-24
+update: 2026-05-29
 categories: 强化学习
 tikzjax: true
 math: true
