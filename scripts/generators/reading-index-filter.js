@@ -22,10 +22,44 @@ function shouldExcludePost(post, excludedCategories) {
   });
 }
 
+function filterPostsByCategories(posts, includedCategories) {
+  const included = normalizeExcludedCategories(includedCategories);
+  return posts.filter((post) => shouldExcludePost(post, included));
+}
+
 function getFileExtension(path) {
   const filename = path.split(/[\\/]/).pop() || "";
   const lastDotIndex = filename.lastIndexOf(".");
   return lastDotIndex > 0 ? filename.slice(lastDotIndex + 1) : "";
+}
+
+function buildPostPages(path, posts, options) {
+  const { catlist, config, paginationDir, perPage, sticky } = options;
+
+  if (posts.length > 0) {
+    return pagination(path, posts, {
+      perPage,
+      layout: ["index", "archive"],
+      format: paginationDir + "/%d/",
+      data: {
+        __index: true,
+        catlist,
+        sticky
+      }
+    });
+  }
+
+  return [{
+    path,
+    layout: ["index", "archive"],
+    data: {
+      __index: true,
+      catlist,
+      sticky,
+      current: 1,
+      title: config.title
+    }
+  }];
 }
 
 function registerFilteredIndexGenerator(hexoInstance) {
@@ -34,6 +68,12 @@ function registerFilteredIndexGenerator(hexoInstance) {
     order_by: "-date",
     exclude_categories: []
   }, hexoInstance.config.index_generator);
+  hexoInstance.config.reading_generator = Object.assign({
+    path: "reading",
+    per_page: hexoInstance.config.index_generator.per_page,
+    order_by: hexoInstance.config.index_generator.order_by,
+    categories: ["Reading"]
+  }, hexoInstance.config.reading_generator);
 
   hexoInstance.extend.helper.register("getCoverExt", function(path) {
     const theme = hexoInstance.theme.config;
@@ -111,31 +151,37 @@ function registerFilteredIndexGenerator(hexoInstance) {
       );
     }
 
-    if (posts.length > 0) {
-      pages = pagination(path, posts, {
-        perPage: config.index_generator.per_page,
-        layout: ["index", "archive"],
-        format: paginationDir + "/%d/",
-        data: {
-          __index: true,
-          catlist,
-          sticky
-        }
-      });
-    } else {
-      pages = [{
-        path,
-        layout: ["index", "archive"],
-        data: {
-          __index: true,
-          catlist,
-          sticky,
-          current: 1
-        }
-      }];
-    }
+    pages = buildPostPages(path, posts, {
+      catlist,
+      config,
+      paginationDir,
+      perPage: config.index_generator.per_page,
+      sticky
+    });
 
     return [...covers, ...pages];
+  });
+
+  hexoInstance.extend.generator.register("reading-index", function(locals) {
+    const config = hexoInstance.config;
+    const readingConfig = config.reading_generator;
+    const categories = normalizeExcludedCategories(readingConfig.categories);
+    const sticky = filterPostsByCategories(
+      locals.posts.find({ sticky: true }),
+      categories
+    ).sort(readingConfig.order_by);
+    const posts = filterPostsByCategories(
+      locals.posts.find({ sticky: { $in: [false, void 0] } }),
+      categories
+    ).sort(readingConfig.order_by);
+
+    return buildPostPages(readingConfig.path, posts, {
+      catlist: [],
+      config,
+      paginationDir: config.pagination_dir || "page",
+      perPage: readingConfig.per_page,
+      sticky
+    });
   });
 }
 
@@ -146,6 +192,7 @@ if (typeof hexo !== "undefined") {
 }
 
 module.exports = {
+  filterPostsByCategories,
   normalizeExcludedCategories,
   shouldExcludePost,
   registerFilteredIndexGenerator

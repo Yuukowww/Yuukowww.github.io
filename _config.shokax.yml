@@ -35,7 +35,7 @@ menu:
     archives: /archives/ || list-alt
     categories: /categories/ || th
     tags: /tags/ || tags
-    读书笔记: /categories/Reading/ || file
+    读书笔记: /reading/ || file
   friends: /link/ || heart
 
 social:
