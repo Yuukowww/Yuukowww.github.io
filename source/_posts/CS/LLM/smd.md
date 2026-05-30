@@ -103,7 +103,7 @@ $$
 
 
 ## Core Concept
-
+### SGD 的 稳定性讨论
 **Theorem 1.** SGD 的梯度模稳定态
 
 考虑带WD的SGD
@@ -233,4 +233,36 @@ $$
 当归一化梯度模 $\|\tilde{g}_t\|_2$ 趋于稳定时，角度更新量会以线性速率稳定到固定的角度更新量，即
 $$
 |\Delta_t-\sqrt{2\lambda\eta}|\leq C(1-\eta\lambda)^t
+$$
+对于
+$$
+w_{t+1} = w_{t} - \eta(g_t+\lambda w_t)
+$$
+有
+$$
+\left<w_{t+1},w_t\right> = \|w_t\|^2 - \eta\lambda \|w_t\|^2 = (1-\eta\lambda )\|w_t\|^2
+$$
+$$
+\begin{aligned}
+\cos^2 \Delta_t &= \frac{\left<w_{t+1},w_t\right>^2}{\|w_t\|^2\|w_{t+1}\|^2}\\
+&= \frac{(1-\eta\lambda)^2 \|w_t\|^4}{\|w_t\|^2\|w_{t+1}\|^2}\\
+&= (1-\eta\lambda)^2\frac{\|w_t\|^2}{\|w_{t+1}\|^2}\\
+&\sim(1-2\eta\lambda)\frac{\|w_t\|^2}{\|w_{t+1}\|^2}
+\end{aligned}
+$$
+根据梯度模稳定性
+$$
+\left|\cos^2\Delta_t - 1+2\eta\lambda\right| = (1-2\eta\lambda)\left|\frac{\|w_t\|^2}{\|w_{t+1}\|^2} - 1\right|= \mathcal{O}(1-4\eta\lambda)^t
+$$
+$$
+\begin{aligned}
+|\cos \Delta_t - 1+2\eta\lambda| &\sim \left|2\sin^2\frac{\Delta_t}{2} - 2\eta\lambda\right| \\
+&= \frac{1}{2}|\Delta_t^2-4\eta\lambda| \\
+&\sim |\Delta_t - 2\sqrt{\eta\lambda}|
+\end{aligned}
+$$
+
+因此
+$$
+|\Delta_t-2\sqrt{\eta\lambda}| = \mathcal{O}(1-4\eta\lambda)^t
 $$
