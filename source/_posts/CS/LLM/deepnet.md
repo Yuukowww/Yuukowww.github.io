@@ -27,7 +27,7 @@ $$
 $$
 \|\Delta F_i\| = \|F(x,\theta_i)-F(x,\theta_0)\|
 $$
-在图4.a中，对照组1 的Model Update在初始步就出现了爆炸。这一结论和{% post_link ln %}中的结论是一致的。
+在图4.a中，对照组1 的Model Update在初始步就出现了爆炸。这一结论和 {% post_link CS/LLM/ln %} 中的结论是一致的。
 
 通过图3的子图对比，作者将Model Update 而非梯度模作为评估梯度下降稳定性的评估指标，因为在对照组2、3的对比中，对照组3的梯度模更大，但是具有更好的收敛效果。
 ## DeepNet 的结构
