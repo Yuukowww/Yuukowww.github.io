@@ -14,17 +14,8 @@ math: true
 
 ## DeepNet 的结构
 
-```
- x_{t+1}
- |
- + --|
- |   |
- α  G,θ
- |---|
- |
-x_t
-```
 
+![deepnet_architecture](/picture/DeepNet/DeepNet_architecture.png)
 
 **Lemma 1.**: 对于 $X=(\mathbf{x}_1,\cdots,\mathbf{x}_n)\in \mathbb{R}^{n\times d}$, $\mathrm{Var}(\mathbf{x}_i) = 1, \mathbf{E}(\mathbf{x}_i) = 0$, $q_i\in [0,1]$, 则有
 $$
