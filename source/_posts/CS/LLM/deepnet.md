@@ -12,6 +12,20 @@ math: true
 本篇文章作为Transformer 中的 Layer Normalization与梯度稳定性的后继文章，进一步进行Layer Normalization的相关学习
 
 
+## DeepNet 的结构
+
+```
+ x_{t+1}
+ |
+ + --|
+ |   |
+ α  G,θ
+ |---|
+ |
+x_t
+```
+
+
 **Lemma 1.**: 对于 $X=(\mathbf{x}_1,\cdots,\mathbf{x}_n)\in \mathbb{R}^{n\times d}$, $\mathrm{Var}(\mathbf{x}_i) = 1, \mathbf{E}(\mathbf{x}_i) = 0$, $q_i\in [0,1]$, 则有
 $$
 \mathrm{Softmax}(q_1,\cdots, q_n)\cdot X \asymp \mathbf{x}_i
