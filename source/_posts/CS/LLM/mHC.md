@@ -51,6 +51,10 @@ DenseNet的性能开销和维度爆炸无疑是相当恐怖的。在CV领域Dens
 
 ## Deep Equilibrium Model
 
+## MoE
+MoE 是 Tenor Flow go wider 的结构范式
+
+{% post_link CS/LLM/moe %}
 
 
 # Hyper-Connections

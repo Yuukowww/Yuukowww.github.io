@@ -1,5 +1,8 @@
 name: Pages
 
+env:
+  TZ: Asia/Shanghai
+
 on:
   push:
     branches:
