@@ -25,7 +25,7 @@ cover: picture/mika1.png
 
 简单的线性层的实现，相当于实现了一个张量乘法。
 
-在`torch`中实现乘法的方式:`torch.matnuk`或者直接`@`。 在考虑张量的乘法的时候需要考虑乘法的维度对应问题
+在`torch`中实现乘法的方式:`torch.matmul`或者直接`@`。 在考虑张量的乘法的时候需要考虑乘法的维度对应问题
 
 ```python
 def run_linear(
@@ -80,6 +80,6 @@ def run_swiglu(
     return (run_silu(tensor_1)* tensor_2) @ w2_weight.T
 ```
 
-计算中实现$\odot$ ，即Hadamard积，直接使用`A*B`
+计算中实现$\odot$ ，即**Hadamard积**，直接使用`A*B`
 
 
