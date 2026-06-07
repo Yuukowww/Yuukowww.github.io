@@ -53,7 +53,7 @@ def run_embedding(
 
 `torch.Tensor`支持python数组的操作方式，因此可以直接通过数组读token_ids的方式输出Tensor
 
-### `SwiGLU
+### SwiGLU
 
 实现SwiGLU激活函数。同样是注意张量乘法维度的问题。SwiGLU的数学定义满足
 $$
@@ -119,6 +119,36 @@ $$
 mask矩阵和scaling QK product 输出的矩阵相加
 
 某一个项Masked后，经过Softmax就会变成$e^{-\infty} = 0$, 反之保留原本的结果
+
+### MultiHead-Attention
+
+多头注意力需要将输入的QKV矩阵的隐藏层平均分割为`num_heads`个，每一个Head分为`d_k = d_model / num_heads`
+
+在初始设置通道数的时候，总保证通道数是整除隐藏层维度的，因此单个输出头的隐藏层维度总是整数
+
+将不同输出头的Attention结果Concat，并最后经过output tensor
+
+```python
+def run_multihead_self_attention(
+    d_model: int,
+    num_heads: int,
+    q_proj_weight: Float[Tensor, " d_model d_model"],
+    k_proj_weight: Float[Tensor, " d_model d_model"],
+    v_proj_weight: Float[Tensor, " d_model d_model"],
+    o_proj_weight: Float[Tensor, " d_model d_model"],
+    in_features: Float[Tensor, " ... sequence_length d_model"],
+) -> Float[Tensor, " ... sequence_length d_model"]:
+    d_k = d_model // num_heads
+    Q = (in_features @ q_proj_weight).reshape(...,num_heads,d_k).transpose(-2, -3) 
+    K = (in_features @ k_proj_weight).reshape(...,num_heads,d_k).transpose(-2, -3)
+    V = (in_features @ v_proj_weight).reshape(...,num_heads,d_k).transpose(-2, -3)
+
+    attn_output = run_scaled_dot_product_attention(Q, K, V)
+    attn_output = attn_output.transpose(-2, -3).reshape(*in_features.shape[:-1], d_model)
+    return attn_output @ o_proj_weight.T
+```
+
+
 
 
 
