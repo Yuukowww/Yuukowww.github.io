@@ -84,6 +84,27 @@ def run_swiglu(
 
 
 
+### Softmax
+`Softmax`需要根据`dim`进行Tensor的切分，作为vector进行计算后再合并
+
+为防止最大值过大导致计算指数爆炸，通常在计算时将最大值减去
+$$
+\begin{aligned}
+\mathrm{Softmax}(x)& = \left(\frac{e^{x_i}}{\sum e^{x_j}}\right)_i\\
+&=\left(\frac{e^{x_i-x_{max}}}{\sum e^{x_j - x_{max}}}\right)_i
+\end{aligned}
+$$
+
+```python
+def run_softmax(in_features: Float[Tensor, " ..."], dim: int) -> Float[Tensor, " ..."]:
+    max_val = torch.max(in_features,dim,keepdim=True).values
+    sum_val = torch.sum(torch.exp(in_feature - torch.max),dim,keepdim=True)
+    return torch.exp(in_feature - max_val) / sum_val
+```
+`keepdim` 保证对应维度为1的axis不被压缩，仍然保留该维度。
+`torch.exp`实现了Tensor逐元素的指数运算
+
+
 ###  Dot Self-Attention with Scaling 
 
 $$
@@ -113,7 +134,7 @@ def run_scaled_dot_product_attention(
 $$
 \text{mask}(i,j) = \begin{dcases}
 -\infty &a_{i,j}\,\text{is masked}\\
-0 &a_{i,jj}\,\text{isn't masked}
+0 &a_{i,j}\,\text{isn't masked}
 \end{dcases}
 $$
 mask矩阵和scaling QK product 输出的矩阵相加
