@@ -21,7 +21,7 @@ cover: picture/mika1.png
 
 
 ## 核心函数的实现
-### `run_Linear`
+### Linear
 
 简单的线性层的实现，相当于实现了一个张量乘法。
 
@@ -37,7 +37,7 @@ def run_linear(
     return in_features @ weights.T
 ```
 
-### `run_embedding`
+### Embedding
 
 嵌入映射的函数的实现。输入的Token经过Tokenizer转换为token_ids后，通过embedding形成token的特征向量。具体的实现为查表
 
@@ -53,7 +53,7 @@ def run_embedding(
 
 `torch.Tensor`支持python数组的操作方式，因此可以直接通过数组读token_ids的方式输出Tensor
 
-### `run_swiglu`
+### `SwiGLU
 
 实现SwiGLU激活函数。同样是注意张量乘法维度的问题。SwiGLU的数学定义满足
 $$
@@ -81,5 +81,45 @@ def run_swiglu(
 ```
 
 计算中实现$\odot$ ，即**Hadamard积**，直接使用`A*B`
+
+
+
+###  Dot Self-Attention with Scaling 
+
+$$
+\mathrm{Attention}(Q,K,V) = \mathrm{Softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)\cdot V
+$$
+
+在Attention的基础上，需要考虑Q,K 的masking
+
+```python
+def run_scaled_dot_product_attention(
+    Q: Float[Tensor, " ... queries d_k"],
+    K: Float[Tensor, " ... keys d_k"],
+    V: Float[Tensor, " ... keys d_v"],
+    mask: Bool[Tensor, " ... queries keys"] | None = None,
+) -> Float[Tensor, " ... queries d_v"]:
+    mul = Q @ K.transpose(-2,-1) / torch.sqrt(torch.tensor(K.shape[-1]), device = K.device, dtype = K.dtype)
+    if (mask is None):
+        mask_mul = mul
+    else:
+        mask_mul = torch.mask_fill(mask,-torch.inf)
+    return torch.softmax(mask_mul, dim = -1) @ V
+```
+
+需要注意的是，`torch.sqrt`只能面向Tensor进行计算，所以需要将python int 的 `d_k`转换为Tensor后再进行开根
+
+`mask` 是一个Bool类型的Tensor，用于控制能输入Attention被“注意”的部分
+$$
+\text{mask}(i,j) = \begin{dcases}
+-\infty &a_{i,j}\,\text{is masked}\\
+0 &a_{i,jj}\,\text{isn't masked}
+\end{dcases}
+$$
+mask矩阵和scaling QK product 输出的矩阵相加
+
+某一个项Masked后，经过Softmax就会变成$e^{-\infty} = 0$, 反之保留原本的结果
+
+
 
 
