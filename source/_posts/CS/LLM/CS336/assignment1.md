@@ -187,5 +187,32 @@ $$
 $$
 
 
+### run_rope
 
+RoPE旋转编码器 {% post_link CS/LLM/postion_encoding %}
+
+```python
+def run_rope(
+    d_k: int,
+    theta: float,
+    max_seq_len: int,
+    in_query_or_key: Float[Tensor, " ... sequence_length d_k"],
+    token_positions: Int[Tensor, " ... sequence_length"],
+) -> Float[Tensor, " ... sequence_length d_k"]:
+    x = in_query_or_key
+    dim_idx = torch.arange(0, d_k, 2, device = x.device, dtype = x.dtype)
+    feq = 1.0 / (theta ** (dim_idx / d_k))
+    angle = token_positions.to(x.dtype).unsqueeze(-1) * feq
+
+    cos_ = torch.cos(angle)
+    sin_ = torch.sin(angle)
+    x_even = x[...,0::2]
+    x_odd = x[...,1::2]
+    out_even = x_even * cos_ - x_odd * sin_
+    out_odd = x_even * sin_ + x_odd * cos_
+    out = torch.empty_like(x)
+    out[...,0::2] = out_even
+    out[...,1::2] = out_odd
+    return out
+```
 
