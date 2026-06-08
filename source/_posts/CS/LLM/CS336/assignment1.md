@@ -169,7 +169,22 @@ def run_multihead_self_attention(
     return attn_output @ o_proj_weight.T
 ```
 
+### Cross-Entropy
 
+对于输入为logits ，Target 为One-Hot 的标记Tensor, Cross-Entropy 的实现为
+```python
+def run_cross_entropy(
+    inputs: Float[Tensor, " batch_size vocab_size"], targets: Int[Tensor, " batch_size"]
+) -> Float[Tensor, ""]:
+    inputs_ = run_softmax(inputs,dim=-1)
+    target_tensor = inputs_[torch.arange(inputs.shape[0]),targets]
+    return -torch.mean(torch.log(target_tensor))
+```
+
+即表示为
+$$
+\mathrm{CE}(x) = -\frac{1}{\mathcal{B}}\sum \log \mathrm{Softmax}(x_i)
+$$
 
 
 
