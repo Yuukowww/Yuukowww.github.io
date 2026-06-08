@@ -187,7 +187,7 @@ $$
 $$
 
 
-### run_rope
+### RoPE
 
 RoPE旋转编码器 {% post_link CS/LLM/position_encoding %}
 
@@ -215,4 +215,25 @@ def run_rope(
     out[...,1::2] = out_odd
     return out
 ```
+
+### Batch
+
+将Dataset 分割为若干个batch进行训练。输出为两个`torch.Tensor` x,y
+
+**Q**: 为什么输出x,y， 且y tensor是x tensor 后移1位
+
+**A**: 因为自回归语言模型的训练目标是 Next Token Prediction，也就是根据当前位置之前的 token 来预测下一个 token。
+
+```python
+def run_get_batch(
+    dataset: npt.NDArray, batch_size: int, context_length: int, device: str
+) -> tuple[torch.Tensor, torch.Tensor]:
+    max = len(dataset) - context_length
+    sample = torch.randint(0,max,(batch_size,))
+    x = torch.stack([torch.tensor(dataset[s : s + context_length]) for s in sample])
+    y = torch.stack([torch.tensor(dataset[s + 1 : s + 1 + context_length]) for s in sample])
+    return x.to(device), y.to(device)
+```
+
+`torch.randint` 本身就能直接生成Tensor int的随机张量，不需要单个随机整数生成再载入Tensor中
 
