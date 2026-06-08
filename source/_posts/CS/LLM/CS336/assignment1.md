@@ -189,7 +189,7 @@ $$
 
 ### run_rope
 
-RoPE旋转编码器 {% post_link CS/LLM/postion_encoding %}
+RoPE旋转编码器 {% post_link CS/LLM/position_encoding %}
 
 ```python
 def run_rope(
