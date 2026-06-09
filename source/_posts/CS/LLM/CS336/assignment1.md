@@ -91,7 +91,8 @@ def run_swiglu(
 $$
 \begin{aligned}
 \mathrm{Softmax}(x)& = \left(\frac{e^{x_i}}{\sum e^{x_j}}\right)_i\\
-&=\left(\frac{e^{x_i-x_{max}}}{\sum e^{x_j - x_{max}}}\right)_i
+&=\left(\frac{e^{x_i-x_{max}}}{\sum e^{x_j - x_{max}}}\right)_i\\
+&=\mathrm{Softmax}(x-x_{max})
 \end{aligned}
 $$
 
@@ -237,3 +238,24 @@ def run_get_batch(
 
 `torch.randint` 本身就能直接生成Tensor int的随机张量，不需要单个随机整数生成再载入Tensor中
 
+### Gradient Clippiing
+
+对于给定梯度模阈值Scaling 梯度
+$$
+\mathrm{Scal\_ factor} = \begin{dcases}
+1 & g<M\\
+\frac{M}{\|g\|+\varepsilon} & g\geq M
+\end{dcases}
+$$
+
+```python
+def run_gradient_clipping(parameters: Iterable[torch.nn.Parameter], max_l2_norm: float) -> None:
+    norm = torch.tensor(0.0)
+    for p in parameters:
+        norm += torch.norm(p.grad) ** 2
+    total_norm = torch.sqrt(norm)
+    if total_norm > max_l2_norm:
+        for p in parameters:
+            p.grad *= max_l2_norm / (total_norm + 10**(-6))
+
+```
