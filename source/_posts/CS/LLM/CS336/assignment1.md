@@ -259,3 +259,38 @@ def run_gradient_clipping(parameters: Iterable[torch.nn.Parameter], max_l2_norm:
             p.grad *= max_l2_norm / (total_norm + 10**(-6))
 
 ```
+
+
+### Checkpoint Save & Load
+
+实现模型状态的断点保存与加载,通过`torch.save`一个dict对象实现
+```python
+def run_save_checkpoint(
+    model: torch.nn.Module,
+    optimizer: torch.optim.Optimizer,
+    iteration: int,
+    out: str | os.PathLike | BinaryIO | IO[bytes],
+):
+    torch.save(
+        {
+            "model": model.state_dict(),
+            "optimizer": optimizer.state_dict(),
+            "iteration": iteration
+        },
+        out
+    )
+```
+
+加载就是从dict中load出来
+```python
+
+def run_load_checkpoint(
+    src: str | os.PathLike | BinaryIO | IO[bytes],
+    model: torch.nn.Module,
+    optimizer: torch.optim.Optimizer,
+) -> int:
+    checkpoint = torch.load(src)
+    model.load_state_dict(checkpoint["model"])
+    optimizer.load_state_dict(checkpoint["optimizer"])
+    return checkpoint["iteration"]
+```
