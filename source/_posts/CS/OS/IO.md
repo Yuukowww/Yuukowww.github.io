@@ -76,7 +76,7 @@ IO接口中存在IO逻辑电路，用于实现对于设备的控制.CPU启动设
 
 分为程序直接控制、中断驱动方式与DMA方式。
 
-见{% post_link CS/OS/CPU %}
+见{% post_link CS/计组/CPU %}
 
 
 ## IO 软件
