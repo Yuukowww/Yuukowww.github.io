@@ -401,4 +401,4 @@ SPOOLing技术的构成结构有
 
 
 # 磁盘
-{% post_link CS/OS/磁盘 %}
+{% post_link CS/计组/磁盘 %}
