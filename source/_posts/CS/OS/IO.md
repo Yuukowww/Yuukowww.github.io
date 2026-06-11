@@ -1,7 +1,7 @@
 ---
 title: IO管理
 date: 2026-06-09
-update: 2026-06-09
+update: 2026-06-11
 description: 操作系统 -- IO
 categories: [OS,计组]
 cover: picture/kon1.jpg
@@ -400,3 +400,5 @@ SPOOLing技术的构成结构有
 
 
 
+# 磁盘
+{% post_link CS/OS/磁盘 %}
