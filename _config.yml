@@ -50,6 +50,7 @@ reading_generator:
   order_by: -date
   categories:
     - Reading
+  title: "yuukoの灵魂收容所"
 
 default_category: uncategorized
 category_map:

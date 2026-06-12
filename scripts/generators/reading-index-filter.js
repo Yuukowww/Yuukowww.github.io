@@ -27,6 +27,36 @@ function filterPostsByCategories(posts, includedCategories) {
   return posts.filter((post) => shouldExcludePost(post, included));
 }
 
+function normalizeRoutePath(path) {
+  return String(path || "")
+    .replace(/^\/+/, "")
+    .replace(/\/?index\.html$/, "")
+    .replace(/\/+$/, "");
+}
+
+function isReadingPagePath(pagePath, readingPath, paginationDir) {
+  const currentPath = normalizeRoutePath(pagePath);
+  const basePath = normalizeRoutePath(readingPath);
+  const normalizedPaginationDir = normalizeRoutePath(paginationDir || "page");
+
+  if (!basePath) return false;
+  return currentPath === basePath || currentPath.startsWith(`${basePath}/${normalizedPaginationDir}/`);
+}
+
+function applyReadingPageTitle(locals, config) {
+  const readingConfig = config.reading_generator || {};
+  const readingTitle = readingConfig.title;
+
+  if (!readingTitle || !locals || !locals.page) return locals;
+
+  if (isReadingPagePath(locals.page.path, readingConfig.path || "reading", config.pagination_dir || "page")) {
+    locals.title = readingTitle;
+    locals.page.title = readingTitle;
+  }
+
+  return locals;
+}
+
 function getFileExtension(path) {
   const filename = path.split(/[\\/]/).pop() || "";
   const lastDotIndex = filename.lastIndexOf(".");
@@ -34,18 +64,23 @@ function getFileExtension(path) {
 }
 
 function buildPostPages(path, posts, options) {
-  const { catlist, config, paginationDir, perPage, sticky } = options;
+  const { catlist, config, paginationDir, perPage, sticky, title } = options;
+  const data = {
+    __index: true,
+    catlist,
+    sticky
+  };
+
+  if (title) {
+    data.title = title;
+  }
 
   if (posts.length > 0) {
     return pagination(path, posts, {
       perPage,
       layout: ["index", "archive"],
       format: paginationDir + "/%d/",
-      data: {
-        __index: true,
-        catlist,
-        sticky
-      }
+      data
     });
   }
 
@@ -53,11 +88,9 @@ function buildPostPages(path, posts, options) {
     path,
     layout: ["index", "archive"],
     data: {
-      __index: true,
-      catlist,
-      sticky,
+      ...data,
       current: 1,
-      title: config.title
+      title: title || config.title
     }
   }];
 }
@@ -72,8 +105,13 @@ function registerFilteredIndexGenerator(hexoInstance) {
     path: "reading",
     per_page: hexoInstance.config.index_generator.per_page,
     order_by: hexoInstance.config.index_generator.order_by,
-    categories: ["Reading"]
+    categories: ["Reading"],
+    title: "yuukoの灵魂收容所"
   }, hexoInstance.config.reading_generator);
+
+  hexoInstance.extend.filter.register("template_locals", function(locals) {
+    return applyReadingPageTitle(locals, hexoInstance.config);
+  }, 20);
 
   hexoInstance.extend.helper.register("getCoverExt", function(path) {
     const theme = hexoInstance.theme.config;
@@ -180,7 +218,8 @@ function registerFilteredIndexGenerator(hexoInstance) {
       config,
       paginationDir: config.pagination_dir || "page",
       perPage: readingConfig.per_page,
-      sticky
+      sticky,
+      title: readingConfig.title
     });
   });
 }
@@ -192,8 +231,10 @@ if (typeof hexo !== "undefined") {
 }
 
 module.exports = {
+  applyReadingPageTitle,
   filterPostsByCategories,
   normalizeExcludedCategories,
+  normalizeRoutePath,
   shouldExcludePost,
   registerFilteredIndexGenerator
 };
