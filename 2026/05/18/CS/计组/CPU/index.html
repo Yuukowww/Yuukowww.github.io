@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/><meta name="theme-color" content="#222"/><meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1"/><meta name="renderer" content="webkit"/><link rel="icon" type="image/ico" sizes="32x32" href="/assets/favicon.ico"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/><link rel="alternate" href="/rss.xml" title="Yuukoの小屋" type="application/rss+xml"><link rel="alternate" href="/atom.xml" title="Yuukoの小屋" type="application/atom+xml"><link rel="alternate" type="application/json" title="Yuukoの小屋" href="https://yuukowww.github.io/feed.json"/><link rel="preconnect" href="https://s4.zstatic.net"/><link rel="preconnect" href="https://at.alicdn.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CFredericka%20the%20Great:400,400italic,700,700italic%7CNoto%20Serif%20JP:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CInconsolata:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" media="none" onload="this.media&#x3D;&#39;all&#39;"><link rel="modulepreload" href="/js/siteInit.js"></link><link rel="modulepreload" href="/js/nyx-player-7KEBWMUD.js"></link><link rel="modulepreload" href="/js/copy-tex-2PUB5UWL.js"></link><link rel="modulepreload" href="/js/post-3AW7O4XW.js"></link><link rel="modulepreload" href="/js/chunk-ZPKPLRXM.js"></link><link rel="modulepreload" href="/js/chunk-ZMKMXQVE.js"></link><link rel="stylesheet" href="/css/siteInit.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="preload" href="/picture/Denia1.png" as="image" fetchpriority="high"><meta name="keywords" content="硬件,"/><meta name="description" content="计算机组成 -- 中央处理器"/><link rel="canonical" href="https://yuukowww.github.io/2026/05/18/CS/%E8%AE%A1%E7%BB%84/CPU/"><link rel="stylesheet" href="/css/post.css?v=0.5.4"><link rel="stylesheet" href="/css/mermaid.css?v=0.5.4"><!-- 临时处理--><link rel="stylesheet" media="none" onload="this.media='all'" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css"><title>中央处理器</title><meta name="generator" content="Hexo 7.3.0"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="pagefind_mount"></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">中央处理器</h1><div class="meta"><span class="item" title="创建时间：2026-05-18 00:00:00"><span class="icon"><i class="ic i-calendar"></i></span><span class="text">发表于</span><time itemprop="dateCreated datePublished" datetime="2026-05-18T00:00:00+08:00">2026-05-18</time></span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i></span><span class="text">本文字数</span><span>4.9k</span><span class="text">字</span></span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i></span><span class="text">阅读时长</span><span>4 分钟</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span><span class="line"></span><span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">Yuuko</a></li></ul><ul class="right" id="rightNav"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li></ul></div></nav></div><div class="pjax" id="imgs"><img src="/picture/Denia1.png" loading="eager" decoding="async" fetchpriority="high" alt="Yuukoの小屋"></div></header><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"></use><use xlink:href="#gentle-wave" x="48" y="3"></use><use xlink:href="#gentle-wave" x="48" y="5"></use><use xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></div><main><div class="inner"><div class="pjax" id="main"><div class="article wrap"><div class="breadcrumb" itemListElement itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i><span><a href="/">首页</a></span><i class="ic i-angle-right"></i><span class="current" itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem"><a href="/categories/%E8%AE%A1%E7%BB%84/" itemprop="item" rel="index" title="分类于计组"><span itemprop="name">计组<meta itemprop="position" content="0"/></span></a></span></div><article class="post block" itemscope="itemscope" itemtype="http://schema.org/Article" data-pagefind-body="data-pagefind-body" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://yuukowww.github.io/2026/05/18/CS/%E8%AE%A1%E7%BB%84/CPU/"/><span hidden="hidden" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta itemprop="image" content="/assets/avatar.jpg"/><meta itemprop="name" content="Yuuko"/><meta itemprop="description" content=", Amor che nella mente mi regiona."/></span><span hidden="hidden" itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Yuukoの小屋"/></span><div class="body md" itemprop="articleBody"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1><span id="中央处理器"> 中央处理器</span></h1>
+<p>CPU节主要讨论了CPU如何执行指令与相关的pipeline、指令执行的时候遇到异常与中断如何处理、如何通过并发/多核的方式提高CPU的效率</p>
+<h3><span id="cpu的基本结构"> CPU的基本结构</span></h3>
+<p>CPU的基本结构包含</p>
+<ul>
+<li>程序计数器(PC) -- 存放即将执行的指令在主存中的地址，并在顺序执行时根据指令执行顺序进行自增，遇到转移型指令时进行指令的转移。</li>
+<li>指令寄存器(IR) -- 暂存当前执行的指令</li>
+<li>通用寄存器(GRPs) -- 灵活使用的寄存器，可以暂存操作数、地址指针和一些中间结果，用于减少对主存访问以提高运行效率。通用寄存器的容量取决于<strong>机器字长</strong></li>
+<li>标志寄存器(FR) -- 存储ALU计算的标志值，比如CF、ZF、OF</li>
+<li>存储器地址寄存器(MAR) -- 临时存放读写主存的地址用以下一步访问主存</li>
+<li>存储器数据寄存器(MDR) -- 临时存放读写主存的数据用以下一步访问主存</li>
+<li>算术逻辑单元(ALU) -- 计算的基本单元，输出计算结果与计算标记值</li>
+</ul>
+<p>CPU中的寄存器分为用户可见寄存器与用户不可见寄存器。不可见寄存器面向汇编程序员是<strong>透明</strong>的</p>
+<p>通用/专用寄存器组与程序计数器是用户可见可修改的用户可见寄存器</p>
+<p>标志寄存器是用户可见寄存器，但是其结果来源于ALU计算，用户不可修改。</p>
+<p>指令寄存器、存储器地址/数据寄存器、页表基址寄存器是用户不可见的寄存器</p>
+<h2><span id="指令的执行过程"> 指令的执行过程</span></h2>
+<p>指令的执行过程分为取值、执行、中断，取值段是指令的预备阶段，进行指令取址；在执行阶段进行指令的译码、操作数取址与执行，存储操作数；中断阶段结束指令，将CPU操作中断并保存断点。</p>
+<p>断点通常指的是指令断点，断点寄存器存储中断的指令地址。中断入口存入PC</p>
+<h3><span id="指令的时间周期"> 指令的时间周期</span></h3>
+<p>指令的执行通常分为五个流水段</p>
+<ul>
+<li>取指</li>
+<li>译码/读存</li>
+<li>执行/计算地址</li>
+<li>访存</li>
+<li>写回</li>
+</ul>
+<h4><span id="指令流水线"> 指令流水线</span></h4>
+<p>指令流水线重叠执行，下一条指令比当前指令晚一个之间周期。满足严格的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>P</mi><mi>I</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">CPI = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">CP</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></p>
+<p>高效的指令流水线需要指令集满足:</p>
+<ul>
+<li>指令定长: 简化取址逻辑</li>
+<li>指令格式规整: 操作数寄存器位置固定，支持译码前预取操作数</li>
+<li>只使用<code>LOAD/STORE</code>访存</li>
+<li>数据与指令边界对齐排放</li>
+</ul>
+<p>RISC指令集是严格标准满足以上条件的指令集</p>
+<p>流水线的吞吐率表示单位时间内流水线完成的任务数</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>TP</mtext><mo>=</mo><mfrac><mi>n</mi><msub><mi>T</mi><mi>k</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">\text{TP} = \frac{n}{T_k}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">TP</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.9436em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>理论情况下单发射的指令pipeline最大的吞吐率是CPU的主频，也就是时钟频率的倒数</p>
+<h5><span id="mips指令集的流水线"> MIPS指令集的流水线</span></h5>
+<p>MIPS的指令集分为三类六种指令</p>
+<p>ALU相关的指令有:</p>
+<ul>
+<li>R型 -- 寄存器运算</li>
+<li>I型 -- 立即数运算</li>
+</ul>
+<p>存取相关的指令有:</p>
+<ul>
+<li>lw型 -- 内存读取数据入寄存器</li>
+<li>sw型 -- 寄存器将数据写入内存</li>
+</ul>
+<p>转移相关的指令</p>
+<ul>
+<li>beq型 -- 比较寄存器值，如果相等就直接转移，否则按顺序执行地址指向的指令</li>
+<li>j型 -- 将目标指令无条件转移到PC</li>
+</ul>
+<h5><span id="流水线的冒险"> 流水线的冒险</span></h5>
+<p>流水线的冒险分为</p>
+<ul>
+<li>结构冒险 -- 前后指令占据了相同的功能部件而冲突</li>
+<li>数据冒险 -- 前后指令对于某一数据的访问冲突，通常为前一数据修改的时刻晚于后一指令的读取时刻，导致后一指令的读取失真(RAW冲突)；或者上一条加载数据的指令晚于下一条使用数据的访存段(load-use冒险)</li>
+<li>控制冒险 -- 指令遇到转移、中断、异常等事件，改变了PC的地址导致流水线断流</li>
+</ul>
+<h6><span id="流水线冒险的解决方式"> 流水线冒险的解决方式</span></h6>
+<ul>
+<li>结构冒险的解决方式</li>
+</ul>
+<p>结构冒险通常是访存冒险或者寄存器冒险。</p>
+<p>对于指令、数据共享的存储器，假如第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span> 条指令是访存指令<code>LOAD</code>，其第四个时钟周期处于<code>MEM</code>访问数据存储器流水段，而第<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">i+3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7429em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span></span></span></span> 条指令处于<code>IF</code>取指段，此时两条指令出现主存/Cache访问冲突</p>
+<p><code>WB</code>写回流水段写入区域是CPU内的寄存器而不是存储单元，因此不会发生结构冒险</p>
+<p>解决结构冒险的主要方法</p>
+<ul>
+<li>
+<p>每一个功能部件在单条指令内部只使用一次且在固定阶段使用</p>
+</li>
+<li>
+<p>增加硬件资源，例如将指令存储器和数据存储器解耦；将寄存器堆的写口和读口分离；支持将单个时钟周期分为前半周期写，后半周期读等策略</p>
+</li>
+<li>
+<p>数据冒险</p>
+</li>
+</ul>
+<p>数据冒险分为RAW冒险和Load-Use冒险</p>
+<ul>
+<li>RAW冒险指前序指令写结果段晚于后序指令读数据段，导致读结果的数据失真。通常发生在<code>WB-ID</code>之间</li>
+</ul>
+<p>解决RAW冒险的方式有延迟执行指令与转发技术。延迟执行指令通过软件插入空指令以延后执行指令，硬件插入气泡阻塞延迟单条指令执行的首时间周期； 转发技术则是在<code>EX</code>段通过转发通路实现ALU之间的通信，相对应的值通过流水段寄存器存储并传递，从而规避了写/读数据的时间差</p>
+<ul>
+<li>Load-Use冒险只发生在相关的 <code>load</code>指令与<code>use</code>指令间，第<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span>时条<code>load</code>指令的第四个流水段<code>MEM</code>段才读取主存中的数据，但是第<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7429em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>条<code>use</code>指令只能读取<code>load</code>未更新的操作数</li>
+</ul>
+<p><code>use</code>指令添加一个阻塞时间周期后，<code>load</code>的<code>MEM</code>段就能与<code>use</code>的<code>ID</code>段对齐，这样能严格保证<code>use</code>的<code>EX</code>段发生在<code>load</code>的<code>MEM</code>段之后</p>
+<ul>
+<li>控制冒险</li>
+</ul>
+<p>核心策略为加阻塞和分支预测</p>
+<p>分支预测技术分为静态预测与动态预测，静态预测使用简单的规则预测转移发生与否；动态预测程序转移的历史动态以调整预测，准确度更高。分支预测错误需要清空流水线内的错误路径指令并重新取指</p>
+<h5><span id="高级流水线"> 高级流水线</span></h5>
+<p>高级流水线技术能提高流水线并行度以提高效率</p>
+<ul>
+<li>
+<p>超标量流水线技术(动态多发射) -- 一个周期并行多条指令，通常以顺序执行(现代计算机支持乱序执行)，控制较为复杂</p>
+</li>
+<li>
+<p>超长指令字技术(静态多发射) -- 将多条可并行执行指令打包为一条超长的指令字作为单条指令执行，包含多指令多操作码，分别实现不同功能。并行性由软件决定，控制比较简单</p>
+</li>
+<li>
+<p>超流水线技术 -- 进一步细分流水段以压缩时钟周期，使得整体主频降低</p>
+</li>
+</ul>
+<h2><span id="数据通路"> 数据通路*</span></h2>
+<h2><span id="控制器"> 控制器</span></h2>
+<p>控制器分为硬布线控制器与微程序控制器。CISC-微程序控制器. RISC-硬布线控制器</p>
+<h3><span id="硬布线控制器"> 硬布线控制器</span></h3>
+<p>硬布线控制器将操作码 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 位操作码译码为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span> 种具体输出信号。硬布线控制器的控制逻辑简单，响应速度快，但是灵活性差，修改新增指令需要重新设计控制器</p>
+<h3><span id="微程序控制器"> 微程序控制器</span></h3>
+<p>微程序控制器相当于将单一指令拆解为若干条微指令执行，机械指令与微程序一一对应。一个微程序可以划分为若干个微指令，微指令可以划分为若干个微命令，以及相对应的微操作。</p>
+<p>微程序控制器中有对应的专门寄存器</p>
+<ul>
+<li>微地址寄存器(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span></span></span></span> PC/ CMAR)</li>
+<li>微指令寄存器(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span></span></span></span> IR/ CMDR)</li>
+</ul>
+<h4><span id="微指令编码方式"> 微指令编码方式</span></h4>
+<ul>
+<li>
+<p>直接编码方式 -- 每一位直接对应一个微指令</p>
+</li>
+<li>
+<p>字段直接编码方式 -- 分为若干互斥段编码， 互斥的微指令归入相同的互斥段，相容的微指令放入不同的互斥段。互斥段之间的相容进指令进行静态多发射类似的<strong>并行</strong>。每一个字段内还保留一个全置0的状态，因此有效的互斥微指令只有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> 条</p>
+</li>
+<li>
+<p>字段间接编码方式 -- 使用交叉编码的方式确定单条微指令的某一字段的意义，字段A的实际意义可能由字段A与字段B共同决定。</p>
+</li>
+</ul>
+<h4><span id="微指令的格式"> 微指令的格式</span></h4>
+<p>微指令格式可分为水平型微指令与垂直型微指令</p>
+<p>直接编码方式、字段直接编码方式与字段间接编码方式均为水平型编码，能快速并行执行微指令，但是微指令的整体字长会很长，且编写程序较为困难</p>
+<p>垂直型微指令由微操作码、目的地址与源地址构成，格式规整，但是一次只能完成一个基本动作，执行效率低，并行能力差。</p>
+<h2><span id="指令的异常与中断"> 指令的异常与中断</span></h2>
+<p>异常(内中断) -- 指CPU执行命令过程中检出的内部同步事件，比如除零错误、缺页、非法操作码等，由指令引发，具有确定性且可复现</p>
+<p>中断(外中断) -- 外部设备，如IO发生的异步事件，用于通知CPU外设的状态变化</p>
+<p>异常分为</p>
+<ul>
+<li>故障(Fault) -- 指令启动后但是未执行完出现的问题，例如非法操作码、缺页故障等。缺页故障这类可以修复的故障，操作系统会处理完毕后恢复，无法修复时会终止进程</li>
+<li>自陷(Trap) -- 在指令完成后触发的异常，用于有目的性的转入系统内核。X86中的断点指令<code>INT 3</code>、系统调用指令<code>syscall</code>、MIPS中的条件自陷指令<code>teq</code>等</li>
+</ul>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>执行当前指令 -- 保存断点并自陷 -- 执行相应处理程序 -- 恢复断点并执行下一条指令</span></span></code></pre>
+<ul>
+<li>故障(Abort) -- 严重的硬件故障导致的程序中止，CPU会切换到相关的异常服务程序，记录信息或者重启系统。</li>
+</ul>
+<p>终止中断与外中断属于硬件中断；故障与自陷属于软件中断</p>
+<h3><span id="中断的分类"> 中断的分类</span></h3>
+<p>中断可分为可屏蔽中断与不可屏蔽中断</p>
+<p>不可屏蔽中断的优先级高于可屏蔽中断，对于总线的占据优先级</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>DMA > 不可屏蔽中断 > 可屏蔽中断</span></span></code></pre>
+<p>在IO设备中的中断等级通常为</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>高速设备 > 低速设备</span></span>
+<span class="line"><span>输入设备 > 输出设备</span></span>
+<span class="line"><span>实时设备 > 普通设备</span></span></code></pre>
+<p>中断请求通常由<strong>中断请求标记寄存器</strong>进行管理，中断源设置中断请求标记触发器，当请求标记置为<code>1</code>时表示中断源发出中断</p>
+<p>可屏蔽中断的中断请求线为<code>INTR</code>, 不可屏蔽中断的中断请求线为<code>NMI</code></p>
+<p><a href="/2026/06/09/CS/OS/IO/" title="IO管理">IO管理</a></p>
+<h3><span id="中断的识别"> 中断的识别</span></h3>
+<p>中断的识别分为<strong>向量中断</strong>与<strong>非向量中断</strong></p>
+<p>向量中断中，中断源分配了唯一中断类型号，以匹配中断源对应中断向量在中断向量表的位置。基于中断向量表的中断源地址管理方式称为<strong>向量中断</strong></p>
+<p>非向量中断通过软件读取设备的状态寄存器，通过查询确定中断源。</p>
+<h3><span id="中断的处理"> 中断的处理</span></h3>
+<p>中断的过程分为中断前的<strong>中断隐指令</strong>与<strong>中断服务程序</strong></p>
+<p>中断隐指令包含:</p>
+<ul>
+<li>关中断</li>
+<li>保存断点</li>
+<li>中段服务寻址</li>
+</ul>
+<p>中断隐指令是为中断服务程序做准备的流程</p>
+<p>中断服务程序包含:</p>
+<ul>
+<li>保存现场与中断屏蔽字</li>
+<li>开中断</li>
+<li>执行中断服务程序</li>
+<li>关中断</li>
+<li>恢复现场与中断屏蔽字</li>
+<li>开中断</li>
+<li>中断返回</li>
+</ul>
+<h3><span id="多重中断与中断屏蔽"> 多重中断与中断屏蔽</span></h3>
+<p>硬件规定了中断响应优先级，中断程序能通过改变中断屏蔽字寄存器以改变中断的处理优先级。中断屏蔽字与中断源头的相对序关系相关</p>
+<h2><span id="并发与多处理器"> 并发与多处理器</span></h2>
+<h3><span id="计算机体系分类"> 计算机体系分类</span></h3>
+<ul>
+<li>SISD</li>
+<li>SIMD -- 一条指令并行处理多个处理单元的数据流，处理分支任务效率较低。 向量存储器是是SIMD的典型场景，在计算场景中较为常见。</li>
+<li>MISD</li>
+<li>MIMD -- 分为多计算机系统与多处理器系统，多计算机系统的每一个结点都具有独立的存储器和地址空间，无法交叉访存，只能通过消息共享实现通信，也称为<strong>消息传递型MIMD</strong>； 多处理器系统能够共享存储器，同时地址空间也统一，也称为<strong>共享存储型MIMD</strong></li>
+</ul>
+<h3><span id="硬件多线程"> 硬件多线程</span></h3>
+<p>硬件多线程分为</p>
+<ul>
+<li>细粒度多线程 -- 单个时钟周期可以并发同一线程的多条指令</li>
+<li>粗粒度多线程 -- 连续执行同一线程的指令，直到流水线发生阻塞后切换线程</li>
+<li>同时多线程(SMT) -- 能并发不同线程的多条指令</li>
+</ul>
+<p>Intel的超线程技术是SMT的代表，通过一个物理核心维护两套完整的线程状态硬件，执行硬件由两个逻辑核心共享，能实现单核性能逼近双核的并发能力。</p>
+<h3><span id="多核处理器"> 多核处理器</span></h3>
+<p>每一个核心共享独立的CPU状态、执行单元，通过核间共享网络通信并共享存储器，通常具有L1(有时包括L2)寄存器，共享高层级寄存器</p>
+<div class="tags"><a href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag"><i class="ic i-tag"></i>硬件</a><a href="/tags/%E8%AE%A1%E7%BB%84/" rel="tag"><i class="ic i-tag"></i>计组</a></div></div><footer><div class="meta"><span class="item"><span class="icon"><i class="ic i-calendar-check"></i></span><span class="text">更新于 </span><time title="修改时间：2026-05-20 00:00:00" itemprop="dateModified" datetime="2026-05-20T00:00:00+08:00">2026-05-20</time></span></div><div id="copyright"><ul><li class="author"><strong>本文作者：</strong>Yuuko<i class="ic i-at"><em>@</em></i>Yuukoの小屋</li><li class="link"><strong>本文链接：</strong><a href="https://yuukowww.github.io/2026/05/18/CS/%E8%AE%A1%E7%BB%84/CPU/" title="中央处理器">https://yuukowww.github.io/2026/05/18/CS/计组/CPU/</a></li><li class="license"><strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/2026/05/17/CS/LLM/smd/" rel="prev" itemprop="url" data-background-image="&#x2F;picture&#x2F;kasuga3.jpg" title="Spherical motion dynamic -- 球面动力学"><span class="type">上一篇</span><span class="category"><i class="ic i-flag"></i>LLM</span><h3>Spherical motion dynamic -- 球面动力学</h3></a></div><div class="item right"><a href="/2026/05/21/CS/%E8%AE%A1%E7%BB%84/Bus/" rel="next" itemprop="url" data-background-image="&#x2F;picture&#x2F;keqing1.jpg" title="总线"><span class="type">下一篇</span><span class="category"><i class="ic i-flag"></i>计组</span><h3>总线</h3></a></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"> 中央处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.0.1.</span> <span class="toc-text"> CPU的基本结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text"> 指令的执行过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 指令的时间周期</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.1.1.1.</span> <span class="toc-text"> 指令流水线</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">1.1.1.1.1.</span> <span class="toc-text"> MIPS指令集的流水线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">1.1.1.1.2.</span> <span class="toc-text"> 流水线的冒险</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link"><span class="toc-number">1.1.1.1.2.1.</span> <span class="toc-text"> 流水线冒险的解决方式</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">1.1.1.1.3.</span> <span class="toc-text"> 高级流水线</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text"> 数据通路*</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text"> 控制器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 硬布线控制器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 微程序控制器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.3.2.1.</span> <span class="toc-text"> 微指令编码方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.3.2.2.</span> <span class="toc-text"> 微指令的格式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text"> 指令的异常与中断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 中断的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 中断的识别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 中断的处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 多重中断与中断屏蔽</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text"> 并发与多处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 计算机体系分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 硬件多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 多核处理器</span></a></li></ol></li></ol></li></ol></div><div class="related panel pjax" data-title="系列文章"><ul><li ><a href="/2026/04/30/CS/%E8%AE%A1%E7%BB%84/%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8%E7%A4%BA%E4%B8%8E%E8%BF%90%E7%AE%97/" rel="bookmark" title="数据的表示与运算">数据的表示与运算</a></li><li ><a href="/2026/05/06/CS/%E8%AE%A1%E7%BB%84/%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/" rel="bookmark" title="存储系统">存储系统</a></li><li ><a href="/2026/05/08/CS/%E8%AE%A1%E7%BB%84/Cache/" rel="bookmark" title="Cache">Cache</a></li><li ><a href="/2026/05/09/CS/%E8%AE%A1%E7%BB%84/%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8/" rel="bookmark" title="虚拟存储器">虚拟存储器</a></li><li ><a href="/2026/05/11/CS/%E8%AE%A1%E7%BB%84/%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/" rel="bookmark" title="指令系统">指令系统</a></li><li  class="active"><a href="/2026/05/18/CS/%E8%AE%A1%E7%BB%84/CPU/" rel="bookmark" title="中央处理器">中央处理器</a></li><li ><a href="/2026/05/21/CS/%E8%AE%A1%E7%BB%84/Bus/" rel="bookmark" title="总线">总线</a></li></ul></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><img class="image" loading="lazy" decoding="async" itemprop="image" alt="Yuuko" src="/assets/avatar.jpg"/><p class="name" itemprop="name">Yuuko</p><div class="description" itemprop="description">Amor che nella mente mi regiona.</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">45</span><span class="name">文章</span></a></div><div class="item categories"><a href="/categories/"><span class="count">13</span><span class="name">分类</span></a></div><div class="item tags"><a href="/tags/"><span class="count">25</span><span class="name">标签</span></a></div></nav><div class="social"><a target="_blank" rel="noopener" href="https://github.com/Asunazzz123" class="item github" title="https:&#x2F;&#x2F;github.com&#x2F;Asunazzz123"><i class="ic i-github"></i></a><a target="_blank" rel="noopener" href="https://music.163.com/m/user?id=418116994" class="item music" title="https:&#x2F;&#x2F;music.163.com&#x2F;m&#x2F;user?id&#x3D;418116994"><i class="ic i-cloud-music"></i></a></div><div class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-feather"></i>文章</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a></li><li class="item"><a href="/reading/" rel="section"><i class="ic i-file"></i>读书笔记</a></li></ul></li><li class="item"><a href="/link/" rel="section"><i class="ic i-heart"></i>友链</a></li></div></div></div></div><ul id="quick"><li class="prev pjax"><a href="/2026/05/21/CS/%E8%AE%A1%E7%BB%84/Bus/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"><a href="/2026/05/17/CS/LLM/smd/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div><div id="player"></div></main><footer id="footer"><div class="inner"><div class="widgets"></div><div class="status"><div class="copyright">&copy; 2025 -<span itemprop="copyrightYear">2026</span><span class="with-love"><i class="ic i-sakura rotate"></i></span><span class="author" itemprop="copyrightHolder">Yuuko @ Yuuko</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i></span><span title="站点总字数">158k 字</span><span class="post-meta-divider"> | </span><span class="post-meta-item-icon"><i class="ic i-coffee"></i></span><span title="站点阅读时长">2:23</span></div><div class="powered-by">基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & Theme.<a target="_blank" rel="noopener" href="https://github.com/theme-shoka-x/hexo-theme-shokaX/">ShokaX</a></div></div></div></footer></div><script data-config type="text/javascript">var LOCAL = {
+    ispost: true,
+    path: `2026/05/18/CS/计组/CPU/`,
+    favicon: {
+        show: `（●´3｀●）やれやれだぜ`,
+        hide: `(´Д｀)大変だ！`
+    },
+    search: {
+        placeholder: "文章搜索",
+        empty: "关于 「 ${query} 」，什么也没搜到",
+        stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    nocopy: "false",
+    copyright: `复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。`,
+    copy_tex: true,
+    katex: true,
+    mermaid: false,
+    audio: undefined,
+    nocopy: false,
+    outime: true,
+    template: `<div class="note warning"><p><span class="label warning">文章时效性提示</span><br>这是一篇发布于 {{publish}} 天前，最后一次更新在 {{updated}} 天前的文章，部分信息可能已经发生改变，请注意甄别。</p></div>`,
+    quiz: {
+        choice: `单选题`,
+        multiple: `多选题`,
+        true_false: `判断题`,
+        essay: `问答题`,
+        gap_fill: `填空题`,
+        mistake: `错题备注`
+    }
+};
+</script><script src="/js/siteInit.js?v=0.5.4" type="module" fetchpriority="high" defer></script><script type="module">(() => {
+  const mermaidUrl = "https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.esm.min.mjs";
+  let mermaidLoader;
+
+  const loadMermaid = () => {
+    mermaidLoader ||= import(mermaidUrl).then((mod) => mod.default || mod);
+    return mermaidLoader;
+  };
+
+  const renderMermaid = async () => {
+    const nodes = Array.from(document.querySelectorAll("pre.mermaid, div.mermaid"))
+      .filter((node) => !node.dataset.processed);
+
+    if (!nodes.length) {
+      return;
+    }
+
+    try {
+      const mermaid = await loadMermaid();
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme: "default"
+      });
+
+      await mermaid.run({ nodes });
+      document.querySelectorAll("pre.mermaid > svg, div.mermaid > svg").forEach((svg) => {
+        svg.style.maxWidth = "";
+      });
+    } catch (error) {
+      console.error("Mermaid render failed:", error);
+    }
+  };
+
+  window.shokaxRenderMermaid = renderMermaid;
+  window.addEventListener("DOMContentLoaded", renderMermaid);
+  document.addEventListener("pjax:complete", renderMermaid);
+  document.addEventListener("pjax:success", renderMermaid);
+})();</script></body></html>

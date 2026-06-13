@@ -1,0 +1,419 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>Yuukoの小屋 • Posts by &#34;硬件&#34; tag</title>
+        <link>https://yuukowww.github.io</link>
+        <description>Amor che nella mente mi regiona.</description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 21 May 2026 00:00:00 +0800</pubDate>
+        <lastBuildDate>Thu, 21 May 2026 00:00:00 +0800</lastBuildDate>
+        <category>时间序列分析</category>
+        <category>RMT</category>
+        <category>随机矩阵</category>
+        <category>前后指针</category>
+        <category>Leetcode</category>
+        <category>算法</category>
+        <category>日常工作</category>
+        <category>机器学习</category>
+        <category>LLM</category>
+        <category>架构</category>
+        <category>encoding</category>
+        <category>数据结构</category>
+        <category>图论</category>
+        <category>OS</category>
+        <category>进程</category>
+        <category>硬件</category>
+        <category>计组</category>
+        <category>读书笔记</category>
+        <category>川端康诚</category>
+        <category>离散数学</category>
+        <category>微分几何</category>
+        <category>测度论</category>
+        <category>实分析</category>
+        <category>CS336</category>
+        <category>基模</category>
+        <item>
+            <guid isPermalink="true">https://yuukowww.github.io/2026/05/21/CS/%E8%AE%A1%E7%BB%84/Bus/</guid>
+            <title>总线</title>
+            <link>https://yuukowww.github.io/2026/05/21/CS/%E8%AE%A1%E7%BB%84/Bus/</link>
+            <category>硬件</category>
+            <category>计组</category>
+            <pubDate>Thu, 21 May 2026 00:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&#34;&gt;&lt;h1&gt;&lt;span id=&#34;总线&#34;&gt; 总线&lt;/span&gt;&lt;/h1&gt;
+&lt;p&gt;总线分为CPU内的总线(片内总线)与CPU和其他功能部件之间的总线(系统总线)，I/O总线与通信总线。&lt;/p&gt;
+&lt;p&gt;多总线硬件系统的系统总线通常可分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据总线&lt;/li&gt;
+&lt;li&gt;地址总线&lt;/li&gt;
+&lt;li&gt;控制总线&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I/O 总线是CPU与内部I/O设备的总线结构，如显卡、网卡等，通常使用标准化的内部总线协议&lt;/p&gt;
+&lt;p&gt;通信总线是CPU与外部I/O设备或者其他计算机通信的总线结构，常见协议有USB、RS-232、RS-485等&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;总线结构&#34;&gt; 总线结构&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;总线结构发展历程经历三种结构&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;早期共享总线结构 -- 通过单一系统总线串联所有设备，传输冲突严重&lt;/li&gt;
+&lt;li&gt;三总线结构 -- 将总线在物理结构上增加到为三条总线，系统总线、IO总线与DMA总线。传统总线仍然需要承载所有设备通信，具有共享式、广播式的特点，仍然限制了并发和拓展能力&lt;/li&gt;
+&lt;li&gt;南北桥结构 -- 通过南桥/北桥芯片分离内部和外部的控制功能，北桥负责高速内部通信，如显卡、内存通信；南桥负责外部通信，如USB设备、磁盘与其他外设。南北桥之间通过桥间总线进行通信，北桥与CPU之间通过 &lt;strong&gt;前端总线(FSB)&lt;/strong&gt; 进行通信。南北桥结构仍然因为FSB的吞吐影响了系统的并发能力。&lt;/li&gt;
+&lt;li&gt;现代集成通信结构 -- 传统北桥被集成在CPU内作为&lt;strong&gt;片上集成&lt;/strong&gt;，CPU与其他外部设备进行&lt;strong&gt;点对点互联&lt;/strong&gt;。多核CPU核间、多CPU结构的CPU之间使用QPI高速串行链路通信。高速IO设备直接通过PCIe与CPU相联，低速设备采用集成度更高的南桥芯片PCH管理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;&lt;span id=&#34;总线的性能指标&#34;&gt; 总线的性能指标&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;总线传输周期 -- 完成一次完整总线事务的总时间，简称总线周期&lt;/li&gt;
+&lt;li&gt;总线时钟频率 -- 总线周期的倒数表示总线事务信号的频率。现代总线事务的时钟独立于CPU时钟&lt;/li&gt;
+&lt;li&gt;总线工作频率 -- 总线有效数据传输的频率&lt;/li&gt;
+&lt;li&gt;总线宽度 -- 总线中数据线条数，标志总线并行数量&lt;/li&gt;
+&lt;li&gt;总线带宽 -- 总线总传递速度，总线带宽 = 总线宽度 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\times&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6667em;vertical-align:-0.0833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;×&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 总线频率&lt;/li&gt;
+&lt;li&gt;总线复用 -- 地址总线/数据总线复用以减小引脚总数&lt;/li&gt;
+&lt;li&gt;总线寻址能力 -- &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;n&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;位地址线能寻址&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^n&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6644em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6644em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;个存储单元&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;&lt;span id=&#34;总线事务&#34;&gt; 总线事务&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;总线事务是主设备到从设备到一次信息交换的过程。分为三个基本段&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;地址传送阶段 -- 目标地址与操作类型，主设备 -&amp;gt; 从设备&lt;/li&gt;
+&lt;li&gt;从设备响应阶段(数据准备阶段) -- 从设备准备数据&lt;/li&gt;
+&lt;li&gt;数据传输阶段 -- 数据在总线上的传输&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总线的连续传输模式可分为:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;非突发传输模式 -- 单次传输一个总线宽度的数据单元，每一次传输都完整执行三个传输基本段&lt;/li&gt;
+&lt;li&gt;突发传输模式 -- 连续地址传输，地址线仅传输首地址，后续地址由硬件执行地址自增生成，省去了地址传输的时间开销&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总线的物理传输方式可分为串行通信与并行通信。其中并行通信能通过多条数据线同步传输数据，但是会出现信号串扰和时序偏移等问题，实际传输效率低于串行通信。&lt;/p&gt;
+&lt;p&gt;串行通信可分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同步串行 -- 发送方时钟控制接收方时钟，二者时钟严格一致，只在数据块首位进行标记。硬件实现复杂，成本较高&lt;/li&gt;
+&lt;li&gt;异步串行 -- 收发方使用独立的时钟，单数据块以起始位0开启，以终止位1结束，存在奇偶校验。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;&lt;span id=&#34;总线定时&#34;&gt; 总线定时&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;总线定时方式可分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同步定时方式 -- 主从设备使用同一个时钟，每个操作都在固定的周期内进行&lt;/li&gt;
+&lt;li&gt;异步定时方式 -- 通过主从设备间的握手信号实现定时控制，分为不互锁(主-从)、半互锁(主-从-主)、全互锁(主-从-主-从). 异步定时方式能改变总线周期长度，并可靠连接工作速度差异较大的设备&lt;/li&gt;
+&lt;li&gt;半同步定时方式 -- 通过&lt;code&gt;Wait&lt;/code&gt; 信号线控制。主设备在信号上升沿检测&lt;code&gt;Wait&lt;/code&gt;, 当&lt;code&gt;Wait&lt;/code&gt; 置高电平时表示数据未准备就绪，同步无效，直到&lt;code&gt;Wait&lt;/code&gt;置低电平时才能读取数据&lt;/li&gt;
+&lt;li&gt;分离式定时方式 -- 将总线事务拆为请求阶段与应答阶段，请求阶段主设备申请总线使用权，发送地址与命令后释放；应答阶段由从设备申请总线使用权并应答。分离式定时方案能处理多主设备竞争的场景，但是总线仲裁的逻辑较为复杂，协议管理开销较大。&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://yuukowww.github.io/2026/05/18/CS/%E8%AE%A1%E7%BB%84/CPU/</guid>
+            <title>中央处理器</title>
+            <link>https://yuukowww.github.io/2026/05/18/CS/%E8%AE%A1%E7%BB%84/CPU/</link>
+            <category>硬件</category>
+            <category>计组</category>
+            <pubDate>Mon, 18 May 2026 00:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&#34;&gt;&lt;h1&gt;&lt;span id=&#34;中央处理器&#34;&gt; 中央处理器&lt;/span&gt;&lt;/h1&gt;
+&lt;p&gt;CPU节主要讨论了CPU如何执行指令与相关的pipeline、指令执行的时候遇到异常与中断如何处理、如何通过并发/多核的方式提高CPU的效率&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;cpu的基本结构&#34;&gt; CPU的基本结构&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;CPU的基本结构包含&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;程序计数器(PC) -- 存放即将执行的指令在主存中的地址，并在顺序执行时根据指令执行顺序进行自增，遇到转移型指令时进行指令的转移。&lt;/li&gt;
+&lt;li&gt;指令寄存器(IR) -- 暂存当前执行的指令&lt;/li&gt;
+&lt;li&gt;通用寄存器(GRPs) -- 灵活使用的寄存器，可以暂存操作数、地址指针和一些中间结果，用于减少对主存访问以提高运行效率。通用寄存器的容量取决于&lt;strong&gt;机器字长&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;标志寄存器(FR) -- 存储ALU计算的标志值，比如CF、ZF、OF&lt;/li&gt;
+&lt;li&gt;存储器地址寄存器(MAR) -- 临时存放读写主存的地址用以下一步访问主存&lt;/li&gt;
+&lt;li&gt;存储器数据寄存器(MDR) -- 临时存放读写主存的数据用以下一步访问主存&lt;/li&gt;
+&lt;li&gt;算术逻辑单元(ALU) -- 计算的基本单元，输出计算结果与计算标记值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CPU中的寄存器分为用户可见寄存器与用户不可见寄存器。不可见寄存器面向汇编程序员是&lt;strong&gt;透明&lt;/strong&gt;的&lt;/p&gt;
+&lt;p&gt;通用/专用寄存器组与程序计数器是用户可见可修改的用户可见寄存器&lt;/p&gt;
+&lt;p&gt;标志寄存器是用户可见寄存器，但是其结果来源于ALU计算，用户不可修改。&lt;/p&gt;
+&lt;p&gt;指令寄存器、存储器地址/数据寄存器、页表基址寄存器是用户不可见的寄存器&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;指令的执行过程&#34;&gt; 指令的执行过程&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;指令的执行过程分为取值、执行、中断，取值段是指令的预备阶段，进行指令取址；在执行阶段进行指令的译码、操作数取址与执行，存储操作数；中断阶段结束指令，将CPU操作中断并保存断点。&lt;/p&gt;
+&lt;p&gt;断点通常指的是指令断点，断点寄存器存储中断的指令地址。中断入口存入PC&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;指令的时间周期&#34;&gt; 指令的时间周期&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;指令的执行通常分为五个流水段&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;取指&lt;/li&gt;
+&lt;li&gt;译码/读存&lt;/li&gt;
+&lt;li&gt;执行/计算地址&lt;/li&gt;
+&lt;li&gt;访存&lt;/li&gt;
+&lt;li&gt;写回&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;&lt;span id=&#34;指令流水线&#34;&gt; 指令流水线&lt;/span&gt;&lt;/h4&gt;
+&lt;p&gt;指令流水线重叠执行，下一条指令比当前指令晚一个之间周期。满足严格的 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;C&lt;/mi&gt;&lt;mi&gt;P&lt;/mi&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;CPI = 1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;CP&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.07847em;&#34;&gt;I&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;高效的指令流水线需要指令集满足:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;指令定长: 简化取址逻辑&lt;/li&gt;
+&lt;li&gt;指令格式规整: 操作数寄存器位置固定，支持译码前预取操作数&lt;/li&gt;
+&lt;li&gt;只使用&lt;code&gt;LOAD/STORE&lt;/code&gt;访存&lt;/li&gt;
+&lt;li&gt;数据与指令边界对齐排放&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;RISC指令集是严格标准满足以上条件的指令集&lt;/p&gt;
+&lt;p&gt;流水线的吞吐率表示单位时间内流水线完成的任务数&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mtext&gt;TP&lt;/mtext&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;/msub&gt;&lt;/mfrac&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\text{TP} = \frac{n}{T_k}
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord text&#34;&gt;&lt;span class=&#34;mord&#34;&gt;TP&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.9436em;vertical-align:-0.836em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mopen nulldelimiter&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mfrac&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:1.1076em;&#34;&gt;&lt;span style=&#34;top:-2.314em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.3361em;&#34;&gt;&lt;span style=&#34;top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34; style=&#34;margin-right:0.03148em;&#34;&gt;k&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.23em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;frac-line&#34; style=&#34;border-bottom-width:0.04em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.677em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.836em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose nulldelimiter&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;理论情况下单发射的指令pipeline最大的吞吐率是CPU的主频，也就是时钟频率的倒数&lt;/p&gt;
+&lt;h5&gt;&lt;span id=&#34;mips指令集的流水线&#34;&gt; MIPS指令集的流水线&lt;/span&gt;&lt;/h5&gt;
+&lt;p&gt;MIPS的指令集分为三类六种指令&lt;/p&gt;
+&lt;p&gt;ALU相关的指令有:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;R型 -- 寄存器运算&lt;/li&gt;
+&lt;li&gt;I型 -- 立即数运算&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;存取相关的指令有:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;lw型 -- 内存读取数据入寄存器&lt;/li&gt;
+&lt;li&gt;sw型 -- 寄存器将数据写入内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;转移相关的指令&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;beq型 -- 比较寄存器值，如果相等就直接转移，否则按顺序执行地址指向的指令&lt;/li&gt;
+&lt;li&gt;j型 -- 将目标指令无条件转移到PC&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;&lt;span id=&#34;流水线的冒险&#34;&gt; 流水线的冒险&lt;/span&gt;&lt;/h5&gt;
+&lt;p&gt;流水线的冒险分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;结构冒险 -- 前后指令占据了相同的功能部件而冲突&lt;/li&gt;
+&lt;li&gt;数据冒险 -- 前后指令对于某一数据的访问冲突，通常为前一数据修改的时刻晚于后一指令的读取时刻，导致后一指令的读取失真(RAW冲突)；或者上一条加载数据的指令晚于下一条使用数据的访存段(load-use冒险)&lt;/li&gt;
+&lt;li&gt;控制冒险 -- 指令遇到转移、中断、异常等事件，改变了PC的地址导致流水线断流&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;&lt;span id=&#34;流水线冒险的解决方式&#34;&gt; 流水线冒险的解决方式&lt;/span&gt;&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;结构冒险的解决方式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;结构冒险通常是访存冒险或者寄存器冒险。&lt;/p&gt;
+&lt;p&gt;对于指令、数据共享的存储器，假如第 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;i&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6595em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 条指令是访存指令&lt;code&gt;LOAD&lt;/code&gt;，其第四个时钟周期处于&lt;code&gt;MEM&lt;/code&gt;访问数据存储器流水段，而第&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;i+3&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.7429em;vertical-align:-0.0833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 条指令处于&lt;code&gt;IF&lt;/code&gt;取指段，此时两条指令出现主存/Cache访问冲突&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;WB&lt;/code&gt;写回流水段写入区域是CPU内的寄存器而不是存储单元，因此不会发生结构冒险&lt;/p&gt;
+&lt;p&gt;解决结构冒险的主要方法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每一个功能部件在单条指令内部只使用一次且在固定阶段使用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增加硬件资源，例如将指令存储器和数据存储器解耦；将寄存器堆的写口和读口分离；支持将单个时钟周期分为前半周期写，后半周期读等策略&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据冒险&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;数据冒险分为RAW冒险和Load-Use冒险&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RAW冒险指前序指令写结果段晚于后序指令读数据段，导致读结果的数据失真。通常发生在&lt;code&gt;WB-ID&lt;/code&gt;之间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;解决RAW冒险的方式有延迟执行指令与转发技术。延迟执行指令通过软件插入空指令以延后执行指令，硬件插入气泡阻塞延迟单条指令执行的首时间周期； 转发技术则是在&lt;code&gt;EX&lt;/code&gt;段通过转发通路实现ALU之间的通信，相对应的值通过流水段寄存器存储并传递，从而规避了写/读数据的时间差&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Load-Use冒险只发生在相关的 &lt;code&gt;load&lt;/code&gt;指令与&lt;code&gt;use&lt;/code&gt;指令间，第&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;i&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6595em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;时条&lt;code&gt;load&lt;/code&gt;指令的第四个流水段&lt;code&gt;MEM&lt;/code&gt;段才读取主存中的数据，但是第&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;i+1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.7429em;vertical-align:-0.0833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;条&lt;code&gt;use&lt;/code&gt;指令只能读取&lt;code&gt;load&lt;/code&gt;未更新的操作数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;use&lt;/code&gt;指令添加一个阻塞时间周期后，&lt;code&gt;load&lt;/code&gt;的&lt;code&gt;MEM&lt;/code&gt;段就能与&lt;code&gt;use&lt;/code&gt;的&lt;code&gt;ID&lt;/code&gt;段对齐，这样能严格保证&lt;code&gt;use&lt;/code&gt;的&lt;code&gt;EX&lt;/code&gt;段发生在&lt;code&gt;load&lt;/code&gt;的&lt;code&gt;MEM&lt;/code&gt;段之后&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;控制冒险&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;核心策略为加阻塞和分支预测&lt;/p&gt;
+&lt;p&gt;分支预测技术分为静态预测与动态预测，静态预测使用简单的规则预测转移发生与否；动态预测程序转移的历史动态以调整预测，准确度更高。分支预测错误需要清空流水线内的错误路径指令并重新取指&lt;/p&gt;
+&lt;h5&gt;&lt;span id=&#34;高级流水线&#34;&gt; 高级流水线&lt;/span&gt;&lt;/h5&gt;
+&lt;p&gt;高级流水线技术能提高流水线并行度以提高效率&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;超标量流水线技术(动态多发射) -- 一个周期并行多条指令，通常以顺序执行(现代计算机支持乱序执行)，控制较为复杂&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;超长指令字技术(静态多发射) -- 将多条可并行执行指令打包为一条超长的指令字作为单条指令执行，包含多指令多操作码，分别实现不同功能。并行性由软件决定，控制比较简单&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;超流水线技术 -- 进一步细分流水段以压缩时钟周期，使得整体主频降低&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;&lt;span id=&#34;数据通路&#34;&gt; 数据通路*&lt;/span&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;span id=&#34;控制器&#34;&gt; 控制器&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;控制器分为硬布线控制器与微程序控制器。CISC-微程序控制器. RISC-硬布线控制器&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;硬布线控制器&#34;&gt; 硬布线控制器&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;硬布线控制器将操作码 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;n&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 位操作码译码为 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^n&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6644em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6644em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 种具体输出信号。硬布线控制器的控制逻辑简单，响应速度快，但是灵活性差，修改新增指令需要重新设计控制器&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;微程序控制器&#34;&gt; 微程序控制器&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;微程序控制器相当于将单一指令拆解为若干条微指令执行，机械指令与微程序一一对应。一个微程序可以划分为若干个微指令，微指令可以划分为若干个微命令，以及相对应的微操作。&lt;/p&gt;
+&lt;p&gt;微程序控制器中有对应的专门寄存器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;微地址寄存器(&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;μ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\mu&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.625em;vertical-align:-0.1944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;μ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; PC/ CMAR)&lt;/li&gt;
+&lt;li&gt;微指令寄存器(&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;μ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\mu&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.625em;vertical-align:-0.1944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;μ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; IR/ CMDR)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;&lt;span id=&#34;微指令编码方式&#34;&gt; 微指令编码方式&lt;/span&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;直接编码方式 -- 每一位直接对应一个微指令&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;字段直接编码方式 -- 分为若干互斥段编码， 互斥的微指令归入相同的互斥段，相容的微指令放入不同的互斥段。互斥段之间的相容进指令进行静态多发射类似的&lt;strong&gt;并行&lt;/strong&gt;。每一个字段内还保留一个全置0的状态，因此有效的互斥微指令只有 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msup&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^n-1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.7477em;vertical-align:-0.0833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6644em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 条&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;字段间接编码方式 -- 使用交叉编码的方式确定单条微指令的某一字段的意义，字段A的实际意义可能由字段A与字段B共同决定。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;&lt;span id=&#34;微指令的格式&#34;&gt; 微指令的格式&lt;/span&gt;&lt;/h4&gt;
+&lt;p&gt;微指令格式可分为水平型微指令与垂直型微指令&lt;/p&gt;
+&lt;p&gt;直接编码方式、字段直接编码方式与字段间接编码方式均为水平型编码，能快速并行执行微指令，但是微指令的整体字长会很长，且编写程序较为困难&lt;/p&gt;
+&lt;p&gt;垂直型微指令由微操作码、目的地址与源地址构成，格式规整，但是一次只能完成一个基本动作，执行效率低，并行能力差。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;指令的异常与中断&#34;&gt; 指令的异常与中断&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;异常(内中断) -- 指CPU执行命令过程中检出的内部同步事件，比如除零错误、缺页、非法操作码等，由指令引发，具有确定性且可复现&lt;/p&gt;
+&lt;p&gt;中断(外中断) -- 外部设备，如IO发生的异步事件，用于通知CPU外设的状态变化&lt;/p&gt;
+&lt;p&gt;异常分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;故障(Fault) -- 指令启动后但是未执行完出现的问题，例如非法操作码、缺页故障等。缺页故障这类可以修复的故障，操作系统会处理完毕后恢复，无法修复时会终止进程&lt;/li&gt;
+&lt;li&gt;自陷(Trap) -- 在指令完成后触发的异常，用于有目的性的转入系统内核。X86中的断点指令&lt;code&gt;INT 3&lt;/code&gt;、系统调用指令&lt;code&gt;syscall&lt;/code&gt;、MIPS中的条件自陷指令&lt;code&gt;teq&lt;/code&gt;等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;执行当前指令 -- 保存断点并自陷 -- 执行相应处理程序 -- 恢复断点并执行下一条指令&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;故障(Abort) -- 严重的硬件故障导致的程序中止，CPU会切换到相关的异常服务程序，记录信息或者重启系统。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;终止中断与外中断属于硬件中断；故障与自陷属于软件中断&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;中断的分类&#34;&gt; 中断的分类&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;中断可分为可屏蔽中断与不可屏蔽中断&lt;/p&gt;
+&lt;p&gt;不可屏蔽中断的优先级高于可屏蔽中断，对于总线的占据优先级&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;DMA &gt; 不可屏蔽中断 &gt; 可屏蔽中断&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在IO设备中的中断等级通常为&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;高速设备 &gt; 低速设备&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;输入设备 &gt; 输出设备&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;line&#34;&gt;&lt;span&gt;实时设备 &gt; 普通设备&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;中断请求通常由&lt;strong&gt;中断请求标记寄存器&lt;/strong&gt;进行管理，中断源设置中断请求标记触发器，当请求标记置为&lt;code&gt;1&lt;/code&gt;时表示中断源发出中断&lt;/p&gt;
+&lt;p&gt;可屏蔽中断的中断请求线为&lt;code&gt;INTR&lt;/code&gt;, 不可屏蔽中断的中断请求线为&lt;code&gt;NMI&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/2026/06/09/CS/OS/IO/&#34; title=&#34;IO管理&#34;&gt;IO管理&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;中断的识别&#34;&gt; 中断的识别&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;中断的识别分为&lt;strong&gt;向量中断&lt;/strong&gt;与&lt;strong&gt;非向量中断&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;向量中断中，中断源分配了唯一中断类型号，以匹配中断源对应中断向量在中断向量表的位置。基于中断向量表的中断源地址管理方式称为&lt;strong&gt;向量中断&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;非向量中断通过软件读取设备的状态寄存器，通过查询确定中断源。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;中断的处理&#34;&gt; 中断的处理&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;中断的过程分为中断前的&lt;strong&gt;中断隐指令&lt;/strong&gt;与&lt;strong&gt;中断服务程序&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;中断隐指令包含:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;关中断&lt;/li&gt;
+&lt;li&gt;保存断点&lt;/li&gt;
+&lt;li&gt;中段服务寻址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;中断隐指令是为中断服务程序做准备的流程&lt;/p&gt;
+&lt;p&gt;中断服务程序包含:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;保存现场与中断屏蔽字&lt;/li&gt;
+&lt;li&gt;开中断&lt;/li&gt;
+&lt;li&gt;执行中断服务程序&lt;/li&gt;
+&lt;li&gt;关中断&lt;/li&gt;
+&lt;li&gt;恢复现场与中断屏蔽字&lt;/li&gt;
+&lt;li&gt;开中断&lt;/li&gt;
+&lt;li&gt;中断返回&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;span id=&#34;多重中断与中断屏蔽&#34;&gt; 多重中断与中断屏蔽&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;硬件规定了中断响应优先级，中断程序能通过改变中断屏蔽字寄存器以改变中断的处理优先级。中断屏蔽字与中断源头的相对序关系相关&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;并发与多处理器&#34;&gt; 并发与多处理器&lt;/span&gt;&lt;/h2&gt;
+&lt;h3&gt;&lt;span id=&#34;计算机体系分类&#34;&gt; 计算机体系分类&lt;/span&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;SISD&lt;/li&gt;
+&lt;li&gt;SIMD -- 一条指令并行处理多个处理单元的数据流，处理分支任务效率较低。 向量存储器是是SIMD的典型场景，在计算场景中较为常见。&lt;/li&gt;
+&lt;li&gt;MISD&lt;/li&gt;
+&lt;li&gt;MIMD -- 分为多计算机系统与多处理器系统，多计算机系统的每一个结点都具有独立的存储器和地址空间，无法交叉访存，只能通过消息共享实现通信，也称为&lt;strong&gt;消息传递型MIMD&lt;/strong&gt;； 多处理器系统能够共享存储器，同时地址空间也统一，也称为&lt;strong&gt;共享存储型MIMD&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;span id=&#34;硬件多线程&#34;&gt; 硬件多线程&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;硬件多线程分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;细粒度多线程 -- 单个时钟周期可以并发同一线程的多条指令&lt;/li&gt;
+&lt;li&gt;粗粒度多线程 -- 连续执行同一线程的指令，直到流水线发生阻塞后切换线程&lt;/li&gt;
+&lt;li&gt;同时多线程(SMT) -- 能并发不同线程的多条指令&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Intel的超线程技术是SMT的代表，通过一个物理核心维护两套完整的线程状态硬件，执行硬件由两个逻辑核心共享，能实现单核性能逼近双核的并发能力。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;多核处理器&#34;&gt; 多核处理器&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;每一个核心共享独立的CPU状态、执行单元，通过核间共享网络通信并共享存储器，通常具有L1(有时包括L2)寄存器，共享高层级寄存器&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://yuukowww.github.io/2026/05/06/CS/%E8%AE%A1%E7%BB%84/%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/</guid>
+            <title>存储系统</title>
+            <link>https://yuukowww.github.io/2026/05/06/CS/%E8%AE%A1%E7%BB%84/%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/</link>
+            <category>硬件</category>
+            <category>计组</category>
+            <pubDate>Wed, 06 May 2026 00:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&#34;&gt;&lt;h1&gt;&lt;span id=&#34;存储系统&#34;&gt; 存储系统&lt;/span&gt;&lt;/h1&gt;
+&lt;p&gt;存储系统主要介绍计算机硬件结构中关于存储硬件介质的知识&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;存储器分类与层级&#34;&gt; 存储器分类与层级&lt;/span&gt;&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;存储元件材料分类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;半导体存储器: DRAM、SRAM&lt;/li&gt;
+&lt;li&gt;磁性存储器: 硬盘、磁带&lt;/li&gt;
+&lt;li&gt;光存储器: CD-ROM&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;现代的固态硬盘是基于Flash的半导体存储器，而不是磁性存储器&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可更改性分类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可读可写存储器 RWM -- 包含 RAM&lt;/li&gt;
+&lt;li&gt;只读存储器存储器 ROM&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可保存性分类&lt;/p&gt;
+&lt;p&gt;存储器在断电情况下，信息能否保持&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;易丢失性存储器: 断电后信息丢失 RAM&lt;/li&gt;
+&lt;li&gt;非易丢失性存储器: 断电后信息保持 ROM 、基于ROM的半导体存储器(Flash/...)以及非半导体存储器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;&lt;span id=&#34;存储器的层级&#34;&gt; 存储器的层级&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;存储器按相对CPU的访问距离、访问速度、大小分为&lt;/p&gt;
+&lt;pre class=&#34;shiki shiki-themes vitesse-light vitesse-dark&#34; style=&#34;background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee&#34; tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span&gt;CPU -&gt; 寄存器 -&gt; Cache -&gt; 主存 -&gt; 辅存(磁盘等内部存储介质-&gt;光盘等外部存储介质)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;存储器层次核心思想为: 上一级存储器作为下一级寄存器的高速缓存&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;主存储器&#34;&gt; 主存储器&lt;/span&gt;&lt;/h2&gt;
+&lt;h3&gt;&lt;span id=&#34;sram-与-dram&#34;&gt; SRAM 与 DRAM&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;SRAM(Static RAM)与DRAM(Dynamic RAM)均为易失性存储器，主存主要使用DRAM，Cache主要使用SRAM&lt;/p&gt;
+&lt;p&gt;SRAM基于六晶体管MOS构成的双稳态触发器，结构复杂，集成度低，功耗大成本高，但是存取速度快，适用于小空间快读写的Cache&lt;/p&gt;
+&lt;p&gt;DRAM使用栅极电容的电荷存储信息，有电荷代表1，无电荷代表0，基本存储单元由一个晶体管与一个电容构成，结构简单且集成度远高于SRAM&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;dram的刷新&#34;&gt; DRAM的刷新&lt;/span&gt;&lt;/h4&gt;
+&lt;p&gt;DRAM需要定期刷新以维持存储的信息，按照每一行进行行缓存(基于SRAM Cache),释放存储后立刻再生。&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;dram的存储矩阵&#34;&gt; DRAM的存储矩阵&lt;/span&gt;&lt;/h4&gt;
+&lt;p&gt;假设一个DRAM的存储容量为 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msup&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^n\times d&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.7477em;vertical-align:-0.0833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6644em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;×&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;d&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 位，其存储矩阵的行列满足&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msup&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^n = rc
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.7144em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.7144em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;rc&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;根据&lt;strong&gt;地址引脚复用技术&lt;/strong&gt;, DRAM的地址引脚个数为&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;max&lt;/mi&gt;&lt;mo&gt;⁡&lt;/mo&gt;&lt;mo stretchy=&#34;false&#34;&gt;{&lt;/mo&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo separator=&#34;true&#34;&gt;,&lt;/mo&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;}&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;max&lt;/mi&gt;&lt;mo&gt;⁡&lt;/mo&gt;&lt;mo stretchy=&#34;false&#34;&gt;{&lt;/mo&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo separator=&#34;true&#34;&gt;,&lt;/mo&gt;&lt;mfrac&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msup&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;/mfrac&gt;&lt;mo stretchy=&#34;false&#34;&gt;}&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;l=\max\{r,c\} = \max\{r,\frac{2^n}{r}\}
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mop&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mpunct&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.1667em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:2.0274em;vertical-align:-0.686em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mop&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mpunct&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.1667em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mopen nulldelimiter&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mfrac&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:1.3414em;&#34;&gt;&lt;span style=&#34;top:-2.314em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.23em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;frac-line&#34; style=&#34;border-bottom-width:0.04em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.677em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6644em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.686em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose nulldelimiter&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;因此行和列的个数尽可能接近时，地址引脚最少。同时需要满足 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo&gt;≤&lt;/mo&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;r\leq c&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.7719em;vertical-align:-0.136em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;≤&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;c&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 以降低刷新开销&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;sdram&#34;&gt; SDRAM&lt;/span&gt;&lt;/h4&gt;
+&lt;p&gt;SDRAM(同步DRAM)的数据读写与系统时钟同步，以CPU-系统总线的高速率运行。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;主存储器的结构&#34;&gt; 主存储器的结构&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;主存储器由核心的存储矩阵、存储器地址寄存器(与地址总线)、存储器数据寄存器(与数据总线)以及译码器、IO电路、控制电路等组件构成。主存储器通常是DRAM。&lt;/p&gt;
+&lt;p&gt;DRAM的地址译码器用于解析地址信号为高低电平，通常分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单译码器 -- 仅使用一个行译码器线性串联整个存储单元&lt;/li&gt;
+&lt;li&gt;双译码器 -- 使用X(行)译码器与Y(列)译码器实现存储单元的定位&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;span id=&#34;主存储器引脚与地址&#34;&gt; 主存储器引脚与地址&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;对于一个&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msup&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^n \times d&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.7477em;vertical-align:-0.0833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6644em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;×&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;d&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;位的 DRAM, 它的数据总线有&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;d&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;d&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 根，地址总线有&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;n&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 根。 寻址范围为 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mo&gt;∼&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msup&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;0\sim 2^n -1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;∼&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.7477em;vertical-align:-0.0833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6644em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;DRAM满足&lt;strong&gt;地址引脚复用技术&lt;/strong&gt;， 因此DRAM的地址引脚个数为 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo stretchy=&#34;false&#34;&gt;⌈&lt;/mo&gt;&lt;mfrac&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;mo stretchy=&#34;false&#34;&gt;⌉&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\lceil\frac{n}{2}\rceil&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.095em;vertical-align:-0.345em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;⌈&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mopen nulldelimiter&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mfrac&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6954em;&#34;&gt;&lt;span style=&#34;top:-2.655em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.23em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;frac-line&#34; style=&#34;border-bottom-width:0.04em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.394em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.345em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose nulldelimiter&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;⌉&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, 数据引脚个数为&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;d&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;d&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;副存储器&#34;&gt; 副存储器&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;副存储器通常都是非易失性存储器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只读存储器 ROM及衍生存储器&lt;/li&gt;
+&lt;li&gt;磁性存储器&lt;/li&gt;
+&lt;li&gt;光存储器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;span id=&#34;rom与衍生存储器&#34;&gt; ROM与衍生存储器&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;ROM 是支持随机访问的非易失性存储器，结构简单且位密度高，但是读取速度慢且只支持有条件写入&lt;/p&gt;
+&lt;p&gt;根据制造工艺与可编程性分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;掩膜ROM(MROM) -- 老古董，基于光刻技术制作，无法写入&lt;/li&gt;
+&lt;li&gt;一次可编程ROM(PROM)&lt;/li&gt;
+&lt;li&gt;可擦除可编程ROM(EPROM) -- 支持多次编程，擦写次数有限且需要紫外光处理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Flash是基于EEPROM(电可擦除可编程只读存储器)发展的，读取速度接近RAM但是写入速度较慢，在现代的主板上用于存储Bios，能进行读写。SSD是基于Flash构建的存储设备，能快速读写，功耗较低，且容量较大。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;单体多字存储器&#34;&gt; 单体多字存储器&lt;/span&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;span id=&#34;多模块存储器&#34;&gt; 多模块存储器&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;多模块存储器是将不同存储器空间并行的方式。模块的地址分配方式的不同分为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;连续编址方式 -- 在一个模块内先线性纵向访问地址后再进行下一个模块的地址访问&lt;/li&gt;
+&lt;li&gt;交叉编址方式 -- 根据模块号横向访问地址。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;m&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;个模块的交叉编址方式满足&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;%&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;h = n \% m
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8056em;vertical-align:-0.0556em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;交叉存储器有两种启动方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;轮流启动&lt;/li&gt;
+&lt;li&gt;同时启动&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;每一个模块的一次读写的位数正好等于数据总线位数的时候，将总线周期长作为流水线启动节拍。当模块的存储周期为&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;T&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6833em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;T&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;， 总线周期为&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;τ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\tau&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.1132em;&#34;&gt;τ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;时，满足&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mo stretchy=&#34;false&#34;&gt;⌊&lt;/mo&gt;&lt;mfrac&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;τ&lt;/mi&gt;&lt;/mfrac&gt;&lt;mo stretchy=&#34;false&#34;&gt;⌋&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;m = \lfloor\frac{T}{\tau}\rfloor
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:2.0463em;vertical-align:-0.686em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;⌊&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mopen nulldelimiter&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mfrac&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:1.3603em;&#34;&gt;&lt;span style=&#34;top:-2.314em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.1132em;&#34;&gt;τ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.23em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;frac-line&#34; style=&#34;border-bottom-width:0.04em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.677em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;T&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.686em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose nulldelimiter&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;⌋&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;如果相邻的&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;m&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;次访问的地址出现在一个模块中，可能出现访存冲突&lt;/p&gt;
+&lt;p&gt;同时启动方式是宽数据总线能读取一次并行的所有读写的总位数的情况下，在一次读写同时启动多个模块的读写。并行访问通常是以连续8个字节作为单位进行访问的，因此需要进行类型地址的对齐。&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

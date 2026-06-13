@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/><meta name="theme-color" content="#222"/><meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1"/><meta name="renderer" content="webkit"/><link rel="icon" type="image/ico" sizes="32x32" href="/assets/favicon.ico"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/><link rel="alternate" href="/rss.xml" title="Yuukoの小屋" type="application/rss+xml"><link rel="alternate" href="/atom.xml" title="Yuukoの小屋" type="application/atom+xml"><link rel="alternate" type="application/json" title="Yuukoの小屋" href="https://yuukowww.github.io/feed.json"/><link rel="preconnect" href="https://s4.zstatic.net"/><link rel="preconnect" href="https://at.alicdn.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CFredericka%20the%20Great:400,400italic,700,700italic%7CNoto%20Serif%20JP:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CInconsolata:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" media="none" onload="this.media&#x3D;&#39;all&#39;"><link rel="modulepreload" href="/js/siteInit.js"></link><link rel="modulepreload" href="/js/nyx-player-7KEBWMUD.js"></link><link rel="modulepreload" href="/js/copy-tex-2PUB5UWL.js"></link><link rel="modulepreload" href="/js/post-3AW7O4XW.js"></link><link rel="modulepreload" href="/js/chunk-ZPKPLRXM.js"></link><link rel="modulepreload" href="/js/chunk-ZMKMXQVE.js"></link><link rel="stylesheet" href="/css/siteInit.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="preload" href="/picture/shinku2.png" as="image" fetchpriority="high"><meta name="description" content="操作系统 -- 进程与线程"/><link rel="canonical" href="https://yuukowww.github.io/2026/05/25/CS/OS/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/"><link rel="stylesheet" href="/css/post.css?v=0.5.4"><link rel="stylesheet" href="/css/mermaid.css?v=0.5.4"><!-- 临时处理--><link rel="stylesheet" media="none" onload="this.media='all'" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css"><title>进程与线程</title><meta name="generator" content="Hexo 7.3.0"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="pagefind_mount"></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">进程与线程</h1><div class="meta"><span class="item" title="创建时间：2026-05-25 00:00:00"><span class="icon"><i class="ic i-calendar"></i></span><span class="text">发表于</span><time itemprop="dateCreated datePublished" datetime="2026-05-25T00:00:00+08:00">2026-05-25</time></span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i></span><span class="text">本文字数</span><span>7.7k</span><span class="text">字</span></span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i></span><span class="text">阅读时长</span><span>7 分钟</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span><span class="line"></span><span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">Yuuko</a></li></ul><ul class="right" id="rightNav"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li></ul></div></nav></div><div class="pjax" id="imgs"><img src="/picture/shinku2.png" loading="eager" decoding="async" fetchpriority="high" alt="Yuukoの小屋"></div></header><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"></use><use xlink:href="#gentle-wave" x="48" y="3"></use><use xlink:href="#gentle-wave" x="48" y="5"></use><use xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></div><main><div class="inner"><div class="pjax" id="main"><div class="article wrap"><div class="breadcrumb" itemListElement itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i><span><a href="/">首页</a></span><i class="ic i-angle-right"></i><span class="current" itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem"><a href="/categories/OS/" itemprop="item" rel="index" title="分类于OS"><span itemprop="name">OS<meta itemprop="position" content="0"/></span></a></span></div><article class="post block" itemscope="itemscope" itemtype="http://schema.org/Article" data-pagefind-body="data-pagefind-body" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://yuukowww.github.io/2026/05/25/CS/OS/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/"/><span hidden="hidden" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta itemprop="image" content="/assets/avatar.jpg"/><meta itemprop="name" content="Yuuko"/><meta itemprop="description" content=", Amor che nella mente mi regiona."/></span><span hidden="hidden" itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Yuukoの小屋"/></span><div class="body md" itemprop="articleBody"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1><span id="进程与线程"> 进程与线程</span></h1>
+<p>进程是操作系统进行资源分配与调度的基本单位。</p>
+<h3><span id="进程的特征"> 进程的特征</span></h3>
+<ul>
+<li>动态性 -- 进程有明确的生命周期，执行状态存在变化</li>
+<li>并发性 -- 多个进程可以在内存中存在于内存并在CPU中并发</li>
+<li>独立性 -- 作为申请系统资源的独立单元存在</li>
+<li>异步性 -- 进程间相互制约，申请CPU资源是先后进行的。这导致了实际执行的结果可能不可复现</li>
+</ul>
+<h2><span id="并行的效率"> 并行的效率</span></h2>
+<p>Amdahl’s Law与 Gustafson’s Law 讨论了并行计算能提升多大的计算效率</p>
+<h3><span id="amdahls-law"> Amdahl's Law</span></h3>
+<p>Amdahl's Law 讨论在<strong>等量任务</strong>的条件下，并行计算带来的计算效率优化上线。</p>
+<p>假设一个程序中可并行部分的比例为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span>, 可以 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> 路并行， 那么整体加速比为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>S</mi><mi>N</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false">)</mo><mo>+</mo><mfrac><mi>p</mi><mi>N</mi></mfrac></mrow></mfrac></mrow><annotation encoding="application/x-tex">S_N = \frac{1}{(1-p)+\frac{p}{N}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.3524em;vertical-align:-1.031em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7475em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4461em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.031em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>Amdahl's law 指出了并行优化的效率上限 -- 串行部分的比例。当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>→</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">N\to \infty</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord">∞</span></span></span></span> 时，加速比最大值为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>S</mi><mi mathvariant="normal">∞</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">S_\infty = \frac{1}{1-p}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">∞</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.2019em;vertical-align:-0.8804em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">p</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h3><span id="gustafsons-law"> Gustafson’s Law</span></h3>
+<p>Gustafson’s Law讨论在<strong>相等时间</strong>的情况下，并行计算得带来的计算任务量的效率优化上限。</p>
+<p>假设一个程序的可并行部分为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span>. 则相同时间下并行的任务量（加速比）为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>S</mi><mi>N</mi></msub><mo>=</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo>+</mo><mi>N</mi><mi>p</mi><mo>=</mo><mo stretchy="false">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mi>p</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">S_N = 1-p + Np = (N-1)p+1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">Np</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span></p>
+<p>这说明通过增加并行资源，能通过扩大并行任务规模并使并行部分占主导。</p>
+<h2><span id="进程的构成"> 进程的构成</span></h2>
+<p>进程实体由三部分构成：</p>
+<ul>
+<li>进程控制块(PCB)</li>
+<li>程序段</li>
+<li>相关数据段</li>
+</ul>
+<h4><span id="进程控制块-pcb"> 进程控制块 (PCB)</span></h4>
+<p>PCB是进程存在的<strong>唯一标志</strong>，在进程的整个生命周期内，OS均依赖PCB进行进程管理。</p>
+<p>PCB包含四类信息:</p>
+<ul>
+<li><strong>进程标志信息</strong>: 包含用户ID(UID)、进程ID(PID)与父进程ID(PPID), 作为进程标志编号；用户ID能标注进程所属用户，以提供资源与安全的保护</li>
+<li><strong>进程调度信息</strong>: 包含进程当前状态，进程优先级，CPU占用时间等进度相关调度信息</li>
+<li><strong>资源与内存信息</strong>: 包含进程内所使用的内存信息，包含代码指针、数据指针、堆栈指针、IO清单与文件描述符</li>
+<li><strong>处理机状态信息</strong>: 也称为<strong>CPU上下文</strong>， 包含物理寄存器状态参数，如通用寄存器值(PC)、程序计数器值、程序状态字(PSW)、 栈指针(SP)</li>
+</ul>
+<p>进程的PCB是用户不透明的，我们能通过shell访问相应进程的PCB。</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0ADA0;--shiki-dark:#758575DD"># Linux</span></span>
+<span class="line"><span style="color:#59873A;--shiki-dark:#80A665">cat</span><span style="color:#B56959;--shiki-dark:#C98A7D"> /proc/[pid]</span><span style="color:#A0ADA0;--shiki-dark:#758575DD">         # 进程 PCB</span></span>
+<span class="line"><span style="color:#59873A;--shiki-dark:#80A665">cat</span><span style="color:#B56959;--shiki-dark:#C98A7D"> /proc/[pid]/status</span><span style="color:#A0ADA0;--shiki-dark:#758575DD">  # 进程 PCB中的状态特征</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0ADA0;--shiki-dark:#758575DD"># MacOS</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#59873A;--shiki-dark:#80A665">ps</span><span style="color:#A65E2B;--shiki-dark:#C99076"> -l</span><span style="color:#A65E2B;--shiki-dark:#C99076"> -p</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#2993a3;--shiki-dark:#5eaab5">[</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">pid</span><span style="color:#2993a3;--shiki-dark:#5eaab5">]</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">          </span><span style="color:#A0ADA0;--shiki-dark:#758575DD"># 与 cat /proc/[pid]/status 一致</span></span>
+<span class="line"></span></code></pre>
+<p>对于不同OS，父进程中断对子进程的影响都不同。Linux系统对父进程中断并不会中断子进程的执行，而是由<code>init</code>(PID=1)进程收养并正常运行。</p>
+<p>PCB中的处理机状态信息与指令的相应状态信息相对应。当进程指令进入CPU时间片处理时，对应寄存器从内存中读取PCB处理机信息。</p>
+<h4><span id="程序段"> 程序段</span></h4>
+<p>程序段是CPU可执行的代码部分，是代码的纯二进制指令部分。静态的二进制指令可以被多个进程共享。</p>
+<p>程序段包含</p>
+<ul>
+<li><code>.init</code> -- 主程序启动前的隐代码准备</li>
+<li><code>.text</code> -- 程序的可执行部分</li>
+<li><code>.rodata</code> -- 只读数据存储</li>
+</ul>
+<h4><span id="数据段"> 数据段</span></h4>
+<p>数据段包含进程运行所需的数据，包含<code>.data</code>、<code>.bss</code>与堆、栈</p>
+<p><code>.data</code>用于放置已初始化的静态变量、<code>.bss</code>用于放置未初始化的静态变量</p>
+<p><strong>Tip:</strong> 关于变量存储的空间</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-c"><span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">int</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> a </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#2F798A;--shiki-dark:#4C9A91"> 1</span><span style="color:#999999;--shiki-dark:#666666">;</span><span style="color:#A0ADA0;--shiki-dark:#758575DD"> // 在.data 数据段中</span></span>
+<span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">int</span><span style="color:#B07D48;--shiki-dark:#BD976A"> b</span><span style="color:#2993a3;--shiki-dark:#5eaab5">[</span><span style="color:#2F798A;--shiki-dark:#4C9A91">10</span><span style="color:#2993a3;--shiki-dark:#5eaab5">]</span><span style="color:#999999;--shiki-dark:#666666">;</span><span style="color:#A0ADA0;--shiki-dark:#758575DD"> // 在.bss 数据段中</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">void</span><span style="color:#59873A;--shiki-dark:#80A665"> main</span><span style="color:#2993a3;--shiki-dark:#5eaab5">(</span><span style="color:#2993a3;--shiki-dark:#5eaab5">)</span><span style="color:#2993a3;--shiki-dark:#5eaab5">&#123;</span></span>
+<span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">    static</span><span style="color:#AB5959;--shiki-dark:#CB7676"> int</span><span style="color:#B07D48;--shiki-dark:#BD976A"> List</span><span style="color:#1e754f;--shiki-dark:#4d9375">[</span><span style="color:#2F798A;--shiki-dark:#4C9A91">10</span><span style="color:#1e754f;--shiki-dark:#4d9375">]</span><span style="color:#999999;--shiki-dark:#666666">;</span><span style="color:#A0ADA0;--shiki-dark:#758575DD"> // 函数中静态变量声明在.data数据段中</span></span>
+<span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">    int</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> c </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#2F798A;--shiki-dark:#4C9A91"> 1</span><span style="color:#999999;--shiki-dark:#666666">;</span><span style="color:#A0ADA0;--shiki-dark:#758575DD"> // 在被调用的函数中声明的变量直接在栈中生成</span></span>
+<span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">    int</span><span style="color:#AB5959;--shiki-dark:#CB7676"> *</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">p_arr </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#999999;--shiki-dark:#666666"> </span><span style="color:#1e754f;--shiki-dark:#4d9375">(</span><span style="color:#AB5959;--shiki-dark:#CB7676">int*</span><span style="color:#1e754f;--shiki-dark:#4d9375">)</span><span style="color:#59873A;--shiki-dark:#80A665">malloc</span><span style="color:#1e754f;--shiki-dark:#4d9375">(</span><span style="color:#2F798A;--shiki-dark:#4C9A91">10</span><span style="color:#AB5959;--shiki-dark:#CB7676">*sizeof</span><span style="color:#a65e2b;--shiki-dark:#d4976c">(</span><span style="color:#AB5959;--shiki-dark:#CB7676">int</span><span style="color:#a65e2b;--shiki-dark:#d4976c">)</span><span style="color:#1e754f;--shiki-dark:#4d9375">)</span><span style="color:#A0ADA0;--shiki-dark:#758575DD"> // 被调用函数中声明动态申请空间时，变量生成在堆中</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#2993a3;--shiki-dark:#5eaab5">&#125;</span></span></code></pre>
+<h4><span id="共享库的存储映射区"> 共享库的存储映射区</span></h4>
+<p>依赖库的加载，比如一些动态库<code>.so/.dll</code></p>
+<p>静态库通常加载到<code>.text</code>中</p>
+<h2><span id="进程的生命周期"> 进程的生命周期</span></h2>
+<p>进程的生命周期分为</p>
+<ul>
+<li>创建态</li>
+<li>就绪态</li>
+<li>运行态</li>
+<li>阻塞态</li>
+<li>终止态</li>
+</ul>
+<p>满足图</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span></span></span>
+<span class="line"><span>创建态 -> 就绪态  &#x3C;-> 运行态 -> 终止态</span></span>
+<span class="line"><span>            |          |</span></span>
+<span class="line"><span>            &#x3C;------  阻塞态</span></span></code></pre>
+<h3><span id="进程的创建"> 进程的创建</span></h3>
+<p>在创建态下，OS通过<strong>创建原语</strong>建立新进程。</p>
+<ul>
+<li>分配唯一标识并创建空白PCB</li>
+<li>分配新进程所需的资源，如内存、文件、IO等，存入PCB</li>
+<li>初始化PCB</li>
+<li>插入就绪队列中</li>
+</ul>
+<p>终端登录、作业调度系统启动任务、用户程序请求、系统提供服务等事件都会创建新的进程。</p>
+<h3><span id="进程的终止"> 进程的终止</span></h3>
+<p>分为正常结束、异常结束与外界干预</p>
+<ul>
+<li>正常结束 -- 进程完成任务后退出</li>
+<li>异常结束 -- 异常或者中断导致退出</li>
+<li>外界干预 -- 人工退出、系统资源不足或者安全原因导致退出</li>
+</ul>
+<p>终止进程的流程</p>
+<ul>
+<li>检索PCB并读取当前状态</li>
+<li>剥夺CPU并调度下一个进程</li>
+<li>释放相关的系统资源，归还给OS</li>
+<li>根据系统设计中断相关子进程</li>
+<li>清除并释放PCB</li>
+</ul>
+<h3><span id="进程的阻塞与唤醒"> 进程的阻塞与唤醒</span></h3>
+<p>进程因为外部事件无法进行时会主动调用<strong>阻塞原语(Block)</strong>, 将进程从运行态转变为阻塞态。</p>
+<p>阻塞原语与中断实现的逻辑相似。阻塞原语的实现过程</p>
+<ul>
+<li>保存CPU现场(PC/状态寄存器)到PCB</li>
+<li>修改PCB状态字段为阻塞态并放入等待队列</li>
+<li>调度就绪队列的进程运行</li>
+</ul>
+<p>阻塞进程的事件结束后，需要内核的中断处理程序或者合作进程调用**唤醒原语(Wakeup)**进行进程的唤醒</p>
+<ul>
+<li>在等待队列找到对应PCB</li>
+<li>移除队列并修改PCB中的状态字，此时从阻塞态转变为就绪态</li>
+<li>将PCB插入就绪队列，并等待CPU资源执行</li>
+</ul>
+<h2><span id="进程的通信"> 进程的通信</span></h2>
+<p>进程是独立的单元，进程间的通信通常需要申请内存区域搭建通信的介质进行信息交换。</p>
+<p>根据通信效率与量的不同可以分为:</p>
+<ul>
+<li>低级通信 -- 控制信息的传输</li>
+<li>高级通信 -- 高效传输大量信息</li>
+</ul>
+<p>高级通信面对大量的数据与地址的传递</p>
+<ul>
+<li>
+<p>共享传递 -- 划出独立的内存空间，使多个进程都能读写这个共享的空间以实现通信。 引入同步<strong>互斥机制</strong>规避同时读写共享空间的导致的数据不一致的问题</p>
+</li>
+<li>
+<p>消息传递 --  封装格式化的信息进行传递，格式化信息由内核实现，面向用户透明。分为直接通信方式与间接通信方式。直接通信方式是将格式化信息通过<strong>发送原语</strong>与<strong>接收原语</strong>到指定进程；间接通信方式通过维护一个<strong>信箱</strong>实体进行间接通信</p>
+</li>
+<li>
+<p>管道通信<br>
+维护一个固定大小的内存缓存区进行通信，管道是单向的。管道满足:</p>
+<ul>
+<li>互斥性: 同一时刻只有写端或者读端一个进程访问管道，以避免并发造成数据混乱</li>
+<li>同步性: 管道慢自动阻塞，读端释放后继续写入</li>
+<li>写端关闭检测后读端自动返回空</li>
+</ul>
+</li>
+<li>
+<p>信号用于通知进程事件发生的情况，通过一个向量维护待处理的信号，一个向量维护被阻塞的信号。信号的来源分为:</p>
+<ul>
+<li>内核: 如<code>SIGKILL(kill -9)</code></li>
+<li>进程：其他进程或者自身发送信号</li>
+</ul>
+</li>
+</ul>
+<p>仅当OS从内核态回到用户态的时候才会处理待处理的信号。处理信号的方式</p>
+<ul>
+<li>执行系统默认的信号处理 -- 比如遇到<code>SIGKILL</code>杀死进程</li>
+<li>执行用户自定义的信号处理程序 -- 相关定义函数的执行</li>
+</ul>
+<h2><span id="线程"> 线程</span></h2>
+<p>线程是<strong>程序执行流的最小单位</strong>，也是处理器调度的基本单位。</p>
+<p>在单个进程中有多个执行线程。一个线程不拥有独立的系统资源，比如地址空间，但是运行基本的线程私有数据，比如线程ID、PC、寄存器组和栈寄存器(这些是指令执行的基本单位，线程独立执行一些指令组，因此拥有这些物理元件的数据独立性)。线程的控制块<strong>TCB</strong>用于记录线程的执行上下文(即对应物理元件的备份值，如PC值，栈指针等)</p>
+<p>统一进程中的多个线程也能并发执行相同的程序代码。常见的，比如<code>uWSGI</code>创建的多线程后端服务，能访问同一个后端代码库。也能同时共享进程的资源与内存信息。</p>
+<p>线程间的CPU调用与生命周期是独立的。多CPU系统的线程可以在不同的CPU核心上运行</p>
+<p>线程间的调度的开销小于进程间的调度。</p>
+<h3><span id="线程控制块tcb"> 线程控制块(TCB)</span></h3>
+<p>TCB 包含</p>
+<ul>
+<li>线程标志符(ID)</li>
+<li>寄存器集合</li>
+<li>线程状态</li>
+<li>调度优先级</li>
+<li>线程私有数据的局部存储区</li>
+<li>线程的私有堆栈的指针</li>
+</ul>
+<h3><span id="线程的实现"> 线程的实现</span></h3>
+<p>线程分为用户级线程(ULT)与内核态线程(KLT)，基于这两种线程存在多种进程实现方式。</p>
+<ul>
+<li>用户级线程模式 -- 只由用户级线程执行线程，任务只需要库函数进行。这样的OS称为纯微内核系统，用户态线程只通过系统调用的方式执行一些内核操作(比如IO)</li>
+<li>内核级线程模式 -- 指系统内核支持用户级与内核级线程。但是线程的用户态/内核态转换面临系统开销</li>
+</ul>
+<p>组合方式分为多对一模式、一对一模式与多对多模式</p>
+<p>一对一模式与内核级线程模式是一个模式的两个名字</p>
+<p>多对一模式是指始终只有一个线程能从用户态切换至内核态，实现并发的内核态运行。多对一模式并不能完成多内核/多CPU多线程并行</p>
+<p>多对多模式是能将实现多对多的内核态切换，同时避免一对一模型的全切换开销过大的问题。</p>
+<p>线程库是用户态线程的管理方式，程序员通过线程库的库函数(API)进行线程的创建与生命周期的管理。同时，高级语言能通过线程池进行多用户线程的管理，例如<code>SQLite</code>的<code>ThreadPoolExecutor</code></p>
+<h1><span id="cpu调度"> CPU调度</span></h1>
+<p>CPU调度是指当进程数远大于CPU核心数时，如何分配CPU资源以实现进程的高效、公平的运行，从而实现进程的高并发。</p>
+<h3><span id="调度的层次"> 调度的层次</span></h3>
+<p>调度自外向内分为三个层次</p>
+<ul>
+<li>高级调度(作业调度) -- 高级调度负责将作业从外存中提取进内存，分配内存/IO等资源，并创建相应的PCB。整个作业调度周期内高级调度只发生一次。</li>
+<li>中级调度(内存调度) -- 中级调度是为了提高内存利用率，当内存紧张时，将阻塞态或者就绪态持续较长的进程挂起并放入外存；当系统资源支持对应进程继续运行时，中级调度将进程移回内存。</li>
+<li><strong>低级调度(进程调度)</strong> -- 低级调度按照规则给进程分配CPU资源。</li>
+</ul>
+<p>进程调度的任务包括</p>
+<ul>
+<li>保存CPU现场信息(如PC,PSM), 以确保上一个进程能断点运行</li>
+<li>选取就绪的待运行进程，将进程PCB从就绪态改为运行态</li>
+<li>移交CPU控制权，恢复断点，分配CPU</li>
+</ul>
+<h3><span id="调度的实现"> 调度的实现</span></h3>
+<p>进程调度通过调度器实现，调度器分为排队器、分派器与上下文切换器。</p>
+<ul>
+<li>排队器 -- 进程就绪态的排队序列</li>
+<li>分派器 -- 根据调度算法选定进程进行CPU资源分配，并触发上下文的切换</li>
+<li>上下文切换器 -- 进行当前CPU运行的进程的上下文切换写入PCB，再将分派进程的上下文写入CPU的相应寄存器中</li>
+</ul>
+<h4><span id="上下文切换"> 上下文切换</span></h4>
+<p>上下文切换是进程调度的核心占用步骤，因为PCB就是进程的信息载体本身。上下文切换分为上一个进程PCB的保存与下一个进程PCB的恢复与写入CPU寄存器，完整流程为</p>
+<ul>
+<li>挂起当前进程，将CPU上下文写入PCB</li>
+<li>将当前进程的PCB放入就绪队列或者阻塞队列中</li>
+<li>选择另外一个进程，更新相关PCB信息(从就绪态改为运行态)</li>
+<li>将PCB的运行信息恢复进CPU</li>
+<li>分配CPU资源，跳转到PC地址并执行</li>
+</ul>
+<p>上下文切换涉及复杂的访存与指令的执行，时间与资源的开销都较大。</p>
+<p>上下文切换是发生在进程间的，而模式切换是发生在进程或者线程内的状态变化。上下文切换只能由内核执行，因此当前进程切换必须为内核态。</p>
+<h4><span id="调度的时机"> 调度的时机</span></h4>
+<p>进行进程调度的时刻有</p>
+<ul>
+<li>创建新进程时，父进程与子进程都进入就绪态，调度器选择父进程/子进程分配CPU资源</li>
+<li>进程正常结束或者终止的时候。如果没有就绪进程就挂起一个闲逛进程(PID=0,优先度最低)、</li>
+<li>进程进入阻塞态时，为了提高CPU利用率，会进行进程调度</li>
+<li>IO就绪时，将阻塞态进程切换为就绪态进程</li>
+</ul>
+<p>不能进行进程切换的场景(关中断状态)</p>
+<ul>
+<li>处理中断的过程。</li>
+<li>执行原子操作的情况，此时系统会进行屏蔽中断操作。</li>
+</ul>
+<h4><span id="调度的方式"> 调度的方式</span></h4>
+<ul>
+<li>非抢占调度方式: 面对更加紧迫的或者优先级更高的进程，只有当前进程执行后才会进行调度</li>
+<li>抢占调度方式: 出现优先级更高的进程进入就绪态，当前进程的CPU资源直接被剥夺，给新进程分配CPU资源</li>
+</ul>
+<h4><span id="调度的目标"> 调度的目标</span></h4>
+<p>调度的目标是提高CPU的利用率，进程的调度目的是尽可能提高CPU的利用率。<strong>CPU利用率</strong>的计算公式为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>CPU利用率</mtext><mo>=</mo><mfrac><mtext>CPU有效工作时间</mtext><mrow><mtext>CPU有效工作时间</mtext><mo>+</mo><mtext>CPU空闲等待时间</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{CPU利用率} = \frac{\text{CPU有效工作时间}}{\text{CPU有效工作时间}+\text{CPU空闲等待时间}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">CPU</span><span class="mord cjk_fallback">利用率</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1297em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">CPU</span><span class="mord cjk_fallback">有效工作时间</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord text"><span class="mord">CPU</span><span class="mord cjk_fallback">空闲等待时间</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">CPU</span><span class="mord cjk_fallback">有效工作时间</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p><strong>系统吞吐量</strong>用于衡量系统的执行单个作业的平均速度。长作业通常占用CPU的时间，降低系统的吞吐量。</p>
+<p>周转时间指作业从提交到完成的整个生命周期所消耗的时间，包括等待、就绪态排队、阻塞态等待IO以及实际CPU的执行时间。对于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>个作业的平均周转时间为均值</p>
+<h4><span id="调度算法"> 调度算法</span></h4>
+<h5><span id="先来先服务fcfs算法"> 先来先服务(FCFS)算法</span></h5>
+<p>FCFS算法中的进程队列满足FIFO，即先来先执行，晚到晚执行的策略，属于非抢占式的算法。FCFS是公平算法但是对短进程不友好，效率较低；同时FCFS遇到高频IO的进程无法快速释放CPU资源，效率更低。</p>
+<h5><span id="短作业优先sjf算法-短进程优先spf算法"> 短作业优先(SJF)算法 / 短进程优先(SPF)算法</span></h5>
+<p>短作业优先算法会进行队列中的作业用时预测，将最短用时的作业分配CPU资源。</p>
+<p>预测算法是简单的预测时间加权。对于上一次实际用时 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">t_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 与预测用时 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\tau_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, 以及预测因子 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>, 本轮的预测用时为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>τ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>α</mi><msub><mi>t</mi><mi>n</mi></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><msub><mi>τ</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\tau_{n+1} = \alpha t_n + (1-\alpha)\tau_n 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>SJF对于长作业不利，如果短作业频繁创建，长作业会始终得不到CPU资源而产生<strong>饥饿现象</strong>(调度策略使某一进程出现无限期等待)；同时SJF只考虑了作业长度作为优先级而没考虑进程的优先级，无法保证紧迫作业及时处理。</p>
+<h5><span id="高响应比优先调度算法"> 高响应比优先调度算法</span></h5>
+<p>基于响应比评估作业的整体优先级，综合考虑了作业的时效性与等候时间</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>响应比</mtext><mo>=</mo><mfrac><mrow><mtext>等待时间</mtext><mo>+</mo><mtext>估计运行时间</mtext></mrow><mtext>估计运行时间</mtext></mfrac></mrow><annotation encoding="application/x-tex">\text{响应比} = \frac{\text{等待时间}+\text{估计运行时间}}{\text{估计运行时间}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord cjk_fallback">响应比</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0463em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">估计运行时间</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">等待时间</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord text"><span class="mord cjk_fallback">估计运行时间</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h5><span id="优先级调度算法"> 优先级调度算法</span></h5>
+<p>根据系统优先级进行作业的调度</p>
+<p>优先级调度算法根据是否能在进程期间抢占CPU资源分为</p>
+<ul>
+<li>抢占式优先调度算法</li>
+<li>非抢占式优先调度算法</li>
+</ul>
+<p>通常 系统进程 &gt; 用户进程， 交互性进程 &gt; 非交互性进程， IO进程 &gt; 计算进程(IO设备的传输与处理优先级高，相关的数据信息无法暂存，处理速度也慢于CPU)</p>
+<p>根据进程优先级是否可变可以分为静态优先级与动态优先级。其中静态优先级指进程优先级在创建时就固定不可变，调度简单但是有可能出现饥饿现象；动态优先级可以根据等待时间或者进程属性进行动态的改变。</p>
+<h5><span id="时间片轮转rr算法"> 时间片轮转(RR)算法</span></h5>
+<p>时间片一个执行窗口，如果进程执行时间长于时间片，就将进程CPU资源释放给下一个进程，并放入就绪队列。时间片轮转能保证进程的公平性，不会遇到饥饿现象，但是面临性能开销较大的问题。</p>
+<p>当进程结束但是时间片未结束，此时也触发时间片的轮转，为下一个几次呢分配CPU资源</p>
+<h5><span id="多级队列调度算法"> 多级队列调度算法</span></h5>
+<p>将就绪进程分为多个<strong>不同优先级</strong>、<strong>不同或相同调度算法</strong>的进程队列，进行进程的调度与执行。潜在的问题为高级队列进程频繁创建的场景下，低等级队列的进程饥饿</p>
+<h5><span id="多级反馈队列调度算法"> 多级反馈队列调度算法</span></h5>
+<p>相比多级队列调度算法， 多级反馈队列调度算法打通了不同优先级队列的通道。多级反馈队列的通常基于递增时间片的进程队列实现，通常越低级、越底层的队列的时间片越长，越接近FCFS。</p>
+<p>新到达的进程通常先进入最高优先级队列。若进程在当前队列的时间片内未执行完，则被剥夺 CPU，并被移动到下一较低优先级队列的队尾继续等待；若进程已经处于最低优先级队列，则被剥夺 CPU 后通常回到该最低级队列队尾等待。、、</p>
+<h4><span id="多处理机调度"> 多处理机调度</span></h4>
+<p>多处理器系统分为非对称多处理器(AMP)和对称多处理器(SMP)。AMP有一个独立主CPU进行全部调度与决策，从CPU只执行任务；SMP的CPU是平等执行与调度进程的，调度程序可以将任意就绪进程分配给不同的CPU</p>
+<p>在多核CPU/多CPU系统中，某个进程在CPU1运行，调度到CPU2时，相应的寄存器与Cache都要进行移动。因此系统应尽量使进程在单个CPU中调度，称为<strong>处理器亲和性</strong></p>
+<p>CPU多核性能平均化称为 <strong>性能均衡</strong>，因此需要进行CPU间的进程调度实现多核平均化。从这个角度看，处理器亲和性与性能均衡是相对矛盾的，性能均衡会抵消处理器亲和性的性能优化。</p>
+<p>面向多处理机的调度方式可以分为公有队列调度与私有队列调度</p>
+<ul>
+<li>公共就绪队列调度 -- 所有CPU共享一个进程队列，CPU的性能均衡但是处理器亲和性较差</li>
+<li>私有就绪队列调度 -- 调度器控制私有队列进程，当CPU空闲时调用私有队列进程执行。CPU的处理器亲和性高但是性能不均衡</li>
+</ul>
+<p>处理器的亲和性的提升方法分为软亲和与硬亲和。软亲和指调度器进行进程软绑定在某个CPU上，尽量向这个CPU调度；硬亲和指用户进程通过<strong>系统调度</strong>主动请求系统绑定在某个CPU上。</p>
+<h2><span id="协程"> 协程</span></h2>
+<p>协程是语言实现的，可以在线程内部执行、中断并恢复的程序控制结构，通过<code>yield()</code>自主管理CPU的调用，其性能开销小于线程的切换</p>
+</div><footer><div class="meta"><span class="item"><span class="icon"><i class="ic i-calendar-check"></i></span><span class="text">更新于 </span><time title="修改时间：2026-06-13 17:49:56" itemprop="dateModified" datetime="2026-06-13T17:49:56+08:00">2026-06-13</time></span></div><div id="copyright"><ul><li class="author"><strong>本文作者：</strong>Yuuko<i class="ic i-at"><em>@</em></i>Yuukoの小屋</li><li class="link"><strong>本文链接：</strong><a href="https://yuukowww.github.io/2026/05/25/CS/OS/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" title="进程与线程">https://yuukowww.github.io/2026/05/25/CS/OS/进程与线程/</a></li><li class="license"><strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/2026/05/24/CS/LLM/deepnet/" rel="prev" itemprop="url" data-background-image="&#x2F;picture&#x2F;Kanami1.png" title="DeepNet"><span class="type">上一篇</span><span class="category"><i class="ic i-flag"></i>LLM</span><h3>DeepNet</h3></a></div><div class="item right"><a href="/2026/05/29/Reading/kawabata/%E4%BC%8A%E8%B1%86%E7%9A%84%E8%88%9E%E5%A5%B3/" rel="next" itemprop="url" data-background-image="&#x2F;picture&#x2F;shiroha2.jpg" title="《伊豆的舞女》 -- 川端康诚"><span class="type">下一篇</span><span class="category"><i class="ic i-flag"></i>Reading</span><h3>《伊豆的舞女》 -- 川端康诚</h3></a></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"> 进程与线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 进程的特征</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text"> 并行的效率</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.1.</span> <span class="toc-text"> Amdahl&#39;s Law</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.2.</span> <span class="toc-text"> Gustafson’s Law</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text"> 进程的构成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.0.1.</span> <span class="toc-text"> 进程控制块 (PCB)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.0.2.</span> <span class="toc-text"> 程序段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.0.3.</span> <span class="toc-text"> 数据段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.0.4.</span> <span class="toc-text"> 共享库的存储映射区</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text"> 进程的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 进程的创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 进程的终止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 进程的阻塞与唤醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text"> 进程的通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text"> 线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 线程控制块(TCB)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 线程的实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text"> CPU调度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.0.1.</span> <span class="toc-text"> 调度的层次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.0.2.</span> <span class="toc-text"> 调度的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.0.2.1.</span> <span class="toc-text"> 上下文切换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.0.2.2.</span> <span class="toc-text"> 调度的时机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.0.2.3.</span> <span class="toc-text"> 调度的方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.0.2.4.</span> <span class="toc-text"> 调度的目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.0.2.5.</span> <span class="toc-text"> 调度算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">2.0.2.5.1.</span> <span class="toc-text"> 先来先服务(FCFS)算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">2.0.2.5.2.</span> <span class="toc-text"> 短作业优先(SJF)算法 &#x2F; 短进程优先(SPF)算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">2.0.2.5.3.</span> <span class="toc-text"> 高响应比优先调度算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">2.0.2.5.4.</span> <span class="toc-text"> 优先级调度算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">2.0.2.5.5.</span> <span class="toc-text"> 时间片轮转(RR)算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">2.0.2.5.6.</span> <span class="toc-text"> 多级队列调度算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">2.0.2.5.7.</span> <span class="toc-text"> 多级反馈队列调度算法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.0.2.6.</span> <span class="toc-text"> 多处理机调度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.1.</span> <span class="toc-text"> 协程</span></a></li></ol></li></ol></div><div class="related panel pjax" data-title="系列文章"><ul><li ><a href="/2026/05/21/CS/OS/%E5%9F%BA%E6%9C%AC%E8%A7%82%E5%BF%B5/" rel="bookmark" title="操作系统的基本概念">操作系统的基本概念</a></li><li  class="active"><a href="/2026/05/25/CS/OS/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" rel="bookmark" title="进程与线程">进程与线程</a></li><li ><a href="/2026/05/29/CS/OS/%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%E4%B8%8E%E4%BA%92%E6%96%A5/" rel="bookmark" title="进程的同步与互斥">进程的同步与互斥</a></li><li ><a href="/2026/06/01/CS/OS/deadlock/" rel="bookmark" title="死锁">死锁</a></li><li ><a href="/2026/06/02/CS/OS/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="bookmark" title="内存管理">内存管理</a></li><li ><a href="/2026/06/05/CS/OS/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="bookmark" title="文件管理">文件管理</a></li><li ><a href="/2026/06/09/CS/OS/IO/" rel="bookmark" title="IO管理">IO管理</a></li><li ><a href="/2026/06/11/CS/%E8%AE%A1%E7%BB%84/%E7%A3%81%E7%9B%98/" rel="bookmark" title="磁盘与SSD">磁盘与SSD</a></li></ul></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><img class="image" loading="lazy" decoding="async" itemprop="image" alt="Yuuko" src="/assets/avatar.jpg"/><p class="name" itemprop="name">Yuuko</p><div class="description" itemprop="description">Amor che nella mente mi regiona.</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">45</span><span class="name">文章</span></a></div><div class="item categories"><a href="/categories/"><span class="count">13</span><span class="name">分类</span></a></div><div class="item tags"><a href="/tags/"><span class="count">25</span><span class="name">标签</span></a></div></nav><div class="social"><a target="_blank" rel="noopener" href="https://github.com/Asunazzz123" class="item github" title="https:&#x2F;&#x2F;github.com&#x2F;Asunazzz123"><i class="ic i-github"></i></a><a target="_blank" rel="noopener" href="https://music.163.com/m/user?id=418116994" class="item music" title="https:&#x2F;&#x2F;music.163.com&#x2F;m&#x2F;user?id&#x3D;418116994"><i class="ic i-cloud-music"></i></a></div><div class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-feather"></i>文章</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a></li><li class="item"><a href="/reading/" rel="section"><i class="ic i-file"></i>读书笔记</a></li></ul></li><li class="item"><a href="/link/" rel="section"><i class="ic i-heart"></i>友链</a></li></div></div></div></div><ul id="quick"><li class="prev pjax"><a href="/2026/05/29/Reading/kawabata/%E4%BC%8A%E8%B1%86%E7%9A%84%E8%88%9E%E5%A5%B3/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"><a href="/2026/05/24/CS/LLM/deepnet/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div><div id="player"></div></main><footer id="footer"><div class="inner"><div class="widgets"></div><div class="status"><div class="copyright">&copy; 2025 -<span itemprop="copyrightYear">2026</span><span class="with-love"><i class="ic i-sakura rotate"></i></span><span class="author" itemprop="copyrightHolder">Yuuko @ Yuuko</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i></span><span title="站点总字数">158k 字</span><span class="post-meta-divider"> | </span><span class="post-meta-item-icon"><i class="ic i-coffee"></i></span><span title="站点阅读时长">2:23</span></div><div class="powered-by">基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & Theme.<a target="_blank" rel="noopener" href="https://github.com/theme-shoka-x/hexo-theme-shokaX/">ShokaX</a></div></div></div></footer></div><script data-config type="text/javascript">var LOCAL = {
+    ispost: true,
+    path: `2026/05/25/CS/OS/进程与线程/`,
+    favicon: {
+        show: `（●´3｀●）やれやれだぜ`,
+        hide: `(´Д｀)大変だ！`
+    },
+    search: {
+        placeholder: "文章搜索",
+        empty: "关于 「 ${query} 」，什么也没搜到",
+        stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    nocopy: "false",
+    copyright: `复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。`,
+    copy_tex: false,
+    katex: false,
+    mermaid: false,
+    audio: undefined,
+    nocopy: false,
+    outime: true,
+    template: `<div class="note warning"><p><span class="label warning">文章时效性提示</span><br>这是一篇发布于 {{publish}} 天前，最后一次更新在 {{updated}} 天前的文章，部分信息可能已经发生改变，请注意甄别。</p></div>`,
+    quiz: {
+        choice: `单选题`,
+        multiple: `多选题`,
+        true_false: `判断题`,
+        essay: `问答题`,
+        gap_fill: `填空题`,
+        mistake: `错题备注`
+    }
+};
+</script><script src="/js/siteInit.js?v=0.5.4" type="module" fetchpriority="high" defer></script><script type="module">(() => {
+  const mermaidUrl = "https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.esm.min.mjs";
+  let mermaidLoader;
+
+  const loadMermaid = () => {
+    mermaidLoader ||= import(mermaidUrl).then((mod) => mod.default || mod);
+    return mermaidLoader;
+  };
+
+  const renderMermaid = async () => {
+    const nodes = Array.from(document.querySelectorAll("pre.mermaid, div.mermaid"))
+      .filter((node) => !node.dataset.processed);
+
+    if (!nodes.length) {
+      return;
+    }
+
+    try {
+      const mermaid = await loadMermaid();
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme: "default"
+      });
+
+      await mermaid.run({ nodes });
+      document.querySelectorAll("pre.mermaid > svg, div.mermaid > svg").forEach((svg) => {
+        svg.style.maxWidth = "";
+      });
+    } catch (error) {
+      console.error("Mermaid render failed:", error);
+    }
+  };
+
+  window.shokaxRenderMermaid = renderMermaid;
+  window.addEventListener("DOMContentLoaded", renderMermaid);
+  document.addEventListener("pjax:complete", renderMermaid);
+  document.addEventListener("pjax:success", renderMermaid);
+})();</script></body></html>

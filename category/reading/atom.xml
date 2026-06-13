@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://yuukowww.github.io</id>
+    <title>Yuukoの小屋 • Posts by &#34;reading&#34; category</title>
+    <link href="https://yuukowww.github.io" />
+    <updated>2026-05-28T16:00:00.000Z</updated>
+    <category term="时间序列分析" />
+    <category term="RMT" />
+    <category term="随机矩阵" />
+    <category term="前后指针" />
+    <category term="Leetcode" />
+    <category term="算法" />
+    <category term="日常工作" />
+    <category term="机器学习" />
+    <category term="LLM" />
+    <category term="架构" />
+    <category term="encoding" />
+    <category term="数据结构" />
+    <category term="图论" />
+    <category term="OS" />
+    <category term="进程" />
+    <category term="硬件" />
+    <category term="计组" />
+    <category term="读书笔记" />
+    <category term="川端康诚" />
+    <category term="离散数学" />
+    <category term="微分几何" />
+    <category term="测度论" />
+    <category term="实分析" />
+    <category term="CS336" />
+    <category term="基模" />
+    <entry>
+        <id>https://yuukowww.github.io/2026/05/29/Reading/kawabata/%E4%BC%8A%E8%B1%86%E7%9A%84%E8%88%9E%E5%A5%B3/</id>
+        <title>《伊豆的舞女》 -- 川端康诚</title>
+        <link rel="alternate" href="https://yuukowww.github.io/2026/05/29/Reading/kawabata/%E4%BC%8A%E8%B1%86%E7%9A%84%E8%88%9E%E5%A5%B3/"/>
+        <content type="html">&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&#34;&gt;&lt;p&gt;《伊豆的舞女》并不是我看过的第一本川端康诚的书，相比《雪国》、《千纸鹤》等刻作品刻画的日本压抑严肃社会背景下的扭曲的爱情，《伊豆的舞女》中的萍水相逢间平淡而朴素的好感与爱恋，却如山间的野花纯真，也如野花般易逝。&lt;/p&gt;
+&lt;div class=&#34;note default subtitle no-icon&#34;&gt;
+&lt;p&gt;在黑暗中，少年的体温温暖着我。我任凭泪泉涌流，我的头脑恍如变成一池清水，一滴滴溢了出来，后来什么也没有留下，顿时觉得舒畅了。&lt;/p&gt;
+&lt;/div&gt;
+</content>
+        <category term="读书笔记" />
+        <category term="川端康诚" />
+        <updated>2026-05-28T16:00:00.000Z</updated>
+    </entry>
+</feed>
