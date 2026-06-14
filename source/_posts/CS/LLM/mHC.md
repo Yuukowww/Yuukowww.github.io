@@ -133,6 +133,9 @@ $$
 在单次训练中，DHC相比 SHC多训练了线性层，但是换取了更高的信息密度，且这几个线性层的参数量约为 $\mathcal{O}(dn)$ , 在模型训练的开销较小的情况下，通过实时生成的非线性权重打破了传统残差连接的表达瓶颈，从而实现了极高的信息利用率和收敛稳定性。
 
 实验证明SHC在小任务的条件下性能与DHC相近，但是在更深的网络、更复杂任务(比如图像生成/大参数LLM预训练)的情况下DHC性能远高于SHC
+
+![result](/picture/mHC/result.png)
+
 # Manifold-Constrained Hyper-Connections
 
 
