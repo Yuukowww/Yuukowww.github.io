@@ -1,7 +1,7 @@
 ---
 title: From ResNet to mHC
 date: 2026-05-23
-update: 2026-06-01
+update: 2026-06-14
 description: LLM的信息流范式
 categories: LLM
 math: true 
