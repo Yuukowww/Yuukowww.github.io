@@ -1,6 +1,6 @@
-const { parseDocument } = require("htmlparser2");
+const { parseDOM } = require("htmlparser2");
 const DomUtils = require("domutils");
-const serialize = require("dom-serializer").default;
+const serialize = require("dom-serializer");
 
 const MERMAID_LANG_RE = /(^|\s)language-mermaid(\s|$)/;
 const MERMAID_FENCE_RE = /```mermaid\b/i;
@@ -47,8 +47,8 @@ hexo.extend.filter.register("after_post_render", function(data) {
     return data;
   }
 
-  const document = parseDocument(data.content, { decodeEntities: true });
-  const mermaidBlocks = DomUtils.findAll(isMermaidCode, document.children);
+  const nodes = parseDOM(data.content, { decodeEntities: true });
+  const mermaidBlocks = DomUtils.findAll(isMermaidCode, nodes);
 
   if (!mermaidBlocks.length) {
     return data;
@@ -65,9 +65,8 @@ hexo.extend.filter.register("after_post_render", function(data) {
     DomUtils.replaceElement(pre, createMermaidNode(source));
   });
 
-  data.content = serialize(document.children, {
-    decodeEntities: true,
-    encodeEntities: "utf8"
+  data.content = serialize(nodes, {
+    decodeEntities: true
   });
   return data;
 });
