@@ -71,6 +71,16 @@ ignore:
 
 theme: shokax
 
+knowledge_graph:
+  enable: true
+  auto_mount: true
+  categories_path: /categories/
+  target_selector: .collapse.wrap
+  insert_position: beforebegin
+  title: 知识网络
+  height: 620px
+  include_uncategorized: false
+
 deploy:
   type: git
   repo: https://github.com/Yuukowww/Yuukowww.github.io
