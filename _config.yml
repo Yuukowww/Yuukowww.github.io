@@ -6,7 +6,7 @@ author: "Yuuko"
 language: zh-CN
 timezone: "Asia/Shanghai"
 
-url: https://yuukowww.github.io
+url: https://yuuko.site
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
