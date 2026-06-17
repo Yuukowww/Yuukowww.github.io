@@ -5,6 +5,7 @@ public/
 db.json
 .vscode 
 .npm-cache/
+.deploy_git/
 .claude
 .codex
 .npm-cache
