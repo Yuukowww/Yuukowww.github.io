@@ -1,7 +1,7 @@
 ---
 title: MoE -- Mixture of experts
 date: 2026-06-01
-update: 2026-06-02
+update: 2026-06-21
 categories: LLM
 description: 混合专家模型
 tag: [架构]
