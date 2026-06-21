@@ -10,6 +10,25 @@ cover: picture/kanade1.jpg
 
 # Mixture of Experts
 
+Traditional MoE Structure is built with ResNet and embedding mixture FFN and multi-head attention.
+
+Final Output of FFN experts is determined by `Top-k` restrain, according to each output vector and the unique centroid of each FFN expert's dot product
+
+For the original ResNet,
+$$
+h^{l+1} =  \text{ResFFN}\circ\text{ResMHA}(h^l)
+$$
+
+For MoE,
+$$
+h^{l+1} = \text{MResFFN}\circ\text{ResMHA}(h^l)
+$$
+
+
+The structure of MResFFN is 
+
+![MResFFN](/picture/moe/MResFFN.png)
+
 
 
 # Special Scaling Property of Softmax
