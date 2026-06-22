@@ -18,84 +18,43 @@ BPE 需要考虑一些Special token，它们是不可分token string单元，每
 
 ### BPE Merge 表的训练
 
-BPE 基于字符合并而贪心算法进行`vocab`和 `Merge`表 
+BPE 基于字符合并而贪心算法生成`vocab`和 `Merge`表 
 
-假设Tokenizer 训练集为
-```
-We</w> *20
-are</w> *12
-the</w> *3
-world</w> *9
-```
+首先，tokenizer通常会视一些固定的字符串为`special_tokens`，这些字符串是不可分且唯一编码的单位，通常先将`special_tokens`筛选出来。
 
-拆分为字频
+```python
+vocab = {i: bytes([i]) for i in range(256)}
+if special_tokens:
+    for special_token in special_tokens:
+        vocab[len(vocab)] = special_token.encode("utf-8")  // 将utf-8 编码的special_token 存入vocab
+    special_pattern = "|".join(regex.escape(token) for token in sorted(special_tokens,key = len, reverse = True)) // regex.escape 将特殊符号转换为合法字符而不是正则表达式的一部分；"|" 表示或，将special_token并列； 将 special_tokens降序排列，防止短字符串先匹配
+    chuns = regex.split(special_pattern,text) // 按照special_pattern 进行字符串分割
+else:
+    chunks = [text]
 ```
-W e </W> *22
-a r e </w> *12
-t h e </w> *3
-w o r l d </w> *9
+GPT-2形式的tokenizer 会将某些特定类型的字符串形式预编译
+```python
+pat = regex.compile(
+    r"""'(?:[sdmt]|ll|ve|re)| 
+    ?\p{L}+|
+     ?\p{N}+| 
+     ?[^\s\p{L}\p{N}]+|
+     \s+(?!\S)|
+     \s+"""
+    )
 ```
+`'(?:[sdmt]|ll|ve|re)` 用于匹配 's 'd 'm 't 'll 've 're 这样的abbreviation, 比如 you're 就会被拆为 `you` `'re`
 
-```
-</w> *44
-e    *35
-w    *29
-r    *21
-a    *12
-o    * 9
-l    * 9
-d    * 9
-t    * 3
-h    * 3
-```
+`?\p{L}+` 用于字符串的匹配, `?`表示字符串前可选的空格, 以实现语句匹配时的空格，比如`hello world` 匹配为`hello` 与` world`
 
+`?\p{N}+` 用于数字串的匹配
 
+`?[^\s\p{L}\p{N}]+` 表示非空、非字符串与非数字串的对象，比如😈。 `[^ ]`表示取反， `\s`表示空字符匹配， 对象并列即表示或运算
 
-Top-2 字频的字为 `w` 和 `e`， 将这两个字进行**有序**的合并
-```
-we </w> *22
-a r e </w> *12
-t h e </w> *3
-w o r l d </w> *9
-```
-更新字频表
+`\s+(?!\S)`表示匹配尾部空白，`\s+`表示多个空字符，`(?!\S)` 中 `\S`表示非空字符， `(?| ...)`表示不能匹配后面的东西，也就是匹配尾部空白
 
-```
-</w>  *44
-we   *22
-r    *21
-a    *12
-o    * 9
-l    * 9
-d    * 9
-e    * 6
-t    * 3
-h    * 3
-```
-
-此时可合并的Top-2 字频为`r` 与 `a`
-```
-we </w> *22
-ar e </w> *12
-t h e </w> *3
-w o r l d </w> *9
-```
-更新词频表
-```
-</w>  *44
-we   *22
-ar   *12
-r    * 9
-o    * 9
-l    * 9
-d    * 9
-e    * 6
-t    * 3
-h    * 3
-```
-
-以此方式迭代直到达到设定的合并上限
-## 正则表达式库`re`的使用
+`\s+` 表示剩余的空白匹配
+## 正则表达式库`re`与`regex`的使用
 
 ## 遇到的问题
 
