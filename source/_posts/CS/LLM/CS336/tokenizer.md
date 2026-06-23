@@ -26,9 +26,9 @@ BPE 基于字符合并而贪心算法生成`vocab`和 `Merge`表
 vocab = {i: bytes([i]) for i in range(256)}
 if special_tokens:
     for special_token in special_tokens:
-        vocab[len(vocab)] = special_token.encode("utf-8")  // 将utf-8 编码的special_token 存入vocab
-    special_pattern = "|".join(regex.escape(token) for token in sorted(special_tokens,key = len, reverse = True)) // regex.escape 将特殊符号转换为合法字符而不是正则表达式的一部分；"|" 表示或，将special_token并列； 将 special_tokens降序排列，防止短字符串先匹配
-    chuns = regex.split(special_pattern,text) // 按照special_pattern 进行字符串分割
+        vocab[len(vocab)] = special_token.encode("utf-8")  # 将utf-8 编码的special_token 存入vocab
+    special_pattern = "|".join(regex.escape(token) for token in sorted(special_tokens,key = len, reverse = True)) # regex.escape 将特殊符号转换为合法字符而不是正则表达式的一部分；"|" 表示或，将special_token并列； 将 special_tokens降序排列，防止短字符串先匹配
+    chuns = regex.split(special_pattern,text) # 按照special_pattern 进行字符串分割
 else:
     chunks = [text]
 ```
@@ -59,9 +59,9 @@ pat = regex.compile(
 ```python
 word_counts = {}
     for chunk in chunks:
-        for match in pat.finditer(chunk):       // 在chunk中，通过正则模式扎厚道不重叠的匹配项，迭代返回每一个符合的match
-            token = tuple(bytes([b]) for b in match.group().encode("utf-8")) // 将match对象转换为bytes类型， match.group() 用于提取match的实际文本字符串
-            word_counts[token] = word_counts.get(token, 0) + 1  // 统计词频
+        for match in pat.finditer(chunk):       # 在chunk中，通过正则模式生成不重叠的匹配项，迭代返回每一个符合的match
+            token = tuple(bytes([b]) for b in match.group().encode("utf-8")) # 将match对象转换为bytes类型， match.group() 用于提取match的实际文本字符串
+            word_counts[token] = word_counts.get(token, 0) + 1  # 统计词频
 ```
 字符串分割阶段，`word_counts`存储了每一个词字符串的词频信息
 
