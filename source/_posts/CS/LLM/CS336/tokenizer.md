@@ -54,6 +54,127 @@ pat = regex.compile(
 `\s+(?!\S)`表示匹配尾部空白，`\s+`表示多个空字符，`(?!\S)` 中 `\S`表示非空字符， `(?| ...)`表示不能匹配后面的东西，也就是匹配尾部空白
 
 `\s+` 表示剩余的空白匹配
+
+将预编译的分词模式进行字符串切割
+```python
+word_counts = {}
+    for chunk in chunks:
+        for match in pat.finditer(chunk):       // 在chunk中，通过正则模式扎厚道不重叠的匹配项，迭代返回每一个符合的match
+            token = tuple(bytes([b]) for b in match.group().encode("utf-8")) // 将match对象转换为bytes类型， match.group() 用于提取match的实际文本字符串
+            word_counts[token] = word_counts.get(token, 0) + 1  // 统计词频
+```
+字符串分割阶段，`word_counts`存储了每一个词字符串的词频信息
+
+BPE训练阶段, 生成相邻的元素对，合并最大词频的元素对`best_pair`
+```python
+ merges = []
+    while len(vocab) < vocab_size:
+        # 生成元素对
+        pair_counts = {}
+        for word, count in word_counts.items():
+            for pair in zip(word, word[1:]):
+                pair_counts[pair] = pair_counts.get(pair, 0) + count
+
+        if not pair_counts:
+            break
+        # 生成元素对并合并
+        best_pair = max(pair_counts.items(), key=lambda item: (item[1], item[0]))[0]
+        new_token = best_pair[0] + best_pair[1]
+        merges.append(best_pair)
+        vocab[len(vocab)] = new_token
+        # 统计合并后的词串与合并关系，存入vocab 与 merge表
+        new_word_counts = {}
+        for word, count in word_counts.items():
+            new_word = None
+            i = 0
+            while i < len(word):
+                if i < len(word) - 1 and (word[i], word[i + 1]) == best_pair:
+                    if new_word is None:
+                        new_word = list(word[:i])
+                    new_word.append(new_token)
+                    i += 2
+                else:
+                    if new_word is not None:
+                        new_word.append(word[i])
+                    i += 1
+            if new_word is None:
+                new_word_counts[word] = new_word_counts.get(word, 0) + count
+            else:
+                new_word = tuple(new_word)
+                new_word_counts[new_word] = new_word_counts.get(new_word, 0) + count
+        word_counts = new_word_counts
+```
+
+完整训练代码
+```python
+def train(
+    input_path: str | os.PathLike,
+    vocab_size: int,
+    special_tokens: list[str],
+    **kwargs,
+):
+    with open(input_path, encoding="utf-8") as f:
+        text = f.read()
+
+    vocab = {i: bytes([i]) for i in range(256)}
+    
+
+    if special_tokens:
+        for special_token in special_tokens:
+            vocab[len(vocab)] = special_token.encode("utf-8")
+        special_pattern = "|".join(regex.escape(token) for token in sorted(special_tokens, key=len, reverse=True))
+        chunks = regex.split(special_pattern, text)
+    else:
+        chunks = [text]
+
+    pat = regex.compile(r"""'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+""")
+    word_counts = {}
+    for chunk in chunks:
+        for match in pat.finditer(chunk):
+            token = tuple(bytes([b]) for b in match.group().encode("utf-8"))
+            word_counts[token] = word_counts.get(token, 0) + 1
+
+    merges = []
+    while len(vocab) < vocab_size:
+        pair_counts = {}
+        for word, count in word_counts.items():
+            for pair in zip(word, word[1:]):
+                pair_counts[pair] = pair_counts.get(pair, 0) + count
+
+        if not pair_counts:
+            break
+        
+        best_pair = max(pair_counts.items(), key=lambda item: (item[1], item[0]))[0]
+        new_token = best_pair[0] + best_pair[1]
+        merges.append(best_pair)
+        vocab[len(vocab)] = new_token
+
+        new_word_counts = {}
+        for word, count in word_counts.items():
+            new_word = None
+            i = 0
+            while i < len(word):
+                if i < len(word) - 1 and (word[i], word[i + 1]) == best_pair:
+                    if new_word is None:
+                        new_word = list(word[:i])
+                    new_word.append(new_token)
+                    i += 2
+                else:
+                    if new_word is not None:
+                        new_word.append(word[i])
+                    i += 1
+            if new_word is None:
+                new_word_counts[word] = new_word_counts.get(word, 0) + count
+            else:
+                new_word = tuple(new_word)
+                new_word_counts[new_word] = new_word_counts.get(new_word, 0) + count
+        word_counts = new_word_counts
+
+    return vocab, merges
+
+```
+
+
 ## 正则表达式库`re`与`regex`的使用
 
 ## 遇到的问题
