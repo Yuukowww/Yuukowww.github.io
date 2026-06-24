@@ -149,6 +149,53 @@ $$
 
 
 
+## 线性阻尼系统
+
+考虑线性阻尼$f = -cv = -c\dot{x}$, 牛顿第二定律改写为
+$$
+m\ddot{x} + c\dot{x} + kx = 0 \Longleftrightarrow \ddot{x}+\frac{c}{m}\dot x + \frac{k}{m}x = 0
+$$
+
+令 $ \omega_n = \sqrt\frac{k}{m}$, $\zeta = \frac{c}{2m\omega_n} = \frac{c}{2\sqrt{mk}}$, 则有
+$$
+\ddot{x} + 2\zeta \omega_n \dot x + \omega_n^2 x = 0
+$$
+
+$$
+s_{1,2} = -\zeta\omega_n\pm \sqrt{\zeta^2-1} \omega_n
+$$
+
+根据$\zeta$ 和0，1 的相对关系，可以将二阶系统分为过阻尼/欠阻尼/负阻尼/临界阻尼等状态
+
+Laplace 变换得
+$$
+X(s)(s^2+2\zeta\omega_n s+\omega_n^2)=0
+$$
 
 
+$$
+s^2+2\zeta\omega_n s+\omega_n^2 = (s+\zeta\omega_n)^2+\omega_n^2(1-\zeta^2)
+$$
 
+欠阻尼情况下($0<\zeta <1$), 有
+$$
+s_{1,2} = -\zeta\omega_n \pm \omega_n \sqrt{1-\zeta^2}i
+$$
+
+因此对应的通解结构为
+$$
+x = Ae^{-\zeta\omega_n} \sin(\omega_n \sqrt{1-\zeta^2}t+\varphi)
+$$
+
+得到含线性阻尼的等效圆频率
+$$
+\omega_d = \omega_n \sqrt{1-\zeta^2}
+$$
+
+阻尼导致的系统稳定性由特征根的复平面分布相关
+
+- $|\zeta|<1$, 特征根为复根， 此时系统为正弦震荡发散(不稳定)/正弦震荡收敛(稳定)曲线，根据指数项正负确定
+- $|\zeta|>1$， 特征根为实根， 此时系统为指数发散或者指数收敛。$\zeta >1$时过阻尼单调衰减， $\zeta < -1$时，负阻尼单调发散
+
+- $\zeta = 0$ 零阻尼系统，系统为标准正弦震荡
+- $\zeta = 1$ 临界阻尼系统， 系统为指数单调衰减
