@@ -3,7 +3,7 @@ title: 二阶线性微分方程与Laplace变换
 date: 2026-06-24
 update: 2026-06-24
 categories: 数学
-tag: [ODE]
+tag: [ODE,控制]
 description: 常微分方程和振动理论的复习
 cover: picture/ruri1.jpg
 ---
