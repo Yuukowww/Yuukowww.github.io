@@ -29,12 +29,17 @@ The structure of MResFFN is
 
 ![MResFFN](/picture/moe/MResFFN.png)
 
+In industrial applications, Soft-k-max is commonly used to smooth approximate the Top-k operation.
 
 
-# Special Scaling Property of Softmax
+# Special Scaling Property of  Softmax with Temperature
+
+
 $$
 \|\mathrm{Softmax}(kx)\|\geq\|\mathrm{Softmax}(x)\|^{k}
 $$
+
+$k$ is the temperature of Softmax
 
 Consider
 $$
