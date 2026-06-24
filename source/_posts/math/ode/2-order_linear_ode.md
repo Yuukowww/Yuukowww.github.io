@@ -4,7 +4,7 @@ date: 2026-06-24
 update: 2026-06-24
 categories: 数学
 tag: [ODE]
-description: 常微分方程和控制理论的复习
+description: 常微分方程和振动理论的复习
 cover: picture/ruri1.jpg
 ---
 # 二阶常系数齐次线性微分方程的解结构
@@ -110,4 +110,45 @@ y(t) &= \frac{py_0+\dot{y}_0+ my_0}{m-n} e^{mt} + \frac{py_0+\dot{y}_0+ ny_0}{n-
 $$
 
 这个结论和前文的直接换元的方法的结果是一致的
+
+
+
+# 简谐振动
+
+不含一阶项的二阶系统称为简谐系统
+$$
+m\ddot{x} +  k x = 0
+$$
+
+特征根为两个共轭虚根
+$$
+\lambda_{1,2} = \pm\sqrt{\frac{k}{m}} i
+$$
+因此通解结构为
+$$
+\begin{aligned}
+x &= C_1e^{\sqrt{\frac{k}{m}}it} + C_2 e^{-\sqrt{\frac{k}{m}}it}\\
+& = (C_1+C_2) \cos\left( \sqrt{\frac{k}{m}}t\right) - i(C_1-C_2) \sin \left(\sqrt{\frac{k}{m}}t\right)\\
+& = A_1 \cos \lambda t + A_2 \sin \lambda t
+\end{aligned}
+$$
+
+$\omega_n: = \lambda = \sqrt{\frac{k}{m}}$ 称为固有圆频率
+
+$$
+A_1 = x_0\quad A_2 = \frac{x'_0}{\lambda}
+$$
+
+因此
+$$
+\|x\| = \|A_1\cos\lambda t+ A_2\sin \lambda t\| = \sqrt{A_1^2+A_2^2} = \sqrt{x_0^2+\frac{x_0'^2}{\lambda^2}} = \sqrt{x_0^2+\frac{x_0'^2}{\omega_n^2}}
+$$
+$$
+\arg x = \arctan \frac{A_1}{A_2} = \arctan \frac{\lambda x_0}{x_0'} = \arctan \frac{\omega_nx_0}{x_0'}
+$$
+
+
+
+
+
 
