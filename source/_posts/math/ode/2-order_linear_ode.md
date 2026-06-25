@@ -269,6 +269,34 @@ $$
 $$
 
 ## 任意周期激励的二阶系统响应
+对于周期为 $T$ 的激励 $F(t)$, 满足
+$$
+m\ddot x+ c\dot x + kx  = F(t)
+$$
+
+记 $\omega_n = \dfrac{2\pi n}{T}$ 对输入周期信号Fourier展开
+$$
+F(t) = \sum_{-\infty}^{+\infty} c_n e^{i\omega_n t} = a_0  +  \sum_{n =1}^{+\infty} a_n \sin\omega_n t + \sum _{n=1}^{+\infty} b_n \cos \omega_n t 
+$$
+
+$$
+a_n =\frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}} F(t)\sin \omega_n t  \mathrm{d}t\quad b_n = \frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}} F(t)\cos \omega_n t \mathrm{d}t
+$$
+
+特解满足
+$$
+x = x_0 + \sum_{n= 1}^{+\infty} (x_{c,n} + x_{s,n})
+$$
+
+且
+$$
+\begin{dcases}
+m\ddot x_0 + c\dot x_0 + kx_0 = a_0\\
+m\ddot x_{s,n} + c\dot x_{s,n} + kx_{s,n} = b_n\sin \omega_n t\\
+m\ddot x_{c,n} + c\dot x_{c,n} + kx_{c,n} = b_n\cos \omega_n t
+
+\end{dcases}
+$$
 
 ## 阶跃激励下的二阶系统响应
 
