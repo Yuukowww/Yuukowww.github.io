@@ -15,5 +15,5 @@ cover: picture/shiroha1.jpg
 name: Yuuko
 url: yuukowww.github.io
 avatar: https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEEOLdpBMmBXRUlgNlNCv7TQlnr-uSXbgACyBgAAgJcKVQf4vtPBecjgjYE.jpg
-descrpition: Amor che nella mente mi regiona.
+descrpition: Amor che nella mente mi ragiona.
 ```
