@@ -156,7 +156,7 @@ $$
 m\ddot{x} + c\dot{x} + kx = 0 \Longleftrightarrow \ddot{x}+\frac{c}{m}\dot x + \frac{k}{m}x = 0
 $$
 
-令 $ \omega_n = \sqrt\frac{k}{m}$, $\zeta = \frac{c}{2m\omega_n} = \frac{c}{2\sqrt{mk}}$, 则有
+令 $\omega_n = \sqrt\frac{k}{m}$, $\zeta = \frac{c}{2m\omega_n} = \frac{c}{2\sqrt{mk}}$, 则有
 $$
 \ddot{x} + 2\zeta \omega_n \dot x + \omega_n^2 x = 0
 $$
@@ -206,7 +206,7 @@ $$
 $$
 m\ddot{x} + c\dot{x} + kx = F_0 \sin \omega t
 $$
-特解总是 $\sin \omega t$ 和 $ \cos \omega t $ 的线性组合， 可以假设特解为 $\tilde{x} = X\sin (\omega t-\varphi)$, 代入得
+特解总是 $\sin \omega t$ 和 $ \cos \omega t$ 的线性组合， 可以假设特解为 $\tilde{x} = X\sin (\omega t-\varphi)$, 代入得
 
 $$
 X(k-m\omega^2)\sin (\omega t-\varphi) + c\omega X\cos (\omega t-\varphi) =  F_0\sin \omega t = F_0 \cos \varphi \sin(\omega t - \varphi)  + F_0 \cos \varphi \sin(\omega t -\varphi)
