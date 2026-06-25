@@ -200,7 +200,7 @@ $$
 - $\zeta = 0$ 零阻尼系统，系统为标准正弦震荡
 - $\zeta = 1$ 临界阻尼系统， 系统为指数单调衰减
 
-## 简谐激励的二阶系统
+## 简谐激励的二阶系统响应
 
 对于
 $$
@@ -267,5 +267,94 @@ $$
 $$
 \tilde{x} (t) = \beta X_0 \sin \left(\omega t - \arctan \frac{2\zeta\lambda}{1-\lambda^2}\right)
 $$
+
+## 任意周期激励的二阶系统响应
+
+## 阶跃激励下的二阶系统响应
+
+考虑
+$$
+m\ddot {x} + c\dot x+ kx = \hat{F}\delta(t)
+$$
+
+Laplace 变换得
+$$
+(ms^2+cs+k)X(s) = \hat{F}
+$$
+
+$$
+\begin{aligned}
+X(s) &= \frac{\hat{F}}{ms^2+cs+k} \\
+& = \frac{\hat{F}}{m} \frac{1}{s^2+2\zeta \omega_n s+\omega_n^2}\\
+& = \frac{\hat{F}}{m} \frac{1}{(s+\zeta\omega_n)^2+\omega_n^2(1-\zeta^2)}\\
+& = \frac{\hat{F}}{m(s_1-s_2)}\left[\frac{1}{s-s_1}-\frac{1}{s-s_2}\right]\\
+x(t)& = \frac{\hat{F}}{2m\omega_n \sqrt{1-\zeta^2}i}( e^{s_1 t}- e^{s_2t})\\
+& = \frac{\hat{F}}{m\omega_n \sqrt{1-\zeta^2}} e^{-\zeta\omega_nt} \sin \omega_n\sqrt{1-\zeta^2}t \\
+& = \frac{\hat{F}}{m\omega_d} e^{-\zeta \omega_n t }\sin \omega_ d t
+\end{aligned}
+$$
+
+记单位阶跃响应函数为
+$$
+h(t) = 
+\begin{dcases}
+\frac{1}{m\omega_d} e^{-\zeta \omega_m t}\sin \omega_d t & t > 0\\
+0 & t\leq 0
+\end{dcases}
+$$
+
+考虑阶跃点的平移
+
+$$
+m\ddot x+ c\dot x+ kx = \delta(t-t_0)
+$$
+
+$$
+\begin{aligned}
+X(s) & = \frac{e^{-t_0s}}{ms^2+cs+k}\\
+& = \frac{1}{m(s_1-s_2) }\left[\frac{e^{-t_0s}}{s-s_1}- \frac{e^{-t_0 s}}{s-s_2}\right]\\
+x(t)& = \frac{1}{m(s_1-s_2)} u(t-t_0) (e^{s_1(t-t_0)}-e^{s_2(t-t_0)})\\
+& = \frac{u(t-t_0)}{m\omega_n \sqrt{1-\zeta^2}} e^{-\zeta\omega_n t} \sin \left[\omega_n \sqrt{1-\zeta^2}(t-t_0)\right]
+\end{aligned}
+$$
+
+因此有
+$$
+h(t-t_0) = 
+\begin{dcases}
+\frac{1}{m\omega_ d} e^{-\zeta\omega_n t} \sin \omega_d(t-t_0)  &t> t_0\\
+0 & t< t_0
+\end{dcases}
+$$
+
+视非周期激励为逐点采样的力的激励和，那么激励函数表示为
+$$
+I(t) = (IF)(t) =  \int_0^{+\infty} F(\tau)\delta(t-\tau)\mathrm{d}\tau
+$$
+满足
+$$
+m\ddot x + c\dot x + kx = I(t)
+$$
+
+记算子
+$$
+L_t = m\frac{\mathrm{d}^2}{\mathrm{d}t^2} + c\frac{\mathrm{d}}{\mathrm{d}t} + k
+$$
+
+激励响应
+$$
+\begin{aligned}
+\hat{x}(t) &= L_t^{-1} \int_0^{+\infty} F(\tau) \delta(t-\tau)\mathrm{d} \tau\\
+& = \int_{0}^{+\infty} F(\tau) L_t^{-1} (\delta(t-\tau))\mathrm{d}\tau\\
+& = \int_0^{+\infty}F(\tau) h(t-\tau)\mathrm{d}\tau\\
+& = \frac{1}{m\omega_ d} \int_0^t F(\tau)  e^{-\zeta\omega_n t} \sin \omega_d(t-t_0) \mathrm{d}\tau
+\end{aligned}
+$$
+
+系统响应为
+$$
+x(t) = \bar{x}(t) + \hat{x}(t) = e^{-\zeta \omega_n t }(A_1\cos \omega_dt + A_2 \sin \omega_d t) + \frac{1}{m\omega_ d}  \int_0^t F(\tau)  e^{-\zeta\omega_n t} \sin \omega_d(t-t_0) \mathrm{d}\tau
+$$
+
 
 
