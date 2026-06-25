@@ -199,3 +199,73 @@ $$
 
 - $\zeta = 0$ 零阻尼系统，系统为标准正弦震荡
 - $\zeta = 1$ 临界阻尼系统， 系统为指数单调衰减
+
+## 简谐激励的二阶系统
+
+对于
+$$
+m\ddot{x} + c\dot{x} + kx = F_0 \sin \omega t
+$$
+特解总是 $\sin \omega t$ 和 $ \cos \omega t $ 的线性组合， 可以假设特解为 $\tilde{x} = X\sin (\omega t-\varphi)$, 代入得
+
+$$
+X(k-m\omega^2)\sin (\omega t-\varphi) + c\omega X\cos (\omega t-\varphi) =  F_0\sin \omega t = F_0 \cos \varphi \sin(\omega t - \varphi)  + F_0 \cos \varphi \sin(\omega t -\varphi)
+$$
+
+$$
+\left[X(k-m\omega^2)-F_0\cos\varphi\right]\sin(\omega t-\varphi) + \left[ c\omega X-F_0\sin\varphi\right] \cos(\omega t -\varphi) = 0
+$$
+
+$$
+\begin{dcases}
+F_0\cos\varphi = X(k-m\omega^2)\\
+F_0\sin \varphi = c\omega X
+\end{dcases}
+\Longleftrightarrow F_0^2 = X^2\left(k-m\omega^2\right)^2+(c\omega)^2X^2
+$$
+
+特解的幅值
+$$
+X = \frac{F_0}{\sqrt{(k-m\omega^2)^2+(c\omega)^2}}
+$$
+相位滞后
+$$
+\varphi = \arctan \frac{c\omega}{k-m\omega^2}
+$$
+
+
+由于 $\omega_n^2 = \frac{k}{m}$, $2\zeta\omega_n = \frac{c}{m}$ 换元得
+$$
+\begin{dcases}
+X = \frac{F_0}{k\sqrt{(1-(\frac{\omega}{\omega_n})^2)^2+ (2\zeta\frac{\omega}{\omega_n})^2}}\\
+\varphi = \arctan \frac{2\zeta \frac{\omega}{\omega_n}}{1-\frac{\omega^2}{\omega_n^2}}
+\end{dcases}
+$$
+
+特解为
+$$
+\tilde{x}(t) =  \frac{\frac{F_0}{k}}{\sqrt{(1-(\frac{\omega}{\omega_n})^2)^2+ (2\zeta\frac{\omega}{\omega_n})^2}}\sin \left(\omega t- \arctan \frac{2\zeta \frac{\omega}{\omega_n}}{1-\frac{\omega^2}{\omega_n^2}}\right)
+$$
+
+记 $\lambda = \frac{\omega}{\omega_n}$ 为频率比
+
+当系统为静力激励时
+$$
+m\ddot x + c\dot x + kx = F_0
+$$
+
+特解
+$$
+X_0 = \frac{F_0}{k}
+$$
+
+
+其中 $\frac{F_0}{k}$ 称为零频率挠度， $\lambda = \frac{\omega}{\omega_n}$ 称为频率比
+
+因此视相对静力激励的幅值放大称为幅值放大因子 $\beta = \frac{X}{X_0} = \dfrac{1}{\sqrt{(1-\lambda^2)^2+ (2\zeta\lambda)^2}}$ , 有
+
+$$
+\tilde{x} (t) = \beta X_0 \sin \left(\omega t - \arctan \frac{2\zeta\lambda}{1-\lambda^2}\right)
+$$
+
+
