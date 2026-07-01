@@ -43,7 +43,7 @@ social:
   music: https://music.163.com/m/user?id=418116994 || cloud-music || "#e60026"
 sidebar:
   position: right
-  avatar: avatar.jpg
+  avatar: /picture/avatar/yuuko.jpg
 
 widgets:
   random_posts: false

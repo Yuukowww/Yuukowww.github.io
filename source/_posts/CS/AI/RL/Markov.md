@@ -2,7 +2,7 @@
 title: Markov 过程
 description: RL基本概念与Markov过程
 date: 2026-02-24
-update: 2026-05-29
+update: 2026-06-30
 categories: 强化学习
 tikzjax: true
 math: true
@@ -130,7 +130,7 @@ $$
 q_\pi(s,a)&=\mathbb{E}(G_t\mid S_T=s,A_t=a,\pi)\\
 &=\mathbb{E}\left(R_{t+1}+\gamma v_\pi(S_{t+1})\mid S_t=s, A_t\in\pi(S_t),\pi\right)\\
 &=\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s'))\\
-&=\sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a')))
+&=\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a')))
 \end{aligned}
 $$
 
@@ -147,8 +147,18 @@ $$
 > 对于给定的MDP， $\mathcal{M}=(\mathcal{S},\mathcal{A},p,r,\gamma)$, 对于任意策略$\pi$，价值函数满足
 
 $$
-\begin{align}
-v_\pi(s) &= \sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s')) \tag{1} \\
-q_\pi(s,a) &= \sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a'))) \tag{2}
-\end{align}
+\begin{aligned}
+v_\pi(s) &= \sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s')) \\
+q_\pi(s,a) &= \sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a'))) \\
+& = \sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}rp(r,s'\mid s,a)+\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a'))\\
+& = R(s,a)+\gamma \sum_{s'\in \mathcal{S}_{t+1}}\left(\sum_{r\in R_{t+1}}p(r,s'\mid s,a)\right)\sum _{a'\in \mathcal{A}(s')}\pi(a'\mid s')q_\pi(s',a')\\
+& = R(s,a) + \gamma \sum _{s'\in \mathcal{S}_{t+1}} p(s'\mid s,a) \sum_{a'\in \mathcal{A}(s')} \pi(a'\mid s')q_\pi (s',a')
+\end{aligned}
 $$
+
+## 备份图
+
+备份图是 Bellman 方程的图形化表示，用来描述状态价值或动作价值从后继结点向当前结点的回传更新关系。
+
+![backup diagram](/picture/CS/RL/backup.png)
+
