@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/><meta name="theme-color" content="#222"/><meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1"/><meta name="renderer" content="webkit"/><link rel="icon" type="image/ico" sizes="32x32" href="/assets/favicon.ico"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/><link rel="alternate" href="/rss.xml" title="Yuukoの小屋" type="application/rss+xml"><link rel="alternate" href="/atom.xml" title="Yuukoの小屋" type="application/atom+xml"><link rel="alternate" type="application/json" title="Yuukoの小屋" href="https://yuuko.site/feed.json"/><link rel="preconnect" href="https://s4.zstatic.net"/><link rel="preconnect" href="https://at.alicdn.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CFredericka%20the%20Great:400,400italic,700,700italic%7CNoto%20Serif%20JP:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CInconsolata:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" media="none" onload="this.media&#x3D;&#39;all&#39;"><link rel="modulepreload" href="/js/siteInit.js"></link><link rel="modulepreload" href="/js/nyx-player-DF6NSWIX.js"></link><link rel="modulepreload" href="/js/copy-tex-O3DYZ772.js"></link><link rel="modulepreload" href="/js/post-KY6SM2ED.js"></link><link rel="modulepreload" href="/js/chunk-EQZTM6EQ.js"></link><link rel="modulepreload" href="/js/chunk-2ASBCRKQ.js"></link><link rel="stylesheet" href="/css/siteInit.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="preload" href="/picture/kon1.jpg" as="image" fetchpriority="high"><meta name="description" content="操作系统 -- IO"/><link rel="canonical" href="https://yuuko.site/2026/06/09/CS/OS/IO/"><link rel="stylesheet" href="/css/post.css?v=0.5.4"><link rel="stylesheet" href="/css/mermaid.css?v=0.5.4"><!-- 临时处理--><link rel="stylesheet" media="none" onload="this.media='all'" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css"><title>IO管理</title><!-- hexo injector head_end start --><link rel="stylesheet" href="/knowledge-graph/knowledge-graph.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="pagefind_mount"></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">IO管理</h1><div class="meta"><span class="item" title="创建时间：2026-06-09 00:00:00"><span class="icon"><i class="ic i-calendar"></i></span><span class="text">发表于</span><time itemprop="dateCreated datePublished" datetime="2026-06-09T00:00:00+08:00">2026-06-09</time></span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i></span><span class="text">本文字数</span><span>7.8k</span><span class="text">字</span></span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i></span><span class="text">阅读时长</span><span>7 分钟</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span><span class="line"></span><span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">Yuuko</a></li></ul><ul class="right" id="rightNav"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li></ul></div></nav></div><div class="pjax" id="imgs"><img src="/picture/kon1.jpg" loading="eager" decoding="async" fetchpriority="high" alt="Yuukoの小屋"></div></header><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"></use><use xlink:href="#gentle-wave" x="48" y="3"></use><use xlink:href="#gentle-wave" x="48" y="5"></use><use xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></div><main><div class="inner"><div class="pjax" id="main"><div class="article wrap"><div class="breadcrumb" itemListElement itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i><span><a href="/">首页</a></span><i class="ic i-angle-right"></i><span itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem"><a href="/categories/OS/" itemprop="item" rel="index" title="分类于OS"><span itemprop="name">OS<meta itemprop="position" content="0"/></span></a></span><i class="ic i-angle-right"></i><span class="current" itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem"><a href="/categories/OS/%E8%AE%A1%E7%BB%84/" itemprop="item" rel="index" title="分类于计组"><span itemprop="name">计组<meta itemprop="position" content="1"/></span></a></span></div><article class="post block" itemscope="itemscope" itemtype="http://schema.org/Article" data-pagefind-body="data-pagefind-body" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://yuuko.site/2026/06/09/CS/OS/IO/"/><span hidden="hidden" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta itemprop="image" content="/assets/picture/avatar/yuuko.jpg"/><meta itemprop="name" content="Yuuko"/><meta itemprop="description" content=", Amor che nella mente mi ragiona."/></span><span hidden="hidden" itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Yuukoの小屋"/></span><div class="body md" itemprop="articleBody"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1><span id="io管理"> IO管理</span></h1>
+<h2><span id="io-设备"> IO 设备</span></h2>
+<p>根据信息交换可以分为</p>
+<ul>
+<li>块设备 -- 传输速率高、支持随机读取的设备以块单位进行数据交换，如磁盘</li>
+<li>字符设备 -- 以字符为单位进行信息交换，通常使用中断方式实现异步通信，比如打印机</li>
+</ul>
+<p>打印机需要逐字符对照进行打印</p>
+<p>根据传输速率可以分为</p>
+<ul>
+<li>低速设备 -- 键盘鼠标等，传输速率低，大致为几字节每秒到几百字节每秒</li>
+<li>中速设备 -- 打印机等，大约数百至数千字节每秒</li>
+<li>高速设备 -- 磁盘，显卡等</li>
+</ul>
+<p>按共享属性分类为</p>
+<ul>
+<li>独占设备 -- 同一时刻只允许单一进程使用，直到释放，比如打印机</li>
+<li>共享设备 -- 同一时刻单独访问，但是允许进程逻辑上并发，通过调度实现多进程访问，分时交替使用，比如磁盘</li>
+<li>虚拟设备 -- 通过<strong>SPOOLing</strong> 设备将独占设备改造为多个逻辑设备并发，使用高速共享设备作为缓冲区，实现独占设备的逻辑共享。</li>
+</ul>
+<h2><span id="io接口"> IO接口</span></h2>
+<p>IO 接口(设备控制器)是CPU与IO 设备之间的桥梁。 设备管理器与CPU通过三根逻辑区分的总线相连，分别为数据总线、地址总线、控制总线。</p>
+<p>总线端维护了数据寄存器与控制/状态寄存器用于解决总线与IO速度不同步的信息缓冲问题</p>
+<p>在现代总线结构，比如显卡的PCIe结构中，都是使用高速串行总线结构，实际为单根高速总线的串行结构，在物理结构上串行，在逻辑结构上分段。</p>
+<p>IO接口可以有<strong>一个或者多个</strong>面向设备的接口，每一个接口可以传输数据、控制、状态信号。</p>
+<p>IO接口中存在IO逻辑电路，用于实现对于设备的控制.CPU启动设备后，向设备控制器发送相应命令与地址，但是传输给设备的信息需要经过IO逻辑进行解析并控制发送。</p>
+<p>控制设备器的主要作用</p>
+<ul>
+<li>接收并识别命令</li>
+<li>完成数据交换</li>
+<li>标识并报告设备状态</li>
+<li>地址识别与数据缓冲 (对应)</li>
+<li>差错控制 -- 通过奇偶校验等方式进行差错识别；通过Hamming码等方式进行校验，或者报告给CPU进行信息的重传。</li>
+</ul>
+<h3><span id="io-接口的类型"> IO 接口的类型</span></h3>
+<p>传统意义下IO接口并不是一个大型控制器的集成，而是若干个IO接口功能模块的实现，IO接口根据不同的类型有不同的分类。</p>
+<p>根据数据传输的方式分类为<strong>并行接口</strong>与<strong>串行接口</strong></p>
+<p>根据主机访问方式分为 <strong>程序查询接口</strong>、<strong>中断接口</strong>与<strong>DMA接口</strong></p>
+<p>根据可编程性分为 <strong>可编程接口</strong>与<strong>不可编程接口</strong>， 在可编程接口中需要一套执行指令的PC/相关寄存器，甚至单个IO接口就是一个SoC，具有独立指令执行的功能的设备。</p>
+<p>根据设备类型不同分为 <strong>块设备接口</strong>、<strong>字符设备接口</strong>与<strong>网络设备接口</strong></p>
+<h3><span id="io-接口的编址"> IO 接口的编址</span></h3>
+<p>可以分为独立编址方式与统一编址方式。</p>
+<p>独立编址方式中的IO接口的地址空间与主存相对独立，二者不属于相同的地址空间，因此主存的地址值能和主存的某个地址相同。</p>
+<p>统一编址方式则是将部分主存地址分配给IO设备，IO设备可以获得较大的编址空间，且可以使用统一的虚拟内存管理方式管理。缺点是减少了内存物理地址可用量。</p>
+<h3><span id="io控制方式"> IO控制方式</span></h3>
+<p>分为程序直接控制(程序查询方式)、中断驱动方式与DMA方式。</p>
+<h4><span id="程序直接控制"> 程序直接控制</span></h4>
+<p>程序直接控制方式中，IO设备与主机的数据交换完全由CPU控制，通过程序的执行实现。</p>
+<p>实现流程</p>
+<ul>
+<li>CPU初始化程序并预设相应参数(比如UART传输的波特率、起始地址等)</li>
+<li>向IO接口发送命令字并启动外设</li>
+<li>循环读取外设状态寄存器值</li>
+<li>如果设备就绪就进行数据传送</li>
+<li>修改地址与计数器参数</li>
+<li>直到计数器归零停止传送</li>
+</ul>
+<p>读取外设状态寄存器的查询方式可以分为</p>
+<ul>
+<li>独占查询 -- 进程占据CPU进行忙等待查询</li>
+<li>定时查询 -- CPU周期性查询，周期间释放CPU资源</li>
+</ul>
+<h4><span id="程序中断方式"> 程序中断方式</span></h4>
+<p>通过中断技术让IO独占总线与CPU一段时间以实现信息与至指令的传输；当IO工作的时候将IO进程中断并实现IO设备和CPU中其他进程的并行工作，以节省CPU的资源。</p>
+<p><strong>中断源</strong>是能够向CPU发送中断请求的设备或者事件，中断系统为每个中断源设置了中断请求标记触发器，置1时表示中断源请求中断。</p>
+<p>通过<code>INTR</code>的信号线发出的是可屏蔽中断。通过<code>NMI</code>的信号线发送的是不可屏蔽中断。不可屏蔽中断优先级高于可屏蔽中断，且可屏蔽中断在关中断状态不能中断。</p>
+<p>中断响应的过程可分为</p>
+<ul>
+<li>关中断</li>
+<li>保存断点 -- 程序计数器PC与程序状态字PSW保存入栈或者专用寄存器</li>
+<li>中断服务程序寻址 -- 通过中断类型找到对应的中断服务程序入口，并送入PC等待执行</li>
+<li>开中断</li>
+<li>执行中断服务程序</li>
+<li>关中断</li>
+<li>恢复现场和PSW</li>
+<li>开中断与中断返回</li>
+</ul>
+<p>中断隐指令(关中断-保存断点-中断服务寻址)是中断前的准备指令，将前一进程状态保存，并加载中断服务程序以便实现中断。</p>
+<p>中断服务程序的实现过程分为中断过程和恢复过程，中断过程(开中断-执行中断服务程序-关中断)进行中断，恢复过程(恢复现场和PSW-开中断与中断返回)将中断现场恢复并开中断</p>
+<h4><span id="多重中断与中断屏蔽"> 多重中断与中断屏蔽</span></h4>
+<p>当系统存在多中断源竞争的时候需要使用优先级机制匹配中断，只有在开中断阶段的时候可屏蔽中断才能参与多重中断的竞争。</p>
+<p>多重中断是指多个中断源发生时，低优先级中断过程被高等级中断抢占并优先中断的过程。通过栈结构管理相应多重中断的断点，因为优先级执行机制是FILO的。</p>
+<p><strong>中断处理优先级</strong>是多重中断的实际处理顺序，可以通过动态屏蔽技术动态调整。分为<strong>处理优先级</strong>与<strong>响应优先级</strong>，当中断系统不使用动态屏蔽技术的时候处理优先级等于响应优先级。</p>
+<p>中断请求寄存器维护每一个中断源的中断请求，中断屏蔽字寄存器维护进程的处理优先级。中断请求经由请求寄存器发送，在屏蔽字寄存器和处理优先级电路的运算下输出在当前中断请求状态下的处理优先级，再通过中断判优电路处理后输出真正的执行中断的响应优先级。</p>
+<p>逻辑上的中断实现需要维护一个 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n\times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 的中断屏蔽字表，比如</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center center center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
+1&amp;1&amp;1&amp;1\\
+0&amp;1&amp;0&amp;0\\
+0&amp;1&amp;1&amp;0\\
+0&amp;1&amp;1&amp;1
+\end{bmatrix}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:4.8em;vertical-align:-2.15em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.65em;"><span style="top:-4.65em;"><span class="pstrut" style="height:6.8em;"></span><span style="width:0.667em;height:4.800em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.667em" height="4.800em" viewbox="0 0 667 4800"><path d="M403 1759 V84 H666 V0 H319 V1759 v1200 v1759 h347 v-84
+H403z M403 1759 V0 H319 V1759 v1200 v1759 h84z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.65em;"><span style="top:-4.81em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.65em;"><span style="top:-4.81em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-1.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.65em;"><span style="top:-4.81em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-1.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.65em;"><span style="top:-4.81em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.65em;"><span style="top:-4.65em;"><span class="pstrut" style="height:6.8em;"></span><span style="width:0.667em;height:4.800em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.667em" height="4.800em" viewbox="0 0 667 4800"><path d="M347 1759 V0 H0 V84 H263 V1759 v1200 v1759 H0 v84 H347z
+M347 1759 V0 H263 V1759 v1200 v1759 h84z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>表示<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>&gt;</mo><mi>D</mi><mo>&gt;</mo><mi>C</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A&gt;D&gt;C&gt;B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>，这是静态的中断响应优先级表</p>
+<p>但是基于当前中断请求状态的动态执行是通过vector+ 中断请求寄存器更新实现的。</p>
+<p>比如在初始请求寄存器为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>D</mi><mo stretchy="false">]</mo><mo>=</mo><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[A,B,C,D] = [0,1,1,1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>时</p>
+<ul>
+<li>第一轮 -- 中断D，请求寄存器更新为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,1,1,0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mclose">]</span></span></span></span></li>
+<li>第二轮 -- 中断C, 请求寄存器更新为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,1,0,0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mclose">]</span></span></span></span></li>
+<li>第三轮 -- 中断B, 请求寄存器更新为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,0,0,0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mclose">]</span></span></span></span>, 中断结束</li>
+</ul>
+<h4><span id="dma-方式"> DMA 方式</span></h4>
+<p>DMA 在IO接口和内存之间建立轮直接的数据通路，以提高CPU资源利用率，实现数据准准备阶段传输过程中的CPU任务与IO设备的并行。</p>
+<h5><span id="dma控制器组成"> DMA控制器组成</span></h5>
+<ul>
+<li>主存地址计数器 -- 用于存放待传输数据的主存地址，传输一个字就自加确认下一个地址</li>
+<li>传送长度计数器 -- 用于标记待传送数据的总长，传送一个字就自减，计数器归零说明传输结束</li>
+<li>数据缓冲寄存器 -- 暂存每次传输的数据</li>
+<li>DMA请求触发器</li>
+<li>控制状态逻辑</li>
+<li>中断机构 -- DMA中断源</li>
+</ul>
+<p>DMA控制器需要竞争总线的能力，且对于总线/CPU的优先级满足</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>DMA > 不可屏蔽中断 > 可屏蔽中断</span></span></code></pre>
+<h5><span id="dma-传送方式"> DMA 传送方式</span></h5>
+<p>DMA 与 CPU 共享主存的方式可分为</p>
+<ul>
+<li>停止CPU访问主存 -- DMA直接竞争主存，CPU停止主存相关的访问，直到DMA结束数据传送</li>
+<li>周期挪用 -- 在单个访存周期内，DMA优先级高于CPU，但是周期内DMA无法中断CPU访存</li>
+<li>DMA与CPU交替访存 -- 交替分配主存访存周期</li>
+</ul>
+<h5><span id="dma传送过程"> DMA传送过程</span></h5>
+<p>DMA传送需要<strong>CPU</strong>进行预处理，数据传送与后处理三个过程。</p>
+<ul>
+<li>预处理 -- 完成DMA的初始化并启动IO设备，当IO设备准备好输入/输出请求时，向DMA发送DMA请求</li>
+<li>数据传输 -- DMA直接通过总线访问主存，CPU执行其他进程</li>
+<li>后处理 -- CPU响应后执行中断服务程序，并进行数据校验等后处理工作。</li>
+</ul>
+<h2><span id="io-软件"> IO 软件</span></h2>
+<p>IO软件是运行在CPU侧进行IO设备与IO接口管理的软件系统，向上与文件系统、用户进程、虚拟存储器等系统交互，向下与底层IO设备系统交互。</p>
+<p>比如NVIDIA的驱动程序，面向下层显卡的实际计算管理，面向上层操作系统与用户暴露API，使用户能通过这些API进行显卡计算能力的使用，比如CUDA/OpenGL等计算</p>
+<p>IO 软件根据 用户侧 -- 硬件侧的自下而上的软件分类可分为</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>用户 - 用户层软件 - 设备独立性软件 - 设备驱动软件 - 中断处理软件 - 硬件</span></span></code></pre>
+<h3><span id="中断处理软件"> 中断处理软件</span></h3>
+<p>用于管理IO设备结束等情况下的中断管理，实现最基本的CPU/总线与IO设备的通信层任务</p>
+<p>操作系统对于中断处理软件本身也存在一层管理，包括三个环节</p>
+<ul>
+<li>注册中断 -- 向内核注册中断号，建立当前设备中断状态与内核记录的服务状态的记录映射，建立CPU和设备间中断状态的握手，确保内核能进行中断处理</li>
+<li>处理中断</li>
+<li>注销中断 -- 驱动/设备停用的时候恢复中断现场，注销中断处理程序并释放相应资源。</li>
+</ul>
+<h3><span id="设备驱动程序"> 设备驱动程序</span></h3>
+<p>面向不同种类设备的专用管理软件，比如打印机的打印机驱动，鼠标设备的驱动，NVIDIA显卡的显卡驱动等。不同设备向主机暴露的API不同，访问方式不同，设备驱动程序正是提供这些API的软件层。</p>
+<p>类比VFS的统一管理多协议磁盘的形式，设备驱动程序类似于磁盘文件系统<code>NTFS</code>/<code>ext4</code>。</p>
+<h3><span id="设备独立层软件"> 设备独立层软件</span></h3>
+<p>操作系统将设备驱动程序进行统一管理，比如网络的统一化接口<code>Socket</code>层，进行用户层网络调用的编程不需要考虑通过有线还是通过无线进行网络访问，而直接通过操作系统暴露的<code>Socket</code>获得网络资源。</p>
+<p>设备独立层软件引入物理设备与逻辑设备的概念，将实际用户层的访问与物理设备相解耦。比如在Unix中访问网卡信息，通常获得的不是真实的网卡名，而是映射后的网卡号以及相关信息</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>asuna@AsunadeMacBook-Air ~ % ifconfig</span></span>
+<span class="line"><span>lo0: ...</span></span>
+<span class="line"><span>gif0: ...</span></span>
+<span class="line"><span>stf0: ...</span></span>
+<span class="line"><span>anpi0: ...</span></span>
+<span class="line"><span>anpi1: ...</span></span>
+<span class="line"><span>en3: ...</span></span>
+<span class="line"><span>en4: ...</span></span>
+<span class="line"><span>en1: ...</span></span>
+<span class="line"><span>en2: ...</span></span>
+<span class="line"><span>ap1: ...</span></span>
+<span class="line"><span>en0: ...</span></span>
+<span class="line"><span>utun0: ...</span></span>
+<span class="line"><span>awdl0: ...</span></span>
+<span class="line"><span>llw0: ...</span></span>
+<span class="line"><span>utun1:...</span></span>
+<span class="line"><span>utun2: ...</span></span>
+<span class="line"><span>utun3: ...</span></span></code></pre>
+<p>其中<code>en*</code>是映射真实物理网卡的逻辑网卡接口<br>
+<code>lo0</code>是本地回环的网络接口，纯粹软件虚拟实现且指向<code>127.0.0.1</code><br>
+<code>anpi*</code>是Apple Silicon 的内部协议与通信接口，用于支撑内部系统服务的部分通信，并将这样的总线通信权限通过<code>anpi*</code>暴露给用户。</p>
+<h3><span id="用户层软件"> 用户层软件</span></h3>
+<p>用户层软件就是整体实现与用户交互的软件接口，通过调用用户层的IO库函数与硬件进行交互。</p>
+<h2><span id="应用程序io接口"> 应用程序IO接口</span></h2>
+<p>应用程序IO接口是OS面向用户侧提供的管理与访问IO设备的架构与编程规范。</p>
+<p>OS将物理设备抽象为<strong>块设备</strong>、<strong>字符设备</strong>、<strong>网络设备</strong>，网络设备虽然速度匹配，但是网络通信使用的是不可随机访问的数据包而不是数据块，因此不算块设备的范畴。</p>
+<ul>
+<li>
+<p>字符设备接口 -- <code>get</code>/<code>put</code>操作用于向缓冲区读写；<code>in-control</code> 用于实现具体设备的控制; <code>open</code>/<code>close</code>用于打开关闭与互斥访问</p>
+</li>
+<li>
+<p>块设备接口 -- 块设备通常为存储设备，因此块设备接口通常暴露的就是存储相关能力的接口。<code>read</code>/<code>write</code>/<code>seek</code>用于执行基本功能，<code>seek</code>用于指定下一个传输块。</p>
+</li>
+</ul>
+<h3><span id="阻塞io与非阻塞io"> 阻塞IO与非阻塞IO</span></h3>
+<p>IO接口面向不同的设备有两种执行模式: 阻塞与非阻塞，</p>
+<p>阻塞IO能在进程发起IO请求但是资源未满足时发生阻塞，并移动到相应等待队列。</p>
+<p>非阻塞IO发生时，进程会轮询资源就绪情况，且进程能同时执行其他的任务而不受IO请求的影响。</p>
+<h1><span id="设备独立性软件"> 设备独立性软件</span></h1>
+<p>设备独立性软件和VFS相似，在设备驱动程序层之上，实现不同设备等公共操作，并暴露统一且抽象化的API。具体功能有</p>
+<ul>
+<li><strong>统一的驱动程序接口</strong></li>
+<li>缓冲管理 -- 缓冲CPU和IO设备的速度差异，建立统一的缓冲区对应硬件层的软件实现。</li>
+<li>差错控制</li>
+<li>独占设备的分配与回收</li>
+<li>统一的逻辑数据块</li>
+</ul>
+<h2><span id="高速缓存与缓冲区"> 高速缓存与缓冲区</span></h2>
+<p>磁盘高速缓存(Disk cache)基于内存实现，利用内存的存储空间暂存磁盘读取的盘块信息以实现加快磁盘IO速度的效果。在内存实现方式有两种</p>
+<ul>
+<li>在内存中开辟固定大小的专用缓冲区</li>
+<li>将内存中空闲的空间作为动态缓冲池，供分页系统与磁盘IO子系统使用。</li>
+</ul>
+<h3><span id="缓冲区"> 缓冲区</span></h3>
+<p>IO设备大部分情况下IO速度远远慢于CPU的速度(如打印机)，也可能远快于CPU(显卡)</p>
+<p>缓冲区的实现方式有</p>
+<ul>
+<li>硬件缓冲区 -- 实现成本较高，关键部位才使用</li>
+<li>内存缓冲区 -- 常见实现方式</li>
+</ul>
+<p>缓冲区总是单个时刻可读/可写的，所以其能实现的作用是在CPU处理时间内作为数据蓄水池</p>
+<h4><span id="单缓冲"> 单缓冲</span></h4>
+<p>在缓冲区结构中，单次IO时间分为三个部分</p>
+<ul>
+<li>IO设备写入缓冲区的时间 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span></li>
+<li>缓冲区传送给CPU的时间 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span></li>
+<li>CPU处理时间 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></li>
+</ul>
+<p>在单个周期内，当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">M_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>结束，就能执行<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">T_{i+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8917em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span>.如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>i</mi></msub><mo>&gt;</mo><msub><mi>T</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">C_{i}&gt; T_{i+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8917em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span> ，即CPU处理时间长于IO写时间，则缓存区写等待CPU执行；反之CPU写等缓存区写。通常情况下都是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>i</mi></msub><mo>&lt;</mo><msub><mi>T</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">C_{i}&lt;T_{i+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8917em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span>, 因此单轮耗时为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="script">T</mi><mi>s</mi></msub><mo>=</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>C</mi><mo separator="true">,</mo><mi>T</mi><mo stretchy="false">)</mo><mo>+</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">\mathcal{T}_s = \max(C,T)+M
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.25417em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2542em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span></span></p>
+<p>对于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>轮IO写入的作业，总耗时为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="script">T</mi><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi></mrow></msub><mo>=</mo><mo stretchy="false">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>C</mi><mo separator="true">,</mo><mi>T</mi><mo stretchy="false">)</mo><mo>+</mo><mi>M</mi><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mi>T</mi><mo>+</mo><mi>C</mi><mo>+</mo><mi>M</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{T}_{total} = (N-1)(\max(C,T)+M)+(T+C+M)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.25417em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.2542em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mopen">(</span><span class="mop">max</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mclose">)</span></span></span></span></span></p>
+<p>最后一轮没有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span>与<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span>在时间轴上的cover，因此都需要计算</p>
+<h4><span id="双缓冲"> 双缓冲</span></h4>
+<p>双缓冲是可切换的两个缓冲区的结构。在缓存区1写的时候，缓存区2也能向CPU传输信息</p>
+<p>如果IO写时间 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span> &gt; 从缓冲区传入CPU的总时间 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>+</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">M+C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span>, 则缓冲区2空闲等待缓冲区1写，反之需要缓冲区1满等待缓冲区2执行。因此单轮执行时间为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="script">T</mi><mi>s</mi></msub><mo>=</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>T</mi><mo separator="true">,</mo><mi>M</mi><mo>+</mo><mi>C</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{T}_s = \max(T,M+C)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.25417em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2542em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mclose">)</span></span></span></span></span></p>
+<p>N轮的总执行时间为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="script">T</mi><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi></mrow></msub><mo>=</mo><mo stretchy="false">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>T</mi><mo separator="true">,</mo><mi>M</mi><mo>+</mo><mi>C</mi><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mi>T</mi><mo>+</mo><mi>M</mi><mo>+</mo><mi>C</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{T}_{total} = (N-1)\max(T,M+C) +(T+M+C)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.25417em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.2542em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mclose">)</span></span></span></span></span></p>
+<p>双缓冲能实现全双工通信，双向传输信息，每一台设备设置发送缓冲区与接收缓冲区</p>
+<h4><span id="循环缓冲"> 循环缓冲</span></h4>
+<p>循环缓冲区的实现逻辑与循环链表类似，通过环形空间和<code>in</code>/<code>out</code>两个指针指向当前写入的缓冲区与传入CPU的缓冲区。</p>
+<p>如果<code>in</code>指针追上<code>out</code>指针则为CPU速度慢于IO写速度；反之则为IO写速度慢于CPU速度</p>
+<h4><span id="缓冲池"> 缓冲池</span></h4>
+<p>缓冲池是一套包括管理数据结构和操作函数的，能管理多个缓冲区的软件机制，能支持多进程共享。</p>
+<p>缓冲池按四种方式进行工作</p>
+<ul>
+<li>收容输入 -- 将输入数据存入输入缓冲区</li>
+<li>提取输入 -- 将输入缓冲区信息传入CPU并清空输入缓冲区</li>
+<li>收容输出 -- 从CPU将输出数据输入输出缓冲区</li>
+<li>提取输出 -- 将输出缓冲区的数据输出到IO并清空输出缓冲区</li>
+</ul>
+<h2><span id="设备分配与回收"> 设备分配与回收</span></h2>
+<p>设备独立性软件维护了一张<strong>系统设备表(SDT)</strong>，包含所有物理设备与相应的全局索引。每一个表项对应一个设备，包含设备类型、标识符等用于检索设备的信息。</p>
+<p>每一个物理设备私有一个<strong>设备控制表(DCT)</strong>, 管理设备的各项具体属性，比如设备类型、设备标识符、设备状态、指向设备器控制表的指针、重复执行次数与时间和设备的队首指针等。</p>
+<p>**设备器控制表(COCT)<strong>用于标记设备器的状态信息，存在指向</strong>通道控制表(CHCT)**的指针</p>
+<p><strong>通道控制表(CHCT)</strong> 标记每一个通道的状态信息，以及通道相关的所有的控制器的信息。</p>
+<p>通道是内存和IO设备的通信通道，是一个协处理器级别的IO管理设备，用于实现更加复杂化，可编程的，类似于DMA的IO设备管理。</p>
+<p>根据访问顺序自上而下的排列为</p>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-text"><span class="line"><span>SDT -> DCT -> COCT -> CHCT</span></span></code></pre>
+<p>设备的分配的顺序为</p>
+<ul>
+<li>设备分配 -- 查询SDT并找出对应设备的DCT,分配设备</li>
+<li>控制器分配 -- 根据COCT找到对应设备的控制器</li>
+<li>通道分配 -- 控制器分配后根据COCT找到对应CHCT, 分配内存和IO设备间的通道。</li>
+</ul>
+<p>设备的分配算法会考虑是否死锁，</p>
+<ul>
+<li>安全分配方式 -- 死锁避免，进程IO请求后进入阻塞态</li>
+<li>不安全分配方式 -- 只有当请求设备被其他进程占用时才进入阻塞态。但是可能由于资源竞争造成死锁</li>
+</ul>
+<p>死锁竞争的讨论见 <a href="/2026/05/29/CS/OS/%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%E4%B8%8E%E4%BA%92%E6%96%A5/" title="进程的同步与互斥">进程的同步与互斥</a> 与 <a href="/2026/06/01/CS/OS/deadlock/" title="死锁">死锁</a></p>
+<h3><span id="逻辑设备与物理设备的映射"> 逻辑设备与物理设备的映射</span></h3>
+<p>设备的逻辑化需要建立逻辑设备和物理设备之间的映射，对应的映射表为<strong>逻辑设备表(LUT)</strong></p>
+<p>逻辑设备表可以为整个系统维护一个LUT表或者为单个用户维护LUT表，前者适用于单用户系统，后者适用于多用户系统</p>
+<h2><span id="spooling技术"> SPOOLing技术</span></h2>
+<p>SPOOLing技术用于缓和高速CPU和低速IO之间的速度矛盾。其核心是将高速磁盘作为缓冲进行相应信息的临时存储，通过软件模拟脱机IO的过程。</p>
+<p>脱机IO的本质是将不同的作业拿到外围机进行并行IO作业，一方面解放主计算机的CPU，一方面可以保证IO作业的连续性。</p>
+<p>通过SPOOLing技术能通过<strong>多道程序</strong>和磁盘缓冲空间代替IO的外围机，从而将一台物理独占设备仿真为多个逻辑设备。具体场景为多用户共享的打印中心。</p>
+<p>SPOOLing技术的构成结构有</p>
+<ul>
+<li>输入井和输出井 -- 位于磁盘中的缓冲区，用于暂存输入/输出设备的文件(称为井文件)</li>
+<li>输入/输出缓冲区 -- 在内存中用于暂存输入/输出设备的数据，这是磁盘写速度慢于内存的平衡buffer</li>
+<li>输入输出进程</li>
+<li>井管理系统 -- 控制作业和磁盘井的信息交换</li>
+</ul>
+<h1><span id="磁盘"> 磁盘</span></h1>
+<p><a href="/2026/06/11/CS/%E8%AE%A1%E7%BB%84/%E7%A3%81%E7%9B%98/" title="磁盘与SSD">磁盘与SSD</a></p>
+</div><footer><div class="meta"><span class="item"><span class="icon"><i class="ic i-calendar-check"></i></span><span class="text">更新于 </span><time title="修改时间：2026-07-01 15:33:13" itemprop="dateModified" datetime="2026-07-01T15:33:13+08:00">2026-07-01</time></span></div><div id="copyright"><ul><li class="author"><strong>本文作者：</strong>Yuuko<i class="ic i-at"><em>@</em></i>Yuukoの小屋</li><li class="link"><strong>本文链接：</strong><a href="https://yuuko.site/2026/06/09/CS/OS/IO/" title="IO管理">https://yuuko.site/2026/06/09/CS/OS/IO/</a></li><li class="license"><strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/2026/06/07/CS/LLM/position_encoding/" rel="prev" itemprop="url" data-background-image="&#x2F;picture&#x2F;Denia2.jpg" title="Position Encoding"><span class="type">上一篇</span><span class="category"><i class="ic i-flag"></i>LLM</span><h3>Position Encoding</h3></a></div><div class="item right"><a href="/2026/06/11/CS/%E8%AE%A1%E7%BB%84/%E7%A3%81%E7%9B%98/" rel="next" itemprop="url" data-background-image="&#x2F;picture&#x2F;yuki3.jpg" title="磁盘与SSD"><span class="type">下一篇</span><span class="category"><i class="ic i-flag"></i>计组</span><h3>磁盘与SSD</h3></a></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"> IO管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text"> IO 设备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text"> IO接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.1.</span> <span class="toc-text"> IO 接口的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.2.</span> <span class="toc-text"> IO 接口的编址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.3.</span> <span class="toc-text"> IO控制方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 程序直接控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.3.2.</span> <span class="toc-text"> 程序中断方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.3.3.</span> <span class="toc-text"> 多重中断与中断屏蔽</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.3.4.</span> <span class="toc-text"> DMA 方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">1.2.3.4.1.</span> <span class="toc-text"> DMA控制器组成</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">1.2.3.4.2.</span> <span class="toc-text"> DMA 传送方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">1.2.3.4.3.</span> <span class="toc-text"> DMA传送过程</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text"> IO 软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 中断处理软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 设备驱动程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 设备独立层软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 用户层软件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text"> 应用程序IO接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 阻塞IO与非阻塞IO</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text"> 设备独立性软件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.1.</span> <span class="toc-text"> 高速缓存与缓冲区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 缓冲区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.1.1.1.</span> <span class="toc-text"> 单缓冲</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.1.1.2.</span> <span class="toc-text"> 双缓冲</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.1.1.3.</span> <span class="toc-text"> 循环缓冲</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">2.1.1.4.</span> <span class="toc-text"> 缓冲池</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.2.</span> <span class="toc-text"> 设备分配与回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 逻辑设备与物理设备的映射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.3.</span> <span class="toc-text"> SPOOLing技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text"> 磁盘</span></a></li></ol></div><div class="related panel pjax" data-title="系列文章"><ul><li  class="active"><a href="/2026/06/09/CS/OS/IO/" rel="bookmark" title="IO管理">IO管理</a></li><li ><a href="/2026/06/11/CS/%E8%AE%A1%E7%BB%84/%E7%A3%81%E7%9B%98/" rel="bookmark" title="磁盘与SSD">磁盘与SSD</a></li></ul></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><img class="image" loading="lazy" decoding="async" itemprop="image" alt="Yuuko" src="/assets/picture/avatar/yuuko.jpg"/><p class="name" itemprop="name">Yuuko</p><div class="description" itemprop="description">Amor che nella mente mi ragiona.</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">49</span><span class="name">文章</span></a></div><div class="item categories"><a href="/categories/"><span class="count">14</span><span class="name">分类</span></a></div><div class="item tags"><a href="/tags/"><span class="count">27</span><span class="name">标签</span></a></div></nav><div class="social"><a target="_blank" rel="noopener" href="https://github.com/Asunazzz123" class="item github" title="https:&#x2F;&#x2F;github.com&#x2F;Asunazzz123"><i class="ic i-github"></i></a><a target="_blank" rel="noopener" href="https://music.163.com/m/user?id=418116994" class="item music" title="https:&#x2F;&#x2F;music.163.com&#x2F;m&#x2F;user?id&#x3D;418116994"><i class="ic i-cloud-music"></i></a></div><div class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-feather"></i>文章</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a></li><li class="item"><a href="/reading/" rel="section"><i class="ic i-file"></i>读书笔记</a></li></ul></li><li class="item"><a href="/link/" rel="section"><i class="ic i-heart"></i>友链</a></li></div></div></div></div><ul id="quick"><li class="prev pjax"><a href="/2026/06/11/CS/%E8%AE%A1%E7%BB%84/%E7%A3%81%E7%9B%98/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"><a href="/2026/06/07/CS/LLM/position_encoding/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div><div id="player"></div></main><footer id="footer"><div class="inner"><div class="widgets"></div><div class="status"><div class="copyright">&copy; 2025 -<span itemprop="copyrightYear">2026</span><span class="with-love"><i class="ic i-sakura rotate"></i></span><span class="author" itemprop="copyrightHolder">Yuuko @ Yuuko</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i></span><span title="站点总字数">192k 字</span><span class="post-meta-divider"> | </span><span class="post-meta-item-icon"><i class="ic i-coffee"></i></span><span title="站点阅读时长">2:55</span></div><div class="powered-by">基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & Theme.<a target="_blank" rel="noopener" href="https://github.com/theme-shoka-x/hexo-theme-shokaX/">ShokaX</a></div></div></div></footer></div><script data-config type="text/javascript">var LOCAL = {
+    ispost: true,
+    path: `2026/06/09/CS/OS/IO/`,
+    favicon: {
+        show: `（●´3｀●）やれやれだぜ`,
+        hide: `(´Д｀)大変だ！`
+    },
+    search: {
+        placeholder: "文章搜索",
+        empty: "关于 「 ${query} 」，什么也没搜到",
+        stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    nocopy: "false",
+    copyright: `复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。`,
+    copy_tex: false,
+    katex: false,
+    mermaid: false,
+    audio: undefined,
+    nocopy: false,
+    outime: true,
+    template: `<div class="note warning"><p><span class="label warning">文章时效性提示</span><br>这是一篇发布于 {{publish}} 天前，最后一次更新在 {{updated}} 天前的文章，部分信息可能已经发生改变，请注意甄别。</p></div>`,
+    quiz: {
+        choice: `单选题`,
+        multiple: `多选题`,
+        true_false: `判断题`,
+        essay: `问答题`,
+        gap_fill: `填空题`,
+        mistake: `错题备注`
+    }
+};
+</script><script src="/js/siteInit.js?v=0.5.4" type="module" fetchpriority="high" defer></script><script type="module">(() => {
+  const mermaidUrl = "https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.esm.min.mjs";
+  let mermaidLoader;
+
+  const loadMermaid = () => {
+    mermaidLoader ||= import(mermaidUrl).then((mod) => mod.default || mod);
+    return mermaidLoader;
+  };
+
+  const renderMermaid = async () => {
+    const nodes = Array.from(document.querySelectorAll("pre.mermaid, div.mermaid"))
+      .filter((node) => !node.dataset.processed);
+
+    if (!nodes.length) {
+      return;
+    }
+
+    try {
+      const mermaid = await loadMermaid();
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme: "default"
+      });
+
+      await mermaid.run({ nodes });
+      document.querySelectorAll("pre.mermaid > svg, div.mermaid > svg").forEach((svg) => {
+        svg.style.maxWidth = "";
+      });
+    } catch (error) {
+      console.error("Mermaid render failed:", error);
+    }
+  };
+
+  window.shokaxRenderMermaid = renderMermaid;
+  window.addEventListener("DOMContentLoaded", renderMermaid);
+  document.addEventListener("pjax:complete", renderMermaid);
+  document.addEventListener("pjax:success", renderMermaid);
+})();</script><!-- hexo injector body_end start --><script src="/knowledge-graph/force-graph.min.js"></script><script src="/knowledge-graph/knowledge-graph.js"></script><script>(function(){var options={"autoMount":true,"categoriesPath":"/categories/","targetSelector":".collapse.wrap","insertPosition":"beforebegin","title":"知识网络","height":"620px","dataUrl":"/knowledge-graph/graph.json","colors":{"category":"#786395","post":"#e3ae63","visitor":"#d7dbe1","categoryLink":"rgba(120, 99, 149, 0.72)","referenceLink":"rgba(150, 158, 170, 0.42)"}};var run=function(){if(window.HexoKnowledgeGraph){window.HexoKnowledgeGraph.boot(options);}};if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",run,{once:true});}else{run();}document.addEventListener("pjax:complete",run);document.addEventListener("pjax:success",run);})();</script><!-- hexo injector body_end end --></body></html>
