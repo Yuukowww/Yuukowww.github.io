@@ -460,7 +460,7 @@ r_2= \frac{\theta_2^2}{\theta_1^2} = \frac{mgl+ka^2-\omega_2^2ml^2}{-ka^2} = \fr
 \end{dcases}
 $$
 
-初值设定 $\theta_1(0) = \theta_0, \theta_2(0) = 0, \dot{\theta_1}(0)=\dot{\theta_2}(0) = 0  $
+初值设定 $\theta_1(0) = \theta_0, \theta_2(0) = 0, \dot{\theta_1}(0)=\dot{\theta_2}(0) = 0$
 
 对应两个解状态有
 $$
