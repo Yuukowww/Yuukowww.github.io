@@ -386,3 +386,88 @@ $$
 
 
 
+## 二自由度自由振动
+
+$$
+\begin{dcases}
+ml^2\ddot{\theta}_1 = -mgl\theta_1 + ka(\theta_2-\theta_1)a\\
+ml^2\ddot{\theta}_2 = -mgl\theta_2 - ka(\theta_2-\theta_1)a\\
+\end{dcases}
+$$
+
+改写
+$$
+\begin{bmatrix}
+ml^2&0\\
+0&ml^2
+\end{bmatrix}
+\begin{bmatrix}
+\ddot \theta_1\\
+\ddot \theta_2
+\end{bmatrix}
+ + \begin{bmatrix}
+mgl+ka^2&-ka^2\\
+-ka^2&mgl+ka^2
+ \end{bmatrix}
+ \begin{bmatrix}
+ \theta_1\\
+\theta_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\0
+\end{bmatrix}
+$$
+
+取
+$$
+\theta_i = u_i f(\theta)\quad \lambda=-\frac{\ddot f(\theta)}{f(\theta)} = \omega^2
+$$
+
+即
+$$
+\begin{bmatrix}
+-\omega^2ml^2+mgl+ka^2&-ka^2\\
+-ka^2& -\omega^2ml^2 +mgl+ka^2
+\end{bmatrix}
+\begin{bmatrix}
+\theta_1\\
+\theta_2
+\end{bmatrix}
+=0
+$$
+
+非零解条件为
+$$
+\Delta (\omega^2) = \begin{vmatrix}
+-\omega^2ml^2+mgl+ka^2&-ka^2\\
+-ka^2& -\omega^2ml^2 +mgl+ka^2
+\end{vmatrix} = 0
+$$
+
+展开得
+$$
+(mgl+ka^2-ml^2\omega^2)^2-(ka^2)^2 = 0
+$$
+$$
+w^2_{1,2} = \frac{mgl+ka^2\mp ka^2}{ml^2} 
+$$
+
+$$
+\begin{dcases}
+r_1 = \frac{\theta_2^1}{\theta_1^1} = \frac{mgl+ka^2-\omega_1^2ml^2}{-ka^2} = \frac{-ka^2}{-\omega_1^2ml^2+mgl+ka^2} = 1 \\[2em]
+r_2= \frac{\theta_2^2}{\theta_1^2} = \frac{mgl+ka^2-\omega_2^2ml^2}{-ka^2} = \frac{-ka^2}{-\omega_2^2ml^2+mgl+ka^2} =-1
+\end{dcases}
+$$
+
+初值设定 $\theta_1(0) = \theta_0, \theta_2(0) = 0, \dot{\theta_1}(0)=\dot{\theta_2}(0) = 0  $
+
+对应两个解状态有
+$$
+\begin{dcases}
+\theta_1(t) =  \frac{\theta_0}{2}\cos \omega_1 t  + \frac{\theta_0}{2}\cos \omega_2 t\\[1em]
+\theta_2(t) =  \frac{\theta_0}{2}\cos \omega_1 t  - \frac{\theta_0}{2}\cos \omega_2 t
+\end{dcases}
+$$
+
+
