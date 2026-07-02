@@ -206,7 +206,7 @@ $$
 $$
 m\ddot{x} + c\dot{x} + kx = F_0 \sin \omega t
 $$
-特解总是 $\sin \omega t$ 和 $ \cos \omega t$ 的线性组合， 可以假设特解为 $\tilde{x} = X\sin (\omega t-\varphi)$, 代入得
+特解总是 $\sin \omega t$ 和 $\cos \omega t$ 的线性组合， 可以假设特解为 $\tilde{x} = X\sin (\omega t-\varphi)$, 代入得
 
 $$
 X(k-m\omega^2)\sin (\omega t-\varphi) + c\omega X\cos (\omega t-\varphi) =  F_0\sin \omega t = F_0 \cos \varphi \sin(\omega t - \varphi)  + F_0 \cos \varphi \sin(\omega t -\varphi)
