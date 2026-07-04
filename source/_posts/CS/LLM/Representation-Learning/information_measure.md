@@ -14,7 +14,20 @@ cover: picture/shinku3.jpg
 
 ## 基本数学量定义
 
-互信息 Mutual Information 
+**最小错误概率 Minimum Probability of Error** 用于刻画对于一个预测任务关系$r: X\to Y$ 的预测损失。$\mathcal{F}(X,Y)$ 表示预测映射集。 最小错误概率定义为
+
+$$
+\ell (\mu_{X,Y}) := \min_{r\in \mathcal{F}(X,Y)} \ell (r)
+$$
+其中
+$$
+\ell(r) := p(r(X)\neq Y) =\mu_{X,Y} (\left\{(x,y)|r(x)\neq y\right\})
+$$
+
+即预测映射中预测效果最优的预测映射的错误概率
+
+
+**互信息 Mutual Information**
 
 $$
 \begin{aligned}
@@ -26,7 +39,7 @@ $$
 \end{aligned}
 $$
 
-其中 $H(X),H(Y),H(X,Y)$ 分别表示$X,Y$ 的边缘熵与联合熵
+其中 $H(X),H(Y),H(X,Y)$ 分别表示$X,Y$ 的边缘熵与联合熵, $H(Y\mid X)$ 是相对熵
 
 $$
 \mathcal{I}(X;Y)=\mathcal{I}(\mu_{X,Y}) = H(Y) + H(X)-H(X,Y) = H(Y) -H(Y\mid X)
