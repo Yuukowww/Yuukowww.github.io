@@ -3,7 +3,7 @@ title: Encoder-Decoder structure with Information Measures
 date: 2026-07-04
 update: 2026-07-04
 categories: LLM
-descripton: Encoder-Decoder架构的表征学习，信息损失的互信息量化
+description: Encoder-Decoder架构的表征学习，信息损失的互信息量化
 tag: [Representation Learning, Encoder-Decoder Structure]
 cover: picture/shinku3.jpg
 tikzjax: true
