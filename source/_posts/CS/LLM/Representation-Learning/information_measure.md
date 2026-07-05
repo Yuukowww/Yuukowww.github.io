@@ -84,7 +84,7 @@ $$
 \begin{tikzcd}
 	X && {\mathcal{U}} && Y
 	\arrow["\eta"', from=1-1, to=1-3]
-	\arrow["{r_X^\ast}", curve={height=-30pt}, from=1-1, to=1-5]
+	\arrow["{r_X^\ast}", bend right=35, from=1-1, to=1-5]
 	\arrow["{r_\mathcal{U}^\ast}"', from=1-3, to=1-5]
 \end{tikzcd}
 \end{document}
@@ -136,7 +136,7 @@ $$
 
 ## Encoder-Decoder Structure
 
-![encoder-decoder](/picture/CS/information_measure)
+![encoder-decoder](/picture/CS/information_measure/encoder-decoder-structure.png)
 
 
 # Appendix
