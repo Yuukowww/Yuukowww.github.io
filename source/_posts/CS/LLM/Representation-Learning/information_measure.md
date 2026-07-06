@@ -228,6 +228,6 @@ $$
 
 # Appendix.B
 
-$\displaystyle r_X^\ast: X\to Y = \argmax_{y\in Y}\mu_{Y\mid X}(y\mid x) $  从输入空间$X$到预测空间$Y$的最小错误映射，根据真实后验分布 $\mu_{Y\mid X}(\cdot \mid X)$ 诱导的分类器。
+$\displaystyle r_X^\ast: X\to Y = \argmax_{y\in Y}\mu_{Y\mid X}(y\mid x)$  从输入空间$X$到预测空间$Y$的最小错误映射，根据真实后验分布 $\mu_{Y\mid X}(\cdot \mid X)$ 诱导的分类器。
 
 $\displaystyle r_\mathcal{U}^\ast: \mathcal{U}\to Y = \argmax_{y\in Y}\mu_{Y\mid \mathcal{U}}(y\mid u)$ 从隐空间$U$ 到预测空间$Y$ 的最小错误映射，根据泛性质 $r_X = r_\mathcal{U}\circ \eta$ 诱导的最优拉回映射
