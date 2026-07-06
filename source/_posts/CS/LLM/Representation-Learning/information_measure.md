@@ -146,7 +146,10 @@ $$
 $\mathcal{P}_\eta(X,Y)$ 定义为对于给定的 $\eta$， 满足 $X\to \eta(X)\to Y$ 的 $\mu_{X,Y}$ 是IS的Encoder-Decoder
 
 **Definition 3**
-后验概率 $$p_\mu(x) = \mu_{Y\mid X}(\cdot \mid x): X\to \Delta (Y)$$
+后验概率 
+$$
+p_\mu(x) = \mu_{Y\mid X}(\cdot \mid x): X\to \Delta (Y)
+$$
 
 将输入向量 $x$ 映射为输出的概率分布
 $$
