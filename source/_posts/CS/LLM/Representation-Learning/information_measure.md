@@ -114,7 +114,7 @@ $$
 p(x,y\mid u) = p(x\mid u)p(y\mid u) \quad a.e.
 $$
 
-这一点等价于论文中的**Lemma2**, 当$X,Y$ 相对$U$ 独立时， Encoding $\eta$ 是IS的
+这一点等价于论文中的**Lemma2**, 当且仅当$X,Y$ 相对$U$ 独立时， Encoding $\eta$ 是IS的
 
 根据互信息IS
 
