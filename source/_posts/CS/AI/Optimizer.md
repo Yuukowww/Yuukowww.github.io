@@ -12,3 +12,8 @@ cover: picture/ruri2.jpg
 
 # SGD
 
+SGD 满足
+$$
+\theta_{t+1} = \theta_t -\eta_t\nabla \mathcal{L}
+$$
+
