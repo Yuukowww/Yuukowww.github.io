@@ -4,7 +4,7 @@ date: 2026-07-15
 update: 2026-07-15
 categories: 凸几何
 description: 凸几何入门
-cover: picture/miku5.jpg
+cover: picture/miku5.jpeg
 ---
 
 # 凸几何基础
