@@ -15,7 +15,7 @@ cover: picture/miku5.jpeg
 >
 > 集合$C$满足
 >$$
-x_1,x_2\in C,\exists \theta\in \mathbb{R},\theta x_1+(1-\theta)x_2\in C
+x_1,x_2\in C,\forall \theta\in \mathbb{R},\theta x_1+(1-\theta)x_2\in C
 >$$
 > 称$C$为仿射集
 >
@@ -25,7 +25,7 @@ x_1,x_2\in C,\exists \theta\in \mathbb{R},\theta x_1+(1-\theta)x_2\in C
 > 
 > 满足
 > $$
-x = \sum_{i=1}^k \theta_i x_i , \, \sum_{i=1}^k \theta_i = 1, \, \theta_k\geq 0
+x = \sum_{i=1}^k \theta_i x_i , \, \sum_{i=1}^k \theta_i = 1, \, \theta_i\geq 0\ (i=1,\ldots,k)
 > $$
 >则称 点$x$ 是k-点对 $(x_1,x_2,\cdots, x_k)$ 的凸组合
 > 
@@ -139,7 +139,7 @@ $$
 $$
 z^* U z = a\lambda z^*Xz +b (1-\lambda )z^*Yz\geq 0
 $$
-因此$S^*_+$是凸锥
+因此$S^n_+$是凸锥
 
 # 保凸变换
 
@@ -227,7 +227,7 @@ $$
 \begin{aligned}
 \left<y,x\right>+ts&\geq - \|x\|_p\|y\|_q+ts\\
 &=-t\|y\|_q +ts\\
-&=t(s-\|t\|_q)\geq 0
+&=t(s-\|y\|_q)\geq 0
 \end{aligned}
 $$
 即 
@@ -269,7 +269,7 @@ $$
 > - 若 $\operatorname{int}K\neq\varnothing$，则 $K^*$ 是尖锥，即内部不含有直线；
 > - 若 $K$ 是尖锥，则 $\operatorname{int}K^*\neq\varnothing$；
 > - 若 $K$ 是适当锥，则 $K^*$ 也是适当锥；
-> - 二次对偶锥 $K^{**}$ 是 $K$ 的凸包。特别地，若 $K$ 是闭凸锥，则 $K^{**}=K$。
+> - 二次对偶锥 $K^{**}$ 是 $K$ 的闭凸锥包，即 $K^{**}=\operatorname{cl}\operatorname{cone}(\operatorname{conv}K)$。特别地，若 $K$ 是闭凸锥，则 $K^{**}=K$。
 
 
 
@@ -279,7 +279,7 @@ $$
 $$
 \begin{dcases}
 x\preceq_{K} y \Longleftrightarrow y-x \in K\\
-x\prec_K y \Longleftrightarrow y-x \in \mathrm{ind}K 
+x\prec_K y \Longleftrightarrow y-x \in \operatorname{int}K
 \end{dcases}
 $$
 
@@ -287,7 +287,7 @@ $$
 $$
 \begin{dcases}
 x\preceq_{K^*} y\Longleftrightarrow y-x \in K^*\\
-x\prec_{K^*} y \Longleftrightarrow y-x \in K^*
+x\prec_{K^*} y \Longleftrightarrow y-x \in \operatorname{int}K^*
 \end{dcases}
 $$
 
