@@ -135,7 +135,7 @@ a^Tx> b & \forall x\in D\subseteq H_{+}
 
 点集拓扑指出在局部紧的Hausdorff空间，紧集与不相交的闭集可分离。因此对于欧式空间中不相交的凸集$C$ 与$D$，若一个是闭凸集、另一个是紧凸集，则二者可以强分离。
 
-当 $\operatorname{dist}(C,D)=0$ 时，任何一致连续的映射 $\phi$ 都保留这种零距离，即
+当 $\operatorname{dist}(C,D)=0$ 时，一致连续的映射 $\phi$ 保零距离，即
 $$
 \operatorname{dist}(\phi(C),\phi(D)) = 0
 $$
