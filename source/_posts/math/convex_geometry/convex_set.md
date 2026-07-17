@@ -63,7 +63,7 @@ $$
 ### 仿射组合
 仿射组合在参数范围上弱于凸组合，满足
 $$
-x = \sum_{i=1}^{k} \theta_i x_i , \theta_i \in \mathbb{R}，\sum_{i=1}^k \theta_i = 1
+x = \sum_{i=1}^{k} \theta_i x_i , \theta_i \in \mathbb{R}, \sum_{i=1}^k \theta_i = 1
 $$
 则$x$是k-点组 $(x_1,x_2,\cdots, x_k)$ 的仿射组合
 
@@ -87,10 +87,10 @@ $$
 $$
 a^T x=b, a^T y =b
 $$
-考虑凸组合 $z = \lambda x + (1-z)y$,
+考虑凸组合 $z = \lambda x + (1-\lambda)y$,
 $$
 \begin{aligned}
-a^Tx &=  a^T(\lambda x)+ a^{T} (1-\lambda)y\\
+a^Tz &=  a^T(\lambda x)+ a^{T}((1-\lambda)y)\\
 &=\lambda a^Tx+(1-\lambda) a^T y\\
 & = \lambda b+(1-\lambda )b=b
 \end{aligned}
@@ -107,13 +107,13 @@ $$
 
 即
 $$
-\sum_{i=1}^N a_i x_i \leq b
+\sum_{i=1}^n a_i x_i \leq b
 $$
-半空间总是凸集，但是不是仿射集。直观而言半空间有单侧性，而仿射集的组合参数可负导致组合可能在相对的半平面。
+半空间总是凸集，但不是仿射集。直观而言半空间有单侧性，而仿射集的组合参数可负导致组合可能在相对的半平面。
 
 > **Theorem** 分离超平面定理 -- 两个凸集合总能嵌入到两个相对半空间并由一个超平面分离
 > 
-> 给定相互不交的凸集$C,D$,则存在非零向量 $a$ 与非零常数$b$ ，满足
+> 给定相互不交的凸集$C,D$,则存在非零向量 $a$ 与常数$b$ ，满足
 >$$
 \begin{dcases}
 a^Tx\leq b & \forall x\in C\subseteq H_{-}\\
@@ -127,22 +127,61 @@ a^Tx< b & \forall x\in C\subseteq H_{-}\\
 a^Tx> b & \forall x\in D\subseteq H_{+}
 \end{dcases}
 > $$
-> 则称 凸集$C,D$是强可分离的
+> 则称凸集$C,D$是严格可分离的。若进一步存在一致的正间隔，即
+> $$
+> \sup_{x\in C}a^Tx<\inf_{x\in D}a^Tx,
+> $$
+> 则称凸集$C,D$是强可分离的。
 
-点集拓扑指出在局部紧的Hausdorff空间，紧集与闭集可分离。因此对于欧式空间中的凸集$C$ 与$D$ 是强分离的当且仅当一个是闭凸集、一个是紧凸集。
+点集拓扑指出在局部紧的Hausdorff空间，紧集与不相交的闭集可分离。因此对于欧式空间中不相交的凸集$C$ 与$D$，若一个是闭凸集、另一个是紧凸集，则二者可以强分离。
 
-任何一致连续的映射 $\phi$ 都无法将弱分离的凸集变为映射为强分离的凸集
-$$
-\operatorname{dist}(C,D) <\varepsilon \Longleftrightarrow \operatorname{dist}(\phi(C),\phi(D))<\delta
-$$
+当 $\operatorname{dist}(C,D)=0$ 时，任何一致连续的映射 $\phi$ 都保留这种零距离，即
 $$
 \operatorname{dist}(\phi(C),\phi(D)) = 0
 $$
+因此无法使映射后的两个集合获得正间隔。
 
 
 
 
 **Question**: 是否有两个凸集在当前维超平面强不可分但是非线性嵌入高维空间后超平面强可分的例子
+
+例如在 $\mathbb{R}^2$ 中取两个闭凸集
+$$
+C=\left\{(x,y)\mid y\geq e^x\right\},\qquad
+D=\left\{(x,y)\mid y\leq 0\right\}.
+$$
+二者不相交，但是
+$$
+(-n,e^{-n})\in C,\qquad (-n,0)\in D,
+$$
+两点的距离 $e^{-n}\to 0$，因此 $\operatorname{dist}(C,D)=0$，在原空间中不存在具有正间隔的分离超平面。
+
+考虑非线性嵌入
+$$
+\phi(x,y)=\left(x,y,e^{-x}y\right)\in\mathbb{R}^3.
+$$
+记第三个坐标为 $z=e^{-x}y$，则
+$$
+(x,y)\in C\Longrightarrow z\geq 1,
+\qquad
+(x,y)\in D\Longrightarrow z\leq 0.
+$$
+因此映射后的两个集合可以被超平面 $z=\frac{1}{2}$ 强分离。这个映射不是全局一致连续的，因此与上述结论不矛盾。
+
+### 与表征学习的联系
+
+在表征学习中，编码器 $f_\theta$ 将原始输入映射为表征
+$$
+x\longmapsto z=f_\theta(x),
+$$
+再使用线性分类头 $w^Tz+b$ 分类。其几何目标之一，就是学习一个非线性特征映射，使原空间中难以线性分离的类别，在表征空间中可以被超平面分离。线性探针则是对这种线性可分性的直接检验。
+
+对于有限二分类样本，设两类表征集合为 $Z_+$ 和 $Z_-$，则存在具有正间隔的线性分类器当且仅当
+$$
+\operatorname{Conv}(Z_+)\cap\operatorname{Conv}(Z_-)=\varnothing.
+$$
+因此超平面分离定理可以用来描述“表征是否能被线性读出”。
 
 
 ## 多面体
@@ -322,4 +361,3 @@ x\preceq_{K^*} y\Longleftrightarrow y-x \in K^*\\
 x\prec_{K^*} y \Longleftrightarrow y-x \in \operatorname{int}K^*
 \end{dcases}
 $$
-
