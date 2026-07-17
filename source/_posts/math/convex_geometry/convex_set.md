@@ -111,6 +111,38 @@ $$
 $$
 半空间总是凸集，但是不是仿射集。直观而言半空间有单侧性，而仿射集的组合参数可负导致组合可能在相对的半平面。
 
+> **Theorem** 分离超平面定理 -- 两个凸集合总能嵌入到两个相对半空间并由一个超平面分离
+> 
+> 给定相互不交的凸集$C,D$,则存在非零向量 $a$ 与非零常数$b$ ，满足
+>$$
+\begin{dcases}
+a^Tx\leq b & \forall x\in C\subseteq H_{-}\\
+a^Tx\geq b & \forall x\in D\subseteq H_{+}
+\end{dcases}
+>$$
+> 满足此条件称凸集$C,D$是弱可分离的， 超平面$\left\{ x\Big|a^T x=b\right\}$ 分离了凸集 $C,D$。 当满足
+> $$
+\begin{dcases}
+a^Tx< b & \forall x\in C\subseteq H_{-}\\
+a^Tx> b & \forall x\in D\subseteq H_{+}
+\end{dcases}
+> $$
+> 则称 凸集$C,D$是强可分离的
+
+点集拓扑指出在局部紧的Hausdorff空间，紧集与闭集可分离。因此对于欧式空间中的凸集$C$ 与$D$ 是强分离的当且仅当一个是闭凸集、一个是紧凸集。
+
+任何一致连续的映射 $\phi$ 都无法将弱分离的凸集变为映射为强分离的凸集
+$$
+\operatorname{dist}(C,D) <\varepsilon \Longleftrightarrow \operatorname{dist}(\phi(C),\phi(D))<\delta
+$$
+$$
+\operatorname{dist}(\phi(C),\phi(D)) = 0
+$$
+
+
+
+
+**Question**: 是否有两个凸集在当前维超平面强不可分但是非线性嵌入高维空间后超平面强可分的例子
 
 
 ## 多面体
