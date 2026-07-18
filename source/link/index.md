@@ -14,6 +14,6 @@ cover: picture/shiroha1.jpg
 ```yaml
 name: Yuuko
 url: yuukowww.github.io
-avatar: https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEEOLdpBMmBXRUlgNlNCv7TQlnr-uSXbgACyBgAAgJcKVQf4vtPBecjgjYE.jpg
+avatar: https://files.yuuko.site/picture/yuuko.jpg
 descrpition: Amor che nella mente mi ragiona.
 ```
