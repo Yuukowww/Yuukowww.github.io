@@ -1,7 +1,7 @@
 ---
 title: Position Encoding 
 date: 2026-06-07
-update: 2026-06-07
+updated: 2026-06-07
 description: Transformer 中的位置编码
 categories: LLM
 tag: [encoding, LLM]

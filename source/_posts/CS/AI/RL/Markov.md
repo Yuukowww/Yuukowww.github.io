@@ -2,7 +2,7 @@
 title: Markov 过程
 description: RL基本概念与Markov过程
 date: 2026-02-24
-update: 2026-06-30
+updated: 2026-06-30
 categories: 强化学习
 tikzjax: true
 math: true
@@ -161,4 +161,3 @@ $$
 备份图是 Bellman 方程的图形化表示，用来描述状态价值或动作价值从后继结点向当前结点的回传更新关系。
 
 ![backup diagram](/picture/CS/RL/backup.png)
-

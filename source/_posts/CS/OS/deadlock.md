@@ -1,7 +1,7 @@
 ---
 title: 死锁
 date: 2026-06-01
-update: 2026-06-01
+updated: 2026-06-01
 categories: OS
 description: 操作系统 -- 进程的死锁
 cover: picture/skadi1.jpg

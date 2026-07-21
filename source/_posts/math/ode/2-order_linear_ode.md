@@ -1,7 +1,7 @@
 ---
 title: 二阶线性微分方程与Laplace变换
 date: 2026-06-24
-update: 2026-06-24
+updated: 2026-06-24
 categories: 数学
 tag: [ODE,控制]
 description: 常微分方程和振动理论的复习
@@ -469,5 +469,4 @@ $$
 \theta_2(t) =  \frac{\theta_0}{2}\cos \omega_1 t  - \frac{\theta_0}{2}\cos \omega_2 t
 \end{dcases}
 $$
-
 

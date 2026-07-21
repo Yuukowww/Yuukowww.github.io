@@ -1,7 +1,7 @@
 ---
 title: Optimizer From SGD to Muon
 date: 2026-07-15
-update: 2026-07-15
+updated: 2026-07-22
 description: 优化器与数学优化原理
 categories: AI
 tag: [AI,LLM,Optimizer]
@@ -80,6 +80,5 @@ $$
 $$
 v_t = \sum_{j=1}^{t-1} \beta^{t-1-j}v_j
 $$
-
 
 

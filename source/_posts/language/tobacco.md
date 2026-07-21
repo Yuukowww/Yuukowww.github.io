@@ -1,7 +1,7 @@
 ---
 title: たばこ 与 中日舶来词演化
 date: 2026-07-08
-update: 2026-07-08
+updated: 2026-07-08
 description: 从《たばこ》到语言演化
 categories: 语言学
 tag: [语言学, 日语]
@@ -111,4 +111,3 @@ Weblio 收录的《デジタル大辞泉》词条写作「タバコ【(ポルト
 - Weblio，“たばこ”：https://www.weblio.jp/content/%E3%81%9F%E3%81%B0%E3%81%93
 - y-history，“タバコ”：https://www.y-history.net/appendix/wh1002-082_2.html
 - 湖南省卫生健康委员会，“解密烟草知识”：https://wjw.hunan.gov.cn/ztzl/knowledge/zthd/kyyy/kymz/201705/t20170509_4216679.html
-

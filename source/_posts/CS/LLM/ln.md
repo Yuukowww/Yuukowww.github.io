@@ -1,7 +1,7 @@
 ---
 title: Transformer 中的 Layer Normalization与梯度稳定性
 date: 2026-05-23
-update: 2026-05-25
+updated: 2026-05-25
 description: 层归一化位置与训练稳定性
 categories: LLM
 math: true

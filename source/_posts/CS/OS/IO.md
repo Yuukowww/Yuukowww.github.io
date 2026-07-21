@@ -1,7 +1,7 @@
 ---
 title: IO管理
 date: 2026-06-09
-update: 2026-06-11
+updated: 2026-06-11
 description: 操作系统 -- IO
 categories: [OS,计组]
 cover: picture/kon1.jpg

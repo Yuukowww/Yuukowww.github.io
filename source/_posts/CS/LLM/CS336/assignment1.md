@@ -1,7 +1,7 @@
 ---
 title: Assignment1 -- Building a Transformer LM
 date: 2026-06-07
-update: 2026-06-07
+updated: 2026-06-07
 description: CS336作业1Record
 categories: LLM
 cover: picture/mika1.png
