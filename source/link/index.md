@@ -13,7 +13,7 @@ cover: picture/shiroha1.jpg
 # 我的友链信息
 ```yaml
 name: Yuuko
-url: yuukowww.github.io
+url: yuuko.site
 avatar: https://files.yuuko.site/picture/yuuko.jpg
 descrpition: Amor che nella mente mi ragiona.
 ```
