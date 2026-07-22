@@ -361,3 +361,51 @@ x\preceq_{K^*} y\Longleftrightarrow y-x \in K^*\\
 x\prec_{K^*} y \Longleftrightarrow y-x \in \operatorname{int}K^*
 \end{dcases}
 $$
+
+# 凸函数
+
+凸函数满足对于凸集 $\mathrm{dom}f$ 定义域
+$$
+\forall x,y \in \mathrm{dom}f,\theta \in [0,1],\, f(\theta x+ (1-\theta)y)\leq \theta f(x)+ (1-\theta) f(y)
+$$
+
+
+
+
+**二阶条件**
+
+二阶条件说明，一个函数是凸函数当且仅当其Hessian矩阵半正定
+$$
+f\text{凸} \Longleftrightarrow \Delta f \succeq 0
+$$
+
+
+严格凸函数满足
+
+$$
+\forall x,y \in \mathrm{dom}f,\theta \in [0,1],\, f(\theta x+ (1-\theta)y)< \theta f(x)+ (1-\theta) f(y)
+$$
+
+严格凸函数不能直接严格迁移二阶条件的特征值关系，Hessian正定是严格凸函数的充分条件。
+
+**强凸函数**
+
+强凸函数刻画的是Hessian矩阵的特征值的相对大小,如果$f$ 是 $\mu-$强凸函数
+
+定义为
+$$
+\exists \mu > 0, \forall x,y\in \mathrm{dom}f, \theta\in [0,1],f(\theta x+(1-\theta)y) \leq \theta f(x) +(1-\theta) f(y) - \frac{\mu}{2}\theta(1-\theta) \|x-y\|^2
+$$
+
+则满足
+$$
+\forall x , \Delta f(x) \succeq \mu I
+$$
+
+即
+
+$$
+\inf_{x\in \mathrm{dom}f} \lambda_{min} \Delta f(x) \geq \mu
+$$
+
+比如对于$f(x) = e^{x}$, $f''(x) = e^{x}>0$ 但是不存在全局的正下界，所以不是强凸函数。

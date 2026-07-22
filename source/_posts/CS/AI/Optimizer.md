@@ -46,6 +46,13 @@ $$
 $$
 \theta_{t+1} = \theta_t - \eta g_t
 $$
+
+
+
+
+
+
+
 ## SGD-W
 
 添加权重衰减因子$\lambda\geq0$
