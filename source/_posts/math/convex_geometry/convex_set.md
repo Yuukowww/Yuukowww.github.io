@@ -362,6 +362,32 @@ x\prec_{K^*} y \Longleftrightarrow y-x \in \operatorname{int}K^*
 \end{dcases}
 $$
 
+
+
+# 上方图
+对于函数 $f: \mathbb{R}^n \to \mathbb{R} \cup \left\{+\infty\right\}$, 上方图定义为
+$$
+\mathrm{epi} f = \left\{(x,t)\in \mathbb{R}^n\times \mathbb{R} \Big | t\geq f(x)\right\}
+$$
+
+满足
+$$
+f\text{是凸函数}\Longrightarrow \mathrm{epi}f\text{是凸集}
+$$
+考虑$(x_1,t_1), (x_2,t_2)\in \mathrm{epi}f$
+$$
+t_1\geq f(x_1), t_2 \geq f(x_2)
+$$
+$$
+\lambda t_1 + (1-\lambda )t_2 \geq \lambda f(x_1) + (1-\lambda )f(x_2)\geq f(\lambda x_1+ (1-\lambda)x_2)
+$$
+
+$$
+(\lambda x_1+(1-\lambda)x_2 , \lambda t_1 + (1-\lambda)t_2)\in \mathrm{epi}f 
+$$
+因此凸函数$f$诱导的上方图 $\mathrm{epi}f$ 是凸集
+
+
 # 凸函数
 
 凸函数满足对于凸集 $\mathrm{dom}f$ 定义域
@@ -409,3 +435,5 @@ $$
 $$
 
 比如对于$f(x) = e^{x}$, $f''(x) = e^{x}>0$ 但是不存在全局的正下界，所以不是强凸函数。
+
+
