@@ -2,7 +2,7 @@
 title: Kernel Method
 date: 2026-07-22
 updated: 2026-07-22
-descrition: 核学习与线性表示
+description: 核学习与线性表示
 categories: LLM
 tag: [kernel method, Representation Learning]
 cover: picture/asuna3.jpg
