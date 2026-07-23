@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>Yuukoの小屋 • Posts by &#34;语言学&#34; tag</title>
+        <link>https://yuuko.site</link>
+        <description>Amor che nella mente mi ragiona.</description>
+        <language>zh-CN</language>
+        <pubDate>Wed, 08 Jul 2026 00:00:00 +0800</pubDate>
+        <lastBuildDate>Wed, 08 Jul 2026 00:00:00 +0800</lastBuildDate>
+        <category>语言学</category>
+        <category>日语</category>
+        <category>前后指针</category>
+        <category>Leetcode</category>
+        <category>算法</category>
+        <category>时间序列分析</category>
+        <category>RMT</category>
+        <category>随机矩阵</category>
+        <category>日常工作</category>
+        <category>LLM</category>
+        <category>机器学习</category>
+        <category>AI</category>
+        <category>Optimizer</category>
+        <category>架构</category>
+        <category>encoding</category>
+        <category>OS</category>
+        <category>进程</category>
+        <category>数据结构</category>
+        <category>图论</category>
+        <category>硬件</category>
+        <category>计组</category>
+        <category>读书笔记</category>
+        <category>川端康诚</category>
+        <category>离散数学</category>
+        <category>微分几何</category>
+        <category>ODE</category>
+        <category>控制</category>
+        <category>测度论</category>
+        <category>实分析</category>
+        <category>CS336</category>
+        <category>基模</category>
+        <category>kernel method</category>
+        <category>Representation Learning</category>
+        <category>Encoder-Decoder Structure</category>
+        <item>
+            <guid isPermalink="true">https://yuuko.site/2026/07/08/language/tobacco/</guid>
+            <title>たばこ 与 中日舶来词演化</title>
+            <link>https://yuuko.site/2026/07/08/language/tobacco/</link>
+            <category>语言学</category>
+            <category>日语</category>
+            <pubDate>Wed, 08 Jul 2026 00:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&#34;&gt;&lt;h1&gt;&lt;span id=&#34;从-tabaco-到烟草和煙草たばこ&#34;&gt; 从 tabaco 到”烟草”和「煙草（たばこ）」&lt;/span&gt;&lt;/h1&gt;
+&lt;p&gt;只看字形的话，中文”烟草”和日语「煙草」像是同一个汉字词在两地各自保留了下来。但把读音也放进来，事情就不一样了——它们其实是两条完全不同的词汇史，碰巧在同一个字形上交会。&lt;/p&gt;
+&lt;p&gt;中文的”烟草”，是把外来物重新命名为透明的汉语复合词。”淡巴菰 / 淡巴枯 / 淡把姑”这些早期音译并没有音变成 yancao，而是直接被”烟 + 草”这个语义更清楚的名字替换掉了。&lt;/p&gt;
+&lt;p&gt;日语的「たばこ」则是南蛮贸易时期进来的外来词，通常认为来自葡萄牙语或西班牙语的 tabaco。后来虽然写成了「煙草 / 莨」等汉字，读音却原样保留了下来。所以它不是逐字读成「けむり + くさ」，也不是按音读读成「えんそう」。&lt;/p&gt;
+&lt;p&gt;也就是说，中日同用”烟草 / 煙草”这组字，不等于它们继承了同一个”汉语读音”。中文把词改造成了汉语内部的形态；日语把汉字当作意义标签，贴在了已经流通的外来读音上。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;一条大航海时代的传播线&#34;&gt; 一条大航海时代的传播线&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;烟草原产美洲。欧洲人接触它之后，西班牙语 tabaco、葡萄牙语 tabaco 这类名称随殖民贸易扩散开来。Online Etymology Dictionary 把英语 tobacco 追到西班牙语 tabaco，同时指出这个词通常被认为至少部分来自加勒比阿拉瓦克语族，可能是泰诺语里指烟叶卷或吸烟管的名称。&lt;/p&gt;
+&lt;p&gt;东亚这边的关键中转站是菲律宾与南海贸易。16 世纪后期，西班牙人在菲律宾经营马尼拉-阿卡普尔科帆船贸易，美洲作物和美洲白银一起进了亚洲贸易网。日本”たばこと塩の博物館”在介绍大航海时代时，也把烟草列在从新大陆经欧洲扩散到世界各地的物产当中。进入日本的路径一般放在南蛮贸易背景下讨论：1543 年葡萄牙人漂到种子岛以后，九州港口逐渐卷入日欧贸易，烟草也作为南蛮渡来的珍物进入日本。&lt;/p&gt;
+&lt;p&gt;日本这边，确切的早期记录集中在 16 世纪末到 17 世纪初。JTI 年表列出，1601 年方济各会士向德川家康献上烟草叶和种子；1605 年左右已有禁烟、禁买卖、禁耕作的记录。博物馆的”江户时代的たばこ文化”也说，日本在 16 世纪末以后传入烟草，吸烟习惯扩散，国内开始种植，幕府随即以风纪、火灾、粮食生产等理由多次禁烟。&lt;/p&gt;
+&lt;p&gt;中国这边，传入时间也大致在明末万历年间。烟草约在 16 世纪末、万历年间传入，最早音译名是”淡巴枯”，明末改用”烟草”。日本 y-history 的”タバコ”条目在”中國と日本のタバコ”部分整理了几种传入路线：菲律宾到福建、东南亚海路到广东、日本经朝鲜到辽东、印度支那内陆到云南等。史料上以福建、广东路线较多，并提到万历末年”淡把姑”传入福建的说法。&lt;/p&gt;
+&lt;p&gt;可见，烟草进入东亚走的不是一条单纯的”中文词传给日文”路线，而是伴随海商、传教士、南蛮贸易、菲律宾贸易网、东南亚贸易网，在多个港口同时扩散。物和名字都带着外来性，但每种语言给它安家的方式不一样。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;中文从音译名到语义名&#34;&gt; 中文：从音译名到语义名&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;明清材料里，烟草有一串不稳定的名字：淡巴菰、淡巴枯、淡把姑、淡巴菇、担不归、金丝烟、芬草等等。这些名字大致分两类。&lt;/p&gt;
+&lt;p&gt;一类是音译，围绕 tabaco 的声音做汉字拟音。”淡巴菰 / 淡巴枯 / 淡把姑”都在模拟 ta-ba-co 一类的音节。因为它从吕宋、福建、广东、东南亚等多口岸进入，又经过不同方言和书写者记录，字形不统一是自然的事。&lt;/p&gt;
+&lt;p&gt;另一类是语义命名。”金丝烟”偏向加工形态——烟叶切成细丝；”烟草 / 菸草”则抓住了最核心的两个可见特征：草本植物，使用时产生烟。这个名字不需要知道它从哪里来，也不需要知道 tabaco 怎么发音，第一次看到也大概能猜到是什么东西。&lt;/p&gt;
+&lt;p&gt;“淡巴菰”没有发展成现代通用名，不是因为读音不够接近，而是它不适合当普通汉语词：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;音译字形不稳定。”菰、枯、姑、菇”只是借音字，很难形成统一的书写规范。&lt;/li&gt;
+&lt;li&gt;语义信息太少。普通读者看到”淡巴菰”没法从字面猜出用途；看到”烟草”马上能建立类别。&lt;/li&gt;
+&lt;li&gt;物品本土化以后，外来名的必要性自然下降。烟草很快在福建、广东、江南、北方军镇等地流行并种植，不再是单纯的”番货”，而是日常消费品和经济作物。&lt;/li&gt;
+&lt;li&gt;汉语构词偏好双音节、可组合、可派生的语素结构。”烟草”可以自然派生出烟叶、烟丝、烟袋、烟枪、抽烟、禁烟等一群词；”淡巴菰”很难进入这个网络。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;所以中文这里发生的，不是”音译词音变为原始汉语读音”，而是一次词汇替换：早期外来音译词被本土语义复合词取代。现代汉语读 yancao，是因为这个词已经是”烟 + 草”，不是因为 ta-ba-co 在汉语音系里一步步演化出了 yan-cao。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;日语外来读音先固定汉字后来表义&#34;&gt; 日语：外来读音先固定，汉字后来表义&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;日语这边正好相反：读音「たばこ」先作为外来词固定下来，然后才配上「煙草」这个写法。&lt;/p&gt;
+&lt;p&gt;Weblio 收录的《デジタル大辞泉》词条写作「タバコ【(ポルトガル)tabaco】【煙草／莨】」，读法标为「たばこ」。同一页面还列出「煙草」可有「タバコ、ケムリグサ、ケブリグサ、エンソウ」等读法。这很有意思——它说明「けむりぐさ」和「えんそう」并非不可想象，只是没有成为现代通用词里的默认读法。&lt;/p&gt;
+&lt;p&gt;原因在于日语文字系统本身。日语里的汉字不只有一种读法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;音读：来自不同历史层次的汉字音，比如「煙」读 えん，「草」读 そう。&lt;/li&gt;
+&lt;li&gt;训读：用汉字表示日本固有词，比如「煙」读 けむり，「草」读 くさ。&lt;/li&gt;
+&lt;li&gt;熟字训 / 义训 / 当て字这类整词读法：字形提示意义，整组字读作一个已有的词，比如「大人（おとな）」「昨日（きのう）」。外来词也常被配上汉字来写。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;「煙草（たばこ）」就属于最后这种——字形表义，读音走词项。它不是把「煙」读成 たば、「草」读成 こ；而是整组「煙草」被用来写已经存在的外来词 tabako。汉字在这里像一个意义标签：这种东西是会产生烟的草本植物；读音则沿用贸易和日常口语里早已流通的外来名。&lt;/p&gt;
+&lt;p&gt;这也解释了为什么日语没有把它稳定读成「けむりくさ」。如果日本先独立观察到一种”会冒烟的草”，再用固有词造名，「けむりぐさ」也许有机会。但实际历史上，烟草是连同吸烟方式、贸易物品身份、南蛮文化气味一起进来的，名字「たばこ」本身就是新奇物的标签。等到汉字「煙草」贴上去的时候，口语词早就扎了根。&lt;/p&gt;
+&lt;p&gt;至于音读「えんそう」，同样没有胜出的理由。音读通常更适合从汉文、佛典、制度、学术语汇中进来的汉字词；烟草在日本不是作为汉文概念先由读书人引入，而是作为南蛮贸易商品、吸烟风俗和种植作物进入民间生活。传播路径是”物和口头名先到”，不是”汉字词先到”。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;为什么两边用了相同的汉字&#34;&gt; 为什么两边用了相同的汉字？&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;“烟 / 煙 + 草”是个非常自然的语义组合：说明使用时有烟，原料是草本植物。对汉字文化圈的书写者来说，这差不多是摆在眼前的命名方案。&lt;/p&gt;
+&lt;p&gt;但同样的字形，在中日两种语言里的功能并不一样。&lt;/p&gt;
+&lt;p&gt;中文里，汉字直接参与词的读音。写成”烟草”，就按汉语读作 yancao。如果想保留 tabaco 的声音，就得继续写”淡巴菰”这类音译字。两套写法竞争的时候，透明的语义词胜出。&lt;/p&gt;
+&lt;p&gt;日语里，汉字和读音的关系更松。一个汉字词可以有音读、训读，也可以有整词读法；必要时还可以用假名标音。写成「煙草」并不强迫它读成「えんそう」或「けむりくさ」。所以日语能同时保留外来声音「たばこ」和汉字语义「煙草」。&lt;/p&gt;
+&lt;p&gt;分歧就在这里：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;中文：外来声音让位于本土语素，词义透明化。&lt;/li&gt;
+&lt;li&gt;日语：外来声音保留，汉字承担意义标注。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;早期近代东亚面对外来物的时候，大致有三种策略：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;直接音译：保留声音，比如”淡巴菰”。&lt;/li&gt;
+&lt;li&gt;意译或语义重命名：保留概念，比如”烟草”。&lt;/li&gt;
+&lt;li&gt;声音和汉字分工：日语里很常见，读外来词，写表义汉字，比如「煙草（たばこ）」。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;中文不是不能音译，日语也不是不能意译。差别在于，哪一个方案在具体的社会环境里更容易被日常使用、书写规范、商业传播和文学记录共同固定下来。&lt;/p&gt;
+&lt;p&gt;烟草进入中国后，很快被纳入农业、税收、禁令、医药笔记、日常交际和消费文化——“烟草”这种普通汉语词最方便扩散。烟草进入日本后，「たばこ」作为南蛮外来物的口头名称已经强势流通，汉字「煙草」没有替换它的声音，只是给了它一个可读可写、意义清楚的外衣。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;小结&#34;&gt; 小结&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;中文”烟草”和日语「煙草（たばこ）」看起来像同源词，实际上是”同字异史”。&lt;/p&gt;
+&lt;p&gt;中文这边：tabaco 的音译名进入明末文献，随后被”烟草”这个本土语义复合词取代。现代读音 yancao 来自”烟”和”草”两个汉语语素。&lt;/p&gt;
+&lt;p&gt;日语那边：tabaco 作为南蛮外来词「たばこ」进入口语和生活，后来才写作「煙草」。现代读音 tabako 保留的是外来词的声音，汉字只是把”会产生烟的草叶”这个意思写出来。&lt;/p&gt;
+&lt;p&gt;所以问题不在于”为什么日本没有保留 煙（けむり）草（くさ）”，而在于日本从一开始保留的就不是”煙 + 草”的组合读法，是一个外来词；「煙草」只是它的汉字表记。中文则相反，最终使用的不是外来音译，而是汉语内部重新命名后的”烟草”。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;参考资料&#34;&gt; 参考资料&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Online Etymology Dictionary, “tobacco”: &lt;a href=&#34;https://www.etymonline.com/word/tobacco&#34;&gt;https://www.etymonline.com/word/tobacco&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;たばこと塩の博物館，“たばこの歴史と文化”：&lt;a href=&#34;https://www.tabashio.jp/collection/tobacco/index.html&#34;&gt;https://www.tabashio.jp/collection/tobacco/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;たばこと塩の博物館，“大航海時代”：&lt;a href=&#34;https://www.tabashio.jp/collection/tobacco/t5/index.html&#34;&gt;https://www.tabashio.jp/collection/tobacco/t5/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;たばこと塩の博物館，“江戸時代のたばこ文化：たばこの伝播と広がり”：&lt;a href=&#34;https://www.tabashio.jp/collection/tobacco/t9/index.html&#34;&gt;https://www.tabashio.jp/collection/tobacco/t9/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;たばこと塩の博物館，“水パイプ・きせる”：&lt;a href=&#34;https://www.tabashio.jp/collection/tobacco/t8/index.html&#34;&gt;https://www.tabashio.jp/collection/tobacco/t8/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;JTI，“日本の歴史 江戸期”：&lt;a href=&#34;https://www.jti.co.jp/tobacco/knowledge/society/history/japan/edo/index.html&#34;&gt;https://www.jti.co.jp/tobacco/knowledge/society/history/japan/edo/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Weblio，“煙草”：&lt;a href=&#34;https://www.weblio.jp/content/%E7%85%99%E8%8D%89&#34;&gt;https://www.weblio.jp/content/煙草&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Weblio，“たばこ”：&lt;a href=&#34;https://www.weblio.jp/content/%E3%81%9F%E3%81%B0%E3%81%93&#34;&gt;https://www.weblio.jp/content/たばこ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;y-history，“タバコ”：&lt;a href=&#34;https://www.y-history.net/appendix/wh1002-082_2.html&#34;&gt;https://www.y-history.net/appendix/wh1002-082_2.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;湖南省卫生健康委员会，“解密烟草知识”：&lt;a href=&#34;https://wjw.hunan.gov.cn/ztzl/knowledge/zthd/kyyy/kymz/201705/t20170509_4216679.html&#34;&gt;https://wjw.hunan.gov.cn/ztzl/knowledge/zthd/kyyy/kymz/201705/t20170509_4216679.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
