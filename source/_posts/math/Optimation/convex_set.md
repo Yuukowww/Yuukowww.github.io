@@ -2,7 +2,8 @@
 title: 凸集
 date: 2026-07-15
 updated: 2026-07-15
-categories: 凸几何
+categories: convex geometry
+tag: [convex geometry,optimation]
 description: 凸几何入门
 cover: picture/miku5.jpeg
 ---
