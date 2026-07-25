@@ -1,7 +1,7 @@
 ---
 title: Kernel Method
 date: 2026-07-22
-updated: 2026-07-22
+updated: 2026-07-24
 description: 核学习与线性表示
 categories: LLM
 tag: [kernel method, Representation Learning]
@@ -56,7 +56,11 @@ $$
 
 对应相应的Hilbert 空间 $\mathcal{H}$称为Reproducing kernel Hilbert space.
 
-核函数要求有界,即 $ \sup_{x,y\in \mathcal{X}} k(x,y) \leq C $，因此
+如果核函数满足
+$$
+\sup_{x\in\mathcal{X}} k(x,x)\leq C,
+$$
+那么
 $$
 \begin{aligned}
 |f(x)|&\leq \|f\|_\mathcal{H}\, \|k(\cdot, x)\|_\mathcal{H}\\
@@ -68,38 +72,72 @@ $$
 
 
 
-## Kernel Method 
-
-Kernel Method的作用范围为最优化问题
-
-$$
-\min_{f\in \mathcal{H}} L(f(x_1),\cdots, f(x_k)) +\Omega(\|f\|_\mathcal{H})
-$$
-
-
-对于采样点 $x_1,\cdots x_n\in \mathcal{X}$, 最优化函数落在
-$$
-\mathrm{Span}\left\{ k(\cdot, x_i)\right\}_{i}^n
-$$
-即
-$$
-f^*(x)  = \sum_i \alpha_i k(x, x_i) 
-$$
-这样就能通过再生核函数在样本上的截面逼近非线性函数, 那么对于背景的非线性优化问题，如何选择再生核、如何优化参数就是优化核逼近的基本问题。
-
 ## Moore–Aronszajn 定理
 
-Moore–Aronszajn 定理给出一个一一对应的等价关系
+Moore–Aronszajn 定理给出了正定核函数与 RKHS 之间的一一对应关系：
 $$
 \text{正定核函数}\Longleftrightarrow \text{RKHS}
 $$
 
+## Kernel Method
+
+核方法的核心思想是：通过核函数计算特征空间中的内积，而不显式构造高维甚至无限维的特征表示。
+
+设存在从输入空间到特征 Hilbert 空间的映射
+$$
+\phi:\mathcal{X}\to\mathcal{F},
+$$
+使得核函数满足
+$$
+k(x,x')=\left\langle\phi(x),\phi(x')\right\rangle_{\mathcal{F}}.
+$$
+
+因此，只要一个学习算法能够写成样本内积的形式，就可以用核函数替代特征空间中的内积运算，从而在特征空间中使用线性方法，并在原输入空间中得到非线性的决策函数。这一过程称为核技巧。
+
+### 表示定理
+
+给定训练样本
+$$
+\{(x_i,y_i)\}_{i=1}^{n},
+$$
+考虑 RKHS $\mathcal{H}$ 上的正则化经验风险最小化问题
+$$
+\min_{f\in\mathcal{H}}
+\sum_{i=1}^{n}\ell\bigl(y_i,f(x_i)\bigr)
++\lambda\Omega\left(\|f\|_{\mathcal{H}}\right),
+$$
+其中 $\ell$ 为损失函数，$\lambda>0$，并且 $\Omega$ 关于 $\|f\|_{\mathcal{H}}$ 严格单调递增。
+
+如果该问题存在最优解，那么根据表示定理，每个最优解都可以写成
+$$
+f^*(\cdot)=\sum_{i=1}^{n}\alpha_i k(\cdot,x_i)
+$$
+的形式。因此，虽然 $\mathcal{H}$ 可能是无限维空间，但最优解只需要由训练样本对应的核截面
+$$
+k(\cdot,x_1),\ldots,k(\cdot,x_n)
+$$
+线性表示。
+
+令核矩阵 $K\in\mathbb{R}^{n\times n}$ 满足
+$$
+K_{ij}=k(x_i,x_j),
+$$
+则
+$$
+f^*(x_i)=(K\alpha)_i,
+\qquad
+\|f^*\|_{\mathcal{H}}^2=\alpha^\top K\alpha.
+$$
+
+于是，原本定义在函数空间 $\mathcal{H}$ 上的优化问题，可以转化为关于有限维系数
+$$
+\alpha=(\alpha_1,\ldots,\alpha_n)^\top
+$$
+的优化问题。
+
 
 
 # 核函数
-
-
-
 
 
 
