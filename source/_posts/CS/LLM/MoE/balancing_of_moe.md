@@ -14,7 +14,7 @@ MoE 总是倾向于每次Top-k 的 Experts 的负载均衡化.
 
 每一个专家激活概率为 $p(x;\theta)_i$,$p(x;\theta) = \mathrm{Softmax}(W_rx)$,对应整体激活期望为
 $$
-\bar{p} (x;\theta) = \mathbb{E}_{x} [p(x;\theta)]\in \Delta^n， \sum_{i=1}^n \bar{p}(x;\theta)_i = 1
+\bar{p} (x;\theta) = \mathbb{E}_{x} [p(x;\theta)]\in \Delta^n,\qquad \sum_{i=1}^n \bar{p}(x;\theta)_i = 1
 $$
 
 
