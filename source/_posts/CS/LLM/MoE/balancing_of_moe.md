@@ -23,6 +23,10 @@ $$
 \argmin_m\phi(m) = \left(\frac{1}{n},\cdots, \frac{1}{n}\right)
 $$
 
+论文中给出了一系列凸优化器函数
+
+![convex_optimation_function](/picture/moe/convex_opfun.png)
+
 整体优化目标为
 $$
 \min_\theta [L_{task}(\theta) +\alpha \phi(\theta)] 
@@ -85,12 +89,17 @@ F_t(q) = \left<p_t,q \right> - \phi^*(q)
 $$
 
 $$
-\nabla_q F_t(q) = p_t - \nabla_q\phi^*(q) 
+\nabla_q F_t(q) = p_t - \nabla_q\phi^*(q_t) 
 $$
 取对偶梯度为
 $$
-m_t := \nabla_q \phi^*(q)
+m_t := \nabla \phi^*(q_t)
 $$
+由Lerande对偶, 有
+$$
+q_t = \nabla\phi(m_t)
+$$
+
 
 ### Mirror-ascent 与 Bregman 距离约束
 Single batch 的一次共轭上升对象为
@@ -100,9 +109,48 @@ $$
 
 对其Taylor展开
 $$
+F_t(q) \simeq F_t(q_t) + \left<\nabla F_t(q_t), q-q_t\right>
+$$
+{% post_link math/Optimation/convex_set Bregman 距离 %} 作为距离惩罚项，其蕴含起点的平坦性信息与相对竖直距离的大小，在小范围内包含了二阶误差信息, 通过共轭函数生成Bregman距离惩罚
 
 $$
+\begin{aligned}
+q_{t+1} &= \argmin_q\left\{F_t(q_t) + \left<\nabla F_t(q_t),q-q_t \right> -\frac{1}{\eta} D_{\phi^*}(q,q_t)\right\}\\
+& = \argmin_q\left\{\left<\nabla F_t(q_t),q \right> -\frac{1}{\eta} D_{\phi^*}(q,q_t)\right\}
+\end{aligned}
+$$
 
+在最优点 $q = q_{t+1}$ 有
+$$
+\nabla F_t(q_t)
+-
+\frac1\eta
+\left[
+\nabla\phi^*(q_{t+1})
+-\nabla\phi^*(q_t)
+\right]
+=0
+$$
+
+即
+$$
+\nabla \phi^*(q_{t+1} ) = \nabla\phi^*(q_t) + \eta \nabla F_t(q_t) = \nabla\phi^*(q_t) 
+$$
+
+整个优化动力系统表示为
+$$
+\begin{dcases}
+m_{t+1} = m_t + \eta(p_t-m_t)\\
+q_t = \nabla \phi(m_t)
+\end{dcases}
+$$
+
+## StopGrad 
+
+每一个 $q_{t+1}$ 在单次反向传播一经生成就静态化，避免出现复杂计算图。 根据静态的参数，直接计算
+$$
+L_{aux} = \left<p_t,q_{t+1}\right>  = \sum p_{t,i}\nabla \phi(m_{t})_i
+$$
 
 
 

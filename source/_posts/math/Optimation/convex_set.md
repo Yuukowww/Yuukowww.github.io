@@ -484,6 +484,16 @@ $$
 
 因此Bregman 距离不一定是可交换的。
 
+
+Bregman 在局部上刻画的是二阶距离信息，取 $q = q_t+\delta$ 我们对其进行Taylor展开
+$$
+ \psi(q_t+\delta)\simeq\psi(q_t)+\langle\nabla\psi(q_t),\delta\rangle+\frac12
+\delta^\top\nabla^2\psi(q_t)\delta+o(\|\delta\|^2).
+$$
+即
+$$
+D_\psi(q,q_t ) \simeq \frac{1}{2}\delta^T \nabla^2\psi(q_t)\delta = \frac{1}{2}(q-q_t)^T \nabla^2 \psi(q_t) (q-q_t)
+$$
 # 次梯度
 
 次梯度定义为: 对于适当凸函数$f$， $x\in \mathrm{dom}f$, 若 $g\in\mathbb{R}^n$满足
