@@ -437,6 +437,53 @@ $$
 
 比如对于$f(x) = e^{x}$, $f''(x) = e^{x}>0$ 但是不存在全局的正下界，所以不是强凸函数。
 
+## Bregman 距离
+
+Bregman 距离是凸函数诱导的相对高度.
+
+对于凸函数 $\psi$, 在 $y$点的切平面为
+
+$$
+\psi(y)+\left<\nabla \psi(y),x-y\right>
+$$
+$$
+D_\psi(x,y) := \psi(x) -  [\psi(y)+\left<\nabla \psi(y),x-y\right>]
+$$
+
+比如二次函数$y = x^2$, 点$P(1,1)$ 和 $Q(2,4)$的 Bregman距离为
+$$
+D(P,Q) = 4- (2\times 2-1) = 1
+$$
+
+**欧式距离** 是一种欧式空间的Bregman距离, 取
+$$
+\psi (q) = \frac{1}{2}\|q\|_2^2
+$$
+
+$$
+D_\psi(p,q) = \frac{1}{2}\|p\|_2^2 - \frac{1}{2}\|q\|_2^2  - \left<y,x-y\right> = \frac{1}{2} \|x-y\|_2^2 
+$$
+
+
+**KL 散度**也是概率单形上的Bregman距离，取
+$$
+\psi(p) = \sum p_i \log p_i
+$$
+
+$$
+\nabla\psi(q)_i   =\log q_i + 1
+$$
+$$
+\begin{aligned}
+D_\psi(p,q) &=  \sum p_i\log p_i  - \sum q_i\log q_i -\sum (p_i-q_i) (\log q_i + 1)\\
+& = \sum p_i \log \frac{p_i}{q_i} -\sum p_i +\sum q_i \\
+& = \sum p_i \log \frac{p_i}{q_i}\\
+& = D_{KL}(p||q)
+\end{aligned}
+$$
+
+因此Bregman 距离不一定是可交换的。
+
 # 次梯度
 
 次梯度定义为: 对于适当凸函数$f$， $x\in \mathrm{dom}f$, 若 $g\in\mathbb{R}^n$满足
