@@ -437,6 +437,19 @@ $$
 
 比如对于$f(x) = e^{x}$, $f''(x) = e^{x}>0$ 但是不存在全局的正下界，所以不是强凸函数。
 
+# 次梯度
+
+次梯度定义为: 对于适当凸函数$f$， $x\in \mathrm{dom}f$, 若 $g\in\mathbb{R}^n$满足
+$$
+f(y)\geq f(x) +g^T (y-x), \forall y\in \mathrm{dom}f 
+$$
+
+次梯度在可导点强化为常规的梯度 $\nabla f(x)$，只有在不可导点存在若干切线范围，满足的次梯度集称为次微分
+$$
+\partial f(x) := \left\{ g: f(y)\geq f(x) + g^T (y-x),\forall g^T(y-x)\right\} 
+$$
+
+
 
 # 共轭函数、对偶空间与 Legendre 变换
 
@@ -446,6 +459,23 @@ $$
 V^* = \left\{f: X\to\mathbb{F}, f\,\text{连续且线性}\right\}
 $$
 
+
+欧式空间对偶由Hölder不等式给出，满足
+$$
+(\mathbb{R}^n, \|\cdot\|_p)\simeq (\mathbb{R}^n, \|\cdot\|_q) ,\quad \frac{1}{p}+\frac{1}{q} = 1
+$$
+同样对于$L^p$, 定义连续线性泛函
+$$
+\varphi_g(f) = \int_\Omega f\bar{g}\mathrm{d}\mu
+$$
+总有
+$$
+L^q \ni g \mapsto  \varphi_g \in (L^p)^*
+$$
+为自然等距同构，因此
+$$
+(L^p)^* = L^q,\quad \frac{1}{p}+\frac{1}{q} = 1
+$$
 ## 共轭变换与共轭函数
 
 **Fenchel 共轭**
