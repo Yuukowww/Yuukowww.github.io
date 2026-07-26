@@ -95,7 +95,7 @@ $$
 $$
 m_t := \nabla \phi^*(q_t)
 $$
-由Lerande对偶, 有
+由Legendre对偶, 有
 $$
 q_t = \nabla\phi(m_t)
 $$
@@ -115,8 +115,8 @@ $$
 
 $$
 \begin{aligned}
-q_{t+1} &= \argmin_q\left\{F_t(q_t) + \left<\nabla F_t(q_t),q-q_t \right> -\frac{1}{\eta} D_{\phi^*}(q,q_t)\right\}\\
-& = \argmin_q\left\{\left<\nabla F_t(q_t),q \right> -\frac{1}{\eta} D_{\phi^*}(q,q_t)\right\}
+q_{t+1} &= \argmax_q\left\{F_t(q_t) + \left<\nabla F_t(q_t),q-q_t \right> -\frac{1}{\eta} D_{\phi^*}(q,q_t)\right\}\\
+& = \argmax_q\left\{\left<\nabla F_t(q_t),q \right> -\frac{1}{\eta} D_{\phi^*}(q,q_t)\right\}
 \end{aligned}
 $$
 
@@ -134,7 +134,7 @@ $$
 
 即
 $$
-\nabla \phi^*(q_{t+1} ) = \nabla\phi^*(q_t) + \eta \nabla F_t(q_t) = \nabla\phi^*(q_t) 
+\nabla \phi^*(q_{t+1} ) = \nabla\phi^*(q_t) + \eta \nabla F_t(q_t) 
 $$
 
 整个优化动力系统表示为
@@ -147,13 +147,93 @@ $$
 
 ## StopGrad 
 
-每一个 $q_{t+1}$ 在单次反向传播一经生成就静态化，避免出现复杂计算图。 根据静态的参数，直接计算
+
+
 $$
-L_{aux} = \left<p_t,q_{t+1}\right>  = \sum p_{t,i}\nabla \phi(m_{t})_i
+L_{\mathrm{aux},t}
+=
+\left\langle
+p_t(\theta),
+\operatorname{StopGrad}(q_{t+1})
+\right\rangle
+=
+\sum_{e=1}^{E}
+p_{t,e}(\theta)
+\operatorname{StopGrad}
+\left(
+\nabla\phi(m_{t+1})_e
+\right).
 $$
 
 
 
+算法交替进行两个方向的更新：
 
+$$
+\begin{aligned}
+q\text{-step}:&\quad
+\text{固定 }\theta_t,\text{ 使用 mirror ascent 更新 }q_{t+1},\\
+\theta\text{-step}:&\quad
+\text{固定 }q_{t+1},\text{ 对 }\theta\text{ 做梯度下降}.
+\end{aligned}
+$$
 
+因此在 $\theta$-step 中需要计算的是关于 $\theta$ 的偏导数：
+
+$$
+\nabla_\theta L_{\mathrm{aux},t}
+=
+\left(
+\frac{\partial p_t}{\partial\theta}
+\right)^\top q_{t+1}.
+$$
+
+$\operatorname{StopGrad}$ 并没有消除 $q_{t+1}$ 对路由器的影响。它只是阻止梯度继续穿过
+
+$$
+p_t
+\longrightarrow
+m_{t+1}
+\longrightarrow
+q_{t+1}
+$$
+
+这条对偶更新路径。
+
+$q_{t+1}$ 仍作为每个 expert 的负载优化梯度：负载较高的 expert 具有更向均衡化的惩罚，最小化 $L_{aux}$ 会促使路由器减少分配给这些 expert 的概率。
+
+如果不使用 StopGrad，那么由于
+
+$$
+q_{t+1}
+=
+\nabla\phi\left((1-\eta)m_t+\eta p_t\right),
+$$
+
+梯度还会包含由 $q_{t+1}$ 对 $p_t$ 的依赖产生的 Hessian 项：
+
+$$
+\nabla_{p_t}
+\left[
+p_t^\top\nabla\phi(m_{t+1})
+\right]
+=
+q_{t+1}
++
+\eta\nabla^2\phi(m_{t+1})p_t.
+$$
+
+若历史状态 $m_t$ 没有被截断，会形成跨训练步不断增长的计算图。
+
+从包络定理也可以理解这一点：若 $q^*(\theta)$ 是内层最大化的精确解，则
+
+$$
+\nabla_\theta
+\max_q \mathcal L(\theta,q)
+=
+\partial_\theta
+\mathcal L(\theta,q^*(\theta)),
+$$
+
+计算外层梯度时不需要再对 $q^*(\theta)$ 关于 $\theta$ 求导。论文中的 $q_{t+1}$ 是对 $q^*(\theta_t)$ 的在线近似，StopGrad 保留了同样的交替优化结构。
 
