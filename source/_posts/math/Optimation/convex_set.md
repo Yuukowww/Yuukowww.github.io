@@ -449,6 +449,17 @@ $$
 \partial f(x) := \left\{ g: f(y)\geq f(x) + g^T (y-x),\forall g^T(y-x)\right\} 
 $$
 
+**Moreau-Rockafellar 定理** 给出了凸函数和的次微分
+
+$$
+\partial f_1(x_0)+ \partial f_2(x_0) \subseteq \partial(f_1+f_2)(x_0)
+$$
+当 $\mathrm{int}\,( \mathrm{dom}f_1 \cap \mathrm{dom} f_2) \neq \emptyset$时
+$$
+\partial f_1(x_0)+ \partial f_2(x_0) =\partial(f_1+f_2)(x_0)
+$$
+
+
 
 
 # 共轭函数、对偶空间与 Legendre 变换
@@ -490,6 +501,10 @@ $$
 f^{**} = f
 $$
 
+**Legendre 变换**
+
+
+**Legendre-Type Function**
 
 
 
