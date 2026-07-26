@@ -18,10 +18,11 @@ $$
 $$
 
 
-目的是选择一个**凸的负载优化器** $\phi : \Delta^n \to \Delta^n$ 满足
+选择一个**凸的负载优化器** $\phi : \Delta^n \to \Delta^n$ 满足
 $$
 \argmin_m\phi(m) = \left(\frac{1}{n},\cdots, \frac{1}{n}\right)
 $$
+以控制负载均衡化
 
 论文中给出了一系列凸优化器函数
 
