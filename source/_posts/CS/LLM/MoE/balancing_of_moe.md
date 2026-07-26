@@ -24,7 +24,7 @@ $$
 $$
 以控制负载均衡化
 
-论文中给出了一系列凸优化器函数
+论文中给出了一系列凸优化器函数, 本文声称**负Shannon熵**实现的任务损失与负载均衡的平衡效果最好
 
 ![convex_optimation_function](/picture/moe/convex_opfun.png)
 
