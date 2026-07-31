@@ -6,7 +6,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "build": "hexo clean && hexo generate",
+    "build": "hexo clean && hexo generate && pagefind --site public",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server"
@@ -38,5 +38,8 @@
   },
   "overrides": {
     "rollup-plugin-visualizer": "7.0.1"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2"
   }
 }

@@ -28,6 +28,9 @@ loader:
   start: true
   switch: false
 
+pagefind:
+  enable: true
+
 menu:
   home: / || home
   posts:
