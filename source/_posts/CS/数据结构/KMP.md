@@ -1,6 +1,7 @@
 ---
 title: 串的模式匹配与KMP算法
 date: 2026-03-31
+updated: 2026-08-01
 tag: [数据结构,算法]
 categories: 数据结构
 description: KMP算法的数学与代码实现
@@ -9,7 +10,7 @@ cover: picture/34.png
 
 
 # 问题定义
-子串的定位称为串的**模式匹配**，称子串T为**模式串**。
+子串的定位称为串的**模式匹配**，称串S为**主串**，称子串T为**模式串**。
 
 在串中匹配子串的最朴素的想法是移动子串头指针进行一一比对
 
@@ -184,4 +185,46 @@ vector<int> KMP(string text, string pattern){
 }
 ```
 KMP算法只用$\mathcal{O}(m+n)$的时间复杂度实现了子串在全串的匹配
+
+### 具体例子实现
+
+对于模式串 `T = ababc`， 主串为 `S = abcababc`
+
+模式串的Next 前缀表为
+```
+id:   1,2,3,4,5,6,7,8
+S:    a,b,c,a,b,a,b,c
+T:    a,b,a,b,c
+Next: 0,1,1,2,3
+```
+
+
+
+在第一轮比较中，指针`s`, `t` 顺序增加直到`id=3`失配, 从`s=4`继续匹配，模式指针`t`回到`next[t]`进行匹配,直到整个模式串匹配。
+
+
+### KMP 的进一步优化
+
+对于基于`Prefix_func` 的`next`前缀表实现的KMP算法，模式串前缀的相同元素较多时(当`T[next[t]] = T[t]`，这时候回退位置上的元素和回退前的一样，继续比较只会复现上一步失配过程)，进一步生成`next_val`数组能进一步优化性能。
+
+例子： 模式串`T = aaaab`， 对应的Next 前缀表
+```
+id:        1,2,3,4,5
+T:         a,a,a,a,b
+Next:      0,1,2,3,4
+Next_val:  0,0,0,0,4
+```
+
+$$
+\text{Next\_val}(i) = \begin{dcases}
+\text{Next}(i)& T[i]\neq T[\text{Next}[i]]\\
+\text{Next\_val}(\text{Next}(i)) & T[i]= T[\text{Next}[i]]
+\end{dcases}
+$$
+
+失配时，模式串向右滑动的距离为 $i- \text{Next\_val}(i)$, 即模式串指针`t`回到 $\text{Next\_val}(i)$ 的位置
+
+
+
+
 
