@@ -9,6 +9,7 @@
     "build": "hexo clean && hexo generate && pagefind --site public",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
+    "postinstall": "patch-package",
     "server": "hexo server"
   },
   "hexo": {
@@ -40,6 +41,7 @@
     "rollup-plugin-visualizer": "7.0.1"
   },
   "devDependencies": {
-    "pagefind": "^1.5.2"
+    "pagefind": "^1.5.2",
+    "patch-package": "^8.0.1"
   }
 }
