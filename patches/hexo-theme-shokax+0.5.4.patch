@@ -1,0 +1,54 @@
+diff --git a/node_modules/hexo-theme-shokax/source/css/_common/outline/sidebar/sidebar.styl b/node_modules/hexo-theme-shokax/source/css/_common/outline/sidebar/sidebar.styl
+index cbdefda..08ddebf 100644
+--- a/node_modules/hexo-theme-shokax/source/css/_common/outline/sidebar/sidebar.styl
++++ b/node_modules/hexo-theme-shokax/source/css/_common/outline/sidebar/sidebar.styl
+@@ -1,6 +1,6 @@
+ #sidebar {
+   position: static;
+-  overflow: scroll;
++  overflow: visible;
+   width: $sidebar-desktop;
+   top: 0;
+   bottom: 0;
+@@ -10,6 +10,8 @@
+     display: none;
+     position: fixed;
+     right: 0;
++    overflow-x: hidden;
++    overflow-y: auto;
+     background: var(--grey-1);
+     box-shadow: 0 .375rem .9375rem .3125rem rgba(0, 0, 0, .2);
+     z-index: $zindex-3;
+diff --git a/node_modules/hexo-theme-shokax/source/js/_app/globals/handles.ts b/node_modules/hexo-theme-shokax/source/js/_app/globals/handles.ts
+index a979aac..14af148 100644
+--- a/node_modules/hexo-theme-shokax/source/js/_app/globals/handles.ts
++++ b/node_modules/hexo-theme-shokax/source/js/_app/globals/handles.ts
+@@ -24,6 +24,7 @@ import { Loader } from './thirdparty'
+ import { getHeight, setWidth } from '../library/proto'
+
+ const wavesEle = document.getElementById('waves')
++const desktopViewport = window.matchMedia('(min-width: 992px)')
+
+ export const resizeHandle = () => {
+   // 获取 siteNav 的高度
+@@ -68,7 +69,19 @@ export const scrollHandle = () => {
+   toolBtn.classList.toggle('affix', startScroll)
+   // 控制侧边栏的显示隐藏，当滚动高度大于 headerHight 且窗口宽度大于 991px 时显示
+   siteBrand.classList.toggle('affix', startScroll)
+-  sideBar.classList.toggle('affix', window.scrollY > headerHight && document.body.offsetWidth >= 991)
++  const shouldAffixSideBar = window.scrollY > headerHight && desktopViewport.matches
++  const isAffixedSideBar = sideBar.classList.contains('affix')
++  if (isAffixedSideBar !== shouldAffixSideBar) {
++    if (shouldAffixSideBar) {
++      // Keep the sidebar's layout footprint before its inner element becomes fixed.
++      // Without this placeholder, short pages shrink and clamp scrollY back above the affix threshold.
++      sideBar.style.minHeight = `${sideBar.offsetHeight}px`
++      sideBar.classList.add('affix')
++    } else {
++      sideBar.classList.remove('affix')
++      sideBar.style.removeProperty('min-height')
++    }
++  }
+   // 初始化滚动时导航栏的显示方向
+   if (typeof scrollAction.y === 'undefined') {
+     scrollAction.y = window.scrollY
