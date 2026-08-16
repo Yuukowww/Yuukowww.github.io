@@ -23,13 +23,13 @@ x_1,x_2\in C,\forall \theta\in \mathbb{R},\theta x_1+(1-\theta)x_2\in C
 > $\theta$限制为$\theta\in[0,1]$时，称集合$C$ 为凸集
 
 > **凸组合**
-> 
+>
 > 满足
 > $$
 x = \sum_{i=1}^k \theta_i x_i , \, \sum_{i=1}^k \theta_i = 1, \, \theta_i\geq 0\ (i=1,\ldots,k)
 > $$
 >则称 点$x$ 是k-点对 $(x_1,x_2,\cdots, x_k)$ 的凸组合
-> 
+>
 > 进一步称, 集合$S$ 的所有凸组合为集合$S$的凸包，记为$\text{Conv}S$
 ## 锥组合
 锥组合相对弱于凸组合，通过$L_1$ 归一化可以将锥组合转换为凸组合，即
@@ -113,7 +113,7 @@ $$
 半空间总是凸集，但不是仿射集。直观而言半空间有单侧性，而仿射集的组合参数可负导致组合可能在相对的半平面。
 
 > **Theorem** 分离超平面定理 -- 两个凸集合总能嵌入到两个相对半空间并由一个超平面分离
-> 
+>
 > 给定相互不交的凸集$C,D$,则存在非零向量 $a$ 与常数$b$ ，满足
 >$$
 \begin{dcases}
@@ -223,7 +223,7 @@ f(x)= Ax+b
 $$
 是保凸的
 
-设凸集$S$, 
+设凸集$S$,
 $$
 \forall x,y\in S, z = \theta x+(1-\theta)y
 $$
@@ -258,7 +258,28 @@ $$
 \text{dom}f = \left\{x| c^Tx+d>0\right\}
 $$
 
-# 适当锥
+# 锥
+锥是对数乘封闭的对象
+## 尖凸锥诱导偏序关系
+
+偏序关系满足
+- 自返性 -- K为锥
+$$
+x\preceq _K x
+$$
+- 传递性 -- K对加法封闭，满足凸性
+$$
+y\preceq_K y, y\preceq_K z \Longrightarrow x\preceq_K z
+$$
+- 反对称性 -- K是尖的
+$$
+x\preceq_K y,y\preceq_K x\Longrightarrow x=y
+$$
+
+尖凸锥为优化问题铺砌了偏序关系，但是优化问题通常需要更加好的条件。在尖凸锥上添加实心、闭等条件，得到了**适当锥**。
+
+
+## 适当锥
 
 
 > **适当锥**
@@ -276,7 +297,7 @@ $$
 这个锥不满足两个条件： 这既不是凸锥，也不是实心锥
 
 
-# 对偶锥
+## 对偶锥
 对于锥$K$ 可以诱导出其对偶锥
 $$
 K^* =\left\{ y\in \Omega | \left<x,y\right>\geq 0, x\in K\right\}
@@ -289,7 +310,7 @@ $$
 其对偶锥满足Hölder 对偶关系，即
 $$
 K^* = \left\{(y,s)\,\Big|\left<x,y\right>+ts\geq 0, \, q\geq 1\right\}\Longleftrightarrow \left\{(y,s)\Big| \|y\|_q\leq s , \frac{1}{p}+\frac{1}{q}=1\right\}
-$$ 
+$$
 
 
 充分性:
@@ -302,7 +323,7 @@ $$
 &=t(s-\|y\|_q)\geq 0
 \end{aligned}
 $$
-即 
+即
 $$
 \left\{(y,s)\Big| \|y\|_q\leq s \right\}\subseteq K^\ast
 $$
@@ -330,8 +351,6 @@ $$
 
 
 
-### 对偶锥
-
 > **对偶锥的性质**
 >
 > 设 $K$ 是一个锥，$K^*$ 是其对偶锥，则满足：
@@ -342,6 +361,7 @@ $$
 > - 若 $K$ 是尖锥，则 $\operatorname{int}K^*\neq\varnothing$；
 > - 若 $K$ 是适当锥，则 $K^*$ 也是适当锥；
 > - 二次对偶锥 $K^{**}$ 是 $K$ 的闭凸锥包，即 $K^{**}=\operatorname{cl}\operatorname{cone}(\operatorname{conv}K)$。特别地，若 $K$ 是闭凸锥，则 $K^{**}=K$。
+
 
 
 
@@ -384,7 +404,7 @@ $$
 $$
 
 $$
-(\lambda x_1+(1-\lambda)x_2 , \lambda t_1 + (1-\lambda)t_2)\in \mathrm{epi}f 
+(\lambda x_1+(1-\lambda)x_2 , \lambda t_1 + (1-\lambda)t_2)\in \mathrm{epi}f
 $$
 因此凸函数$f$诱导的上方图 $\mathrm{epi}f$ 是凸集
 
@@ -461,7 +481,7 @@ $$
 $$
 
 $$
-D_\psi(p,q) = \frac{1}{2}\|p\|_2^2 - \frac{1}{2}\|q\|_2^2  - \left<y,x-y\right> = \frac{1}{2} \|x-y\|_2^2 
+D_\psi(p,q) = \frac{1}{2}\|p\|_2^2 - \frac{1}{2}\|q\|_2^2  - \left<y,x-y\right> = \frac{1}{2} \|x-y\|_2^2
 $$
 
 
@@ -498,12 +518,12 @@ $$
 
 次梯度定义为: 对于适当凸函数$f$， $x\in \mathrm{dom}f$, 若 $g\in\mathbb{R}^n$满足
 $$
-f(y)\geq f(x) +g^T (y-x), \forall y\in \mathrm{dom}f 
+f(y)\geq f(x) +g^T (y-x), \forall y\in \mathrm{dom}f
 $$
 
 次梯度在可导点强化为常规的梯度 $\nabla f(x)$，只有在不可导点存在若干切线范围，满足的次梯度集称为次微分
 $$
-\partial f(x) := \left\{ g: f(y)\geq f(x) + g^T (y-x),\forall g^T(y-x)\right\} 
+\partial f(x) := \left\{ g: f(y)\geq f(x) + g^T (y-x),\forall g^T(y-x)\right\}
 $$
 
 **Moreau-Rockafellar 定理** 给出了凸函数和的次微分

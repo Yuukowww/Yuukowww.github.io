@@ -10,7 +10,7 @@ cover: picture/mutsumi1.png
 
 **向量逼近问题** 考虑实线性空间$X$, 非空集合 $S\subset X$，给定一个映射$f: S\to Y$, 在偏序锥$C_Y$的序关系下，求最小元 $\bar{x}\in S$
 $$
-f(\bar{x})\in \min_{C_Y}f(S)
+\forall x\in S, f(x)\succeq_{C_Y} f(\bar{x})
 $$
 对于常见的范数锥
 $$
