@@ -1,7 +1,7 @@
 ---
 title: 多任务优化与帕累托最优
 date: 2026-08-11
-update: 2026-08-11
+updated: 2026-08-22
 categories: optimation
 tag: [convex geometry,optimation]
 description: 多任务最优化
