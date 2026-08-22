@@ -31,6 +31,7 @@ $$
 $$
 \mathcal P=\left\{\bar{x}\in S:\nexists x\in S,(\forall i, f_i​(x)\leq f_i​(\bar x))\wedge(\exists j, f_j​(x)<f_j​(\bar x))\right\}
 $$
+这是 $\mathbb{R}_+^n$ 上的偏序关系
 
 **Example**:
 考虑约束集
@@ -45,3 +46,58 @@ f(x_1,x_2)=
 x_1+x_2^2
 \end{pmatrix}.
 $$
+求目标的最小优化
+
+可行域为
+$$
+x_1^2\leq x_2\leq \frac{3-x_1}{2}
+$$
+对应
+$$
+x_1 \in \left[-\frac{3}{2},1\right]
+$$
+基于主元 $x_1$ 计算目标边界条件
+$$
+f_2(x_1,x_2) = x_1+x_2^2\geq x_1+x_1^4
+$$
+
+$$
+\varphi(x)=x+x^4, \varphi'(x) = 1+4x^3
+$$
+下边界函数在 $[-\frac{3}{2},-\frac{\sqrt[3]2}2]$ 减，$[-\frac{\sqrt[3]2}2,1]$ 增。 在 $[-\frac{3}{2},-\frac{\sqrt[3]2} 2]$ 目标$f_1$ 和目标$f_2$的下边界单调性相同，只有在 $[-\frac{\sqrt[3]2}2,1]$ 存在 trade-off, 因此Pareto 集为
+$$
+\mathcal P
+=
+\left\{
+(x_1,x_2)\in\mathbb R^2
+\;\middle|\;
+x_1\in
+\left[-\frac{\sqrt[3]{2}}2,1\right],
+\quad x_2=x_1^2
+\right\}
+$$
+
+### Pareto 前沿
+
+Pareto 前沿是Pareto集关于 $f$ 的像。 代入
+$$
+\begin{dcases}
+y_1 = -x_1\\
+y_2 = x_1+x_2^2 = x_1+x_1^4 = -y_1+y_1^4
+\end{dcases}
+$$
+
+可知 $\displaystyle y_1\in\left[-1, \frac{\sqrt[3]2}{2}\right]$
+
+$$
+T = \left\{(y_1,y_2)\in\mathbb{R}^2:y_1\in \left[-1, \frac{\sqrt[3]2}{2}\right],y_2 = -y_1+y_1^4 \right\}
+$$
+
+
+最大值点出现在左边界上
+$$
+f\left(-\frac{3}{2},\frac{9}{4}\right) = \left(\frac{3}{2},\frac{57}{16}\right)
+$$
+
+
+![pareto](/picture/pareto/pareto_set_example.png)
