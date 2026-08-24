@@ -1,7 +1,7 @@
 ---
 title: Spherical motion dynamic -- 球面动力学
 date: 2026-05-17
-updated: 2026-05-30
+updated: 2026-08-24
 description: Weight Decay 约束下优化器训练的梯度模稳定性与线性收敛性，以及角度更新量的线性稳定性
 categories: LLM
 math: true
@@ -45,7 +45,7 @@ $$
 \begin{aligned}
 \|w_{t+1}\|^2&=\|w_t-\eta \nabla_w\mathcal{L}(w)\|^2\\
 &= \|w_t\|^2 +\|\eta\nabla_w\mathcal{L}(w)\|^2 -\eta\left<w_t,\nabla_w\mathcal{L}(w)\right> \\
-&=\|w_t\|^2 +\|\eta\nabla_w\mathcal{L}(w)\|^2 \geq  0 
+&=\|w_t\|^2 +\|\eta\nabla_w\mathcal{L}(w)\|^2 \geq  0
 \end{aligned}
 $$
 这说明如果没有Weight Decay, 优化器在有限步梯度下降中难以实现权重范数收敛
@@ -59,7 +59,7 @@ $$
 **Proof:**
 $$
 
-\nabla_w \mathcal{L}(w) = \nabla_w\mathcal{L}(kw) = \left(\frac{\partial \mathcal{L}(kw)}{\partial w_i}\right)_{i\leq n} = k\left(\frac{\partial \mathcal{L}(kw)}{\partial (kw_i)}\right)_{i\leq n} =k\nabla_{kw}\mathcal{L}(kw) 
+\nabla_w \mathcal{L}(w) = \nabla_w\mathcal{L}(kw) = \left(\frac{\partial \mathcal{L}(kw)}{\partial w_i}\right)_{i\leq n} = k\left(\frac{\partial \mathcal{L}(kw)}{\partial (kw_i)}\right)_{i\leq n} =k\nabla_{kw}\mathcal{L}(kw)
 $$
 即
 $$
@@ -140,7 +140,7 @@ $$
 则
 $$
 \begin{aligned}
-x^* -x_{n+1}&\leq x^* -Ax_n -\frac{B}{x_n}\\ 
+x^* -x_{n+1}&\leq x^* -Ax_n -\frac{B}{x_n}\\
 & = x^* -Ax_n - \frac{(1-A)x^{*2}}{x_n}\\
 & = x^* -x_n +(1-A)x_n -\frac{(1-A)x^{*2}}{x_n}\\
 & = (x^*-x_n)  \left(1-\frac{(1-A)(x_n+x^*)}{x_n}\right)\\
@@ -159,7 +159,7 @@ $$
 
 因此SGD 的不动点为
 $$
-x^* = \sqrt{\frac{\eta l }{2\lambda}} 
+x^* = \sqrt{\frac{\eta l }{2\lambda}}
 $$
 即
 $$
@@ -184,7 +184,7 @@ $$
 $$
 x^* = \sqrt{\frac{\eta L}{2\lambda}}
 $$
-基于最佳平方估计的理念，我们试图去证明权重范数的二阶矩是线性收敛的 
+基于最佳平方估计的理念，我们试图去证明权重范数的二阶矩是线性收敛的
 
 $$
 \begin{aligned}
@@ -222,8 +222,8 @@ $$
 &\quad L_t>l \\[2mm]
 &\text{(梯度的期望与方差稳定)}
 &\quad \exists\, L,V>0
-&\quad \mathbb{E}[L_t\mid x_t]=L,\ 
-      \mathbb{E}[(L_t-L)^2\mid x_t]=V 
+&\quad \mathbb{E}[L_t\mid x_t]=L,\
+      \mathbb{E}[(L_t-L)^2\mid x_t]=V
 \end{aligned}
 \end{dcases}
 $$
@@ -265,4 +265,50 @@ $$
 因此
 $$
 |\Delta_t-2\sqrt{\eta\lambda}| = \mathcal{O}(1-4\eta\lambda)^t
+$$
+
+## pbSGD
+
+[苏剑林的博客中](https://spaces.ac.cn/archives/11196) 提到了梯度优化基于某种度量诱导的优化方向诱导的Optimizer。优化问题总关注于什么度量能让一阶下降在单位向量上有最好的下降。
+
+$$
+\mathcal{L}(w+\Delta w) -\mathcal{L}(w) = \left<\nabla_w\mathcal{L}(w),\Delta w\right>=:\left<g,\Delta w\right>
+$$
+负归一化 $\Delta w = -k\varphi$, 其中 $k\in [0,\eta], \eta = \max\rho(\Delta w)$
+$$
+\mathcal{L}(w+\Delta w) -\mathcal{L}(w) = -k\left<g,\varphi\right>
+$$
+因此优化问题化为单变量的maximum优化
+$$
+\max_{\varphi}\left<g,\varphi\right>\quad\mathrm{s.t.}\quad \rho(\varphi) = 1
+$$
+
+{% post_link math/Optimation/convex_set Fenchel共轭 %}给出了当选定 $p$-norm 作为度量时，
+$$
+\psi(v) = \frac{1}{p}\|v\|_p^p
+$$
+
+
+$$
+\nabla \psi^\ast(g) = \argmax_v\left\{\left<g,v\right> - \frac{1}{p}\|v\|_p^p\right\}
+$$
+
+pbSGD定义
+$$
+\sigma_\gamma(g) = \psi^\ast(g) = \frac{1}{q}\|g\|_q^q
+$$
+其中 $\gamma = q-1$
+$$
+x_{t+1}=x_t-\alpha_t\sigma_\gamma(g_t)
+$$
+求导得
+$$
+\nabla\sigma_\gamma(g_t) = \left(\mathrm{sign}(g_i)\gamma|g_t|_i^{\gamma-1}\right)_i
+$$
+最优下降方向为
+$$
+d^\ast = -\frac{\mathrm{sign}(g)|g|^{q-1}}{\|\mathrm{sign}(g)|g|^{q-1}\|_p} = \frac{\mathrm{sign}(g)\|g\|^{q-1}}{\|g\|_p^{q-1}}
+$$
+$$
+\|d^\ast\|_p = 1
 $$
