@@ -113,3 +113,16 @@ $$
 \mathcal{WP} = \left\{(x_1,\cdots,x_n):\bigcup_i \prod_{k<i}[a_k,b_k]\left\{x_i\right\}\prod_{k> i}[a_k,b_k]\right\}
 $$
 
+- Properly Edgeworth-Pareto 最优
+$$
+\exists \mu >0, \forall i\leq n,x\in S,\frac{f_i(\bar x)-f_i(x)}{f_j(x)-f_j(\bar x)}\leq \mu
+$$
+
+Properly Edgeworth-Pareto最优刻画了在一定范围内多目标改善量和恶化量的相对约束关系。是更强的EP最优
+## Weight Sum Approach
+
+Weight Sum Approach 是通过凸组合的方式将多目标优化问题转化为单目标优化问题。
+
+$$
+\min(f_1,\cdots,f_n)\overset{\Delta}{\to} \min \sum_i^n t_if_i\quad \sum_i^n t_i = 1，t_i\geq 0
+$$
