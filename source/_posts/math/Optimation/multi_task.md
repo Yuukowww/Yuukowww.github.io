@@ -101,3 +101,15 @@ $$
 
 
 ![pareto](/picture/pareto/pareto_set_example.png)
+
+
+**几种Edgeworth-Pareto 最优**
+- 弱 Edgeworth-Pareto 最优 -- Pareto Set 关于不同维度的边缘的并集，比如
+$$
+\mathcal{P} = \prod_{i=1}^n [a_i,b_i]
+$$
+其弱 Edgeworth-Pareto 最优集为
+$$
+\mathcal{WP} = \left\{(x_1,\cdots,x_n):\bigcup_i \prod_{k<i}[a_k,b_k]\left\{x_i\right\}\prod_{k> i}[a_k,b_k]\right\}
+$$
+
