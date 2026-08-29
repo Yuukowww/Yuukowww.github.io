@@ -147,7 +147,7 @@ $$
 
 ### 正权重的加权和解是 Proper EP 点
 
-Jahn 的 Theorem 11.17 给出的结论是：若所有权重都严格为正，即 $t_1,\ldots,t_m>0$，并且
+如果所有权重都严格为正，即 $t_1,\ldots,t_m>0$，并且
 
 $$
 \bar x\in\mathop{\arg\min}_{x\in S}\sum_{i=1}^m t_i f_i(x),
@@ -171,7 +171,7 @@ $$
 
 这与 $\bar x$ 是加权和问题的最优解矛盾。因此 $\bar x$ 是 EP 点。
 
-下面用反证法证明 $\bar x$ 还是 Proper EP 点。只需讨论 $m\geq2$；$m=1$ 时结论是平凡的。假设 $\bar x$ 不是 Proper EP 点。取
+用反证法证明 $\bar x$ 还是 Proper EP 点。只需讨论 $m\geq2$；$m=1$ 时结论是平凡的。假设 $\bar x$ 不是 Proper EP 点。取
 
 $$
 \mu_0:=(m-1)
@@ -199,7 +199,7 @@ $$
 A>(m-1)\frac{t_j}{t_i}\Delta_j.
 $$
 
-这是因为：当 $\Delta_j>0$ 时，它由反证假设和 $\mu_0\geq(m-1)t_j/t_i$ 得到；当 $\Delta_j\leq0$ 时，右端非正而 $A>0$，不等式也自然成立。
+当 $\Delta_j>0$ 时，它由反证假设和 $\mu_0\geq(m-1)t_j/t_i$ 得到；当 $\Delta_j\leq0$ 时，右端非正而 $A>0$，不等式也自然成立。
 
 将上式乘以 $t_i/(m-1)$，再对全部 $j\neq i$ 求和。左端一共出现 $m-1$ 次，因此
 
@@ -228,7 +228,7 @@ $$
 
 这再次与 $\bar x$ 的加权和最优性矛盾。因此 $\bar x$ 必为 Proper EP 点。
 
-需要注意，上面的证明只得到
+因此
 
 $$
 \text{正权重加权和的最优解}\quad\Longrightarrow\quad\text{Proper EP 点}.
