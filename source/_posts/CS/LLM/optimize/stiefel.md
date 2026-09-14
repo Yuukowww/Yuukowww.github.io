@@ -20,7 +20,7 @@ $$
 
 非退化情况则是齐性商流形
 $$
-\mathrm{St}_p(n) = O(n)/O(n-p)
+\mathrm{St}_p(n) \simeq  O(n)/O(n-p)
 $$
 
 Stiefel 流形的维度
