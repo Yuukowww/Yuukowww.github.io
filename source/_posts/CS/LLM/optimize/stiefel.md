@@ -4,6 +4,7 @@ categories: AI
 tag: [Geometry,Optimizer,AI]
 date: 2026-09-14
 updated: 2026-09-14
+description: Stiefel流形的性质，及其在优化器与训练动力学中的应用
 cover: picture/Kanami2.jpg
 ---
 
