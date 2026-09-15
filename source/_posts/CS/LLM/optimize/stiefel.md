@@ -7,7 +7,7 @@ updated: 2026-09-14
 description: Stiefel流形的性质，及其在优化器与训练动力学中的应用
 cover: picture/Kanami2.jpg
 ---
-
+# Stiefel 流形的基本特征
 Stiefel 流形是正交非方阵构成的微分流形
 $$
 \mathrm{St}_p(n) = \left\{X\in\mathbb{R}^{n\times p}, X^TX=I_p, p\leq n\right\}
@@ -25,7 +25,7 @@ $$
 
 因此
 $$
-\dim \mathrm{St}_p(n) = \frac{n(n-1)}{2} - \frac{(n-p)(n-p-1)}{2} = np - \frac{p(p-1)}{2}
+\dim \mathrm{St}_p(n) = \frac{n(n-1)}{2} - \frac{(n-p)(n-p-1)}{2} = np - \frac{p(p+1)}{2}
 $$
 
 Stiefel流形在 $O(n)$ 的左作用下不变且传递的，因此Stiefel流形是齐性空间。流形在 $p\mathrel{<}n$ 时
@@ -72,6 +72,17 @@ Stiefel流形退化为单位球面
 $$
 \mathrm{St}_1(n) = S^{n-1}\simeq  O(n)/O(n-1)
 $$
+
+一个最简单直观的例子 $\mathrm{St}_2(3)\simeq O(3)/ O(1)$ 这是三维空间单位球面 $S^2$ 上的单位切丛 $T^1S^2$. 根据右手定则，三维球面任意切平面的有向正交单位基可以确定其法向量构成一个三维正交基，因此$2-3$ Stiefel流形等价于三维旋转的姿态
+$$
+R = (u,v,u\times v)\in SO(3)
+$$
+$$
+\mathrm{St}_2(3)\simeq T^1S^2 \simeq SO(3) \simeq O(3)/O(1)
+$$
+
+## Stiefel 流形的切空间形态
+
 
 
 
