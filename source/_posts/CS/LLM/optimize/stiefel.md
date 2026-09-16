@@ -3,12 +3,12 @@ title: Stiefel 流形
 categories: AI
 tag: [Geometry,Optimizer,AI]
 date: 2026-09-14
-updated: 2026-09-14
+updated: 2026-09-17
 description: Stiefel流形的性质，及其在优化器与训练动力学中的应用
 cover: picture/Kanami2.jpg
 ---
 # Stiefel 流形的基本特征
-Stiefel 流形是正交非方阵构成的微分流形
+Stiefel 流形是正交非方阵构成的微分流形，在本文中均讨论实Stiefel 流形
 $$
 \mathrm{St}_p(n) = \left\{X\in\mathbb{R}^{n\times p}, X^TX=I_p, p\leq n\right\}
 $$
@@ -83,7 +83,40 @@ $$
 
 ## Stiefel 流形的切空间形态
 
+取流形上的一点$X_0$为一个path的起点 $\gamma(0)$,
+$$
+X^T(\gamma(t))X(\gamma(t))=I_p
+$$
+
+微分得
+$$
+[\dot{X}^T(\gamma(t))X(\gamma(t))+X^T(\gamma(t))\dot{X}(\gamma(t))]\gamma'(t) = 0
+$$
+$$
+\dot{X}^T(\gamma(t))X(\gamma(t))+X^T(\gamma(t))\dot{X}(\gamma(t)) = 0
+$$
+代入 $t=0$ 得
+$$
+\dot{X}(0)\in \left\{Z\in \mathbb{R}^{n\times p}:Z^TX_0+X^T_0Z = 0\right\}
+$$
+因此
+$$
+T_X\mathrm{St}_p(n) =\left\{Z\in \mathbb{R}^{n\times p}:Z^TX+X^TZ = 0\right\}
+$$
+
+这进一步能说明 $X^TZ$ 是反对称矩阵
+$$
+\forall Z\in T_X\mathrm{St}_p(n), X^TZ\in \mathfrak{so}(p)
+$$
+
+### 法空间
 
 
 
+### 切丛
+
+Stiefel流形的切丛也即
+$$
+T\mathrm{St}_p(n)\simeq \bigsqcup_{x\in \mathrm{St}_p(n)} T_x \mathrm{St}_p(n)
+$$
 
