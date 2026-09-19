@@ -109,7 +109,11 @@ $$
 \forall Z\in T_X\mathrm{St}_p(n), X^TZ\in \mathfrak{so}(p)
 $$
 
-### 法空间
+更特殊的，对于实正交群 $O(n)$, 其切空间为
+$$
+T_XO(n) = \left\{Z=X\Omega\in\mathbb{R}^{n\times n}:\Omega^T+\Omega=0\right\} = X\mathcal{S}_\mathrm{skew}(n)
+$$
+$\mathcal{S}_\mathrm{Skew}(n)$ 即 $n$ 阶实反对称矩阵
 
 
 
@@ -117,6 +121,55 @@ $$
 
 Stiefel流形的切丛也即
 $$
-T\mathrm{St}_p(n)\simeq \bigsqcup_{x\in \mathrm{St}_p(n)} T_x \mathrm{St}_p(n)
+T\mathrm{St}_p(n)\simeq \bigsqcup_{X\in \mathrm{St}_p(n)} T_X \mathrm{St}_p(n)
 $$
+
+## 法空间和法丛
+
+Stiefel 流形的法空间是其切空间在 $\mathbb{R}^{n\times p}$ 的正交补
+
+映射
+$$
+F:\mathbb{R}^{n\times p}\to \mathrm{Sym}(p)\quad F(X) = X^TX-I_p
+$$
+其微分为
+$$
+\mathrm{d}F_X(Z) = X^TZ+Z^TX
+$$
+
+$$
+\ker \mathrm{d}F_X = T_X\mathrm{St}_p(n)
+$$
+
+法空间与切空间在Frobenius 内积意义下互为正交补，考虑内积诱导的伴随映射
+
+$$
+\left<\mathrm{d}F_X(Z),U\right>_F = \left<Z,(\mathrm{d} F_X)^\ast(U)\right>_F
+$$
+
+$$
+N_X\mathrm{St}_p(n) = (\ker \mathrm{d}F_X)^{\bot} = \mathrm{Im}\,(\mathrm{d}F_X)^\ast
+$$
+
+其中
+$$
+\begin{aligned}
+\left<\mathrm{d}F_X(Z),U\right>_F &= \mathrm{tr}((X^TZ+Z^TX)^TU)\\
+& = 2\mathrm{tr}(Z^TXU)\\
+& = \left<Z,2XU\right>_F
+\end{aligned}
+$$
+因此
+$$
+(\mathrm{d}F_X)^\ast(U) = XU
+$$
+Stiefel一点上的法空间为
+$$
+N_X\mathrm{St}_p(n) = \left\{XS:S\in\mathrm{Sym}(p)\right\}
+$$
+同样的，法丛为逐点法空间粘起的向量丛
+$$
+N\mathrm{St}_p(n) = \bigsqcup_{X\in \mathrm{St}_p(n)} N_X\mathrm{St}_p(n)
+$$
+
 
