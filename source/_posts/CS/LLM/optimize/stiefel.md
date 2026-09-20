@@ -225,7 +225,7 @@ $$
 \mathrm{dist}: M\times M \to\mathbb R :(x,y)\to\inf_{\gamma \in P_{xy}} L(\gamma)
 $$
 
-#### Frobenius 度量
+### Frobenius 度量
 前文提及来Frobenius 度量在构建伴随映射和梯度中的作用
 
 Frobenius度量诱导的欧氏度量
@@ -244,7 +244,7 @@ $$
 \|A\|_{g_c}=\|X\Omega+X_\bot K\|_F = \||\Omega\|_F+\|K\|_F
 $$
 
-#### 典范度量
+### 典范度量
 Edelman[@edelman1998geometryalgorithmsorthogonalityconstraints]提及的Stiefel流形上的典范度量来自齐性空间的商度量
 $$
 \mathrm{St}_p(n)\simeq O(n)/O(n-p)

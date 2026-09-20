@@ -255,7 +255,7 @@ function appendBacklinks(entryHtml, key, backlinkIds) {
   return roots.map((node) => serialize(node, { decodeEntities: true })).join("");
 }
 
-function renderBibliography(state, options) {
+function renderBibliography(state, options, headingLevel) {
   const data = state.keys.map((key) => state.library.entries.get(key));
   const cite = new Cite(data);
   const formatted = cite.format("bibliography", {
@@ -272,8 +272,8 @@ function renderBibliography(state, options) {
   }).join("");
 
   return [
-    '<section class="post-bibliography" id="references">',
-    `<h2 class="post-bibliography-title">${escapeHtml(options.heading || "参考文献")}</h2>`,
+    '<section class="post-bibliography">',
+    `<h${headingLevel} class="post-bibliography-title" id="references"><a class="anchor" href="#references"><span>#</span></a> ${escapeHtml(options.heading || "参考文献")}</h${headingLevel}>`,
     `<div class="csl-bib-body">${entries}</div>`,
     "</section>"
   ].join("");
@@ -341,7 +341,12 @@ function transformPostHtml(html, library, options = {}) {
     return html;
   }
 
-  insertBibliography(roots, renderBibliography(state, options));
+  // Keep references alongside the post's top-level sections, not inside its last section.
+  const headings = DomUtils.findAll((node) => /^h[1-6]$/.test(node.name), roots);
+  const headingLevel = headings.length
+    ? Math.min(...headings.map((node) => Number(node.name.slice(1))))
+    : 2;
+  insertBibliography(roots, renderBibliography(state, options, headingLevel));
   return roots.map((node) => serialize(node, { decodeEntities: true })).join("");
 }
 

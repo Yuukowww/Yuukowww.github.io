@@ -11,7 +11,8 @@
     "deploy": "hexo deploy",
     "postinstall": "patch-package",
     "server": "hexo server",
-    "test": "node tests/reading-index-filter.test.js && node tests/bibliography.test.js"
+    "test": "node tests/reading-index-filter.test.js && node tests/bibliography.test.js",
+    "test:toc": "node tests/toc.test.js"
   },
   "hexo": {
     "version": "7.3.0"
@@ -20,6 +21,8 @@
     "@citation-js/core": "0.7.18",
     "@citation-js/plugin-bibtex": "0.7.18",
     "@citation-js/plugin-csl": "0.7.18",
+    "dom-serializer": "0.1.1",
+    "domutils": "1.4.3",
     "hexo": "^7.0.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-feed": "^1.1.2",
@@ -37,7 +40,7 @@
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
     "hexo-theme-shokax": "^0.5.4",
-    "hexo-toc": "^1.1.0",
+    "htmlparser2": "3.8.3",
     "nyx-player": "^0.1.1",
     "shokax-uikit": "0.0.5"
   },

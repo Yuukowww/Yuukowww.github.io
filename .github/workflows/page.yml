@@ -28,7 +28,10 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build
+        run: |
+          npm test
+          npm run build
+          npm run test:toc
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
