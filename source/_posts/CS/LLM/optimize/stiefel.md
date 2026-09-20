@@ -120,7 +120,7 @@ $$
 X^T (I-XX^T) = X^T-X^T = 0
 $$
 $$
-I-X^TX\subset \ker X^T\Longrightarrow  (I-X^TX)\dot X = X_\bot K
+\mathrm{Im}(I_n-XX^T) = \ker X^T=\mathrm{Span}(X_\bot)\Longrightarrow  (I-XX^T)\dot X = X_\bot K
 $$
 取 $\Omega := X^T\dot X,$ Stiefel映射的切空间给出 $\Omega$ 为反对称矩阵，因此
 
@@ -182,7 +182,7 @@ $$
 $$
 因此
 $$
-(\mathrm{d}F_X)^\ast(U) = XU
+(\mathrm{d}F_X)^\ast(U) = 2XU
 $$
 Stiefel一点上的法空间为
 $$
@@ -195,6 +195,32 @@ $$
 
 
 ## Stiefel 流形上的黎曼度量和梯度
+
+前文中，伴随映射 $(dF_X)^\ast$ 的定义依赖于Frobenius 内积。Frobenius 内积是普通欧氏向量内积在矩阵空间上的自然推广，将其限制到 Stiefel 流形的各个切空间，便得到该嵌入所诱导的欧式Riemann度量。
+
+流形的梯度也依赖于度量的选择
+$$
+f\to df_X \in T_X^\ast M \overset{Metric}{\longrightarrow} \mathrm{grad}f(X) \in T_XM
+$$
+Riemann 度量是对光滑流形 $\mathcal M$ 与一点 $X\in \mathcal M$ 上的对称正定 $2-0$张量
+$$
+g_X(-,-) :T_XM\otimes T_XM \to \mathbb R
+$$
+
+带有Riemann度量的流形称为Riemann 流形。连通Riemann流形上的两点总可以定义分段光滑的路径连接，其定义了Riemann流形的测地线距离.
+
+对于Riemann流形 $(\mathcal M,g)$ 上道路 $\gamma:[a,b]\to \mathcal{M}$
+
+$$
+L(\gamma) = \int_a^b \sqrt{g(\dot \gamma (t),\dot \gamma (t))}\,\mathrm{d}t
+$$
+
+测地线距离为
+$$
+\mathrm{dist}: \mathcal{M}\times \mathcal{M}\to\mathbb R :(x,y)\to\inf_{\gamma \in \Gamma_{xy}} L(\gamma)
+$$
+
+
 
 
 
