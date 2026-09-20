@@ -202,14 +202,14 @@ $$
 $$
 f\to df_X \in T_X^\ast M \overset{Metric}{\longrightarrow} \mathrm{grad}f(X) \in T_XM
 $$
-Riemann 度量是对光滑流形 $\mathcal M$ 与一点 $X\in \mathcal M$ 上的对称正定 $2-0$张量
+Riemann 度量是对光滑流形 $ M$ 与一点 $X\in  M$ 上的对称正定 $2-0$张量
 $$
 g_X(-,-) :T_XM\otimes T_XM \to \mathbb R
 $$
 
 带有Riemann度量的流形称为Riemann 流形。连通Riemann流形上的两点总可以定义分段光滑的路径连接，其定义了Riemann流形的测地线距离.
 
-对于Riemann流形 $(\mathcal M,g)$ 上道路 $\gamma:[a,b]\to \mathcal{M}$
+对于Riemann流形 $(M,g)$ 上道路 $\gamma:[a,b]\to M$
 
 $$
 L(\gamma) = \int_a^b \sqrt{g(\dot \gamma (t),\dot \gamma (t))}\,\mathrm{d}t
@@ -217,7 +217,7 @@ $$
 
 测地线距离为
 $$
-\mathrm{dist}: \mathcal{M}\times \mathcal{M}\to\mathbb R :(x,y)\to\inf_{\gamma \in \Gamma_{xy}} L(\gamma)
+\mathrm{dist}: M\times M \to\mathbb R :(x,y)\to\inf_{\gamma \in \Gamma_{xy}} L(\gamma)
 $$
 
 
