@@ -194,7 +194,7 @@ N\mathrm{St}_p(n) = \bigsqcup_{X\in \mathrm{St}_p(n)} N_X\mathrm{St}_p(n)
 $$
 
 
-## Stiefel 流形上的黎曼度量和微分
+## Stiefel 流形上的黎曼度量和梯度
 
 
 
