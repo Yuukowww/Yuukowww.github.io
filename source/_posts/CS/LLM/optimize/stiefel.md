@@ -109,6 +109,27 @@ $$
 \forall Z\in T_X\mathrm{St}_p(n), X^TZ\in \mathfrak{so}(p)
 $$
 
+对切空间正交补分解
+$$
+\begin{aligned}
+\dot X  &= XX^T\dot X + (I-XX^T)\dot X
+\end{aligned}
+$$
+且
+$$
+X^T (I-XX^T) = X^T-X^T = 0
+$$
+$$
+I-X^TX\subset \ker X^T\Longrightarrow  (I-X^TX)\dot X = X_\bot K
+$$
+取 $\Omega := X^T\dot X,$ Stiefel映射的切空间给出 $\Omega$ 为反对称矩阵，因此
+
+$$
+T_X\mathrm{St}_p(n)= \left\{X\Omega+X_\bot K: \Omega +\Omega ^T = 0\right\}
+$$
+
+
+
 更特殊的，对于实正交群 $O(n)$, 其切空间为
 $$
 T_XO(n) = \left\{Z=X\Omega\in\mathbb{R}^{n\times n}:\Omega^T+\Omega=0\right\} = X\mathcal{S}_\mathrm{skew}(n)
@@ -173,3 +194,16 @@ N\mathrm{St}_p(n) = \bigsqcup_{X\in \mathrm{St}_p(n)} N_X\mathrm{St}_p(n)
 $$
 
 
+## Stiefel 流形上的黎曼度量和微分
+
+
+
+
+# Appendix
+
+## 线性代数Review
+
+**正交补，伴随映射和赋范线性空间的对偶**
+$$
+\ker A^T
+$$
