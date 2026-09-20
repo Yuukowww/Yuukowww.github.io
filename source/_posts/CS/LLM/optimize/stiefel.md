@@ -221,15 +221,45 @@ $$
 $$
 
 
+### Riemann 梯度
 
+对于Riemann流形 $M$,流形上的一点 $X\in M$，流形上的一个光滑标量场 $f$, 其梯度定义为
+$$
+\mathrm{grad} f(X): g_X(\mathrm{grad}f(X),\xi) = \mathrm{d}f(X)[\xi], \xi \in T_XM
+$$
+归一化 $\hat \xi = \dfrac{\xi}{\|\xi\|_g}$
 
+$$
+\mathrm{grad} f(X): g_X(\mathrm{grad}f(X),\hat\xi) = \mathrm{d}f(X)[\hat \xi], \hat \xi \in T_XM\cap S^{\dim M-1}
+$$
+
+右者正是常见的**方向导数**
+$$
+\mathrm{d}f_X[\xi]=\mathrm{d}f(\gamma(t))\Big|_{t=0}
+$$
+
+由Cauchy-Schwarz 不等式, 梯度正是方向导数的最大变化方向的变化量
+$$
+\mathrm{d}f(X)[\hat \xi] = g_X(\mathrm{grad}f(X),\hat\xi)\leq \|\mathrm{grad}f(X)\|_g\cdot \|\hat \xi\|_g = \|\mathrm{grad}f(X)\|_g
+$$
+取等条件为
+$$
+\hat \xi = \frac{\mathrm{grad}f(X)}{\|\mathrm{grad}f(X)\|_g}
+$$
 
 
 # Appendix
 
 ## 线性代数Review
 
+**Frobenius 内积**
+$$
+\left<A,B\right>_F =\mathrm{tr} A^TB
+$$
+
+
 **正交补，伴随映射和赋范线性空间的对偶**
 $$
 \ker A^T
 $$
+
