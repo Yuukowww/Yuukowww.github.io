@@ -10,12 +10,16 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "postinstall": "patch-package",
-    "server": "hexo server"
+    "server": "hexo server",
+    "test": "node tests/reading-index-filter.test.js && node tests/bibliography.test.js"
   },
   "hexo": {
     "version": "7.3.0"
   },
   "dependencies": {
+    "@citation-js/core": "0.7.18",
+    "@citation-js/plugin-bibtex": "0.7.18",
+    "@citation-js/plugin-csl": "0.7.18",
     "hexo": "^7.0.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-feed": "^1.1.2",

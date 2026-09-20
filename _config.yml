@@ -107,6 +107,12 @@ markdown:
     typographer: false
     quotes: "“”‘’"
 
+bibliography:
+  path: bibliography
+  style: vancouver
+  lang: en-US
+  heading: 参考文献
+
 tikzjax:
   every_page: false
   append_css: true

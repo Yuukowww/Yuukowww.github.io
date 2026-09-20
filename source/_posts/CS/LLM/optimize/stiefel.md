@@ -56,6 +56,10 @@ $$
 $$
 \mathrm{Stab}(X_0)\simeq I_{n-p}
 $$
+群作用等价类
+$$
+[Q] = \left\{Q\begin{pmatrix}I_p&0\\0&Q_{n-p}\end{pmatrix}:Q\in O(n),Q_{n-p}\in O(n-p)\right\}
+$$
 
 因此
 $$
@@ -196,7 +200,8 @@ $$
 
 ## Stiefel 流形上的黎曼度量和梯度
 
-前文中，伴随映射 $(dF_X)^\ast$ 的定义依赖于Frobenius 内积。Frobenius 内积是普通欧氏向量内积在矩阵空间上的自然推广，将其限制到 Stiefel 流形的各个切空间，便得到该嵌入所诱导的欧式Riemann度量。
+前文中，伴随映射 $(dF_X)^\ast$ 的定义通常依赖于Frobenius 内积。Frobenius 内积是普通欧氏向量内积在矩阵空间上的自然推广，将其限制到 Stiefel 流形的各个切空间，便得到该嵌入所诱导的欧式Riemann度量。
+
 
 流形的梯度也依赖于度量的选择
 $$
@@ -217,8 +222,35 @@ $$
 
 测地线距离为
 $$
-\mathrm{dist}: M\times M \to\mathbb R :(x,y)\to\inf_{\gamma \in \Gamma_{xy}} L(\gamma)
+\mathrm{dist}: M\times M \to\mathbb R :(x,y)\to\inf_{\gamma \in P_{xy}} L(\gamma)
 $$
+
+#### Frobenius 度量
+前文提及来Frobenius 度量在构建伴随映射和梯度中的作用
+
+Frobenius度量诱导的欧氏度量
+$$
+\begin{aligned}
+g_c(A,B)=\left<X\Omega_1+X_\bot K_1, X\Omega_2+X_\bot K_2\right>_F &= \mathrm{tr}[(X\Omega_1+X_\bot K_1)^T(X\Omega_2+X_\bot K_2)]\\
+& = \mathrm{tr} [(\Omega_1^TX^T+K_1^TX_\bot^T)(X\Omega_2+X_\bot K_2)]\\
+& = \mathrm{tr}[\Omega_1^TX^TX\Omega_2+K_1^TX_\bot^T X\Omega_2+\Omega_1^TX^TX_\bot K_2+K_1^TX_\bot^TX_\bot K_2]\\
+& = \mathrm{tr}(\Omega_1^T\Omega_2+K_1^T K_2)\\
+& = \left<\Omega_1,\Omega_2\right>_F+\left<K_1,K_2\right>_F
+\end{aligned}
+$$
+
+因此
+$$
+\|A\|_{g_c}=\|X\Omega+X_\bot K\|_F = \||\Omega\|_F+\|K\|_F
+$$
+
+#### 典范度量
+Edelman[@edelman1998geometryalgorithmsorthogonalityconstraints]提及的Stiefel流形上的典范度量来自齐性空间的商度量
+$$
+\mathrm{St}_p(n)\simeq O(n)/O(n-p)
+$$
+
+
 
 
 ### Riemann 梯度
@@ -248,6 +280,7 @@ $$
 $$
 
 
+
 # Appendix
 
 ## 线性代数Review
@@ -262,4 +295,3 @@ $$
 $$
 \ker A^T
 $$
-
