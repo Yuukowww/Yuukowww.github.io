@@ -3,7 +3,7 @@ title: Stiefel 流形
 categories: AI
 tag: [Geometry,Optimizer,AI]
 date: 2026-09-14
-updated: 2026-09-21
+updated: 2026-09-22
 description: Stiefel流形的性质，及其在优化器与训练动力学中的应用
 cover: picture/Kanami2.jpg
 ---
@@ -232,7 +232,7 @@ $$
 Frobenius度量诱导的欧氏度量
 $$
 \begin{aligned}
-g_c(A,B)=\left<X\Omega_1+X_\bot K_1, X\Omega_2+X_\bot K_2\right>_F &= \mathrm{tr}[(X\Omega_1+X_\bot K_1)^T(X\Omega_2+X_\bot K_2)]\\
+g_X^e(Z_1,Z_2)=\left<X\Omega_1+X_\bot K_1, X\Omega_2+X_\bot K_2\right>_F &= \mathrm{tr}[(X\Omega_1+X_\bot K_1)^T(X\Omega_2+X_\bot K_2)]\\
 & = \mathrm{tr} [(\Omega_1^TX^T+K_1^TX_\bot^T)(X\Omega_2+X_\bot K_2)]\\
 & = \mathrm{tr}[\Omega_1^TX^TX\Omega_2+K_1^TX_\bot^T X\Omega_2+\Omega_1^TX^TX_\bot K_2+K_1^TX_\bot^TX_\bot K_2]\\
 & = \mathrm{tr}(\Omega_1^T\Omega_2+K_1^T K_2)\\
@@ -242,7 +242,7 @@ $$
 
 因此
 $$
-\|A\|_{g_c}=\|X\Omega+X_\bot K\|_F = \||\Omega\|_F+\|K\|_F
+\|Z\|_{g_c}^2=\|X\Omega+X_\bot K\|^2_F = \|\Omega\|^2_F+\|K\|^2_F
 $$
 
 ### 典范度量
@@ -251,24 +251,36 @@ $$
 \mathrm{St}_p(n)\simeq O(n)/O(n-p)
 $$
 
-考虑
+考虑某种度量
 $$
-Z = \begin{pmatrix}\Omega\\K\end{pmatrix}
+g_X^c(Z_1,Z_2) = \left<\mathrm{HorLift}(Z_1),\mathrm{HorLift}(Z_2)\right>_{O(n)}
 $$
+将基点 $\displaystyle X_0 = \begin{pmatrix}I_p\\0\end{pmatrix}\in \mathrm{St}_p(n)$ 提升到 $O(n)$ 后计算。
 $$
-\hat Z = \left\{
-\begin{pmatrix}
-\Omega & -K^T\\
+\hat Z = \begin{pmatrix}
+\Omega&-K^T\\
 K&0
-\end{pmatrix}
-\right\}
+\end{pmatrix}\in\mathfrak{m}
 $$
+$$
+X_0\overset{\hat Z}{\longrightarrow} Z=\begin{pmatrix}\Omega\\K\end{pmatrix} \overset{Q}{\longrightarrow}Q\hat Z\cdot X_0
+$$
+因此 $\mathrm{HorLift}(Z)=Q\hat Z$
 
 $$
-Z = \hat Z\begin{pmatrix} I_p\\0\end{pmatrix}
+g_X^c(Z_1,Z_2) = \frac{1}{2}\mathrm{tr}\hat Z_1^T\hat Z_2 = \frac{1}{2}\mathrm{tr}\Omega_1^T\Omega_2 + \mathrm{tr}K_1^T K_2 = \frac{1}{2}\left<\Omega^T_1,\Omega_2\right>_F+\left<K_1,K_2\right>_F
+$$
+$$
+\|Z\|_{g_c}^2 = \frac{1}{2}\|\Omega\|^2_F+\|K\|^2_F
 $$
 
-{% post_link math/manifold/Lie/liegroup 李群 %}
+对于非一般基点写为度规二次形式
+$$
+g_X^c(Z_1,Z_2) = \mathrm{tr}\left[Z_1^T\left(I_n- \frac{1}{2}XX^T\right)Z_2\right]
+$$
+
+
+
 
 ### Riemann 梯度
 
