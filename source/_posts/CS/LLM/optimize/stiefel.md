@@ -7,6 +7,7 @@ updated: 2026-09-21
 description: Stiefel流形的性质，及其在优化器与训练动力学中的应用
 cover: picture/Kanami2.jpg
 ---
+![opthistory](/picture/optimizer/stiefel/history.png)
 # Stiefel 流形的基本特征
 Stiefel 流形是正交非方阵构成的微分流形，在本文中均讨论实Stiefel 流形
 $$
