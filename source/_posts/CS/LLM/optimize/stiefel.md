@@ -251,8 +251,24 @@ $$
 \mathrm{St}_p(n)\simeq O(n)/O(n-p)
 $$
 
+考虑
+$$
+Z = \begin{pmatrix}\Omega\\K\end{pmatrix}
+$$
+$$
+\hat Z = \left\{
+\begin{pmatrix}
+\Omega & -K^T\\
+K&0
+\end{pmatrix}
+\right\}
+$$
 
+$$
+Z = \hat Z\begin{pmatrix} I_p\\0\end{pmatrix}
+$$
 
+{% post_link math/manifold/Lie/liegroup 李群 %}
 
 ### Riemann 梯度
 
