@@ -276,7 +276,14 @@ $$
 
 对于非一般基点写为度规二次形式
 $$
-g_X^c(Z_1,Z_2) = \mathrm{tr}\left[Z_1^T\left(I_n- \frac{1}{2}XX^T\right)Z_2\right]
+X^TZ = X^T(X\Omega+X_\bot K) = \Omega
+$$
+$$
+\begin{aligned}
+g_X^c(Z,Z) &= \|\Omega\|_F^2+\|K\|_F^2 - \frac{1}{2}\|\Omega\|_F^2\\
+& = \mathrm{tr}Z^TZ  - \frac{1}{2}\mathrm{tr}Z^TXX^TZ\\
+& =\mathrm{tr}\left[Z^T\left(I_n- \frac{1}{2}XX^T\right)Z\right]\\
+\end{aligned}
 $$
 
 
