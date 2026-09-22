@@ -346,8 +346,18 @@ $$
 \hat \xi = \frac{\mathrm{grad}f(X)}{\|\mathrm{grad}f(X)\|_g}
 $$
 
+#### Frobenius metric 的梯度
 
 
+
+#### Canonical metric 的梯度
+
+
+# Stiefel 优化和 Grassman优化
+
+$$
+O(n)\overset{\pi_i}{\longrightarrow}\frac{O(n)}{O(n-p)}\overset{\pi_j}{\longrightarrow}\frac{O(n)}{O(p)\times O(n-p)}
+$$
 # Appendix
 
 ## 线性代数Review
