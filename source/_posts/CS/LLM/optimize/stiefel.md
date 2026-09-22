@@ -282,6 +282,20 @@ $$
 
 根据 {% post_link math/manifold/Lie/liegroup 左平移不变性%}, 通过左平移将水平提升延拓到整个 $O(n)$
 
+$$
+\begin{array}{ccc}
+\hat Z\in\mathcal H_{I_n}
+&\xrightarrow{\mathrm dL_Q}&
+Q\hat Z\in\mathcal H_Q\\[2mm]
+{\scriptstyle\mathrm d\pi_{I_n}}\!\downarrow
+&&
+\downarrow\!{\scriptstyle\mathrm d\pi_Q}\\[2mm]
+Z_0\in T_{X_0}\mathrm{St}_p(n)
+&\xrightarrow{\mathrm d(Q\mathbin{\cdot})_{X_0}}&
+Z\in T_X\mathrm{St}_p(n)
+\end{array}
+$$
+
 因此 $\mathrm{HorLift}_Q(Z)=Q\hat Z$
 
 $$
