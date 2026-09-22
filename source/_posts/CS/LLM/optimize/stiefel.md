@@ -255,17 +255,34 @@ $$
 $$
 g_X^c(Z_1,Z_2) = \left<\mathrm{HorLift}(Z_1),\mathrm{HorLift}(Z_2)\right>_{O(n)}
 $$
-将基点 $\displaystyle X_0 = \begin{pmatrix}I_p\\0\end{pmatrix}\in \mathrm{St}_p(n)$ 提升到 $O(n)$ 后计算。
+选择流形基点求切向量场 $\displaystyle X_0 = \begin{pmatrix}I_p\\0\end{pmatrix}\in \mathrm{St}_p(n)$
+定义商映射
+$$
+\pi: O(n) \to \mathrm{St}_p(n),\pi(Q) = Q \cdot X_0 = \begin{pmatrix}X&X_\bot\end{pmatrix} \cdot X_0
+$$
+作为 $O(n)$ 对于 Stiefel 流形的左作用。对于Stiefel流形上一般的一点 $X\in \mathrm{St}_p(n)$ 的切向量
+$$
+Z = X\Omega+X_\bot K = \begin{pmatrix}X&X_\bot\end{pmatrix}\begin{pmatrix}\Omega\\K\end{pmatrix}。
+$$
+那么取$X_0$ 的切空间自然也满足。
+$$
+Z_0 = X_0\Omega+X_{0\bot} K
+$$
+将 $Z_0$ 水平提升到 $\hat Z$
 $$
 \hat Z = \begin{pmatrix}
 \Omega&-K^T\\
 K&0
 \end{pmatrix}\in\mathfrak{m}
 $$
+
 $$
-X_0\overset{\hat Z}{\longrightarrow} Z=\begin{pmatrix}\Omega\\K\end{pmatrix} \overset{Q}{\longrightarrow}Q\hat Z\cdot X_0
+\mathrm{HorLift}_{I_n}(Z_0)=\hat Z \quad \hat Z\cdot X_0 = Z_0
 $$
-因此 $\mathrm{HorLift}(Z)=Q\hat Z$
+
+根据 {% post_link math/manifold/Lie/liegroup 左平移不变性%}, 通过左平移将水平提升延拓到整个 $O(n)$
+
+因此 $\mathrm{HorLift}_Q(Z)=Q\hat Z$
 
 $$
 g_X^c(Z_1,Z_2) = \frac{1}{2}\mathrm{tr}\hat Z_1^T\hat Z_2 = \frac{1}{2}\mathrm{tr}\Omega_1^T\Omega_2 + \mathrm{tr}K_1^T K_2 = \frac{1}{2}\left<\Omega^T_1,\Omega_2\right>_F+\left<K_1,K_2\right>_F
