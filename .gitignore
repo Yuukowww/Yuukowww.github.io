@@ -3,10 +3,11 @@ public/
 *.log
 .DS_Store
 db.json
-.vscode 
+.vscode
 .npm-cache/
 .deploy_git/
 .claude
 .codex
 .npm-cache
 .superpowers/
+git.sh
