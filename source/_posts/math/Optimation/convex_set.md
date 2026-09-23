@@ -7,7 +7,7 @@ tag: [convex geometry,optimation]
 description: 凸几何入门
 cover: picture/miku5.jpeg
 ---
-
+主要参考BICMR 文再文老师《大模型数据与算法》的课程[@wen25optbook02]
 # 凸几何基础
 
 ## 凸组合、锥组合与仿射组合
