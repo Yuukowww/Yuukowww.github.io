@@ -221,6 +221,7 @@ N_X(G) = X\mathrm{Sym}(X^TG)
 \end{dcases}
 $$
 ```tikz
+\usepackage{amsfonts}
 \usepackage{tikz-cd}
 \begin{document}
 \begin{tikzcd}
@@ -384,15 +385,72 @@ $$
 
 #### Frobenius metric 的梯度
 
+取 $f$ 在环境空间中的一个光滑延拓 $\bar f$，记欧氏梯度 $G=\nabla\bar f(X)$。对于任意 $\xi\in T_X\mathrm{St}_p(n)$
 $$
-\left<\mathrm{grad}_ef(X),G\right>_F = \mathrm{d}f(X)[G] = \left<G,X\right>_F
+\left<\mathrm{grad}_ef(X),\xi\right>_F = \mathrm{d}f(X)[\xi] = \left<G,\xi\right>_F
 $$
-前文求出在Frobenius度量下
+前文求出在Frobenius度量下，梯度即 $G$ 在切空间上的正交投影
 $$
-\mathrm{grad}_ef(X) = G-\mathrm{Sym}(X^TG)
+\mathrm{grad}_ef(X) = P_X(G) = G-X\mathrm{Sym}(X^TG)
 $$
 #### Canonical metric 的梯度
 
+同样的，根据梯度定义
+$$
+g_X^c(\mathrm{grad}_cf(X),\xi)=\mathrm{d}f(X)[\xi]=\left<G,\xi\right>_F
+$$
+将梯度和任意切向量按前文分解为
+$$
+\mathrm{grad}_cf(X)=X\Omega_c+X_\bot K_c,\quad \xi=X\Omega+X_\bot K
+$$
+其中 $\Omega_c,\Omega\in\mathfrak{so}(p)$。代入典范度量得
+$$
+\begin{aligned}
+g_X^c(\mathrm{grad}_cf(X),\xi)
+&=\frac{1}{2}\left<\Omega_c,\Omega\right>_F+\left<K_c,K\right>_F\\
+\left<G,\xi\right>_F
+&=\left<G,X\Omega+X_\bot K\right>_F\\
+&=\left<X^TG,\Omega\right>_F+\left<X_\bot^TG,K\right>_F
+\end{aligned}
+$$
+
+由于对称矩阵与反对称矩阵在Frobenius内积下正交，记 $\mathrm{Skew}(A)=\frac{1}{2}(A-A^T)$，有
+$$
+\left<X^TG,\Omega\right>_F=\left<\mathrm{Skew}(X^TG),\Omega\right>_F
+$$
+因此对任意反对称矩阵 $\Omega$ 和任意矩阵 $K$ 满足梯度定义，当且仅当
+$$
+\begin{dcases}
+\Omega_c=2\mathrm{Skew}(X^TG)=X^TG-G^TX\\
+K_c=X_\bot^TG
+\end{dcases}
+$$
+
+代回切空间分解，并利用 $X_\bot X_\bot^T=I_n-XX^T$
+$$
+\begin{aligned}
+\mathrm{grad}_cf(X)
+&=2X\mathrm{Skew}(X^TG)+X_\bot X_\bot^TG\\
+&=X(X^TG-G^TX)+(I_n-XX^T)G\\
+&=G-XG^TX
+\end{aligned}
+$$
+该结果仍在切空间内，因为
+$$
+X^T\mathrm{grad}_cf(X)=X^TG-G^TX\in\mathfrak{so}(p)
+$$
+
+与Frobenius度量下的梯度比较
+$$
+\begin{aligned}
+\mathrm{grad}_ef(X)&=X\mathrm{Skew}(X^TG)+(I_n-XX^T)G\\
+\mathrm{grad}_cf(X)&=2X\mathrm{Skew}(X^TG)+(I_n-XX^T)G
+\end{aligned}
+$$
+典范度量将 $X\Omega$ 分量的内积权重减半，因此为表示同一个微分 $\mathrm{d}f(X)$，梯度的这一分量加倍，而正交补方向的分量不变。等价地
+$$
+\mathrm{grad}_cf(X)=(I_n+XX^T)\mathrm{grad}_ef(X)
+$$
 
 
 # Stiefel 优化和 Grassman优化

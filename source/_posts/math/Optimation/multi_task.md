@@ -29,7 +29,7 @@ $$
 $$
 这样能保证向量的每一个维度都是最优的，但是后者不一定存在, 比如多个目标之间存在 trade-off，在相同区域内一个目标增长，一个目标减少。Pareto Set就是在这样的情况下减弱为一个的minimal solution 的集合，满足
 $$
-\mathcal P=\left\{\bar{x}\in S:\nexists x\in S,(\forall i, f_i​(x)\leq f_i​(\bar x))\wedge(\exists j, f_j​(x)<f_j​(\bar x))\right\}
+\mathcal P=\left\{\bar{x}\in S:\nexists x\in S,(\forall i, f_i(x)\leq f_i(\bar x))\wedge(\exists j, f_j(x)<f_j(\bar x))\right\}
 $$
 这是 $\mathbb{R}_+^n$ 上的偏序关系
 
