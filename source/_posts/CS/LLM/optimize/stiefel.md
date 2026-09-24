@@ -5,6 +5,7 @@ tag: [Geometry,Optimizer,AI]
 date: 2026-09-14
 updated: 2026-09-23
 description: Stiefel流形的性质，及其在优化器与训练动力学中的应用
+tikzjax: true
 cover: picture/Kanami2.jpg
 ---
 
@@ -197,7 +198,41 @@ $$
 $$
 N\mathrm{St}_p(n) = \bigsqcup_{X\in \mathrm{St}_p(n)} N_X\mathrm{St}_p(n)
 $$
-
+## Stiefel 流形的正交分解
+在Stiefel 流形的切空间，法空间的基础结论上，
+$$
+\mathbb{R}^{n\times p}=T_X\mathrm{St}_p(n)\oplus N_X\mathrm{St}_p(n)
+$$
+$$
+G = P_X(G)+N_X(G) = P_X(G)+ XS
+$$
+$$
+X^T(G-XS)+(G^T-S^TX^T)X= X^TP_X(G)+P_X^T(G)X = 0
+$$
+因此
+$$
+S = \frac{1}{2}(X^TG+ G^TX) =
+$$
+即
+$$
+\begin{dcases}
+P_X(G) = G-X\mathrm{Sym}(X^TG)\\
+N_X(G) = X\mathrm{Sym}(X^TG)
+\end{dcases}
+$$
+```tikz
+\usepackage{tikz-cd}
+\begin{document}
+\begin{tikzcd}
+	{\mathrm{St}_p(n)} && {\mathbb{R}^{n\times p}} \\
+	\\
+	&& {\mathbb R}
+	\arrow["\ell", hook, from=1-1, to=1-3]
+	\arrow["f"', from=1-1, to=3-3]
+	\arrow["{\bar f}", from=1-3, to=3-3]
+\end{tikzcd}
+\end{document}
+```
 
 ## Stiefel 流形上的黎曼度量和梯度
 
@@ -314,6 +349,7 @@ $$
 g_X^c(Z,Z) &= \|\Omega\|_F^2+\|K\|_F^2 - \frac{1}{2}\|\Omega\|_F^2\\
 & = \mathrm{tr}Z^TZ  - \frac{1}{2}\mathrm{tr}Z^TXX^TZ\\
 & =\mathrm{tr}\left[Z^T\left(I_n- \frac{1}{2}XX^T\right)Z\right]\\
+& = \left<Z,(I_n - \frac{1}{2}XX^T)Z\right>_F
 \end{aligned}
 $$
 
@@ -348,9 +384,15 @@ $$
 
 #### Frobenius metric 的梯度
 
-
-
+$$
+\left<\mathrm{grad}_ef(X),G\right>_F = \mathrm{d}f(X)[G] = \left<G,X\right>_F
+$$
+前文求出在Frobenius度量下
+$$
+\mathrm{grad}_ef(X) = G-\mathrm{Sym}(X^TG)
+$$
 #### Canonical metric 的梯度
+
 
 
 # Stiefel 优化和 Grassman优化
