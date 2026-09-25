@@ -211,7 +211,7 @@ X^T(G-XS)+(G^T-S^TX^T)X= X^TP_X(G)+P_X^T(G)X = 0
 $$
 因此
 $$
-S = \frac{1}{2}(X^TG+ G^TX) =
+S = \frac{1}{2}(X^TG+ G^TX) = \mathrm{Sym}(X^TG)
 $$
 即
 $$
