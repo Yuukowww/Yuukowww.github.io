@@ -10,8 +10,6 @@ math: true
 # Johnson-Lindenstrauss 引理
 
 
-
-
 > **Johnson-Lindenstrauss** 引理
 >
 > 对于$N$个$d$维向量构成的集合$A=\left\lbrace x_1,x_2,\cdots,x_N\in\mathbb{R}^d\right\rbrace$，$\forall\varepsilon\in(0,1)$，$\exists f:\mathbb{R}^d\to\mathbb{R}^k$，满足
@@ -96,7 +94,7 @@ $$
 进一步
 $$
 \forall x_i, x_j\in A,\, P\left[\|f(x_i)-f(x_j)\|^2\not \in\left[(1-\varepsilon)\|x_i-x_j\|^2,(1+\varepsilon)\|x_i-x_j\|^2\right]\right]\leq\frac{2}{N^2}
-$$ 
+$$
 由**Boole不等式**，遍历集合$A$的二元向量组
 $$
 P(\cup E_i)\leq\sum P(E_i)\leq\frac{N(N-1)}{2}\frac{2}{N^2}=1-\frac{1}{N}
