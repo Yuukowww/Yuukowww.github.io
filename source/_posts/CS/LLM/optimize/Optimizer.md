@@ -8,14 +8,37 @@ tag: [AI,LLM,Optimizer]
 cover: picture/ruri2.jpg
 ---
 
-统一记 $g_t = \nabla_\theta \ell_t$
+
 
 # SGD
+参考苏剑林[@kexuefm-11196]
 
 SGD 满足
 $$
-\theta_{t+1} = \theta_t -\eta_t g_t
+L(w+\Delta w)-L(w) =\left <g,\Delta w\right> = \nabla_wL(w)\cdot \Delta w
 $$
+此处度量是未确定的，后一个梯度的给出依赖于前者的度量的选择
+
+## SGD的超球面优化
+
+取单次优化Step移动步的范数范围为
+$$
+\rho(\Delta w) = \left<\Delta w,\Delta w\right> \leq \eta
+$$
+优化器的优化目标为
+$$
+\min_{\rho(\Delta w)\leq \eta}\left<g,\Delta w\right>
+$$
+由于目标优化为下降，梯度为负。取绝对值并归一化
+$$
+\Delta w = -\kappa\varphi,\,\rho(\varphi)=1
+$$
+
+$$
+\max_{\kappa\in(0,\eta],\rho(\varphi)=1}\kappa\left<g, \varphi\right> = \max_{\rho(\varphi)=1}\left<g, \varphi\right>
+$$
+
+
 
 传统意义上的SGD分为:
 - Single Sample Gradient Descent -- 每个epoch选择一个样本进行梯度下降，这样会将模型局限在一个样本的拟合中，噪声大且梯度更新频繁。
@@ -79,7 +102,7 @@ $$
 $$
 \begin{dcases}
 \theta_{t+1} = \theta_t -\eta_t v_t\\
-v_t = \beta v_{t-1}+g_t 
+v_t = \beta v_{t-1}+g_t
 \end{dcases}
 $$
 
