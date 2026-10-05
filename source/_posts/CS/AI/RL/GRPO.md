@@ -8,7 +8,7 @@ description: Assignment 5 强化学习, 围绕 PPO、GRPO和math RL
 cover: picture/mika1.jpg
 ---
 
-{% post_link AI/RL/Markov Bellman方程 %}中提及Q函数的更新，一系列如QL、DQN的算法得到的策略是固定的。对于基于策略的强化学习，通过优化策略的本身而非策略的Q value，给定参数 $\theta$ 对策略参数化，并使用神经网络优化 $\theta$
+{% post_link CS/AI/RL/Markov Bellman方程 %}中提及Q函数的更新，一系列如QL、DQN的算法得到的策略是固定的。对于基于策略的强化学习，通过优化策略的本身而非策略的Q value，给定参数 $\theta$ 对策略参数化，并使用神经网络优化 $\theta$
 # PPO -- Proximal Policy Optimization
 
 我们的优化目标是
@@ -81,7 +81,7 @@ $$
 | **如何稳定更新** | 学习率、度量与预条件、KL 约束或惩罚、PPO 概率比裁剪、梯度范数裁剪 |
 
 ## 常见的策略
-{% post_link AI/RL/Markov Agent策略 %} 中计算了，任何策略满足的条件只有对全动作空间的累积为 $1$。 对于离散动作空间
+{% post_link CS/AI/RL/Markov Agent策略 %} 中计算了，任何策略满足的条件只有对全动作空间的累积为 $1$。 对于离散动作空间
 $$
 \sum_{a\in \mathcal A_s} \pi_\theta(a|s) = 1
 $$
