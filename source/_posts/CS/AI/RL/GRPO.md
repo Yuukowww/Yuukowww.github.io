@@ -81,7 +81,7 @@ $$
 | **如何稳定更新** | 学习率、度量与预条件、KL 约束或惩罚、PPO 概率比裁剪、梯度范数裁剪 |
 
 ## 常见的策略
-{% post_link CS/AI/RL/Markov Agent策略 %} 中计算了，任何策略满足的条件只有对全动作空间的累积为 $1$。 对于离散动作空间
+{% post_link CS/AI/RL/Markov Agent策略 %} 中计算了，任何策略满足的条件只有对全动作空间的累积为 $1$ 。 对于离散动作空间
 $$
 \sum_{a\in \mathcal A_s} \pi_\theta(a|s) = 1
 $$
