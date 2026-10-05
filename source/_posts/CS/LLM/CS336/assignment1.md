@@ -4,7 +4,7 @@ date: 2026-06-07
 updated: 2026-06-07
 description: CS336作业1Record
 categories: LLM
-cover: picture/mika1.png
+cover: picture/azusa1.png
 ---
 
 # Assignment1 -- Building a Transformer LM
@@ -75,8 +75,8 @@ def run_swiglu(
 ) -> Float[Tensor, " ... d_model"]:
     def run_silu(in_features):
         return in_features / (1+ torch.exp( - in_features))
-    tensor_1 = in_features @ w1_weight.T   
-    tensor_2 = in_features @ w3_weight.T   
+    tensor_1 = in_features @ w1_weight.T
+    tensor_2 = in_features @ w3_weight.T
     return (run_silu(tensor_1)* tensor_2) @ w2_weight.T
 ```
 
@@ -106,7 +106,7 @@ def run_softmax(in_features: Float[Tensor, " ..."], dim: int) -> Float[Tensor, "
 `torch.exp`实现了Tensor逐元素的指数运算
 
 
-###  Dot Self-Attention with Scaling 
+###  Dot Self-Attention with Scaling
 
 $$
 \mathrm{Attention}(Q,K,V) = \mathrm{Softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)\cdot V
@@ -161,7 +161,7 @@ def run_multihead_self_attention(
     in_features: Float[Tensor, " ... sequence_length d_model"],
 ) -> Float[Tensor, " ... sequence_length d_model"]:
     d_k = d_model // num_heads
-    Q = (in_features @ q_proj_weight).reshape(...,num_heads,d_k).transpose(-2, -3) 
+    Q = (in_features @ q_proj_weight).reshape(...,num_heads,d_k).transpose(-2, -3)
     K = (in_features @ k_proj_weight).reshape(...,num_heads,d_k).transpose(-2, -3)
     V = (in_features @ v_proj_weight).reshape(...,num_heads,d_k).transpose(-2, -3)
 
