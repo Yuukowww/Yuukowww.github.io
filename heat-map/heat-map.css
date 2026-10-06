@@ -1,0 +1,126 @@
+.post-history {
+  --history-border: #d8dee4;
+  --history-muted: #68737d;
+  --history-panel: #fff;
+  --history-soft: #f6f8fa;
+  --history-0: #ebedf0;
+  --history-1: #9be9a8;
+  --history-2: #40c463;
+  --history-3: #30a14e;
+  --history-4: #216e39;
+  --history-accent: #216e39;
+  --history-text: #24292f;
+  --history-year-active: #0969da;
+  box-sizing: border-box;
+  margin: 1.5rem 0 2rem;
+  padding: 1.6rem;
+  border: 1px solid var(--history-border);
+  border-radius: 16px;
+  color: var(--text-color, var(--history-text));
+  background: var(--history-panel);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+[data-theme="dark"] .post-history {
+  --history-border: #353d45;
+  --history-muted: #9ca6af;
+  --history-panel: #171c22;
+  --history-soft: #20262e;
+  --history-0: #252c33;
+  --history-1: #0e4429;
+  --history-2: #006d32;
+  --history-3: #26a641;
+  --history-4: #39d353;
+  --history-accent: #65d981;
+  --history-text: #c9d1d9;
+  --history-year-active: #1f6feb;
+}
+.post-history *, .post-history *::before, .post-history *::after { box-sizing: border-box; }
+.post-history .post-history-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.3rem; }
+.post-history .post-history-eyebrow { margin: 0 0 .2rem; color: var(--history-accent); font-size: .67rem; font-weight: 700; letter-spacing: .14em; }
+.post-history .post-history-header h2 { margin: 0; padding: 0; border: 0; font-size: 1.65rem; line-height: 1.4; }
+.post-history .post-history-header h2::before, .post-history .post-history-section-heading h3::before { content: none; }
+.post-history .post-history-timezone { flex-shrink: 0; margin-top: .2rem; padding: .15rem .5rem; border-radius: 6px; background: var(--history-soft); color: var(--history-muted); font-size: .65rem; }
+.post-history .post-history-notice { padding: .7rem .9rem; border-radius: 8px; background: var(--history-soft); color: var(--history-muted); font-size: .8rem; }
+.post-history .post-history-stats { display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 1.3rem 0 1rem; padding: 0; list-style: none; }
+.post-history .post-history-stats li { display: flex; align-items: baseline; gap: .3rem; margin: 0; padding: 0; }
+.post-history .post-history-stats li::before { content: none; }
+.post-history .post-history-stats strong { font-size: 1.45rem; font-weight: 650; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.post-history .post-history-stats span { font-size: .75rem; color: var(--history-muted); }
+.post-history .post-history-overview { display: grid; grid-template-columns: minmax(0, 1fr) 5rem; align-items: start; gap: 1.25rem; }
+.post-history .post-history-chart-main { min-width: 0; }
+.post-history .post-history-years { display: flex; flex-direction: column; gap: .35rem; padding-top: .1rem; }
+.post-history .post-history-year-button { width: 100%; min-height: 2.3rem; padding: .35rem .7rem; border: 0; border-radius: 6px; color: var(--history-muted); background: transparent; font: inherit; font-size: .8rem; font-variant-numeric: tabular-nums; text-align: left; cursor: pointer; }
+.post-history .post-history-year-button:hover { background: var(--history-soft); }
+.post-history .post-history-year-button.is-active { color: #fff; background: var(--history-year-active); }
+.post-history .post-history-year-button:focus-visible { outline: 2px solid var(--history-year-active); outline-offset: 2px; }
+.post-history .post-history-year-button:disabled { cursor: default; }
+.post-history .post-history-chart-scroll { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: .25rem 1px .1rem; scrollbar-width: thin; }
+.post-history .post-history-calendar { display: block; width: 100%; height: auto; overflow: visible; }
+.post-history .post-history-calendar text { fill: var(--history-muted); font-family: inherit; font-size: 9px; }
+.post-history .post-history-calendar .post-history-month { font-size: 10px; }
+.post-history .post-history-cell, .post-history .post-history-legend i { fill: var(--history-0); background: var(--history-0); }
+.post-history .post-history-cell[data-level="1"], .post-history .post-history-legend [data-level="1"] { fill: var(--history-1); background: var(--history-1); }
+.post-history .post-history-cell[data-level="2"], .post-history .post-history-legend [data-level="2"] { fill: var(--history-2); background: var(--history-2); }
+.post-history .post-history-cell[data-level="3"], .post-history .post-history-legend [data-level="3"] { fill: var(--history-3); background: var(--history-3); }
+.post-history .post-history-cell[data-level="4"], .post-history .post-history-legend [data-level="4"] { fill: var(--history-4); background: var(--history-4); }
+.post-history.is-interactive .post-history-cell:not(.is-future) { cursor: pointer; }
+.post-history .post-history-cell { stroke-width: 1; stroke: color-mix(in srgb, var(--history-border) 35%, transparent); }
+.post-history .post-history-cell.is-future { opacity: .3; }
+.post-history .post-history-cell.is-selected, .post-history .post-history-cell:focus-visible, .post-history .post-history-cell:not(.is-future):hover { stroke: var(--history-accent); stroke-width: 1.5; outline: none; }
+.post-history .post-history-chart-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin: .55rem 0 .4rem; color: var(--history-muted); font-size: .7rem; }
+.post-history .post-history-legend { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.post-history .post-history-legend i { width: 10px; height: 10px; border-radius: 2px; }
+.post-history .post-history-legend > span:first-child { margin-right: 2px; }
+.post-history .post-history-legend > span:last-child { margin-left: 2px; }
+.post-history .post-history-rules { margin: .5rem 0 1.3rem; color: var(--history-muted); font-size: .72rem; }
+.post-history .post-history-rules summary { width: fit-content; cursor: pointer; }
+.post-history .post-history-rules p { margin: .5rem 0; }
+.post-history .post-history-day { padding-top: 1rem; border-top: 1px solid var(--history-border); }
+.post-history .post-history-section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .6rem; }
+.post-history .post-history-section-heading h3 { margin: 0; padding: 0; border: 0; font-size: 1rem; }
+.post-history .post-history-section-heading > span { color: var(--history-muted); font-size: .72rem; white-space: nowrap; }
+.post-history .post-history-day-post { padding: .55rem 0 .7rem; }
+.post-history .post-history-post-link, .post-history .post-history-open-post { border: 0; color: var(--history-accent); font-size: .85rem; }
+.post-history .post-history-post-count { margin-left: .55rem; color: var(--history-muted); font-size: .7rem; }
+.post-history .post-history-events { margin: .4rem 0 0; padding: 0; list-style: none; }
+.post-history .post-history-event { display: grid; grid-template-columns: 5.1rem 2.1rem minmax(0, 1fr) 3.8rem; align-items: start; gap: .45rem; margin: 0; padding: .32rem 0; line-height: 1.5; font-size: .75rem; }
+.post-history .post-history-event::before { content: none; }
+.post-history .post-history-event time { color: var(--history-muted); font-size: .68rem; font-variant-numeric: tabular-nums; }
+.post-history .post-history-kind { align-self: start; padding: 0 .25rem; border-radius: 4px; color: var(--history-muted); background: var(--history-soft); text-align: center; font-size: .65rem; }
+.post-history .post-history-kind.is-create { color: var(--history-accent); }
+.post-history .post-history-subject { overflow-wrap: anywhere; }
+.post-history .post-history-event code { padding: 0; background: none; color: var(--history-muted); font-size: .65rem; }
+.post-history .post-history-empty { margin: .5rem 0 .9rem; color: var(--history-muted); font-size: .8rem; }
+.post-history .post-history-library { margin-top: 1.3rem; padding-top: 1.1rem; border-top: 1px solid var(--history-border); }
+.post-history .post-history-library-summary { display: list-item; cursor: pointer; margin-bottom: 0; }
+.post-history .post-history-library-summary h3 { display: inline; }
+.post-history .post-history-library-summary > span { float: right; }
+.post-history .post-history-library-hint { margin: .65rem 0 .75rem; color: var(--history-muted); font-size: .75rem; }
+.post-history [data-history-library] { max-height: 24rem; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-gutter: stable; }
+.post-history .post-history-post { padding: .6rem 0; border-top: 1px solid var(--history-border); }
+.post-history .post-history-post:first-child { border-top: 0; }
+.post-history .post-history-post > summary { display: list-item; position: relative; padding-right: 9.4rem; cursor: pointer; font-size: .82rem; }
+.post-history .post-history-post > summary > span:first-child { overflow-wrap: anywhere; }
+.post-history .post-history-post-meta { position: absolute; right: 0; top: .12rem; color: var(--history-muted); font-size: .67rem; font-variant-numeric: tabular-nums; }
+.post-history .post-history-open-post { display: inline-block; margin: .45rem 0 .2rem; font-size: .72rem; }
+@media (max-width: 760px) {
+  .post-history .post-history-overview { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  .post-history .post-history-years { grid-row: 1; flex-direction: row; flex-wrap: wrap; gap: .4rem; padding-top: 0; }
+  .post-history .post-history-year-button { width: auto; min-width: 4.5rem; text-align: center; }
+  .post-history .post-history-calendar { min-width: 730px; }
+}
+@media (max-width: 600px) {
+  .post-history { margin: 1rem 0 1.5rem; padding: 1rem; border-radius: 12px; }
+  .post-history .post-history-header { gap: .5rem; }
+  .post-history .post-history-header h2 { font-size: 1.4rem; }
+  .post-history .post-history-timezone { font-size: .55rem; }
+  .post-history .post-history-stats { gap: .8rem; }
+  .post-history .post-history-stats strong { font-size: 1.25rem; }
+  .post-history .post-history-stats span { font-size: .65rem; }
+  .post-history .post-history-chart-footer { align-items: flex-start; font-size: .65rem; gap: .5rem; }
+  .post-history .post-history-event { grid-template-columns: 4.6rem 1.9rem minmax(0, 1fr); gap: .3rem; }
+  .post-history .post-history-event code { grid-column: 3; margin-top: -.2rem; }
+  .post-history .post-history-post > summary { padding-right: 0; }
+  .post-history .post-history-post-meta { display: block; position: static; margin-top: .2rem; }
+}
