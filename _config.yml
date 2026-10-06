@@ -71,6 +71,10 @@ ignore:
 
 theme: shokax
 
+heat_map:
+  enable: true
+  timezone: Asia/Shanghai
+
 knowledge_graph:
   enable: true
   auto_mount: true
