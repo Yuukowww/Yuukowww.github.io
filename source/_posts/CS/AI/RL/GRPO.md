@@ -1,9 +1,9 @@
 ---
-title: CS336 01 -- RL
+title: CS336 02 -- RL
 date: 2026-10-05
 updated: 2026-10-05
 categories: 强化学习
-tag: [LLM,RL]
+tag: [LLM,RL,CS336]
 description: Assignment 5 强化学习, 围绕 PPO、GRPO和math RL
 cover: picture/mika1.jpg
 ---

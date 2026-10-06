@@ -1,9 +1,10 @@
 ---
-title: Assignment1 -- Building a Transformer LM
+title: CS336 01 Assignment1 -- Building a Transformer LM
 date: 2026-06-07
-updated: 2026-06-07
+updated: 2026-10-06
 description: CS336作业1Record
 categories: LLM
+tag: [LLM,CS336]
 cover: picture/azusa1.png
 ---
 
