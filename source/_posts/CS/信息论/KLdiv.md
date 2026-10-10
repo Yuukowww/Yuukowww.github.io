@@ -113,3 +113,37 @@ D_\mathrm{KL}(p_\theta\parallel p_{\theta+\mathrm d\theta})
 $$
 
 取 $I(\theta):=\sum_i p_i^{-1}(\theta)\nabla_\theta p_i(\theta)\nabla_\theta p_i(\theta)^T$，即为Fisher 信息矩阵。它是关于 $\mathrm d\theta$ 的半正定二次型；当 $I(\theta)$ 正定时，它给出局部Riemann度量。
+
+### 前向KL散度和反向KL散度
+
+因为KL散度的不可交换性，自然存在一个前后的计算规定
+$$
+D_{KL}(p\parallel q_\theta) = \int p(x)\log\frac{p(x)}{q_\theta(x)}\mathrm{d}x\quad D_{KL}(q_\theta\parallel p) = \int q_\theta(x)\log\frac{q_\theta(x)}{p_\theta(x)}\mathrm{d}x
+$$
+
+这里产生了两种KL散度对于统计上的观测重心的不同，产生不同的训练结果。
+- Forward KL div: Mode-covering -- 更倾向于覆盖全体数据的模式，低概率区域也进行覆盖
+- Backward KL div: Mode-seeking -- 更倾向于覆盖部分高概率的部分
+
+
+对于Forward KL
+$$
+D_{KL}(p\parallel q_\theta) = \int p(x)\log\frac{p(x)}{q_\theta(x)}\mathrm{d}x
+$$
+如果在可测集 $S$ 上 $q_\theta\to 0$ 此时 $-p(x)\log q_\theta(x)\to -\infty$,
+$$
+L = -p\log q_\theta
+$$
+$$
+\frac{\partial L}{\partial q_\theta} = -\frac{p}{q_\theta}\to\infty
+$$
+
+因此会倾向于平均不同范围的数据，保证几乎处处 $q>0$
+
+对于Backward KL
+$$
+D(q_\theta\parallel p)= \int q_\theta(x)\log\frac{q_\theta(x)}{p(x)}\mathrm{d}x
+$$
+
+相应$p$ 的低概率区域也会惩罚，因此$q$ 集中于$p(x)>0$ 的较大部分
+
