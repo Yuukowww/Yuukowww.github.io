@@ -20,6 +20,7 @@ cover: picture/azusa1.png
 
 `<Tensor>.transpose(i,j)`相当于第 $i$ 维与第 $j $维进行对换
 
+课程中讲解可以通过`einops`库的`rearrange` 简化计算并减少对于一些矩阵转置的考虑
 
 ## 核心函数的实现
 ### Linear

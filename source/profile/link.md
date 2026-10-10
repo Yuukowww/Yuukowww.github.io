@@ -10,6 +10,7 @@ comments: false
 
 ## About me
 
+SYSU 大四在读
 
 > Amor che nella mente mi ragiona.
 
