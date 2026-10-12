@@ -2,7 +2,7 @@
 title: UCB 算法与传统RL探索决策
 date: 2025-12-23
 updated: 2026-10-11
-cover:
+cover: picture/ghost1.jpg
 description: UCB、LinUCB 决策算法
 categories: RL
 tag: [RL,AMB]

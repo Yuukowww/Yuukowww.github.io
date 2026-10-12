@@ -1,7 +1,7 @@
 ---
 title: CS336 02 -- RL
 date: 2026-10-05
-updated: 2026-10-05
+updated: 2026-10-13
 categories: 强化学习
 tag: [LLM,RL,CS336]
 description: Assignment 5 强化学习, 围绕 PPO、GRPO和math RL
@@ -9,7 +9,8 @@ cover: picture/mika1.jpg
 ---
 
 {% post_link CS/AI/RL/Markov Bellman方程 %}中提及Q函数的更新，一系列如QL、DQN的算法得到的策略是固定的。对于基于策略的强化学习，通过优化策略的本身而非策略的Q value，给定参数 $\theta$ 对策略参数化，并使用神经网络优化 $\theta$
-# PPO -- Proximal Policy Optimization
+# 策略优化算法
+## PPO -- Proximal Policy Optimization
 
 我们的优化目标是
 $$
@@ -80,7 +81,7 @@ $$
 | **如何估计梯度** | 用样本近似期望；控制估计的偏差与方差，例如 baseline、优势估计 |
 | **如何稳定更新** | 学习率、度量与预条件、KL 约束或惩罚、PPO 概率比裁剪、梯度范数裁剪 |
 
-## 常见的策略
+### 常见的策略
 {% post_link CS/AI/RL/Markov Agent策略 %} 中计算了，任何策略满足的条件只有对全动作空间的累积为 $1$ 。 对于离散动作空间
 $$
 \sum_{a\in \mathcal A_s} \pi_\theta(a|s) = 1
@@ -89,7 +90,7 @@ $$
 $$
 \int_{a\in\mathcal A_s} \pi_\theta(a|s)\,\mathrm{d} a = 1
 $$
-### Softmax 策略
+#### Softmax 策略
 Softmax 自然有
 $$
 \displaystyle \sum_j\frac{e^{x_j}}{\sum e^{x_k}} = 1
@@ -101,7 +102,7 @@ $$
 \pi_\theta (s,a) = \dfrac{e^{\phi(s,a)^T\theta}}{\displaystyle \sum_{a'\in\mathcal A_s} e^{\phi(s,a')^T\theta}}
 $$
 
-### 高斯策略
+#### 高斯策略
 
 高斯策略是基于高斯分布生成的连续动作空间策略
 
@@ -127,24 +128,59 @@ Fisher 信息矩阵保留了KL散度意义下策略间的二阶误差信息，�
 
 根据前文中的策略下降一阶条件，目标优化为
 $$
-\max_{\Delta \theta} \nabla_\theta J(\theta)^T\Delta \theta 
+\max_{\Delta \theta} J(\theta +\Delta\theta)\quad D_{KL}(\pi_\theta \parallel \pi_{\theta+\Delta \theta}) < \varepsilon
+$$
+根据前文的展开
+$$
+\max_{\Delta \theta} \nabla_\theta J(\theta)^T\Delta \theta\quad \frac{1}{2}\Delta \theta^T F(\theta) \Delta \theta<\varepsilon
+$$
+松弛化后取一阶条件为0
+$$
+\begin{aligned}
+\frac{\partial}{\partial\Delta\theta} \nabla_\theta J(\theta)^T \Delta \theta -\frac{\lambda }{2}(\Delta\theta^T F(\theta)\Delta \theta-\varepsilon) & = \nabla_\theta J(\theta) -\lambda F(\theta)\Delta \theta = 0
+\end{aligned}
+$$
+更新方向为
+$$
+\Delta\theta = \frac{1}{\lambda}F^{-1}g=:\alpha F^{-1}g
 $$
 
+带回二阶估计中
+$$
+\varepsilon = \frac{1}{2}(F^{-1}g)^T F(F^{-1}g) = \frac{1}{2}\alpha^2 g^TF^{-1}g
+$$
 
+$$
+\alpha = \sqrt{\frac{2\varepsilon}{g^TF^{-1}g}}
+$$
+$$
+\Delta\theta = \sqrt{\frac{2\varepsilon}{g^TF^{-1}g}} F^{-1}g
+$$
 
-### Diffusion 策略
+但是Fisher 矩阵的求解本身和Fisher的逆矩阵运算的开销为 $O(n^3)$, 需要考虑一些手段优化
+$$
+g = \frac{1}{\lambda}F \Delta \theta: =Fv
+$$
+
+通过共轭梯度法[@wikipedia_conjugate_gradient_method] 基于普通的梯度和Fisher矩阵进行梯度的优化
+$$
+(J\to g)\to(F,g)\to v
+$$
+#### Diffusion 策略
 
 Diffusion 基于高斯策略通过 Normalizing Flow 生成更加复杂的分布
 
 ... To Be Continued
 
 
-## TRPO
+### TRPO
 
 
-## PPO Penalty
+### PPO Penalty
 
-## PPO-Clip
+### PPO-Clip
 
-# GRPO -- Group Relative Policy Optimization
+## GRPO -- Group Relative Policy Optimization
 
+
+# Rollout
