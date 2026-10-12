@@ -372,7 +372,7 @@ SDT -> DCT -> COCT -> CHCT
 - 安全分配方式 -- 死锁避免，进程IO请求后进入阻塞态
 - 不安全分配方式 -- 只有当请求设备被其他进程占用时才进入阻塞态。但是可能由于资源竞争造成死锁
 
-死锁竞争的讨论见 {% post_link CS/OS/进程的同步与互斥 %} 与 {% post_link CS/OS/deadlock %}
+死锁竞争的讨论见 {% post_link CS/408/OS/进程的同步与互斥 %} 与 {% post_link CS/408/OS/deadlock %}
 
 
 
@@ -401,4 +401,4 @@ SPOOLing技术的构成结构有
 
 
 # 磁盘
-{% post_link CS/计组/磁盘 %}
+{% post_link CS/408/计组/磁盘 %}

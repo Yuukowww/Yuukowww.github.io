@@ -112,6 +112,26 @@ $$
 \mu_\theta = \phi(s,a)^T\theta
 $$
 
+
+基于{% post_link CS/信息论/KLdiv Forward Kl 散度 %} 评估一次策略下降下的误差
+$$
+\begin{aligned}
+D_{KL}(\pi_\theta \parallel \pi_{\theta+\Delta \theta}) &= \sum_{x\in X}\pi_\theta(x)\log \frac{\pi_\theta(x)}{\pi_{\theta+\Delta\theta}(x)}\\
+& = -\sum_{x\in X} \left[\pi_\theta(x) \frac{\partial \pi_\theta(x)}{\pi_\theta(x)\partial \theta }\right]^T \Delta \theta + O(\|\Delta\theta\|^2) \\
+& = -\sum_{x\in X} \left[\frac{\partial \pi_\theta (x)}{\partial\theta}\right]^T\Delta \theta + O(\|\Delta\theta\|^2)\\
+& = \frac{1}{2}\Delta\theta^T F(\theta)\Delta \theta +o(\|\Delta\theta\|^2)
+\end{aligned}
+$$
+
+Fisher 信息矩阵保留了KL散度意义下策略间的二阶误差信息，同时说明Forward KL 散度和 Backward KL 散度的 Fisher 矩阵一致性。
+
+根据前文中的策略下降一阶条件，目标优化为
+$$
+\max_{\Delta \theta} \nabla_\theta J(\theta)^T\Delta \theta 
+$$
+
+
+
 ### Diffusion 策略
 
 Diffusion 基于高斯策略通过 Normalizing Flow 生成更加复杂的分布

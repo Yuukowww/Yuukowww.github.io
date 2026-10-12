@@ -39,13 +39,13 @@ function htmlFiles(directory) {
 
 const requiredPosts = new Set([
   "CS/LLM/optimize/stiefel",
-  "CS/OS/deadlock",
-  "CS/OS/进程与线程",
-  "CS/OS/进程的同步与互斥",
-  "CS/数据结构/树",
-  "CS/计组/CPU",
-  "CS/计组/磁盘",
-  "CS/计网/网络层"
+  "CS/408/OS/deadlock",
+  "CS/408/OS/进程与线程",
+  "CS/408/OS/进程的同步与互斥",
+  "CS/408/数据结构/树",
+  "CS/408/计组/CPU",
+  "CS/408/计组/磁盘",
+  "CS/408/计网/网络层"
 ]);
 const failures = [];
 let postCount = 0;

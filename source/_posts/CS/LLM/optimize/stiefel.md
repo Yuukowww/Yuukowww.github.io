@@ -298,7 +298,7 @@ $$
 $$
 作为 $O(n)$ 对于 Stiefel 流形的左作用。对于Stiefel流形上一般的一点 $X\in \mathrm{St}_p(n)$ 的切向量
 $$
-Z = X\Omega+X_\bot K = \begin{pmatrix}X&X_\bot\end{pmatrix}\begin{pmatrix}\Omega\\K\end{pmatrix}。
+Z = X\Omega+X_\bot K = \begin{pmatrix}X&X_\bot\end{pmatrix}\begin{pmatrix}\Omega\\K\end{pmatrix}\text{。}
 $$
 那么取$X_0$ 的切空间自然也满足。
 $$
