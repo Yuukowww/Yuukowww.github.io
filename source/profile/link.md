@@ -6,8 +6,6 @@ heat_map: true
 comments: false
 ---
 
-{% heat_map %}
-
 ## About me
 
 SYSU 大四在读
@@ -18,3 +16,8 @@ SYSU 大四在读
 
 - [GitHub](https://github.com/Asunazzz123)
 - [网易云音乐](https://music.163.com/m/user?id=418116994)
+
+
+{% heat_map %}
+
+
