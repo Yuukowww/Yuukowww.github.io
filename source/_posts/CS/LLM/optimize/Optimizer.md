@@ -70,6 +70,8 @@ $$
 \theta_{t+1} = \theta_t - \eta g_t
 $$
 
+[@smith2021originimplicitregularizationstochastic] 中给出了在随机重排 mini-batch 且学习率足够小的条件下，SGD 的平均 epoch 更新可近似由修正损失的梯度流描述。相较于 full-batch GD，该修正损失额外包含与 mini-batch 梯度偏差平方范数均值相关的隐式正则项。
+
 
 
 
