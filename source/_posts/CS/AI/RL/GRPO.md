@@ -49,7 +49,7 @@ $$
 \theta \gets \theta + \alpha \nabla_\theta J(\theta)
 $$
 
-梯度的样本近似, 取样$m$ 条轨迹, 使用样本均值近似样本期望
+梯度的样本近似, 取样$m$ 条轨迹, 使用样本均值近似样本期望（这里就涉及到了后文中的Rollout）
 $$
 \nabla _\theta J(\theta)\simeq \frac{1}{m}\sum_{k=1}^m R(\tau^{(k)})\nabla_\theta \log P(\tau^{(k)};\theta)
 $$
@@ -174,6 +174,18 @@ Diffusion 基于高斯策略通过 Normalizing Flow 生成更加复杂的分布
 
 
 ### TRPO
+On-policy 的梯度目标是
+$$
+\max J(\theta) = E_{\tau \sim \pi_\theta}R(\tau) = E_{\tau\sim\pi_\theta} [R(\tau)\nabla_\theta \log \pi_\theta(\tau)]
+$$
+
+TRPO 尝试使用上一步冻结的策略 $\pi_{old}$ 的 rollout, 基于IS修正下的代理目标梯度估计**本轮**的策略梯度
+
+$$
+\nabla_\theta L(\theta) = E_{\tau\sim \pi_{old}}\left[ \frac{\pi_\theta(\tau)}{\pi_{\theta_{old}}(\tau)}A(\tau)\nabla_\theta \log\pi_{\theta}(\tau)\right]
+$$
+
+
 
 
 ### PPO Penalty
@@ -183,4 +195,53 @@ Diffusion 基于高斯策略通过 Normalizing Flow 生成更加复杂的分布
 ## GRPO -- Group Relative Policy Optimization
 
 
-# Rollout
+# RL的实践
+
+```mermaid
+%%{init: {
+    "theme": "base",
+    "themeVariables": {
+        "darkMode": true,
+        "fontFamily": "PingFang SC, Microsoft YaHei, sans-serif",
+        "fontSize": "18px",
+        "primaryColor": "#0e2f47",
+        "primaryTextColor": "#80c7ff",
+        "primaryBorderColor": "#425765",
+        "lineColor": "#909090",
+        "edgeLabelBackground": "#181a1c"
+    },
+    "flowchart": {"curve": "basis", "nodeSpacing": 28, "rankSpacing": 50, "padding": 20},
+    "themeCSS": ".node rect { rx: 20px; ry: 20px; fill-opacity: .78; } .node .label { font-size: 18px; font-weight: 600; line-height: 1.1; } .edgeLabel { background-color: transparent; } .edgeLabel span:not(:empty) { display: inline-block; padding: 4px 12px; border: 1px solid #80c7ff; border-radius: 999px; background: #181a1c; color: #80c7ff; font-size: 18px; font-weight: 600; line-height: 1.1; } .edgeLabel p { margin: 0; } .flowchart-link { stroke-width: 1px; stroke-linecap: round; stroke-linejoin: round; }"
+}}%%
+flowchart TD
+    D("计算优势 Advantage<br/>PPO：依赖 Critic<br/>GRPO：比较同题回答") --> E("固定这批回答<br/>训练 Actor；PPO 还训练 Critic")
+    E --> F("同步新权重给生成引擎")
+    F --> A("取一批训练题目")
+    A --> B("Rollout：生成回答<br/>可由 vLLM 加速")
+    B --> C("奖励评分<br/>规则、验证器或奖励模型")
+    C --> D
+    E -..->|定期进行| G("在独立验证集上生成并评测<br/>记录指标、保存检查点")
+
+    classDef rlTraining color:#80c7ff;
+    class A,B,C,D,E,F,G rlTraining;
+```
+## Rollout
+
+Rollout 就是基于当前的策略进行一轮采样，并以轨迹 $\tau$ 生成完整的输出序列。因为有关于当前策略梯度的评估无法通过解析计算，需要通过 Rollout 的样本进行蒙特卡洛近似。
+
+通过Rollout 近似估计的策略单步计算有
+- 策略梯度估计
+- Fisher矩阵估计
+- Advantage / Baseline 估计
+
+$$
+\nabla_\theta J(\theta) = E_{r\sim \pi_{\theta}}\nabla_\theta\log\pi_\theta(\tau)\Longrightarrow \nabla_\theta J(\theta) \simeq  \frac{1}{m}\sum_{k=1}^m R(\tau^{(k)})\nabla_\theta \log\pi_\theta (\tau^{(k)})
+$$
+
+
+
+
+## On-Policy and Off-Policy
+
+
+

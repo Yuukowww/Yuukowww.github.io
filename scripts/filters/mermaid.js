@@ -54,6 +54,12 @@ hexo.extend.filter.register("after_post_render", function(data) {
     return data;
   }
 
+  // Give top-level blocks a parent so replaceElement updates the root list.
+  const root = { type: "root", children: nodes };
+  nodes.forEach((node) => {
+    node.parent = root;
+  });
+
   mermaidBlocks.forEach((code) => {
     const pre = code.parent;
 
@@ -100,6 +106,11 @@ script(type="module").
         });
 
         await mermaid.run({ nodes });
+        const trainingDiagrams = document.querySelectorAll(".mermaid > svg:has(.rlTraining)");
+        if (trainingDiagrams.length) {
+          const { layoutRLTrainingFlow } = await import("${hexo.config.root}js/rl-training-flow.js");
+          trainingDiagrams.forEach(layoutRLTrainingFlow);
+        }
         document.querySelectorAll("pre.mermaid > svg, div.mermaid > svg").forEach((svg) => {
           svg.style.maxWidth = "";
         });
