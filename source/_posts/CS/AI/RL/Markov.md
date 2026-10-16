@@ -2,14 +2,14 @@
 title: Markov 过程
 description: RL基本概念与Markov过程
 date: 2026-02-24
-updated: 2026-06-30
+updated: 2026-10-17
 categories: 强化学习
 tikzjax: true
 math: true
 cover: picture/miku2.png
 ---
 
-# Markov Decision Process 
+# Markov Decision Process
 
 > 一个**Markov Desion Process**(MDP) 是一个五元组$(\mathcal{S},\mathcal{A},p,r,\gamma)$, 满足
 > - $\mathcal{S}$  状态空间，是系统在每个时间步的状态集合
@@ -18,14 +18,14 @@ cover: picture/miku2.png
 > - $r:\mathcal{S}\times \mathcal{A}\to \mathbb{R}=\mathbb{E}(R\mid s,a)$ 奖励函数，在状态$s$下执行行为$a$的全部奖励的期望
 > - $\gamma\in[0,1]$ 衰减因子，每个时间步中的奖励衰减
 
-MDP通常可可视化表示为一个有向图，每一个状态为一个点，所有的边的集合为动作空间$\mathcal{A}$. 边的权为奖励函数 
+MDP通常可可视化表示为一个有向图，每一个状态为一个点，所有的边的集合为动作空间$\mathcal{A}$. 边的权为奖励函数
 
-记 
+记
 $$
 {\mathcal{A}_s}=\left\{a\mid s\overset{a}{\to}s', \forall s'\in S_{t+1}\right\}
-$$ 
+$$
 为状态 $s$ 的动作空间
-# Markov Property 
+# Markov Property
 Markov特性指当前时间步的状态转移概率、奖励累计与前面时间步的对应量是相互独立的
 
 $$
@@ -37,7 +37,7 @@ $$
     $$
     G_t = \sum_{k=0}^{T-t-1}R_{t+k+1}
     $$
-- Discounted Return 
+- Discounted Return
     $$
     G_t = \sum_{k=0}^{T-t-1}\gamma^k R_{t+k+1}
     $$
@@ -48,7 +48,7 @@ $$
 
 # Agent Policy 智能体策略
 > **Goal of RL Agent**
-> 
+>
 > To find a behavior policy that maximises the expected return $G_t$
 
 智能体策略的精神是寻找到最大的奖励
@@ -124,7 +124,7 @@ $$
 
 ## Bellman Equation
 
-> **Action Value Function 的时间步展开** 
+> **Action Value Function 的时间步展开**
 $$
 \begin{aligned}
 q_\pi(s,a)&=\mathbb{E}(G_t\mid S_T=s,A_t=a,\pi)\\
@@ -154,6 +154,22 @@ q_\pi(s,a) &= \sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r
 & = R(s,a)+\gamma \sum_{s'\in \mathcal{S}_{t+1}}\left(\sum_{r\in R_{t+1}}p(r,s'\mid s,a)\right)\sum _{a'\in \mathcal{A}(s')}\pi(a'\mid s')q_\pi(s',a')\\
 & = R(s,a) + \gamma \sum _{s'\in \mathcal{S}_{t+1}} p(s'\mid s,a) \sum_{a'\in \mathcal{A}(s')} \pi(a'\mid s')q_\pi (s',a')
 \end{aligned}
+$$
+
+## Advantage
+Advantage 就是 Q和V的差值，在状态s选择动作a,相比该状态下按策略 $\pi$ 平均表现
+$$
+A^\pi(s,a) = Q^\pi(s,a) - V^\pi(s)
+$$
+
+由于
+
+$$
+V^\pi(s) = \sum_a \pi(a|s) Q^\pi(s,a)
+$$
+因此Advantage 是无偏估计，但会降低方差
+$$
+E_{a\sim \pi}[A^\pi (s,a)] = 0
 $$
 
 ## 备份图

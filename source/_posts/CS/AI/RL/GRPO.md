@@ -235,11 +235,18 @@ Rollout 就是基于当前的策略进行一轮采样，并以轨迹 $\tau$ 生�
 - Advantage / Baseline 估计
 
 $$
-\nabla_\theta J(\theta) = E_{r\sim \pi_{\theta}}\nabla_\theta\log\pi_\theta(\tau)\Longrightarrow \nabla_\theta J(\theta) \simeq  \frac{1}{m}\sum_{k=1}^m R(\tau^{(k)})\nabla_\theta \log\pi_\theta (\tau^{(k)})
+\nabla_\theta J(\theta) = E_{r\sim \pi_{\theta}}[R(\tau)\nabla_\theta\log\pi_\theta(\tau)]\Longrightarrow \nabla_\theta J(\theta) \simeq  \frac{1}{m}\sum_{k=1}^m R(\tau^{(k)})\nabla_\theta \log\pi_\theta (\tau^{(k)})
 $$
 
+由于
+$$
+E_{\pi\sim \pi_{\theta}} R(\tau) = E_{\tau \sim \pi_{\theta_{old}}}\left[\frac{\pi_\theta}{\pi_{\theta_{old}}}R(\tau)\right]:= L(\theta)
+$$
+将期望对象变换为了相对于旧策略的期望，这样就能用旧策略的 rollout 轨迹估计当前策略的目标梯度，在策略未大幅偏移时等价于当前策略目标的真实梯度。
 
-
+$$
+\nabla_\theta J(\theta) = E_{\tau\sim\pi_\theta}\left[\sum_t\nabla_\theta \log \pi_\theta(a_t|s_t)\cdot Q^{\pi}(s_t,a_t) \right]
+$$
 
 ## On-Policy and Off-Policy
 
