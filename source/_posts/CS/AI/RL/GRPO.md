@@ -181,8 +181,9 @@ $$
 
 TRPO 尝试使用上一步冻结的策略 $\pi_{old}$ 的 rollout, 基于IS修正下的代理目标梯度估计**本轮**的策略梯度
 
+{% post_link CS/AI/RL/Markov TD修正}
 $$
-\nabla_\theta L(\theta) = E_{\tau\sim \pi_{old}}\left[ \frac{\pi_\theta(\tau)}{\pi_{\theta_{old}}(\tau)}A(\tau)\nabla_\theta \log\pi_{\theta}(\tau)\right]
+\nabla_\theta J(\theta) = E_{\tau\sim \pi_{old}}\left[ \frac{\pi_\theta(\tau)}{\pi_{\theta_{old}}(\tau)}A(\tau)\nabla_\theta \log\pi_{\theta}(\tau)\right]
 $$
 
 
@@ -250,5 +251,11 @@ $$
 
 ## On-Policy and Off-Policy
 
+On-policy 和 Off-policy是指是否依赖正在优化的策略来产生观测数据。
+
+TRPO/PPO 基于 $\pi_{old}$ rollout的轨迹计算逼近的策略梯度，虽然不等于本轮的策略梯度，但是可以通过IS修正动作差异利用 KL 约束控制策略变化，使得旧策略的状态分布仍能近似代表新策略的状态分布。
+
+典型的Off-Policy 的算法有 DQN/SAC等，通过历史的行为记录训练。
 
 
+## Critical Networks

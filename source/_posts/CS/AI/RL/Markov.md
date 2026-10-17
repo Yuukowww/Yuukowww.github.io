@@ -81,37 +81,37 @@ $$
 
 ## Value Function 价值函数
 $$
-v_\pi(s)=\mathbb{E}(G_t\mid S_t=s,\pi)
+V^\pi(s)=\mathbb{E}(G_t\mid S_t=s,\pi)
 $$
 
 ### Q Function
 Q Function 指的是在状态$S_t=s$，执行动作$A_t=a$下的价值期望函数
 $$
-q_\pi (s,a)=\mathbb{E}(G_t\mid S_t=s,A_t=a,\pi)=\mathbb{E}\left(\sum_{k=0}^\infty\gamma^k R_{t+k+1}\mid S_t=s,A_t=a,\pi\right)
+Q^\pi(s,a)=\mathbb{E}(G_t\mid S_t=s,A_t=a,\pi)=\mathbb{E}\left(\sum_{k=0}^\infty\gamma^k R_{t+k+1}\mid S_t=s,A_t=a,\pi\right)
 $$
 
 根据全概率公式，价值函数满足
 $$
-v_\pi(s)=\sum_{a\in \mathcal{A}_s} \pi(a\mid s)q_\pi(s,a)
+V^\pi(s)=\sum_{a\in \mathcal{A}_s} \pi(a\mid s)Q^\pi(s,a)
 $$
 
 ## Optimal Value Function 最优化价值函数
 
 > **Optimal state-value function** 最优状态价值函数，是在所有策略中的最大状态价值函数
 $$
-v^\ast(s)=\max_{\pi} v_\pi (s)
+V^\ast(s)=\max_{\pi} V^\pi(s)
 $$
 
 > **Optimal action-value function** 最优动作价值函数,是在所有策略中的最大动作价值函数
 $$
-q^\ast(s,a)=\max_{\pi}q_\pi (s,a)
+Q^\ast(s,a)=\max_{\pi}Q^\pi(s,a)
 $$
 
 **Claim**: 解决一个 MDP 的本质就是寻找最优策略. 一旦求解出最优价值函数，我们便称该马尔可夫决策过程（MDP）得到了**解决（Solved）**
 
 在此基础上，我们定义策略的偏序关系
 $$
-\pi'\geq \pi \Longleftrightarrow \forall s\in\mathcal{S},\, v_{\pi'}(s)\geq v_\pi(s)
+\pi'\geq \pi \Longleftrightarrow \forall s\in\mathcal{S},\, V^{\pi'}(s)\geq V^\pi(s)
 $$
 根据**Zorn Lemma**,最优策略总存在
 > **Optimal policy** 最优策略
@@ -127,18 +127,23 @@ $$
 > **Action Value Function 的时间步展开**
 $$
 \begin{aligned}
-q_\pi(s,a)&=\mathbb{E}(G_t\mid S_T=s,A_t=a,\pi)\\
-&=\mathbb{E}\left(R_{t+1}+\gamma v_\pi(S_{t+1})\mid S_t=s, A_t\in\pi(S_t),\pi\right)\\
-&=\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s'))\\
-&=\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a')))
+Q^\pi(s,a)&=\mathbb{E}(G_t\mid S_T=s,A_t=a,\pi)\\
+&=\mathbb{E}\left(R_{t+1}+\gamma V^\pi(S_{t+1})\mid S_t=s, A_t\in\pi(S_t),\pi\right)\\
+&=\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma V^\pi(s'))\\
+&=\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')Q^\pi(s',a')))
 \end{aligned}
 $$
+
+$$
+Q^\pi(s_t, a_t) = E_{r_t,\, s_{t+1}}[r_t + \gamma V^\pi(s_{t+1})]
+$$
+
 
 > **Value Function 的时间步展开**
 $$
 \begin{aligned}
-v_\pi(s)&=\sum_{a}\pi(a\mid s)q_\pi(s,a)\\
-&=\sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s'))
+V^\pi(s)&=\sum_{a}\pi(a\mid s)Q^\pi(s,a)\\
+&=\sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma V^\pi(s'))
 \end{aligned}
 $$
 
@@ -148,13 +153,15 @@ $$
 
 $$
 \begin{aligned}
-v_\pi(s) &= \sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma v_\pi(s')) \\
-q_\pi(s,a) &= \sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a'))) \\
-& = \sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}rp(r,s'\mid s,a)+\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')q_\pi(s',a'))\\
-& = R(s,a)+\gamma \sum_{s'\in \mathcal{S}_{t+1}}\left(\sum_{r\in R_{t+1}}p(r,s'\mid s,a)\right)\sum _{a'\in \mathcal{A}(s')}\pi(a'\mid s')q_\pi(s',a')\\
-& = R(s,a) + \gamma \sum _{s'\in \mathcal{S}_{t+1}} p(s'\mid s,a) \sum_{a'\in \mathcal{A}(s')} \pi(a'\mid s')q_\pi (s',a')
+V^\pi(s) &= \sum_{a\in \mathcal{A}(s)}\pi(a\mid s)\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma V^\pi(s')) \\
+& = E_{a\sim \pi,s'\sim P}[r(s,a,s')+\gamma V^{\pi}(s'))\\\\
+Q^\pi(s,a) &= \sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)(r+\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')Q^\pi(s',a'))) \\
+& = \sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}rp(r,s'\mid s,a)+\sum_{r\in R_{t+1}}\sum_{s'\in \mathcal{S}_{t+1}}p(r,s'\mid s,a)\gamma \sum_{a'\in \mathcal{A}(s')}(\pi(a'\mid s')Q^\pi(s',a'))\\
+& = R(s,a)+\gamma \sum_{s'\in \mathcal{S}_{t+1}}\left(\sum_{r\in R_{t+1}}p(r,s'\mid s,a)\right)\sum _{a'\in \mathcal{A}(s')}\pi(a'\mid s')Q^\pi(s',a')\\
+& = R(s,a) + \gamma \sum _{s'\in \mathcal{S}_{t+1}} p(s'\mid s,a) \sum_{a'\in \mathcal{A}(s')} \pi(a'\mid s')Q^\pi(s',a')
 \end{aligned}
 $$
+
 
 ## Advantage
 Advantage 就是 Q和V的差值，在状态s选择动作a,相比该状态下按策略 $\pi$ 平均表现
@@ -172,6 +179,15 @@ $$
 E_{a\sim \pi}[A^\pi (s,a)] = 0
 $$
 
+
+TD 误差估计 Advantage
+$$
+A^\pi (s_t,a_t) =A^\pi(s_t, a_t) = E_{r_t,\, s_{t+1}}[r_t + \gamma V^\pi(s_{t+1})] - V^\pi(s_t)
+$$
+用单步样本估计Advantage
+
+$$\delta_t = r_t + \gamma V^\pi(s_{t+1}) - V^\pi(s_t) \approx A^\pi(s_t, a_t)
+$$
 ## 备份图
 
 备份图是 Bellman 方程的图形化表示，用来描述状态价值或动作价值从后继结点向当前结点的回传更新关系。
