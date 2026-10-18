@@ -186,7 +186,8 @@ A^\pi (s_t,a_t) =A^\pi(s_t, a_t) = E_{r_t,\, s_{t+1}}[r_t + \gamma V^\pi(s_{t+1}
 $$
 用单步样本估计Advantage
 
-$$\delta_t = r_t + \gamma V^\pi(s_{t+1}) - V^\pi(s_t) \approx A^\pi(s_t, a_t)
+$$
+\delta_t = r_t + \gamma V^\pi(s_{t+1}) - V^\pi(s_t) \approx A^\pi(s_t, a_t)
 $$
 ## 备份图
 

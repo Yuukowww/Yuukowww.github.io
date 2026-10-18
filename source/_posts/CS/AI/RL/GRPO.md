@@ -10,8 +10,12 @@ cover: picture/mika1.jpg
 
 {% post_link CS/AI/RL/Markov Bellman方程 %}中提及Q函数的更新，一系列如QL、DQN的算法得到的策略是固定的。对于基于策略的强化学习，通过优化策略的本身而非策略的Q value，给定参数 $\theta$ 对策略参数化，并使用神经网络优化 $\theta$
 # 策略优化算法
-## PPO -- Proximal Policy Optimization
 
+自然策略梯度下降的过程可以概括为：
+
+Actor 通过 Rollout 生成动作与 logprob；Critic 利用 Rollout 奖励学习 Value Function，并辅助计算 Advantage；Actor 将 logprob 与 Advantage 结合计算策略梯度，更新策略参数，随后进入下一轮 Rollout。
+
+## PPO -- Proximal Policy Optimization
 我们的优化目标是
 $$
 \max_{\theta}J(\theta) = \max_\theta E_{\tau \sim \theta}R(\tau) = \max_{\theta}\sum_\tau P(\tau;\theta) R (\tau)
@@ -69,6 +73,60 @@ $$
 \hat g = \frac{n}{m} \hat g_{step}
 $$
 
+### KL 散度和二阶计算优化
+基于{% post_link CS/信息论/KLdiv Forward Kl 散度 %} 评估一次策略下降下的误差
+$$
+\begin{aligned}
+D_{KL}(\pi_\theta \parallel \pi_{\theta+\Delta \theta}) &= \sum_{x\in X}\pi_\theta(x)\log \frac{\pi_\theta(x)}{\pi_{\theta+\Delta\theta}(x)}\\
+& = -\sum_{x\in X} \left[\pi_\theta(x) \frac{\partial \pi_\theta(x)}{\pi_\theta(x)\partial \theta }\right]^T \Delta \theta + O(\|\Delta\theta\|^2) \\
+& = -\sum_{x\in X} \left[\frac{\partial \pi_\theta (x)}{\partial\theta}\right]^T\Delta \theta + O(\|\Delta\theta\|^2)\\
+& = \frac{1}{2}\Delta\theta^T F(\theta)\Delta \theta +o(\|\Delta\theta\|^2)
+\end{aligned}
+$$
+
+Fisher 信息矩阵保留了KL散度意义下策略间的二阶误差信息，同时说明Forward KL 散度和 Backward KL 散度的 Fisher 矩阵一致性。
+
+根据前文中的策略下降一阶条件，目标优化为
+$$
+\max_{\Delta \theta} J(\theta +\Delta\theta)\quad D_{KL}(\pi_\theta \parallel \pi_{\theta+\Delta \theta}) < \varepsilon
+$$
+根据前文的展开
+$$
+\max_{\Delta \theta} \nabla_\theta J(\theta)^T\Delta \theta\quad \frac{1}{2}\Delta \theta^T F(\theta) \Delta \theta<\varepsilon
+$$
+松弛化后取一阶条件为0
+$$
+\begin{aligned}
+\frac{\partial}{\partial\Delta\theta} \nabla_\theta J(\theta)^T \Delta \theta -\frac{\lambda }{2}(\Delta\theta^T F(\theta)\Delta \theta-\varepsilon) & = \nabla_\theta J(\theta) -\lambda F(\theta)\Delta \theta = 0
+\end{aligned}
+$$
+更新方向为
+$$
+\Delta\theta = \frac{1}{\lambda}F^{-1}g=:\alpha F^{-1}g
+$$
+
+带回二阶估计中
+$$
+\varepsilon = \frac{1}{2}(F^{-1}g)^T F(F^{-1}g) = \frac{1}{2}\alpha^2 g^TF^{-1}g
+$$
+
+$$
+\alpha = \sqrt{\frac{2\varepsilon}{g^TF^{-1}g}}
+$$
+$$
+\Delta\theta = \sqrt{\frac{2\varepsilon}{g^TF^{-1}g}} F^{-1}g
+$$
+
+但是Fisher 矩阵的本身构造至少为$O(n^2)$，策略梯度的逆矩阵运算的开销为 $O(n^3)$
+
+
+共轭梯度法
+$$
+g = \frac{1}{\lambda}F \Delta \theta: =Fv
+$$
+
+
+### 策略
 
 不同的策略 $\pi_\theta$ 决定了不同的梯度的计算方式。总结而言，RL关心的问题涵盖
 
@@ -114,58 +172,7 @@ $$
 $$
 
 
-基于{% post_link CS/信息论/KLdiv Forward Kl 散度 %} 评估一次策略下降下的误差
-$$
-\begin{aligned}
-D_{KL}(\pi_\theta \parallel \pi_{\theta+\Delta \theta}) &= \sum_{x\in X}\pi_\theta(x)\log \frac{\pi_\theta(x)}{\pi_{\theta+\Delta\theta}(x)}\\
-& = -\sum_{x\in X} \left[\pi_\theta(x) \frac{\partial \pi_\theta(x)}{\pi_\theta(x)\partial \theta }\right]^T \Delta \theta + O(\|\Delta\theta\|^2) \\
-& = -\sum_{x\in X} \left[\frac{\partial \pi_\theta (x)}{\partial\theta}\right]^T\Delta \theta + O(\|\Delta\theta\|^2)\\
-& = \frac{1}{2}\Delta\theta^T F(\theta)\Delta \theta +o(\|\Delta\theta\|^2)
-\end{aligned}
-$$
 
-Fisher 信息矩阵保留了KL散度意义下策略间的二阶误差信息，同时说明Forward KL 散度和 Backward KL 散度的 Fisher 矩阵一致性。
-
-根据前文中的策略下降一阶条件，目标优化为
-$$
-\max_{\Delta \theta} J(\theta +\Delta\theta)\quad D_{KL}(\pi_\theta \parallel \pi_{\theta+\Delta \theta}) < \varepsilon
-$$
-根据前文的展开
-$$
-\max_{\Delta \theta} \nabla_\theta J(\theta)^T\Delta \theta\quad \frac{1}{2}\Delta \theta^T F(\theta) \Delta \theta<\varepsilon
-$$
-松弛化后取一阶条件为0
-$$
-\begin{aligned}
-\frac{\partial}{\partial\Delta\theta} \nabla_\theta J(\theta)^T \Delta \theta -\frac{\lambda }{2}(\Delta\theta^T F(\theta)\Delta \theta-\varepsilon) & = \nabla_\theta J(\theta) -\lambda F(\theta)\Delta \theta = 0
-\end{aligned}
-$$
-更新方向为
-$$
-\Delta\theta = \frac{1}{\lambda}F^{-1}g=:\alpha F^{-1}g
-$$
-
-带回二阶估计中
-$$
-\varepsilon = \frac{1}{2}(F^{-1}g)^T F(F^{-1}g) = \frac{1}{2}\alpha^2 g^TF^{-1}g
-$$
-
-$$
-\alpha = \sqrt{\frac{2\varepsilon}{g^TF^{-1}g}}
-$$
-$$
-\Delta\theta = \sqrt{\frac{2\varepsilon}{g^TF^{-1}g}} F^{-1}g
-$$
-
-但是Fisher 矩阵的求解本身和Fisher的逆矩阵运算的开销为 $O(n^3)$, 需要考虑一些手段优化
-$$
-g = \frac{1}{\lambda}F \Delta \theta: =Fv
-$$
-
-通过共轭梯度法[@wikipedia_conjugate_gradient_method] 基于普通的梯度和Fisher矩阵进行梯度的优化
-$$
-(J\to g)\to(F,g)\to v
-$$
 #### Diffusion 策略
 
 Diffusion 基于高斯策略通过 Normalizing Flow 生成更加复杂的分布
@@ -187,6 +194,19 @@ $$
 $$
 
 
+即
+$$
+\theta_{n+1} = \theta_n + \sqrt{\frac{2\varepsilon}{\hat{g}_n^T\hat{H}_n^{-1}\hat{g}_n}}\hat{H}_n^{-1}\hat{g}_n
+$$
+这其中的 $\hat{g}$, $\hat{H}$ 表示从 Rollout 的样本轨迹中计算的梯度和Hessian 对实际的梯度的估计量
+
+
+
+
+通过共轭梯度法[@wikipedia_conjugate_gradient_method] 基于普通的梯度和Fisher矩阵进行梯度的优化
+$$
+(J\to g)\to(F,g)\to v
+$$
 
 
 ### PPO Penalty
@@ -258,4 +278,39 @@ TRPO/PPO 基于 $\pi_{old}$ rollout的轨迹计算逼近的策略梯度，虽然
 典型的Off-Policy 的算法有 DQN/SAC等，通过历史的行为记录训练。
 
 
-## Critical Networks
+## Critic Networks
+
+Critic Networks 对于当前的策略或者动作进行估计，从而计算更加稳定的策略梯度
+
+$$
+\hat{V}^{MC} = \sum_k^{T-1}\gamma^k r_{t+k} \simeq V_\phi(s)
+$$
+
+
+本质上是一个逼近问题，典型的可以通过神经网络优化
+- 输入：Rollout 中的状态 \(s_t\)
+- 标签：根据奖励构造的 Value Target
+- 输出：Critic 对累计奖励的预测 \(V_\phi(s_t)\)
+- 优化器：Adam、SGD 等一阶优化器
+
+{% post_link CS/AI/RL/Markov Advantage的误差估计 %}中的估计
+$$
+\hat A^\pi(s_t, a_t)\approx r_t + \gamma V^\pi(s_{t+1}) - V^\pi(s_t)
+$$
+
+通过Critic Network学习
+$$
+V_\phi(s)\approx
+\mathbb E_{\pi_\theta}
+\left[
+\sum_{k=0}^{\infty}\gamma^k r_{t+k}
+\mid s_t=s
+\right]
+$$
+
+
+
+
+
+
+
