@@ -6,7 +6,7 @@ description: 一些的李群知识的review
 categories: geometry
 tag: [geometry,algebra]
 tikzjax: true
-cover: picture/denia4.jpg
+cover: picture/Denia4.jpg
 ---
 
 参考陈维桓老师的《微分流形初步》[@chen2001differentialmanifolds]
