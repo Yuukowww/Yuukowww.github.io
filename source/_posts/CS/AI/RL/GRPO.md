@@ -263,6 +263,10 @@ $$
 $$
 E_{\pi\sim \pi_{\theta}} R(\tau) = E_{\tau \sim \pi_{\theta_{old}}}\left[\frac{\pi_\theta}{\pi_{\theta_{old}}}R(\tau)\right]:= L(\theta)
 $$
+取新旧策略比为
+$$
+r = \frac{\pi_\theta}{\pi_{\theta_{old}}}
+$$
 将期望对象变换为了相对于旧策略的期望，这样就能用旧策略的 rollout 轨迹估计当前策略的目标梯度，在策略未大幅偏移时等价于当前策略目标的真实梯度。
 
 $$
