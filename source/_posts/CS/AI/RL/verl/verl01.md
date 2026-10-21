@@ -34,4 +34,13 @@ embeddings: [8, 128, 768]
 
 - `to` 绑定device
 
-- `select`
+- `select` 从已经存在的`Dataproto`对象根据传入字段创建新的对象
+- `make_iteration` 从`Dataproto`构建minibatch, 能设置minibatch size, epoch, 随机seed。
+- `padding` 序列token补齐，根据第一条或者最后一条进行填充
+- `chunk` 沿着样本维度切分`Dataproto`, 根据chunk 均分，返回一个Dataproto type list
+- `concat` 将`Dataproto`list 拼接为一个`Dataproto`
+
+
+`BatchData`类区分了三种type TensorDict, KVBatchMeta, BatchMeta, 调用链为 KVBatchMeta的分区+样本 keys+所需字段的字段信息，查询 BatchMeta 的批metadata，再通过`async_get_data`提取原始tensor info
+
+`all_gather_data_proto` 将进程内的proto对象合并
