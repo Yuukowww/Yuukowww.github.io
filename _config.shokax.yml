@@ -39,8 +39,8 @@ menu:
     categories: /categories/ || th
     tags: /tags/ || tags
     读书笔记: /reading/ || file
+    music: /audio/ || music
   friends: /link/ || heart
-  我的演奏: /audio/ || music
   关于: /profile/ || user
 
 social:
