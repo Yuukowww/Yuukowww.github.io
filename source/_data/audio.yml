@@ -1,0 +1,9 @@
+# 将音频放入 source/audio/files/，然后按下面的格式添加条目。
+# src 也可以使用 HTTPS 音频直链；date 请加引号。
+# - title: 曲名
+#   instrument: 钢琴
+#   date: "2026-10-22"
+#   src: /audio/files/example.mp3
+#   description: 可选的演奏备注
+- title: 小幸运
+  src: /audio/files/xiaoxingyun.wav

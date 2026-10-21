@@ -11,7 +11,7 @@
     "deploy": "hexo deploy",
     "postinstall": "patch-package",
     "server": "hexo server",
-    "test": "node tests/reading-index-filter.test.js && node tests/bibliography.test.js",
+    "test": "node tests/reading-index-filter.test.js && node tests/bibliography.test.js && node tests/audio.test.js",
     "test:toc": "node tests/toc.test.js",
     "test:profile": "node tests/post-history-integration.test.js"
   },
