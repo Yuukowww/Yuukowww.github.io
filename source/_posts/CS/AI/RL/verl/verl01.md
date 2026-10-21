@@ -5,7 +5,7 @@ updated: 2026-10-20
 categories: RL
 tag: [RL,Infra]
 description: verl的底层实现 -- 底层数据协议
-cover: picture/kagusa5.jpg
+cover: picture/kasuga5.jpg
 ---
 
 整个protocol.py 中的最核心的对象是`DataProto`类，作为各模块之间的统一数据交换协议。
