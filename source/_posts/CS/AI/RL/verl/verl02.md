@@ -21,8 +21,61 @@ $$
 $$
 
 # Advantage Estimation
+## GAE
 `compute_gae_advantage_return`的实现
 {% post_link CS/AI/RL/Markov 单步TD误差%}
 $$
-\hat A\approx  \delta_t = r_t+\gamma V_{t+1}-V_t
+    \begin{aligned}
+    \hat A_t &\approx  \delta_t = r_t+\gamma V_{t+1}-V_t
+    \end{aligned}
 $$
+
+
+$$
+\hat A_t^{(2)} = \delta_t+\gamma\delta_{t+1}
+$$
+
+$$
+\hat A_t^{( n)} = \sum_{k\geq 0}^{n-1} \gamma^k \delta_{t+k}
+$$
+
+GAE估计定义为TD误差的加权累加符合几何分布
+$$
+P(N=n) =(1-\lambda)\lambda ^n
+$$
+则
+$$
+\hat A_t^{GAE} =\mathbb E_N[\hat A_t^{(n)}]
+$$
+$$
+\begin{aligned}
+\hat A_t^{GAE} &= \delta_t+\gamma\lambda \hat A_{t+1}^{GAE}\\
+& = \delta_t + \sum_{l\geq 0} (\gamma \lambda)^l\hat A_{t+1}^{GAE}
+\end{aligned}
+$$
+
+在verl的`compute_gae_advantage_return` 中基于累加实现
+```python
+for t in reversed(range(gen_len)):
+            # 求出delta_t, 等于 r+gamma*V_t - V_{t-1}
+            delta = token_level_rewards[:, t] + gamma * nextvalues - values[:, t]
+            # 更新 A_t^{GAE}
+            lastgaelam_ = delta + gamma * lam * lastgaelam
+
+            # skip values and TD-error on observation tokens
+            # 根据response_mask 控制哪些GAE的advantage估计需要保留
+            nextvalues = values[:, t] * response_mask[:, t] + (1 - response_mask[:, t]) * nextvalues
+
+            lastgaelam = lastgaelam_ * response_mask[:, t] + (1 - response_mask[:, t]) * lastgaelam
+
+            advantages_reversed.append(lastgaelam)
+        advantages = torch.stack(advantages_reversed[::-1], dim=1)
+
+        returns = advantages + values
+```
+
+
+## GRPO
+
+`compute_grpo_outcome_advantage`
+
