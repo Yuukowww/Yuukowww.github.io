@@ -7,9 +7,9 @@ tag: [RL,Infra]
 description: verl的底层实现 -- GRPO、GAE等算法
 cover: picture/kanade3.jpg
 ---
+# 算法结构
 
-
-# KLController
+## KLController
 `AdaptiveKLController`的实现[@ziegler2020finetuninglanguagemodelshuman]
 对冻结的KL散度相对偏差率绝对值限制在0.2
 $$
@@ -20,8 +20,8 @@ $$
 \beta_{t+1} = \beta_t(1+e\frac{n_{step}}{h}) =\beta_t(1+K_\beta e_t)
 $$
 
-# Advantage Estimation
-## GAE
+## Advantage Estimation
+### GAE
 `compute_gae_advantage_return`的实现
 {% post_link CS/AI/RL/Markov 单步TD误差%}
 $$
@@ -75,7 +75,31 @@ for t in reversed(range(gen_len)):
 ```
 
 
-## GRPO
+### GRPO
 
 `compute_grpo_outcome_advantage`
+归一化构建GRPO的 reward
 
+$$
+R_t \Longrightarrow \frac{R_t - \bar R_g}{\sigma_g+\varepsilon}
+$$
+
+
+```
+for i in range(bsz):
+            if norm_adv_by_std_in_grpo:
+                scores[i] = (scores[i] - id2mean[index[i]]) / (id2std[index[i]] + epsilon)
+            else:
+                scores[i] = scores[i] - id2mean[index[i]]
+```
+`compute_grpo_vectorized_outcome_advantage` 归一化的向量实现
+
+GRPO 在一个问题的Rollout 中前向生成多个答案或者推理结果，再进行评分，得到相对的advantage
+
+
+### GDPO
+`compute_gdpo_outcome_advantage`
+
+
+```
+```
