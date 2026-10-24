@@ -119,7 +119,30 @@ $$
 \hat A_{i,l} = \frac{A_{sum,i,l} - \mu_{batch}}{\sqrt{\sigma_{batch}^2+\varepsilon}}
 $$
 
+
+### RLOO
+`compute_rloo_outcome_advantage`
+
+
+
+
 ## Prompt 间的 advantage 计算
 
 `compute_reinforce_plus_plus_baseline_outcome_advantage`
+
+
+先计算同一prompt 内的平均奖励作为baseline,
+```python
+id2mean[idx] = torch.mean(torch.stack(id2score[idx]))
+```
+
+再计算相对于 baseline 的奖励偏移
+```python
+scores[i] = scores[i] - id2mean[index[i]]
+```
+再通过 masked_whiten 进行正规化
+
+`compute_reinforce_plus_plus_outcome_advantage`
+
+
 
