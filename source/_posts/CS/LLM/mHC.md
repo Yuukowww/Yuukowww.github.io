@@ -4,16 +4,16 @@ date: 2026-05-23
 updated: 2026-06-14
 description: LLM的信息流范式
 categories: LLM
-math: true 
+math: true
 cover: picture/miku4.jpg
 ---
 
-# Tensor Flow 的 演化历程
+# Residual Flow 的 演化历程
 整体的发展脉络分为四类
 - 跨层深度连接 Depth Connection
 - 同层广度连接 Width Connection
 - 把层看成动力系统 Continuous-Implicit Flow
-- 不同样本/token 走不同路径 Routing Connection 
+- 不同样本/token 走不同路径 Routing Connection
 ## Plain Chain
 最原始的信息流就是层的复合，满足 $x_{l+1} = \mathcal{F}_{l}(x_l,\theta_l)$, 这样的深层网络的微分就是
 $$
@@ -91,7 +91,7 @@ $$
 
 用矩阵形式编码相应的参数:
 $$
-\mathcal{HC} = 
+\mathcal{HC} =
 \begin{pmatrix}
 0 & B\\
 A_m & A_r

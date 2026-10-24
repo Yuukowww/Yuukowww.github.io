@@ -8,6 +8,7 @@ description: verl的底层实现 -- GRPO、GAE等算法
 cover: picture/kanade3.jpg
 ---
 # 算法结构
+verl 的算法实现的内容相对较少，核心的部分主要是rollout 和 training 的调度的上层结构。
 
 ## KLController
 `AdaptiveKLController`的实现[@ziegler2020finetuninglanguagemodelshuman]
@@ -85,21 +86,40 @@ R_t \Longrightarrow \frac{R_t - \bar R_g}{\sigma_g+\varepsilon}
 $$
 
 
-```
+```python
 for i in range(bsz):
             if norm_adv_by_std_in_grpo:
                 scores[i] = (scores[i] - id2mean[index[i]]) / (id2std[index[i]] + epsilon)
             else:
                 scores[i] = scores[i] - id2mean[index[i]]
 ```
-`compute_grpo_vectorized_outcome_advantage` 归一化的向量实现
+`compute_grpo_vectorized_outcome_advantage` 归一化的向量实现, 每一个回答基于平均值获得正advantage和负advantage
 
 GRPO 在一个问题的Rollout 中前向生成多个答案或者推理结果，再进行评分，得到相对的advantage
 
+`compute_grpo_passk_outcome_advantage` passk reward， 只有最优的回答才能获得 advantage, 当组内有多个最高 advantage 时，这些回答都分配 advantage
+
 
 ### GDPO
-`compute_gdpo_outcome_advantage`
+`compute_gdpo_outcome_advantage`[@liu2026gdpogrouprewarddecouplednormalization]
+GDPO的
 
+Step1. Rollout的**组内**归一化为advantage
+$$
+A_k \gets \frac{r_k - \bar r_k}{\sigma + \varepsilon}
+$$
 
-```
-```
+Step2. 构建加权平均advantage， 权重的生成来源于 `grpo_reward_keys`选定
+$$
+A_{sum} = \sum w_k A_k
+$$
+
+Step3. 根据得到的各组之间的 average advantage 进行组间的正规化
+$$
+\hat A_{i,l} = \frac{A_{sum,i,l} - \mu_{batch}}{\sqrt{\sigma_{batch}^2+\varepsilon}}
+$$
+
+## Prompt 间的 advantage 计算
+
+`compute_reinforce_plus_plus_baseline_outcome_advantage`
+
