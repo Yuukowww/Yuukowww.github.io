@@ -121,9 +121,16 @@ $$
 
 
 ### RLOO
-`compute_rloo_outcome_advantage`
+`compute_rloo_outcome_advantage` -- leave-one-out 
 
-
+一组N条回答的第i条reward 是一个回答的reward 减去除去该回答的平均reward
+$$
+\begin{aligned}
+A_i &= R_i - \frac{1}{N-1}\sum_{j\neq i} R_j\\
+& = \frac{N}{N-1}R_i - \frac{1}{N-1}\sum_{j\neq i} R_j\\
+& = \frac{N}{N-1}(R_i - \bar R)
+\end{aligned}
+$$
 
 
 ## Prompt 间的 advantage 计算

@@ -1,7 +1,7 @@
-- site: murasaki
-  url: https://murasaki010.github.io/
-  image: https://files.yuuko.site/picture/avatar/murasaki.jpg
-  desc: 小笨狗
+- site: Yukari
+  url: https://yukar.icu/
+  image: https://yukar.icu/avatar.jpg
+  desc: ロマンと理想は私の同義語です
 
 - site: taf.fyi
   url: https://taf.fyi
@@ -9,7 +9,7 @@
   desc: >-
     <span class="taf-desc-icons"><img src="https://taf.fyi/assets/uncategorized/taffy/guan_64x64.png" alt=""><img src="https://taf.fyi/assets/uncategorized/taffy/zhu_64x64.png" alt=""><img src="https://taf.fyi/assets/uncategorized/taffy/yong_64x64.png" alt=""><img src="https://taf.fyi/assets/uncategorized/taffy/chu_64x64.png" alt=""><img src="https://taf.fyi/assets/uncategorized/taffy/ta_64x64.png" alt=""><img src="https://taf.fyi/assets/uncategorized/taffy/fei_64x64.png" alt=""><img src="https://taf.fyi/assets/uncategorized/taffy/miao_64x64.png" alt=""><img src="https://taf.fyi/assets/uncategorized/taffy/xiexiemiao_64x64.png" alt=""></span>
 
-- site: wuyublog
+- site: wuyu
   url: https://wuyublog.tech
   image: https://files.yuuko.site/picture/avatar/wuyu.jpg
   desc: 想生存下去……
