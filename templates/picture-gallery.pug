@@ -1,0 +1,11 @@
+extends page.pug
+
+block content
+    section.page.wrap.picture-gallery(aria-label="Gallery")
+        if page.pictures.length
+            div.picture-gallery-grid
+                each picture, index in page.pictures
+                    a.picture-gallery-item(href=url_for(picture.src) target="_blank" rel="noopener" title=picture.title aria-label=`查看原图：${picture.title}`)
+                        img(src=url_for(picture.src) alt=picture.title loading=index < 3 ? "eager" : "lazy" decoding="async")
+        else
+            p.picture-gallery-empty 这里还没有图片。

@@ -42,6 +42,7 @@ menu:
     music: /audio/ || music
   friends: /link/ || heart
   关于: /profile/ || user
+  Gallery: /gallery/ || th
 
 social:
   github: https://github.com/Asunazzz123 || github || "#191717"
