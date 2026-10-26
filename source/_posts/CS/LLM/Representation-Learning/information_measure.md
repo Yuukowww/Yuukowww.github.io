@@ -10,7 +10,7 @@ tikzjax: true
 ---
 # Encoder-Decoder Structures in Machine Learning Using Information Measures
 
-本文主要展示的是如何通过信息度量(在本文中使用的是互信息度量) 经历 Encoder 后的信息变化
+本文[@silva2024understandingencoderdecoderstructuresmachine]主要展示的是如何通过信息度量(在本文中使用的是互信息度量) 经历 Encoder 后的信息变化
 
 
 
@@ -37,7 +37,7 @@ $$
 & = \sum_{y\in Y}\sum_{x\in X}p(x,y)\log p(x,y) -  \sum_{y\in Y}\sum_{x\in X} p(x,y) \log p(x) - \sum_{y\in Y}\sum_{x\in X} p(x,y) \log p(y)\\
 & = -H(X,Y) -\sum_{x\in X}\left(\sum_{y\in Y}p(x,y)\right)\log p(x)-\sum_{y\in Y}\left(\sum_{x\in X}p(x,y)\right)\log p(y)\\
 & =-H(X,Y) -\sum_{x\in X}p(x)\log p(x)-\sum_{y\in Y}p(y)\log p(y)\\
-& = H(X) +H(Y)-H(X,Y) 
+& = H(X) +H(Y)-H(X,Y)
 \end{aligned}
 $$
 
@@ -65,7 +65,7 @@ $$
 
 这样的 $\eta$ 同样满足
 $$
-\ell(\mu_{X,Y}) =\ell(\mu_{\eta(X),Y}) 
+\ell(\mu_{X,Y}) =\ell(\mu_{\eta(X),Y})
 $$
 
 由于
@@ -146,7 +146,7 @@ $$
 $\mathcal{P}_\eta(X,Y)$ 定义为对于给定的 $\eta$， 满足 $X\to \eta(X)\to Y$ 的 $\mu_{X,Y}$ 是IS的Encoder-Decoder
 
 **Definition 3**
-后验概率 
+后验概率
 $$
 p_\mu(x) = \mu_{Y\mid X}(\cdot \mid x): X\to \Delta (Y)
 $$
@@ -156,8 +156,8 @@ $$
 x\overset{p_\mu}{\longrightarrow}\left(p(Y=y_1\mid X=x),\cdots,p(Y=y_n\mid X=x)\right)
 $$
 
-**Theorem1** 
-对于给定可测函数 $\eta: X\to \mathcal{U}$,  $\mu_{X,Y}\in\mathcal{P}_\eta(X,Y)$ 当且仅当 存在 $f:[0,1]\times\mathcal{U}\to Y$, 
+**Theorem1**
+对于给定可测函数 $\eta: X\to \mathcal{U}$,  $\mu_{X,Y}\in\mathcal{P}_\eta(X,Y)$ 当且仅当 存在 $f:[0,1]\times\mathcal{U}\to Y$,
 $$
 Y = f(W,\eta(X))\quad a.e.
 $$
