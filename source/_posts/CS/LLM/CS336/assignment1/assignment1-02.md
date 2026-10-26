@@ -1,8 +1,9 @@
 ---
-title: LLM学习:01--Transformer
+title: CS336 01.1 Assignment1 -- Transformer
 date: 2026-05-03
+updated: 2026-10-26
 description: CS336 LLM学习Record 1
-tag: [CS336,LLM,基模]
+tag: [CS336,LLM]
 categories: LLM
 math: true
 cover: picture/amiya1.jpg

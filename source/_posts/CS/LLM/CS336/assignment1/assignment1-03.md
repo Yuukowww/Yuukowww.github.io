@@ -1,8 +1,9 @@
 ---
-title: BPE-tokenizer
+title: CS336 01.3 Assignment1 BPE-tokenizer
 date: 2026-06-12
-updated: 2026-06-12
+updated: 2026-10-26
 categories: LLM
+tag: [LLM,CS336]
 description: CS336 作业1中关于Tokenizer的学习记录
 cover: picture/isekaijoucho1.jpg
 ---
@@ -18,7 +19,7 @@ BPE 需要考虑一些Special token，它们是不可分token string单元，每
 
 ### BPE Merge 表的训练
 
-BPE 基于字符合并而贪心算法生成`vocab`和 `Merge`表 
+BPE 基于字符合并而贪心算法生成`vocab`和 `Merge`表
 
 首先，tokenizer通常会视一些固定的字符串为`special_tokens`，这些字符串是不可分且唯一编码的单位，通常先将`special_tokens`筛选出来。
 
@@ -35,9 +36,9 @@ else:
 GPT-2形式的tokenizer 会将某些特定类型的字符串形式预编译
 ```python
 pat = regex.compile(
-    r"""'(?:[sdmt]|ll|ve|re)| 
+    r"""'(?:[sdmt]|ll|ve|re)|
     ?\p{L}+|
-     ?\p{N}+| 
+     ?\p{N}+|
      ?[^\s\p{L}\p{N}]+|
      \s+(?!\S)|
      \s+"""
@@ -117,7 +118,7 @@ def train(
         text = f.read()
 
     vocab = {i: bytes([i]) for i in range(256)}
-    
+
 
     if special_tokens:
         for special_token in special_tokens:
@@ -143,7 +144,7 @@ def train(
 
         if not pair_counts:
             break
-        
+
         best_pair = max(pair_counts.items(), key=lambda item: (item[1], item[0]))[0]
         new_token = best_pair[0] + best_pair[1]
         merges.append(best_pair)
