@@ -7,3 +7,9 @@
 #   description: 可选的演奏备注
 - title: 小幸运
   src: /audio/files/xiaoxingyun.wav
+
+- title: 情歌
+  src: /audio/files/qingge.wav
+
+- title: 太聪明
+  src: /audio/files/taicongming.wav
