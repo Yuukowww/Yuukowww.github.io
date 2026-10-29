@@ -3,7 +3,7 @@ title: CS336 05.3 -- Dr.GRPO
 description: GRPO中的归一化操作对于Advantage 的放大作用
 categories: LLM
 tag: [RL,LLM]
-cover: picture/kurumu1.jpg
+cover: picture/kurumi1.jpg
 ---
 # 组内 Reward 归一化
 原始GRPO中的组内Reward 存在的问题{% post_link CS/AI/RL/verl/verl02 代码 %}
