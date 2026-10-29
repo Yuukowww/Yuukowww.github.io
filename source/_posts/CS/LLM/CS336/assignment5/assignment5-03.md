@@ -27,3 +27,11 @@ $$
 
 # 回答长度归一化
 
+Dr.GRPO 考虑将每一个回答的长度均值的改为整体的最大回答长度的均值
+$$
+L_{GRPO}= -\frac{1}{G}\sum_{i=1}^G \frac{1}{T_i}\sum_{t=1}^{T_i}\ell_{i,t}^{obj}\longrightarrow L_{Dr.GRPO}= -\frac{1}{GT_{max}}\sum_{i=1}^G \sum_{t=1}^{T_i}\ell_{i,t}^{obj}
+$$
+
+避免每一个回答都基于长度计算均值可以降低回答的长度对于每一个token的反向传播的直接缩放
+
+

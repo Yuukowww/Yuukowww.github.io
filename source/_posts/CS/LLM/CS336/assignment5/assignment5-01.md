@@ -1,7 +1,7 @@
 ---
 title: CS336 05.1 -- 强化学习算法的数学基础
 date: 2026-10-05
-updated: 2026-10-26
+updated: 2026-10-29
 categories: LLM
 tag: [LLM,RL,CS336]
 description: Assignment 5 强化学习, 围绕 PPO、GRPO和math RL
@@ -210,8 +210,42 @@ $$
 
 
 ### PPO Penalty
+TRPO 要求
+$$
+\max_{\Delta \theta} J(\theta +\Delta\theta)\quad D_{KL}(\pi_\theta \parallel \pi_{\theta+\Delta \theta}) < \varepsilon
+$$
 
+PPO 通过软约束将KL散度作为惩罚项加入约束的考虑
+$$
+L = \max_{\Delta \theta} J(\theta+\Delta\theta) - \beta D_{KL}(\pi_\theta\Vert \pi_{\theta+\Delta\theta}) =\max_{\Delta \theta}
+\mathbb E[r_t(\theta)\hat A_t]
+-\beta D_{\mathrm{KL}}
+(\pi_{\theta}\Vert\pi_{\theta+\Delta\theta})
+$$
+
+求梯度
+$$
+\nabla_\theta L = \max_{\Delta\theta}\mathrm{E}[r_t(\theta)\hat A_t \nabla_\theta \log\pi_\theta] - \beta \nabla_\theta D_{\mathrm{KL}}
+(\pi_{\theta}\Vert\pi_{\theta+\Delta\theta})
+$$
 ### PPO-Clip
+
+PPO-Clip 则是通过阈值进一步做reward 截断，避免出现极高正向reward 和 极小负向reward
+
+$$
+\mathrm{clip}(r,1-\varepsilon,1+\varepsilon) = \begin{dcases}
+1-\varepsilon&r<1-\varepsilon \\
+r& 1-\varepsilon\leq r\leq 1+\varepsilon\\
+1+\varepsilon & r>1+\varepsilon
+\end{dcases}
+$$
+
+$$
+L_{clip} = \mathrm{E}_t \left[\min(r_t\hat A_t, \mathrm{clip}(r_t,1-\varepsilon,1+\varepsilon) )\right]
+$$
+
+
+
 
 ## GRPO -- Group Relative Policy Optimization
 

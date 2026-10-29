@@ -121,7 +121,7 @@ $$
 
 
 ### RLOO
-`compute_rloo_outcome_advantage` -- leave-one-out 
+`compute_rloo_outcome_advantage` -- leave-one-out
 
 一组N条回答的第i条reward 是一个回答的reward 减去除去该回答的平均reward
 $$
@@ -152,4 +152,11 @@ scores[i] = scores[i] - id2mean[index[i]]
 `compute_reinforce_plus_plus_outcome_advantage`
 
 
+
+
+
+
+## Policy loss
+
+`compute_policy_loss` ppo-clip 计算策略损失
 
