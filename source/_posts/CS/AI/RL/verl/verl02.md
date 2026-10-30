@@ -23,6 +23,9 @@ $$
 
 ## Advantage Estimation
 ### GAE
+GAE 是一种通过{% post_link CS/AI/RL/Markov TD%}渐进估计advantage的方式
+
+
 `compute_gae_advantage_return`的实现
 {% post_link CS/AI/RL/Markov 单步TD误差%}
 $$

@@ -247,8 +247,26 @@ $$
 
 
 
-
 ## GRPO -- Group Relative Policy Optimization
+![GRPO](/picture/GRPO/GRPO.png)
+
+GRPO的优化项是基于PPO-Clip 加上PPO-Penaty 的惩罚项约束
+$$
+\begin{aligned}
+L_{GRPO} &= \mathrm{E}_t \left[\min(r_t\hat A_t, \mathrm{clip}(r_t,1-\varepsilon,1+\varepsilon) )\right] -\beta \nabla_\theta D_{KL}(\pi_\theta\Vert \pi_{\theta+\Delta\theta})\\
+& = \underbrace{
+\frac1G\sum_i
+\frac1{|o_i|}\sum_t
+\min(r_{i,t}\hat A_{i,t},
+\operatorname{clip}(r_{i,t})\hat A_{i,t})
+}_{\text{PPO-Clip surrogate}}
+-
+\underbrace{\beta D_{\mathrm{KL}}(\pi_\theta\Vert\pi_{\mathrm{ref}})}
+_{\text{Reference KL regularization}}
+\end{aligned}
+$$
+{% post_link CS/LLM/CS336/assignment5-03 Dr.GRPO%} 中将GRPO的每一条回答的均值修改为取最大语句长度进行均值，组间也选择最大token 数作为均值
+
 
 
 # RL的实践
