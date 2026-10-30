@@ -188,7 +188,8 @@ $$
 
 TRPO 尝试使用上一步冻结的策略 $\pi_{old}$ 的 rollout, 基于IS修正下的代理目标梯度估计**本轮**的策略梯度
 
-{% post_link CS/AI/RL/Markov TD修正}
+{% post_link CS/AI/RL/Markov TD修正%}
+
 $$
 \nabla_\theta J(\theta) = E_{\tau\sim \pi_{old}}\left[ \frac{\pi_\theta(\tau)}{\pi_{\theta_{old}}(\tau)}A(\tau)\nabla_\theta \log\pi_{\theta}(\tau)\right]
 $$
