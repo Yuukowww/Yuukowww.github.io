@@ -9,21 +9,28 @@ const { lintSource, lintHtml, escapeCommand } = require("../tools/blog-lint.cjs"
 const rules = text => lintSource(text).map(item => item.rule);
 
 async function main() {
-  // Reproduce a fresh runner with no node_modules: failure reporting must still
-  // work after npm ci fails, without resolving any Markdown/KaTeX dependencies.
-  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "blog-lint-summary-"));
+  // Check actual process status and Actions output, including a clean success.
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "blog-lint-status-"));
   try {
-    fs.mkdirSync(path.join(temporary, "tools"));
-    fs.copyFileSync(path.join(__dirname, "../tools/blog-lint.cjs"), path.join(temporary, "tools/blog-lint.cjs"));
     const summaryFile = path.join(temporary, "job-summary.md");
-    const child = spawnSync(process.execPath, [path.join(temporary, "tools/blog-lint.cjs"), "summary"], {
-      cwd: temporary, encoding: "utf8", env: { ...process.env, NODE_PATH: "", GITHUB_STEP_SUMMARY: summaryFile }
-    });
-    assert.equal(child.status, 0, child.stderr);
-    const markdown = fs.readFileSync(summaryFile, "utf8");
-    assert.match(markdown, /source \| 未完成/);
-    assert.match(markdown, /html \| 未完成/);
-    assert.equal(fs.readFileSync(path.join(temporary, "artifacts/blog-lint/summary.md"), "utf8"), markdown);
+    const modulePath = JSON.stringify(path.join(__dirname, "../tools/blog-lint.cjs"));
+    for (const [stage, fixture, status] of [
+      ["source", "$x$", 0],
+      ["source", "$x $", 1],
+      ["source", "$\\undefinedcommand{x}$", 1],
+      ["source", "{% post_link example }", 1],
+      ["html", '<div itemprop="articleBody">$x $</div>', 1]
+    ]) {
+      const code = `const {lintSource,lintHtml,reportDiagnostics}=require(${modulePath}); const stage=${JSON.stringify(stage)}; reportDiagnostics(stage,(stage==='source'?lintSource:lintHtml)(${JSON.stringify(fixture)},'example.md'),1);`;
+      const child = spawnSync(process.execPath, ["-e", code], {
+        cwd: temporary, encoding: "utf8", env: { ...process.env, GITHUB_ACTIONS: "true", GITHUB_STEP_SUMMARY: summaryFile }
+      });
+      assert.equal(child.status, status, child.stderr);
+      if (status) assert.match(child.stdout, /::error file=example\.md,line=1,col=\d+,title=/);
+      else assert.doesNotMatch(child.stdout, /::error/);
+    }
+    assert.ok(!fs.existsSync(summaryFile), "Must not create a job summary");
+    assert.ok(!fs.existsSync(path.join(temporary, "artifacts")), "Must not create report artifacts");
   } finally { fs.rmSync(temporary, { recursive: true, force: true }); }
 
   assert.deepEqual(rules("正常 $x + y$。\n\n$$\n\\frac{1}{2}\n$$"), []);

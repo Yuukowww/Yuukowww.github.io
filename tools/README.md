@@ -5,9 +5,9 @@
 部署任务通过 `needs: checks` 等待检查成功，仅 `main` 的推送和手动运行会部署，PR 只做检查。
 构建只执行一次，`checked-blog-site` 附件将同一份 `public/` 交给部署任务。
 
-lint 告警不会使进程失败；依赖安装、测试或实际构建失败会阻止部署。
-报告摘要只依赖 Node.js 内置模块：即使安装失败，也会标明检查阶段未完成，并上传摘要；
-若构建失败，已经生成的源码报告仍会保留。CI 使用 `npm ci`，依赖变动后需要同步提交锁文件。
+源码或 HTML 检查发现任何问题时，输出 Error Annotations 并以退出码 1 结束，
+立即阻止后续步骤和部署。依赖安装、测试或实际构建失败也会阻止部署。
+CI 使用 `npm ci`，依赖变动后需要同步提交锁文件。
 
 本地执行：
 
@@ -19,13 +19,11 @@ npm run build
 npm run test:toc
 npm run test:profile
 npm run lint:blog:html
-npm run lint:blog:summary
 ```
 
-结果保存在 `artifacts/blog-lint/`，包含两个 JSON 报告和 `summary.md`。
-Actions 页面显示源码/HTML 告警的文件行列、汇总表，以及名为
-`blog-rendering-lint` 的报告附件。每个阶段最多输出 10 条文件标注，摘要最多列出
-100 条；JSON 保留完整结果。HTML 位置属于 `public/` 文件，需要下载构建内容或本地构建查看，不能当作 Markdown 行号。
+检查结果只输出到 Actions Annotations 和执行日志，不生成摘要或报告文件。
+全部问题都会写入日志，GitHub 可能限制页面展示的 Annotations 数量。
+HTML 位置属于 `public/` 文件，需要本地构建查看，不能当作 Markdown 行号。
 
 ## 检查内容
 
@@ -44,7 +42,7 @@ HTML 检查仅扫描 `itemprop="articleBody"` 正文，并跳过代码元素和�
 源码扫描器使用 Markdown-it 识别代码区域，再用保留源码偏移的规则检查未被识别的语法。
 这不是完整的 Hexo/Nunjucks 语法解析器。已知块标签名单在 `blockTags` 中维护，单标签是否
 存在、参数是否合法由实际 Hexo 构建验证。金额、复杂嵌套、正文中的字面 TeX 可能存在歧义，
-告警需要人工确认；检查器不自动修改文章。
+疑似问题需要人工确认；检查器不自动修改文章。
 
 KaTeX 语法诊断来自 Aether 依赖树中的 `katex`，使用与当前插件一致的默认宏行为；不跨公式
 共享宏，也不将 Unicode 等严格模式提示视为语法错误。Aether 0.0.6 内置的 KaTeX 与其 npm

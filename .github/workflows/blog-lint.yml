@@ -35,17 +35,6 @@ jobs:
           npm run test:profile
       - name: Check generated article HTML
         run: npm run lint:blog:html
-      - name: Write report summary
-        if: always()
-        run: node tools/blog-lint.cjs summary
-      - name: Upload full reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: blog-rendering-lint
-          path: artifacts/blog-lint/
-          if-no-files-found: warn
-          retention-days: 14
       - name: Upload checked site for deployment
         uses: actions/upload-artifact@v4
         with:

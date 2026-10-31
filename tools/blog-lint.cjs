@@ -7,7 +7,6 @@ const { createRequire } = require("node:module");
 let MarkdownIt, katex, parseDOM;
 function loadDependencies() {
   if (MarkdownIt) return;
-  // Keep summaries usable even when dependency installation has failed.
   // Resolve the renderer's declared dependencies; real builds cover its bundle.
   const rendererRequire = createRequire(require.resolve("hexo-renderer-aether"));
   MarkdownIt = rendererRequire("markdown-it");
@@ -15,7 +14,6 @@ function loadDependencies() {
   ({ parseDOM } = require("htmlparser2"));
 }
 const root = path.resolve(__dirname, "..");
-const output = path.join(root, "artifacts/blog-lint");
 const blockTags = new Set(["blockquote", "codeblock", "raw", "verbatim", "pullquote", "note", "tabs", "tab", "htmlblock"]);
 
 function files(directory, extension) {
@@ -193,48 +191,27 @@ function escapeCommand(value, property = false) {
   return escaped;
 }
 
-function writeReport(stage, results, count) {
-  fs.mkdirSync(output, { recursive: true });
-  fs.writeFileSync(path.join(output, `${stage}.json`), JSON.stringify({ stage, files: count, diagnostics: results }, null, 2) + "\n");
-  console.log(`${stage}: checked ${count} files; ${results.length} warning(s).`);
-  // GitHub displays only a limited number of annotations. The artifact has all of them.
-  for (const item of results.slice(0, 10)) {
+function reportDiagnostics(stage, results, count) {
+  console.log(`${stage}: checked ${count} files; ${results.length} issue(s).`);
+  // Emit every issue to the log; GitHub may limit how many annotations it shows.
+  for (const item of results) {
     if (process.env.GITHUB_ACTIONS === "true") {
-      console.log(`::warning file=${escapeCommand(item.file, true)},line=${item.line},col=${item.column},title=${escapeCommand(item.rule, true)}::${escapeCommand(item.message)}`);
+      console.log(`::error file=${escapeCommand(item.file, true)},line=${item.line},col=${item.column},title=${escapeCommand(item.rule, true)}::${escapeCommand(item.message)}`);
     } else console.log(`${item.file}:${item.line}:${item.column} [${item.rule}] ${item.message}`);
   }
-  console.log(`Full report: artifacts/blog-lint/${stage}.json`);
-}
-
-function summary() {
-  fs.mkdirSync(output, { recursive: true });
-  const reports = ["source", "html"].map(stage => {
-    const filename = path.join(output, `${stage}.json`);
-    return fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename, "utf8")) : { stage, files: 0, diagnostics: [], missing: true };
-  });
-  const rows = reports.map(report => `| ${report.stage} | ${report.missing ? "未完成" : report.files} | ${report.diagnostics.length} |`);
-  const safe = value => String(value).replace(/[|<>`]/g, char => ({ "|": "&#124;", "<": "&lt;", ">": "&gt;", "`": "&#96;" })[char]).replace(/[\r\n]/g, " ");
-  let markdown = `# Blog 渲染检查\n\n| 阶段 | 文件数 | 告警数 |\n| --- | ---: | ---: |\n${rows.join("\n")}\n\n告警不阻止部署。源码位置指向 Markdown，HTML 位置指向构建产物。疑似问题需人工确认，完整记录见报告附件。\n`;
-  const diagnostics = reports.flatMap(report => report.diagnostics);
-  markdown += "\n| 文件位置 | 规则 | 提示 |\n| --- | --- | --- |\n";
-  for (const item of diagnostics.slice(0, 100)) markdown += `| ${safe(item.file)}:${item.line}:${item.column} | ${safe(item.rule)} | ${safe(item.message)} |\n`;
-  if (diagnostics.length > 100) markdown += "\n仅展示前 100 条；全部告警见 JSON 报告。\n";
-  fs.writeFileSync(path.join(output, "summary.md"), markdown);
-  if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown);
-  console.log(markdown.split("\n").slice(0, 9).join("\n"));
+  if (results.length) process.exitCode = 1;
 }
 
 function main(stage) {
-  if (stage === "summary") return summary();
-  if (!["source", "html"].includes(stage)) throw new Error("Usage: node tools/blog-lint.cjs source|html|summary");
+  if (!["source", "html"].includes(stage)) throw new Error("Usage: node tools/blog-lint.cjs source|html");
   const directory = path.join(root, stage === "source" ? "source" : "public");
   if (!fs.existsSync(directory)) throw new Error(`Missing ${directory}; build the site before HTML checks.`);
   const inputs = files(directory, stage === "source" ? /\.(?:md|markdown|mkd|mkdn|mdwn|mdtxt|mdtext)$/i : /\.html$/i);
   if (!inputs.length) throw new Error(`No input files in ${directory}`);
   const lint = stage === "source" ? lintSource : lintHtml;
   const results = inputs.flatMap(filename => lint(fs.readFileSync(filename, "utf8"), path.relative(root, filename).split(path.sep).join("/")));
-  writeReport(stage, results, inputs.length);
+  reportDiagnostics(stage, results, inputs.length);
 }
 
-module.exports = { lintSource, lintHtml, maskSource, escapeCommand };
+module.exports = { lintSource, lintHtml, maskSource, escapeCommand, reportDiagnostics };
 if (require.main === module) main(process.argv[2]);
