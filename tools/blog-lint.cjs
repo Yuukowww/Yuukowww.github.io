@@ -4,12 +4,16 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { createRequire } = require("node:module");
-// Resolve the renderer's declared dependency tree. Aether also bundles KaTeX;
-// the real build and renderer regression fixtures cover that bundled runtime.
-const rendererRequire = createRequire(require.resolve("hexo-renderer-aether"));
-const MarkdownIt = rendererRequire("markdown-it");
-const katex = rendererRequire("katex");
-const { parseDOM } = require("htmlparser2");
+let MarkdownIt, katex, parseDOM;
+function loadDependencies() {
+  if (MarkdownIt) return;
+  // Keep summaries usable even when dependency installation has failed.
+  // Resolve the renderer's declared dependencies; real builds cover its bundle.
+  const rendererRequire = createRequire(require.resolve("hexo-renderer-aether"));
+  MarkdownIt = rendererRequire("markdown-it");
+  katex = rendererRequire("katex");
+  ({ parseDOM } = require("htmlparser2"));
+}
 const root = path.resolve(__dirname, "..");
 const output = path.join(root, "artifacts/blog-lint");
 const blockTags = new Set(["blockquote", "codeblock", "raw", "verbatim", "pullquote", "note", "tabs", "tab", "htmlblock"]);
@@ -34,6 +38,7 @@ function escaped(text, offset) {
 
 // Replace ignored regions with spaces, keeping offsets and newlines intact.
 function maskSource(source) {
+  loadDependencies();
   let text = source;
   const mask = (start, end) => { text = text.slice(0, start) + text.slice(start, end).replace(/[^\n\r]/g, " ") + text.slice(end); };
   const frontmatter = /^(?:\uFEFF)?---\r?\n[\s\S]*?\r?\n(?:---|\.\.\.)(?:\r?\n|$)/.exec(text);
@@ -151,6 +156,7 @@ function lintSource(source, file = "example.md") {
 }
 
 function lintHtml(html, file = "example.html") {
+  loadDependencies();
   const results = [];
   const dom = parseDOM(html, { decodeEntities: true, withStartIndices: true });
   const excluded = new Set(["pre", "code", "script", "style", "textarea", "annotation", "math"]);

@@ -1,15 +1,23 @@
 # Blog 渲染检查
 
-`.github/workflows/blog-lint.yml` 在 PR、推送到 `main` 和手动触发时运行。
-它独立于 Pages 部署，lint 告警不会使进程失败；依赖安装、测试或实际构建失败仍会让检查失败。
-即使构建失败，也会尽可能上传已经生成的源码报告。
+`.github/workflows/page.yml` 在 PR、推送到 `main` 和手动触发时运行，先调用
+`blog-lint.yml` 完成依赖安装、测试、源码检查、构建和 HTML 检查，再部署已检查的构建产物。
+部署任务通过 `needs: checks` 等待检查成功，仅 `main` 的推送和手动运行会部署，PR 只做检查。
+构建只执行一次，`checked-blog-site` 附件将同一份 `public/` 交给部署任务。
+
+lint 告警不会使进程失败；依赖安装、测试或实际构建失败会阻止部署。
+报告摘要只依赖 Node.js 内置模块：即使安装失败，也会标明检查阶段未完成，并上传摘要；
+若构建失败，已经生成的源码报告仍会保留。CI 使用 `npm ci`，依赖变动后需要同步提交锁文件。
 
 本地执行：
 
 ```sh
 npm run test:blog-lint
+npm test
 npm run lint:blog:source
 npm run build
+npm run test:toc
+npm run test:profile
 npm run lint:blog:html
 npm run lint:blog:summary
 ```

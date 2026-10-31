@@ -1,10 +1,31 @@
 "use strict";
 
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const os = require("node:os");
+const path = require("node:path");
+const { spawnSync } = require("node:child_process");
 const { lintSource, lintHtml, escapeCommand } = require("../tools/blog-lint.cjs");
 const rules = text => lintSource(text).map(item => item.rule);
 
 async function main() {
+  // Reproduce a fresh runner with no node_modules: failure reporting must still
+  // work after npm ci fails, without resolving any Markdown/KaTeX dependencies.
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "blog-lint-summary-"));
+  try {
+    fs.mkdirSync(path.join(temporary, "tools"));
+    fs.copyFileSync(path.join(__dirname, "../tools/blog-lint.cjs"), path.join(temporary, "tools/blog-lint.cjs"));
+    const summaryFile = path.join(temporary, "job-summary.md");
+    const child = spawnSync(process.execPath, [path.join(temporary, "tools/blog-lint.cjs"), "summary"], {
+      cwd: temporary, encoding: "utf8", env: { ...process.env, NODE_PATH: "", GITHUB_STEP_SUMMARY: summaryFile }
+    });
+    assert.equal(child.status, 0, child.stderr);
+    const markdown = fs.readFileSync(summaryFile, "utf8");
+    assert.match(markdown, /source \| 未完成/);
+    assert.match(markdown, /html \| 未完成/);
+    assert.equal(fs.readFileSync(path.join(temporary, "artifacts/blog-lint/summary.md"), "utf8"), markdown);
+  } finally { fs.rmSync(temporary, { recursive: true, force: true }); }
+
   assert.deepEqual(rules("正常 $x + y$。\n\n$$\n\\frac{1}{2}\n$$"), []);
   for (const text of ["$xxx $", "$ xxx$", "$\txxx$", "$xxx\t$"]) assert.ok(rules(text).includes("math-space"), text);
   assert.ok(rules("公式 $x").includes("math-delimiter"));
