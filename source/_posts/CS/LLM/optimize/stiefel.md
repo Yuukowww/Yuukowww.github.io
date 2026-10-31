@@ -244,7 +244,7 @@ $$
 $$
 f\to df_X \in T_X^\ast M \overset{Metric}{\longrightarrow} \mathrm{grad}f(X) \in T_XM
 $$
-Riemann 度量是对光滑流形 $ M$ 与一点 $X\in  M$ 上的对称正定 $2-0$张量
+Riemann 度量是对光滑流形 $M$ 与一点 $X\in  M$ 上的对称正定 $2-0$张量
 $$
 g_X(-,-) :T_XM\otimes T_XM \to \mathbb R
 $$

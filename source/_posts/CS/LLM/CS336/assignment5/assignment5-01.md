@@ -347,7 +347,7 @@ $$
 本质上是一个逼近问题，典型的可以通过神经网络优化
 - 输入：Rollout 中的状态 \(s_t\)
 - 标签：根据奖励构造的 Value Target
-- 输出：Critic 对累计奖励的预测 \(V_\phi(s_t)\)
+- 输出：Critic 对累计奖励的预测 $V_\phi(s_t)$
 - 优化器：Adam、SGD 等一阶优化器
 
 {% post_link CS/AI/RL/Markov Advantage的误差估计 %}中的估计
