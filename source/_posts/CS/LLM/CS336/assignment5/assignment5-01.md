@@ -265,7 +265,7 @@ L_{GRPO} &= \mathrm{E}_t \left[\min(r_t\hat A_t, \mathrm{clip}(r_t,1-\varepsilon
 _{\text{Reference KL regularization}}
 \end{aligned}
 $$
-{% post_link CS/LLM/CS336/assignment5-03 Dr.GRPO%} 中将GRPO的每一条回答的均值修改为取最大语句长度进行均值，组间也选择最大token 数作为均值
+{% post_link CS/LLM/CS336/assignment5/assignment5-03 Dr.GRPO%} 中将GRPO的每一条回答的均值修改为取最大语句长度进行均值，组间也选择最大token 数作为均值
 
 
 

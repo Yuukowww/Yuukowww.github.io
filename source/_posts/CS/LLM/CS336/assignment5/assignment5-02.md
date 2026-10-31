@@ -22,7 +22,7 @@ DeepseekMath 论文中的实现设置训练:
 
 一个题目Rollout 64 次，每一个Batch 65536个回答,理论上一个Epoch 训练: 144K* 65536= 9.2M 次
 
-
+SFT执行841 steps, 共6726条训练样本
 
 
 # 训练二 -- 基于 Qwen3.5-9B-Base H20双卡的 GSM8K math RL
