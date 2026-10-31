@@ -6,6 +6,10 @@
     "node": ">=20.0.0"
   },
   "scripts": {
+    "lint:blog:source": "node tools/blog-lint.cjs source",
+    "lint:blog:html": "node tools/blog-lint.cjs html",
+    "lint:blog:summary": "node tools/blog-lint.cjs summary",
+    "test:blog-lint": "node tests/blog-lint.test.js",
     "build": "hexo clean && hexo generate && pagefind --site public",
     "clean": "hexo clean",
     "deploy": "hexo deploy",

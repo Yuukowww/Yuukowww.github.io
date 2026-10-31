@@ -1,0 +1,49 @@
+name: Blog rendering lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blog-lint-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Test lint rules against the blog renderer
+        run: npm run test:blog-lint
+      - name: Check Markdown and Hexo tags
+        run: npm run lint:blog:source
+      - name: Build actual site
+        run: npm run build
+      - name: Check generated article HTML
+        run: npm run lint:blog:html
+      - name: Write report summary
+        if: always()
+        run: npm run lint:blog:summary
+      - name: Upload full reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-rendering-lint
+          path: artifacts/blog-lint/
+          if-no-files-found: warn
+          retention-days: 14

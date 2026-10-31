@@ -6,8 +6,8 @@ tag: [RL,LLM]
 cover: picture/kurumi1.jpg
 ---
 # 组内 Reward 归一化
-原始GRPO中的组内Reward 存在的问题{% post_link CS/AI/RL/verl/verl02 代码 %}
-
+<!-- Test -->
+原始GRPO中的组内Reward 存在的问题{% post_link CS/AI/RL/verl/verl02 代码}
 $$
 R_t \Longrightarrow \hat A_t = \frac{R_t - \bar R_g}{\sigma_g+\varepsilon}
 $$
