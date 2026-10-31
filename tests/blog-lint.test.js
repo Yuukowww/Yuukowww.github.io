@@ -5,7 +5,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
-const { lintSource, lintHtml, escapeCommand } = require("../tools/blog-lint.cjs");
+const { lintSource, lintHtml, escapeCommand } = require("../.github/scripts/blog-lint.cjs");
 const rules = text => lintSource(text).map(item => item.rule);
 
 async function main() {
@@ -13,7 +13,7 @@ async function main() {
   const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "blog-lint-status-"));
   try {
     const summaryFile = path.join(temporary, "job-summary.md");
-    const modulePath = JSON.stringify(path.join(__dirname, "../tools/blog-lint.cjs"));
+    const modulePath = JSON.stringify(path.join(__dirname, "../.github/scripts/blog-lint.cjs"));
     for (const [stage, fixture, status] of [
       ["source", "$x$", 0],
       ["source", "$x $", 1],

@@ -13,7 +13,7 @@ function loadDependencies() {
   katex = rendererRequire("katex");
   ({ parseDOM } = require("htmlparser2"));
 }
-const root = path.resolve(__dirname, "..");
+const root = path.resolve(__dirname, "../..");
 const blockTags = new Set(["blockquote", "codeblock", "raw", "verbatim", "pullquote", "note", "tabs", "tab", "htmlblock"]);
 
 function files(directory, extension) {
@@ -203,7 +203,7 @@ function reportDiagnostics(stage, results, count) {
 }
 
 function main(stage) {
-  if (!["source", "html"].includes(stage)) throw new Error("Usage: node tools/blog-lint.cjs source|html");
+  if (!["source", "html"].includes(stage)) throw new Error("Usage: node .github/scripts/blog-lint.cjs source|html");
   const directory = path.join(root, stage === "source" ? "source" : "public");
   if (!fs.existsSync(directory)) throw new Error(`Missing ${directory}; build the site before HTML checks.`);
   const inputs = files(directory, stage === "source" ? /\.(?:md|markdown|mkd|mkdn|mdwn|mdtxt|mdtext)$/i : /\.html$/i);
