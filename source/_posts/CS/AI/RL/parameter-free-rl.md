@@ -5,7 +5,7 @@ date: 2026-11-04
 updated: 2026-11-04
 tag: [LLM,RL,Parameter-free]
 description: 静态权重下的 Parameter-free RL
-cover: picture/kadane4.jpg
+cover: picture/kanade4.jpg
 ---
 # JitRL
 

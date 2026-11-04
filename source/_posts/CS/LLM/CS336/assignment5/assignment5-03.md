@@ -1,6 +1,8 @@
 ---
 title: CS336 05.3 -- Dr.GRPO
 description: GRPO中的归一化操作对于Advantage 的放大作用
+date: 2026-10-30
+updated: 2026-11-04
 categories: LLM
 tag: [RL,LLM]
 cover: picture/kurumi1.jpg
