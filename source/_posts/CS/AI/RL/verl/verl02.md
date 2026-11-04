@@ -10,6 +10,22 @@ cover: picture/kanade3.jpg
 # 算法结构
 verl 的算法实现的内容相对较少，核心的部分主要是rollout 和 training 的调度的上层结构。
 
+整体策略分为
+- 优势估计
+```python
+@register_adv_est("grpo")
+get_adv_estimator_fn("grpo")
+```
+注册为grpo的函数主要是如何进行优势的计算
+
+- 策略损失
+```python
+@register_policy_loss("vanilla")
+get_policy_loss_fn("vanilla")
+```
+注册为vanilla的函数主要是如何通过已有的优势进行策略更新
+
+
 ## KLController
 `AdaptiveKLController`的实现[@ziegler2020finetuninglanguagemodelshuman]
 对冻结的KL散度相对偏差率绝对值限制在0.2
@@ -22,6 +38,8 @@ $$
 $$
 
 ## Advantage Estimation
+
+这是Core algo的最主要的部分，涵盖了GAE、PLOO、GRPO、GDPO等算法的实现，如何进行组间比较
 ### GAE
 GAE 是一种通过{% post_link CS/AI/RL/Markov TD%}渐进估计advantage的方式
 
@@ -163,3 +181,6 @@ scores[i] = scores[i] - id2mean[index[i]]
 
 `compute_policy_loss` ppo-clip 计算策略损失
 
+
+
+## KL Penalty
