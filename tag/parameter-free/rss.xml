@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>Yuukoの小屋 • Posts by &#34;parameter-free&#34; tag</title>
+        <link>https://yuuko.site</link>
+        <description>Amor che nella mente mi ragiona.</description>
+        <language>zh-CN</language>
+        <pubDate>Wed, 04 Nov 2026 00:00:00 +0800</pubDate>
+        <lastBuildDate>Wed, 04 Nov 2026 00:00:00 +0800</lastBuildDate>
+        <category>语言学</category>
+        <category>日语</category>
+        <category>RMT</category>
+        <category>随机矩阵</category>
+        <category>时间序列分析</category>
+        <category>前后指针</category>
+        <category>Leetcode</category>
+        <category>算法</category>
+        <category>日常工作</category>
+        <category>LLM</category>
+        <category>机器学习</category>
+        <category>GEMM</category>
+        <category>Tensor Core</category>
+        <category>数值计算</category>
+        <category>CRT</category>
+        <category>encoding</category>
+        <category>AI</category>
+        <category>概率论</category>
+        <category>信息论</category>
+        <category>读书笔记</category>
+        <category>石黑一雄</category>
+        <category>川端康诚</category>
+        <category>convex geometry</category>
+        <category>optimation</category>
+        <category>离散数学</category>
+        <category>微分几何</category>
+        <category>ODE</category>
+        <category>控制</category>
+        <category>测度论</category>
+        <category>实分析</category>
+        <category>OS</category>
+        <category>进程</category>
+        <category>数据结构</category>
+        <category>图论</category>
+        <category>硬件</category>
+        <category>计组</category>
+        <category>RL</category>
+        <category>Parameter-free</category>
+        <category>AMB</category>
+        <category>kernel method</category>
+        <category>Representation Learning</category>
+        <category>MoE</category>
+        <category>架构</category>
+        <category>Encoder-Decoder Structure</category>
+        <category>Optimizer</category>
+        <category>Geometry</category>
+        <category>geometry</category>
+        <category>algebra</category>
+        <category>Infra</category>
+        <category>CS336</category>
+        <item>
+            <guid isPermalink="true">https://yuuko.site/CS/AI/RL/parameter-free-rl/</guid>
+            <title>JitRL -- 无参数后训练</title>
+            <link>https://yuuko.site/CS/AI/RL/parameter-free-rl/</link>
+            <category>LLM</category>
+            <category>RL</category>
+            <category>Parameter-free</category>
+            <pubDate>Wed, 04 Nov 2026 00:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&#34;&gt;&lt;h1 id=&#34;jitrl&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#jitrl&#34;&gt;#&lt;/a&gt; JitRL&lt;/h1&gt;
+&lt;p&gt;常见的模型后训练都发生在模型权重上，对于全参数模型的后训练的资源开销巨大，小模型本地推理在能力和计算资源开销上较大。&lt;/p&gt;
+&lt;p&gt;在Agentic 时代，API调用下只能通过设备端的Prompt优化，但只有Prompt 并不能稳定持续优化特定领域任务。&lt;/p&gt;
+&lt;p&gt;与Train-free RL 相关的工作不同，JitRL在设备端实现一个简单KNN回归，保留了RL中基本的Advantage estimation和 Optimation, 但并不基于模型的本身token分布Rollout策略&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;π&lt;/mi&gt;&lt;mo&gt;∗&lt;/mo&gt;&lt;/msup&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;munder&gt;&lt;mrow&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;arg max&lt;/mi&gt;&lt;mo&gt;⁡&lt;/mo&gt;&lt;/mrow&gt;&lt;msup&gt;&lt;mi&gt;π&lt;/mi&gt;&lt;mo mathvariant=&#34;normal&#34; lspace=&#34;0em&#34; rspace=&#34;0em&#34;&gt;′&lt;/mo&gt;&lt;/msup&gt;&lt;/munder&gt;&lt;mrow&gt;&lt;mo fence=&#34;true&#34;&gt;(&lt;/mo&gt;&lt;msub&gt;&lt;mi mathvariant=&#34;double-struck&#34;&gt;E&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mo&gt;∼&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;π&lt;/mi&gt;&lt;mo mathvariant=&#34;normal&#34; lspace=&#34;0em&#34; rspace=&#34;0em&#34;&gt;′&lt;/mo&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo stretchy=&#34;false&#34;&gt;[&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mo separator=&#34;true&#34;&gt;,&lt;/mo&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mo stretchy=&#34;false&#34;&gt;]&lt;/mo&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mi&gt;β&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;D&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;K&lt;/mi&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;π&lt;/mi&gt;&lt;mo mathvariant=&#34;normal&#34; lspace=&#34;0em&#34; rspace=&#34;0em&#34;&gt;′&lt;/mo&gt;&lt;/msup&gt;&lt;mo&gt;∥&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;π&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mo fence=&#34;true&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\pi^\ast = \argmax_{\pi&amp;#x27;} \left(\mathbb E_{a\sim \pi&amp;#x27;}[A(s,a)]-\beta D_{KL}(\pi&amp;#x27;\parallel \pi_{old})\right)
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.7387em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.03588em;&#34;&gt;π&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.7387em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mbin mtight&#34;&gt;∗&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.7403em;vertical-align:-0.9384em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mop op-limits&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.4306em;&#34;&gt;&lt;span style=&#34;top:-2.1616em;margin-left:0em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34; style=&#34;margin-right:0.03588em;&#34;&gt;π&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6828em;&#34;&gt;&lt;span style=&#34;top:-2.786em;margin-right:0.0714em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.5em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size3 size1 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;′&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span&gt;&lt;span class=&#34;mop&#34;&gt;&lt;span class=&#34;mord mathrm&#34; style=&#34;margin-right:0.01389em;&#34;&gt;arg&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.1667em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathrm&#34;&gt;max&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.9384em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.1667em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;minner&#34;&gt;&lt;span class=&#34;mopen delimcenter&#34; style=&#34;top:0em;&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathbb&#34;&gt;E&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.328em;&#34;&gt;&lt;span style=&#34;top:-2.55em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mrel mtight&#34;&gt;∼&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34; style=&#34;margin-right:0.03588em;&#34;&gt;π&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.6828em;&#34;&gt;&lt;span style=&#34;top:-2.786em;margin-right:0.0714em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.5em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size3 size1 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;′&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mpunct&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.1667em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)]&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.05278em;&#34;&gt;β&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;D&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.3283em;&#34;&gt;&lt;span style=&#34;top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34; style=&#34;margin-right:0.07153em;&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;L&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.03588em;&#34;&gt;π&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8019em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;′&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;∥&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.03588em;&#34;&gt;π&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.3361em;&#34;&gt;&lt;span style=&#34;top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathnormal mtight&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;d&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mclose delimcenter&#34; style=&#34;top:0em;&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;这和 &lt;a href=&#34;/CS/LLM/CS336/assignment5/assignment5-01/&#34; title=&#34;CS336 05.1 -- 强化学习算法的数学基础&#34;&gt;PPO&lt;/a&gt; 的目标优化是相同的&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
