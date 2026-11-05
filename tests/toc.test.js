@@ -53,13 +53,15 @@ let linkCount = 0;
 
 for (const filename of htmlFiles(publicDirectory)) {
   const relativePath = path.relative(publicDirectory, filename).split(path.sep).join("/");
+  // Keep a leading boundary for both root-level and date-prefixed permalinks.
+  const postPath = `/${decodeURIComponent(relativePath)}`;
   const dom = parseDOM(fs.readFileSync(filename, "utf8"), { decodeEntities: true });
   const articles = descendants(dom, (node) => node.name === "article" && hasClass(node, "post"));
   if (articles.length === 0) continue;
   postCount += 1;
 
   for (const post of requiredPosts) {
-    if (decodeURIComponent(relativePath).endsWith(`/${post}/index.html`)) requiredPosts.delete(post);
+    if (postPath.endsWith(`/${post}/index.html`)) requiredPosts.delete(post);
   }
 
   try {
@@ -128,7 +130,7 @@ for (const filename of htmlFiles(publicDirectory)) {
       assert.ok(anchors.length > 0, "Bibliography heading must expose the theme's anchor marker");
     }
 
-    if (relativePath.endsWith("/CS/LLM/optimize/stiefel/index.html")) {
+    if (postPath.endsWith("/CS/LLM/optimize/stiefel/index.html")) {
       const appendix = headings.findIndex((node) => /\bAppendix\b/.test(getText(node)));
       assert.ok(appendix >= 0, "Stiefel must retain its Appendix heading");
       assert.equal(items[appendix].parent, roots[0], "Stiefel Appendix must remain inside the root TOC list");
