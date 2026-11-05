@@ -8,7 +8,7 @@ timezone: "Asia/Shanghai"
 
 url: https://yuuko.site
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true
