@@ -61,8 +61,10 @@ $$
 
 
 
+# DDP
 
 # 开发中问题
 
 ## `_prepare_reference_policy` FSDP的参数扁平化
 FSDP中的参数不是普通的`nn.Parameter`, 是扁平化并分片
+
