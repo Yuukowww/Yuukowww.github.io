@@ -5,7 +5,7 @@ updated: 2026-11-10
 categories: MLsys
 tag: [MLsys,RL,training]
 description: Data Parallel in training
-picture: picture/tsumugi2.png
+cover: picture/tsumugi2.png
 ---
 
 
