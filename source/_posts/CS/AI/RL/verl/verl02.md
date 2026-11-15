@@ -1,7 +1,7 @@
 ---
 title: RLEngine 02 -- Verl 的基本算法实现
 date: 2026-10-21
-updated: 2026-10-2
+updated: 2026-11-15
 categories: RL
 tag: [RL,Infra]
 description: verl的底层实现 -- GRPO、GAE等算法
@@ -184,3 +184,32 @@ scores[i] = scores[i] - id2mean[index[i]]
 
 
 ## KL Penalty
+
+
+
+## SFT
+
+$$
+P_\theta = \prod_{t}^T p_\theta(x_t\mid x_{x<t})
+$$
+
+预训练损失为
+$$
+\mathcal{L}_{pre} = -\frac{1}{T}\sum_{t}\log p_\theta(x_t\mid x_{<t})
+$$
+
+SFT直接使用SFT训练数据集作为监督信号，对于指令
+$$
+(x,y)\sim D_{SFT}
+$$
+
+$$
+\begin{aligned}
+\mathcal{L}_{SFT} = - \mathrm{E}_{(x,y)\sim D_{SFT}}[\log P_\theta(y\mid x)]
+\end{aligned}
+$$
+
+SFT是逐token 的优化，对单个回答 沿token 分解
+$$
+\mathcal{L}_{SFT} = - \mathrm{E}_{(x,y)\sim D_{SFT}}[\log \prod_{t=1}^{T_\theta}P_\theta(y_t|x,y_{<t})] = - \mathrm{E}_{(x,y)\sim D_{SFT}}[ \sum_{t=1}^{T_\theta}\log P_\theta(y_t|x,y_{<t})]
+$$
