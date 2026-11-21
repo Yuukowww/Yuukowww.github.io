@@ -11,9 +11,9 @@ cover: picture/amiya1.jpg
 
 # Attention is All You Need
 
-## 模块
 
-### Attention与 Multi-Head Attention
+
+## Attention与 Multi-Head Attention
 输入向量 $x = (x_1,\cdots,x_n)\in\mathbb{R}^n$经过待训练的矩阵$W_Q, W_K, W_V\in\mathbb{R}^{n\times d}$得到三条输入向量$Q,K,V\in\mathbb{R}^d$
 
 $$
@@ -31,16 +31,23 @@ $$
 是关于$x$的双线性型
 
 
-
-#### 多头注意力Multi-Head Attention
 多头注意力本质是将多个Attention的输出结合与归并的过程，相比单Attention需要多训练一个输出矩阵 $W_O$，满足
 $$
 \begin{dcases}
-h_i =\mathrm{Attention}(XW_{Q,i},XW_{K,i},XW_{V,i}) =\mathrm{Softmax}(\frac{Q_iK_i^T}{\sqrt{d_i}})\cdot V_i\\
-\mathrm{MHA}(X) = \mathrm{Concat}_{i\leq n}(h_i)\cdot W_O
+O_i =\mathrm{Attention}(XW_{Q,i},XW_{K,i},XW_{V,i}) =\mathrm{Softmax}(\frac{Q_iK_i^T}{\sqrt{d_i}})\cdot V_i\\
+\mathrm{MHA}(X) = \mathrm{Concat}_{i\leq n}(O_i)\cdot W_O
 \end{dcases}
 $$
 其中结合函数`Concat`为一个简单嵌入
 $$
-\mathrm{Concat}(h_1,\cdots,h_n) = \left(h_1,\cdots,h_n\right)
+\mathrm{Concat}(O_1,\cdots,O_n) = \left(O_1,\cdots,O_n\right)
 $$
+
+
+## 多查询注意力 MQA
+
+MHA是将输出头concat，而MQA是共享Key and value, 输出头代表相同的key and value 下 product 了不同的 Query
+$$
+O_i = \mathrm{Softmax}\left(\frac{Q_iK^T}{\sqrt{d_i}}\right)V
+$$
+
