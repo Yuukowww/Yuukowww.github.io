@@ -4,7 +4,7 @@ categories: LLM
 tag: [LLM,MLsys]
 date: 2026-11-19
 updated: 2026-11-19
-descriptions: KV Cache 形成原理，时间局部性和空间局部性优势和实现
+description: KV Cache 形成原理，时间局部性和空间局部性优势和实现
 cover: picture/claudechan1.png
 ---
 
