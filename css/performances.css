@@ -1,0 +1,18 @@
+.performances { padding: 1.5rem; }
+.performances-intro, .performances-empty { color: var(--grey-6); line-height: 1.8; }
+.performances-empty { padding: 3rem 1rem; text-align: center; }
+.performance-list { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.performance-card { padding: 1.3rem; border: 1px solid var(--grey-3); border-radius: 14px; background: var(--grey-1); transition: border-color .2s; cursor: pointer; }
+.performance-card.is-playing { border-color: var(--primary-color, #ed6ea0); }
+.performance-heading { display: flex; align-items: center; gap: 1rem; }
+.performance-toggle { display: grid; place-items: center; flex: 0 0 2.8rem; height: 2.8rem; padding: 0; border: 0; border-radius: 50%; background: var(--primary-color, #ed6ea0); color: white; cursor: pointer; font-size: 1rem; }
+.performance-toggle:focus-visible, .performance-seek:focus-visible { outline: 2px solid var(--primary-color, #ed6ea0); outline-offset: 4px; }
+.performance-title { margin: 0; font-size: 1.15rem; line-height: 1.5; }
+.performance-meta { display: flex; flex-wrap: wrap; gap: .8rem; margin: .25rem 0 0; font-size: .85rem; color: var(--grey-6); }
+.performance-description { margin: .8rem 0; color: var(--grey-6); }
+.performance-timeline { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
+.performance-seek { flex: 1; width: 0; min-width: 0; accent-color: var(--primary-color, #ed6ea0); cursor: pointer; }
+.performance-time { font-size: .8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.performance-status { margin: .5rem 0 0; font-size: .85rem; color: var(--grey-6); }
+.performance-status:empty { display: none; }
+@media (max-width: 480px) { .performances { padding: 1rem; } .performance-card { padding: 1rem; } .performance-timeline { gap: .5rem; } }
