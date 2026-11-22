@@ -1,5 +1,5 @@
 ---
-title: KVCache
+title: KVCache 和 Mooncake
 categories: LLM
 tag: [LLM,MLsys]
 date: 2026-11-19
@@ -52,4 +52,21 @@ $$
 p(z_{t+1}\mid z_{1:t}) = \mathrm{Softmax}(\ell_t)_{z_{t+1}}.
 $$
 
-Prefill 用 prompt 末位的 logits 选出首个生成 token，下一次 forward 才写入该 token 的 K/V。
+## Prefill and Decode period
+
+Prefill 用 prompt 末位的 logits 选出首个生成 token，下一次 forward 才写入该 token 的 K/V。假如prompt 是 $x = [A,B,C]$
+
+计算KV cache得到
+$$
+\begin{dcases}
+K = [k_A,k_B,k_C]\\
+V = [v_A,v_B,v_C]\\
+\end{dcases}
+$$
+
+
+# Mooncake 架构[@qin2026mooncakekvcachecentricdisaggregatedarchitecture]
+
+
+
+

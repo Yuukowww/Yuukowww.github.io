@@ -173,10 +173,6 @@ scores[i] = scores[i] - id2mean[index[i]]
 `compute_reinforce_plus_plus_outcome_advantage`
 
 
-
-
-
-
 ## Policy loss
 
 `compute_policy_loss` ppo-clip 计算策略损失
