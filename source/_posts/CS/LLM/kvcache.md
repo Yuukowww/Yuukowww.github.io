@@ -65,6 +65,53 @@ V = [v_A,v_B,v_C]\\
 $$
 
 
+## MHA/MQA/GQA 和经典 Cache架构的类比
+
+经典Cache可以分为
+- 全相联映射
+- r路组相联映射
+- 直接映射
+
+以Llama 3.1 8B的模型架构为例子，隐藏维度为$4096$, 由32层Transformer Layer，每层 32个Query构成的。原模型使用GQA，每层共有8个KV头。
+
+每一层的平均参数量为$8B/32 = 250M$(注意B是十进制的，但是实际除去tokenizer和LM Head后层参数量会小于这个值)
+$$
+\begin{dcases}
+\mathrm{Size\,of}(\text{FFN}) = 3\times 4096\times 14336 \approx176M\\
+\mathrm{Size\,of}(\text{RMSNorm}) = 2\times 4096 = 8192\\
+\mathrm{Size\, of}(W_Q) = 4096\times 4096\approx16.7M\\
+\mathrm{Size\, of}(W_K) = 4096\times 1024\approx4.2M\\
+\mathrm{Size\, of}(W_V) = 4096\times 1024\approx4.2M\\
+\mathrm{Size\, of}(W_O) = 4096\times 4096\approx16.7M
+\end{dcases}
+$$
+
+
+
+
+在MHA的架构上，多个Query 一对一使用一组KV Cache 计算评分
+![MHA](/picture/kvcache/MHA.jpeg)
+
+如果Llama 3.1 使用MHA, 总KV Cache大小为
+
+$$
+2\times 32\times 32\times 128\times 4096 \times 2B \approx 2GB
+$$
+
+如果Llama 3.1 使用MQA，则全部query共用一个KV Cache，总KV Cache大小为
+$$
+2\times 32\times1\times128\times 4096\times 2B = 64MB
+$$
+![MQA](/picture/kvcache/MQA.md)
+
+Llama3.1 实际使用的是8组GQA
+$$
+2\times 32\times \frac{32}{8} \times 128\times 4096\times 2B = 512MB
+$$
+![GQA](/picture/kvcache/GQA.md)
+
+
+
 # Mooncake 架构[@qin2026mooncakekvcachecentricdisaggregatedarchitecture]
 
 
