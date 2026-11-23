@@ -102,13 +102,13 @@ $$
 $$
 2\times 32\times1\times128\times 4096\times 2B = 64MB
 $$
-![MQA](/picture/kvcache/MQA.md)
+![MQA](/picture/kvcache/MQA.jpeg)
 
 Llama3.1 实际使用的是8组GQA
 $$
 2\times 32\times \frac{32}{8} \times 128\times 4096\times 2B = 512MB
 $$
-![GQA](/picture/kvcache/GQA.md)
+![GQA](/picture/kvcache/GQA.jpeg)
 
 
 
