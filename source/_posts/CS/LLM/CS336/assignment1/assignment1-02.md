@@ -51,3 +51,6 @@ $$
 O_i = \mathrm{Softmax}\left(\frac{Q_iK^T}{\sqrt{d_i}}\right)V
 $$
 
+## DSA -- Deepseek Sparse Attention
+
+## MLA -- Multi Latent Attention
