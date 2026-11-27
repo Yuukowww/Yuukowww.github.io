@@ -26,7 +26,7 @@ cover: picture/ameth1.jpg
 
 ![ipc communication](picture/KiRL/FSDP-vLLM-CUDA-IPC.png)
 
-### vllm 推理侧的 IPC handle
+## vllm 推理侧的 IPC handle
 vLLM 提供了五个IPC 相关class
 
 - `IPCTrainerInitInfo`
@@ -35,4 +35,5 @@ vLLM 提供了五个IPC 相关class
 - `IPCWeightTransferInitInfo`
 - `IPCWeightTransferUpdateInfo `
 
-### pytorch IPC handle
+## pytorch IPC handle
+
