@@ -1,9 +1,9 @@
 ---
-title: RLEngine 02 -- Verl 的基本算法实现
+title: verl 02 -- Verl 的基本算法实现
 date: 2026-10-21
-updated: 2026-11-15
+updated: 2026-11-28
 categories: RL
-tag: [RL,Infra]
+tag: [RL,RL Framework,verl]
 description: verl的底层实现 -- GRPO、GAE等算法
 cover: picture/kanade3.jpg
 ---

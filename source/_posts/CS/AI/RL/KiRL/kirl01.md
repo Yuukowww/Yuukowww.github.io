@@ -1,9 +1,9 @@
 ---
 title: KiRL 开发日记 01 -- DDP and FSDP
 date: 2026-11-10
-updated: 2026-11-10
-categories: MLsys
-tag: [MLsys,RL,training,KiRL]
+updated: 2026-11-28
+categories: RL
+tag: [RL,RL Framework,KiRL]
 description: Data Parallel in training
 cover: picture/tsumugi2.png
 ---

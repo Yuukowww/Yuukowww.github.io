@@ -1,9 +1,9 @@
 ---
-title: RLEngine 01 -- Verl 的数据协议
+title: verl 01 -- verl 的数据协议
 date: 2026-10-20
-updated: 2026-10-20
+updated: 2026-11-28
 categories: RL
-tag: [RL,Infra]
+tag: [RL,RL Framework,verl]
 description: verl的底层实现 -- 底层数据协议
 cover: picture/kasuga5.jpg
 ---

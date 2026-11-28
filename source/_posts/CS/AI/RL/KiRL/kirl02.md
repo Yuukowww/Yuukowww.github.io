@@ -1,9 +1,9 @@
 ---
 title: KiRL 开发日记02 -- GPU进程间通信与 CUDA IPC
 date: 2026-11-26
-updated: 2026-11-26
-categories: MLsys
-tag: [MLsys,training,KiRL]
+updated: 2026-11-28
+categories: RL
+tag: [RL,RL Framework,KiRL]
 description: CUDA IPC 以及 Pytorch相关接口
 cover: picture/ameth1.jpg
 ---
