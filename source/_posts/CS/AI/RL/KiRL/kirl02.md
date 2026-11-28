@@ -24,7 +24,7 @@ cover: picture/ameth1.jpg
 # CUDA IPC
 
 
-![ipc communication](/picture/KiRL/FSDP-vLLM-CUDA-IPC.png)
+![ipccommunication](/picture/KiRL02/FSDP-vLLM-CUDA-IPC.png)
 
 ## vllm 推理侧的 IPC handle
 vLLM 提供了五个IPC 相关class
